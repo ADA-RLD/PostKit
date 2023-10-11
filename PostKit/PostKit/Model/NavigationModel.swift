@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+
+enum StackViewType {
+    case Menu
+    case Daily
+    case Setting
+}
