@@ -13,6 +13,10 @@
 		13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B72AD55F2200A2DE7F /* Preview Assets.xcassets */; };
 		13C295BA2AD55F2200A2DE7F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295B92AD55F2200A2DE7F /* Persistence.swift */; };
 		13C295BD2AD55F2200A2DE7F /* PostKit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13C295BB2AD55F2200A2DE7F /* PostKit.xcdatamodeld */; };
+		13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295C72AD620EC00A2DE7F /* MainView.swift */; };
+		13C295CA2AD620F700A2DE7F /* ModelSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295C92AD620F700A2DE7F /* ModelSample.swift */; };
+		13C295CC2AD6210A00A2DE7F /* ViewModelSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295CB2AD6210A00A2DE7F /* ViewModelSample.swift */; };
+		13C295CF2AD6213000A2DE7F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295CE2AD6213000A2DE7F /* Button.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,10 @@
 		13C295B72AD55F2200A2DE7F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		13C295B92AD55F2200A2DE7F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		13C295BC2AD55F2200A2DE7F /* PostKit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PostKit.xcdatamodel; sourceTree = "<group>"; };
+		13C295C72AD620EC00A2DE7F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		13C295C92AD620F700A2DE7F /* ModelSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSample.swift; sourceTree = "<group>"; };
+		13C295CB2AD6210A00A2DE7F /* ViewModelSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelSample.swift; sourceTree = "<group>"; };
+		13C295CE2AD6213000A2DE7F /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +63,9 @@
 		13C295AF2AD55F2100A2DE7F /* PostKit */ = {
 			isa = PBXGroup;
 			children = (
+				13C295C62AD620D900A2DE7F /* ViewModel */,
+				13C295C52AD620D400A2DE7F /* Model */,
+				13C295C42AD620C700A2DE7F /* View */,
 				13C295B02AD55F2100A2DE7F /* PostKitApp.swift */,
 				13C295B22AD55F2100A2DE7F /* ContentView.swift */,
 				13C295B42AD55F2200A2DE7F /* Assets.xcassets */,
@@ -71,6 +82,39 @@
 				13C295B72AD55F2200A2DE7F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		13C295C42AD620C700A2DE7F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				13C295CD2AD6211700A2DE7F /* Component */,
+				13C295C72AD620EC00A2DE7F /* MainView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		13C295C52AD620D400A2DE7F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				13C295C92AD620F700A2DE7F /* ModelSample.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		13C295C62AD620D900A2DE7F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				13C295CB2AD6210A00A2DE7F /* ViewModelSample.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		13C295CD2AD6211700A2DE7F /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				13C295CE2AD6213000A2DE7F /* Button.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,8 +188,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				13C295BA2AD55F2200A2DE7F /* Persistence.swift in Sources */,
+				13C295CA2AD620F700A2DE7F /* ModelSample.swift in Sources */,
+				13C295CC2AD6210A00A2DE7F /* ViewModelSample.swift in Sources */,
+				13C295CF2AD6213000A2DE7F /* Button.swift in Sources */,
 				13C295B32AD55F2100A2DE7F /* ContentView.swift in Sources */,
 				13C295BD2AD55F2200A2DE7F /* PostKit.xcdatamodeld in Sources */,
+				13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
