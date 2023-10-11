@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct SettingView: View {
+    @EnvironmentObject var pathManager: PathManager
+    
     var name: String?
     var body: some View {
         VStack {
-            SettingInfo(info: "매장정보", Answer: name, action: {print("hello")})
-            SettingInfo(info: "말투", Answer: name, action: {print("hello")})
-                .padding(.top,40)
+            SettingInfo(info: "매장정보", Answer: name, action: {})
+            SettingInfo(info: "말투", Answer: name, action: {pathManager.path.append(.SettingTone)})
+                .padding(.top,paddingTop)
         }
-        .padding(.horizontal,20)
+        .padding(.horizontal,paddingHorizontal)
     }
 }
 
