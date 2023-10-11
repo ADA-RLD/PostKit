@@ -13,6 +13,7 @@ struct MainView: View {
     @State var path: [StackViewType]
     var body: some View {
         NavigationStack(path: $path) {
+            
             VStack(alignment: .leading){
                 SettingBtn(action: {path.append(.Setting)})
                 Text("어떤 카피를 생성할까요?")
@@ -81,5 +82,5 @@ private func SettingBtn(action: @escaping () -> Void) -> some View {
 }
 
 #Preview {
-    MainView(path: [.Menu,.Daily,.Setting])
+    MainView(path: [])
 }
