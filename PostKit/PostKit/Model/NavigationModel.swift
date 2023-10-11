@@ -11,5 +11,11 @@ import Foundation
 enum StackViewType {
     case Menu
     case Daily
-    case Setting
+    case SettingHome
+    case SettingStore
+    case SettingTone
+}
+
+class PathManager: ObservableObject {
+    @Published var path: [StackViewType] = []
 }

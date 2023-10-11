@@ -10,10 +10,12 @@ import SwiftUI
 @main
 struct PostKitApp: App {
     let persistenceController = PersistenceController.shared
+    @StateObject var pathManager = PathManager()
 
     var body: some Scene {
         WindowGroup {
-            SettingView()
+            MainView()
+                .environmentObject(pathManager)
 //            ContentView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
