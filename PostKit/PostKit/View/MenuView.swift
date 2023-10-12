@@ -79,21 +79,10 @@ struct MenuView: View {
                 .foregroundStyle(Color.gray5)
                 .font(.body2Bold())
             }
-            
-            CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action:{
-                if isActive == true {
-                    pathManager.path.append(.Result)}
-            }
-                )
-                .padding(.bottom, 12)
-            
-            
         }.padding(.horizontal,paddingHorizontal)
             .onTapGesture {
                 hideKeyboard()
             }
-
-        }
         CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action: {
             sendMessage()
             pathManager.path.append(.Result)
@@ -126,7 +115,7 @@ struct MenuView: View {
                 pointText = pointText + "이 있어."
             }
             
-            self.currentInput = "메뉴의 이름은 \(self.menuname)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
+            self.currentInput = "메뉴의 이름은 \(self.menuName)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
             let newMessage = Message(id: UUID(), role: .user, content: self.currentInput)
             
             self.messages.append(newMessage)
@@ -147,3 +136,4 @@ extension View {
 #Preview {
     MenuView()
 }
+
