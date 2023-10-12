@@ -18,7 +18,7 @@ protocol DailyProtocol {
     ///   - weather: 날씨 정보
     ///   - dessert: 설명할 디저트 정보
     ///   - drink: 설명할 음료 정보
-    func saveDailyData(recordId: UUID, recordDate: Date?, storeName: String?, Tone: String, weather: String?, dessert: String?, drink: String?)
+    func saveDailyData(recordId: UUID, recordDate: Date?, storeName: String?, tone: String, weather: String?, dessert: String?, drink: String?)
     
     /// 뷰에서 필요하다면 저장된 음료, 디저트의 정보를 가져옵니다.
     /// - Parameter dessert: 디저트 정보
