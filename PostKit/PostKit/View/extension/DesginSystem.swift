@@ -6,12 +6,7 @@
 //
 
 import SwiftUI
-//MARK: Color
-extension Color {
-    enum color {
-        
-    }
-}
+
 
 //MARK: Font
 extension Font {

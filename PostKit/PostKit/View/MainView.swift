@@ -10,7 +10,6 @@ import SwiftUI
 
 
 struct MainView: View {
-    @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var pathManager: PathManager
     var body: some View {
         NavigationStack(path: $pathManager.path) {
@@ -18,14 +17,10 @@ struct MainView: View {
             VStack(alignment: .leading){
                 SettingBtn(action: {pathManager.path.append(.SettingHome)})
                 Text("어떤 카피를 생성할까요?")
-                    .fullScreenCover(isPresented: $isFirstLaunching) {
-                        OnboardingView( isFirstLaunching: $isFirstLaunching)
-                    }
                     .font(.system(size: 24,weight: .bold))
                 NavigationBtn(header: "일상",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Daily)})
                 NavigationBtn(header: "메뉴",description: "카페의 메뉴에 대한 글을 써요", action: {pathManager.path.append(.Menu)})
             }
-            
             .padding(.horizontal,20)
             
             // TODO: 뷰 만들면 여기 스위치문에 넣어주세요
