@@ -11,13 +11,22 @@ import SwiftUI
 struct PostKitApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject var pathManager = PathManager()
+    
+    //Core Data Manager
+    let storeDataManager = StoreDataManager.instance
+    let menuDataManager = MenuDataManager.instance
+    let dailyDataManager = DailyDataManager.instance
 
     var body: some Scene {
         WindowGroup {
             MainView()
                 .environmentObject(pathManager)
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, storeDataManager.container.viewContext)
+                .environment(\.managedObjectContext, menuDataManager.container.viewContext)
+                .environment(\.managedObjectContext, dailyDataManager.container.viewContext)
+            
+            //            ContentView()
+            //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
