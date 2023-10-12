@@ -35,6 +35,9 @@
 		A188C5812AD7BA1E007473D3 /* DailyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5802AD7BA1E007473D3 /* DailyDataManager.swift */; };
 		A188C5832AD7BA5F007473D3 /* MenuDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5822AD7BA5F007473D3 /* MenuDataManager.swift */; };
 		A188C5852AD7BA89007473D3 /* StoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5842AD7BA89007473D3 /* StoreDataManager.swift */; };
+		A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5872AD7C8BB007473D3 /* StoreProtocol.swift */; };
+		A188C58A2AD7CDD3007473D3 /* MenuProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5892AD7CDD3007473D3 /* MenuProtocol.swift */; };
+		A188C58C2AD7CFD1007473D3 /* DailyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C58B2AD7CFD1007473D3 /* DailyProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +71,9 @@
 		A188C5802AD7BA1E007473D3 /* DailyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDataManager.swift; sourceTree = "<group>"; };
 		A188C5822AD7BA5F007473D3 /* MenuDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDataManager.swift; sourceTree = "<group>"; };
 		A188C5842AD7BA89007473D3 /* StoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDataManager.swift; sourceTree = "<group>"; };
+		A188C5872AD7C8BB007473D3 /* StoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreProtocol.swift; sourceTree = "<group>"; };
+		A188C5892AD7CDD3007473D3 /* MenuProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuProtocol.swift; sourceTree = "<group>"; };
+		A188C58B2AD7CFD1007473D3 /* DailyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProtocol.swift; sourceTree = "<group>"; };
 		C674B8973F6DA180203B6836 /* Pods-PostKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.debug.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.debug.xcconfig"; sourceTree = "<group>"; };
 		DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -105,6 +111,7 @@
 		13C295AF2AD55F2100A2DE7F /* PostKit */ = {
 			isa = PBXGroup;
 			children = (
+				A188C5862AD7C878007473D3 /* Protocol */,
 				13C295F62AD714A700A2DE7F /* Info.plist */,
 				13C295E32AD7135E00A2DE7F /* Fonts */,
 				13C295C62AD620D900A2DE7F /* ViewModel */,
@@ -199,6 +206,16 @@
 				13C295EA2AD7136D00A2DE7F /* Pretendard-Thin.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		A188C5862AD7C878007473D3 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A188C5872AD7C8BB007473D3 /* StoreProtocol.swift */,
+				A188C5892AD7CDD3007473D3 /* MenuProtocol.swift */,
+				A188C58B2AD7CFD1007473D3 /* DailyProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		D2EED1AA8014945B0B79CFF3 /* Pods */ = {
@@ -342,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13C295BA2AD55F2200A2DE7F /* Persistence.swift in Sources */,
+				A188C58C2AD7CFD1007473D3 /* DailyProtocol.swift in Sources */,
 				13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */,
 				A188C57F2AD7B822007473D3 /* CoreData.xcdatamodeld in Sources */,
 				A188C5772AD79E0E007473D3 /* MenuModel.swift in Sources */,
@@ -350,12 +368,14 @@
 				13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */,
 				A188C5812AD7BA1E007473D3 /* DailyDataManager.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
+				A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */,
 				A188C5832AD7BA5F007473D3 /* MenuDataManager.swift in Sources */,
 				13C295DD2AD6B48400A2DE7F /* DesginSystem.swift in Sources */,
 				13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */,
 				A188C5752AD79DDF007473D3 /* DailyModel.swift in Sources */,
 				A188C5852AD7BA89007473D3 /* StoreDataManager.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
+				A188C58A2AD7CDD3007473D3 /* MenuProtocol.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
