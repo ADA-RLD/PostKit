@@ -20,22 +20,27 @@ struct Keywords: View {
                     }, label: {
                         HStack {
                             Text(keyName[index])
-                                .font(.system(size: 13))
-                                .foregroundStyle(selectedIndices.contains(keyName[index]) ? Color.pink : Color.gray)
-                                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                                .background(selectedIndices.contains(keyName[index]) ? Color.gray1 : Color.clear)
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                                .font(.body2Regular())
+                                .foregroundStyle(selectedIndices.contains(keyName[index]) ? Color.primary : Color.gray4)
+                                .padding(EdgeInsets(top: 8, leading: radius1, bottom: 8, trailing: radius1))
+                                .background(selectedIndices.contains(keyName[index]) ? Color.secondary : Color.clear)
+                                .clipShape(RoundedRectangle(cornerRadius: radius1))
                                 .overlay {
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .stroke(selectedIndices.contains(keyName[index]) ? Color.pink : Color.gray3)
-                                }
+                                    if selectedIndices.contains(keyName[index]){
+                                        RoundedRectangle(cornerRadius: radius1)
+                                        .stroke(Color.primary,lineWidth: 2)
+                                    } else {
+                                        RoundedRectangle(cornerRadius: radius1)
+                                        .stroke(Color.gray3,lineWidth: 1)
+                                    }
+                              }
                         }
                         
                     })
                     
                 }
             }
-            .padding(.leading,20)
+            .padding(EdgeInsets(top: 12, leading: paddingHorizontal, bottom: 30, trailing: 0))
         }
     }
     
