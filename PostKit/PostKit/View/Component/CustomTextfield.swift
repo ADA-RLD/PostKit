@@ -13,8 +13,7 @@ struct CustomTextfield: View {
     var placeHolder: String = ""
     var body: some View {
         TextField(placeHolder, text: $menuName, prompt: Text(placeHolder).foregroundStyle(Color.gray4))
-            .font(.system(size: 16))
-            .fontWeight(.bold)
+            .font(.body1Bold())
             .tint(Color.black)
             .padding()
             .background(Color.gray1)
@@ -36,6 +35,7 @@ struct CustomTextfield: View {
             }
             .overlay(alignment: .trailing) {
                 Text("\(self.menuName.count.description) /15")
+                    .font(.body2Regular())
                     .foregroundStyle(keyboard.isShowing ? Color.black : Color.gray4)
                     .padding(.trailing, paddingHorizontal)
             }
