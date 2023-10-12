@@ -27,6 +27,15 @@
 		13C295F32AD7136E00A2DE7F /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295EA2AD7136D00A2DE7F /* Pretendard-Thin.otf */; };
 		13C295F42AD7136E00A2DE7F /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295EB2AD7136E00A2DE7F /* Pretendard-ExtraLight.otf */; };
 		13C295F52AD7136E00A2DE7F /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295EC2AD7136E00A2DE7F /* Pretendard-Bold.otf */; };
+		13C295F92AD7CBBB00A2DE7F /* OnboardingIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295F82AD7CBBB00A2DE7F /* OnboardingIntro.swift */; };
+		13C295FB2AD7CBC600A2DE7F /* OnboardingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295FA2AD7CBC600A2DE7F /* OnboardingStore.swift */; };
+		13C295FD2AD7CBD600A2DE7F /* OnboardingTone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295FC2AD7CBD500A2DE7F /* OnboardingTone.swift */; };
+		13C295FF2AD7CBE100A2DE7F /* OnboardingFinal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295FE2AD7CBE100A2DE7F /* OnboardingFinal.swift */; };
+		13C296012AD81E5200A2DE7F /* SelectTone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296002AD81E5200A2DE7F /* SelectTone.swift */; };
+		13C296032AD822A500A2DE7F /* ToneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296022AD822A500A2DE7F /* ToneModel.swift */; };
+		13C296052AD82B5A00A2DE7F /* OnboardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296042AD82B5A00A2DE7F /* OnboardingRouter.swift */; };
+		13C296072AD82DAB00A2DE7F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296062AD82DAB00A2DE7F /* OnboardingView.swift */; };
+		13C296092AD830D000A2DE7F /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296082AD830D000A2DE7F /* CustomHeader.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
 		A188C5752AD79DDF007473D3 /* DailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5742AD79DDF007473D3 /* DailyModel.swift */; };
 		A188C5772AD79E0E007473D3 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5762AD79E0E007473D3 /* MenuModel.swift */; };
@@ -60,6 +69,15 @@
 		13C295EB2AD7136E00A2DE7F /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		13C295EC2AD7136E00A2DE7F /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		13C295F62AD714A700A2DE7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		13C295F82AD7CBBB00A2DE7F /* OnboardingIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntro.swift; sourceTree = "<group>"; };
+		13C295FA2AD7CBC600A2DE7F /* OnboardingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStore.swift; sourceTree = "<group>"; };
+		13C295FC2AD7CBD500A2DE7F /* OnboardingTone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTone.swift; sourceTree = "<group>"; };
+		13C295FE2AD7CBE100A2DE7F /* OnboardingFinal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinal.swift; sourceTree = "<group>"; };
+		13C296002AD81E5200A2DE7F /* SelectTone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTone.swift; sourceTree = "<group>"; };
+		13C296022AD822A500A2DE7F /* ToneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToneModel.swift; sourceTree = "<group>"; };
+		13C296042AD82B5A00A2DE7F /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
+		13C296062AD82DAB00A2DE7F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		13C296082AD830D000A2DE7F /* CustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
 		A188C5742AD79DDF007473D3 /* DailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyModel.swift; sourceTree = "<group>"; };
 		A188C5762AD79E0E007473D3 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
@@ -130,6 +148,7 @@
 		13C295C42AD620C700A2DE7F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				13C295F72AD7CB8600A2DE7F /* OnboardingPage */,
 				13C295DB2AD6B46F00A2DE7F /* extension */,
 				13C295D62AD68BD600A2DE7F /* Setting */,
 				13C295C72AD620EC00A2DE7F /* MainView.swift */,
@@ -145,6 +164,7 @@
 				A188C5742AD79DDF007473D3 /* DailyModel.swift */,
 				A188C5762AD79E0E007473D3 /* MenuModel.swift */,
 				A188C5782AD79E89007473D3 /* StoreModel.swift */,
+				13C296022AD822A500A2DE7F /* ToneModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,6 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				13C295DE2AD6C01300A2DE7F /* CustomBtn.swift */,
+				13C296002AD81E5200A2DE7F /* SelectTone.swift */,
+				13C296082AD830D000A2DE7F /* CustomHeader.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -199,6 +221,19 @@
 				13C295EA2AD7136D00A2DE7F /* Pretendard-Thin.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		13C295F72AD7CB8600A2DE7F /* OnboardingPage */ = {
+			isa = PBXGroup;
+			children = (
+				13C295F82AD7CBBB00A2DE7F /* OnboardingIntro.swift */,
+				13C295FA2AD7CBC600A2DE7F /* OnboardingStore.swift */,
+				13C295FC2AD7CBD500A2DE7F /* OnboardingTone.swift */,
+				13C295FE2AD7CBE100A2DE7F /* OnboardingFinal.swift */,
+				13C296042AD82B5A00A2DE7F /* OnboardingRouter.swift */,
+				13C296062AD82DAB00A2DE7F /* OnboardingView.swift */,
+			);
+			path = OnboardingPage;
 			sourceTree = "<group>";
 		};
 		D2EED1AA8014945B0B79CFF3 /* Pods */ = {
@@ -341,20 +376,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13C296052AD82B5A00A2DE7F /* OnboardingRouter.swift in Sources */,
 				13C295BA2AD55F2200A2DE7F /* Persistence.swift in Sources */,
 				13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */,
 				A188C57F2AD7B822007473D3 /* CoreData.xcdatamodeld in Sources */,
+				13C296092AD830D000A2DE7F /* CustomHeader.swift in Sources */,
 				A188C5772AD79E0E007473D3 /* MenuModel.swift in Sources */,
+				13C295FD2AD7CBD600A2DE7F /* OnboardingTone.swift in Sources */,
 				13C295DF2AD6C01300A2DE7F /* CustomBtn.swift in Sources */,
 				13C295D32AD64C3500A2DE7F /* SettingView.swift in Sources */,
 				13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */,
+				13C295F92AD7CBBB00A2DE7F /* OnboardingIntro.swift in Sources */,
+				13C296012AD81E5200A2DE7F /* SelectTone.swift in Sources */,
+				13C295FB2AD7CBC600A2DE7F /* OnboardingStore.swift in Sources */,
+				13C296032AD822A500A2DE7F /* ToneModel.swift in Sources */,
 				A188C5812AD7BA1E007473D3 /* DailyDataManager.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
 				A188C5832AD7BA5F007473D3 /* MenuDataManager.swift in Sources */,
+				13C295FF2AD7CBE100A2DE7F /* OnboardingFinal.swift in Sources */,
 				13C295DD2AD6B48400A2DE7F /* DesginSystem.swift in Sources */,
 				13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */,
 				A188C5752AD79DDF007473D3 /* DailyModel.swift in Sources */,
 				A188C5852AD7BA89007473D3 /* StoreDataManager.swift in Sources */,
+				13C296072AD82DAB00A2DE7F /* OnboardingView.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
 			);

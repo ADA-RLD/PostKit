@@ -27,6 +27,13 @@ struct CustomBasicBtn: View {
     }
 }
 
+@ViewBuilder
+func customButton <Content: View> () -> some View {
+    VStack {
+        
+    }
+}
+
 // TODO: 색상 에셋 추가되면 색 바꿔야 해요
 struct CustomBtn: View {
     var btnDescription: String

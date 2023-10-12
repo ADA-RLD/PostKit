@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    @StateObject var onboardingRouter = OnboardingRouter.shared
+    @Binding var isFirstLaunching: Bool
 
-#Preview {
-    OnboardingView()
+    var body: some View {
+        VStack {
+            if onboardingRouter.currentPage == 0 {
+                OnboardingIntro()
+            } else if onboardingRouter.currentPage == 1 {
+                OnboardingStore()
+            } else if onboardingRouter.currentPage == 2 {
+                OnboardingTone()
+            } else if onboardingRouter.currentPage == 3 {
+                OnboardingFinal(isFirstLaunching: $isFirstLaunching)
+            }
+        }
+    }
 }
