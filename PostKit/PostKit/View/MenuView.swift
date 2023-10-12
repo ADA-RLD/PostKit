@@ -10,7 +10,7 @@ import SwiftUI
 struct MenuView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
-    @State var menuname = ""
+    @State var menuName = ""
     @State var isCoffeeOpened = false
     @State var isDrinkOpened = false
     @State var isDessertOpened = false
@@ -31,7 +31,7 @@ struct MenuView: View {
                 .foregroundStyle(Color.gray5)
                 .font(.body)
                 .fontWeight(.bold)
-            CustomTextfield(menuname: self.$menuname, placeHolder: "아메리카노")
+            CustomTextfield(menuName: self.$menuName, placeHolder: "아메리카노")
             Spacer()
             
             Text("특징")
