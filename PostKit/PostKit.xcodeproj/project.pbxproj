@@ -14,7 +14,6 @@
 		13C295BA2AD55F2200A2DE7F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295B92AD55F2200A2DE7F /* Persistence.swift */; };
 		13C295BD2AD55F2200A2DE7F /* PostKit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13C295BB2AD55F2200A2DE7F /* PostKit.xcdatamodeld */; };
 		13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295C72AD620EC00A2DE7F /* MainView.swift */; };
-		13C295CA2AD620F700A2DE7F /* ModelSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295C92AD620F700A2DE7F /* ModelSample.swift */; };
 		13C295CC2AD6210A00A2DE7F /* ViewModelSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295CB2AD6210A00A2DE7F /* ViewModelSample.swift */; };
 		13C295D32AD64C3500A2DE7F /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295D22AD64C3500A2DE7F /* SettingView.swift */; };
 		13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295D42AD677FA00A2DE7F /* NavigationModel.swift */; };
@@ -32,6 +31,9 @@
 		13C295F42AD7136E00A2DE7F /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295EB2AD7136E00A2DE7F /* Pretendard-ExtraLight.otf */; };
 		13C295F52AD7136E00A2DE7F /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295EC2AD7136E00A2DE7F /* Pretendard-Bold.otf */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
+		A188C5752AD79DDF007473D3 /* DailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5742AD79DDF007473D3 /* DailyModel.swift */; };
+		A188C5772AD79E0E007473D3 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5762AD79E0E007473D3 /* MenuModel.swift */; };
+		A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5782AD79E89007473D3 /* StoreModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +45,6 @@
 		13C295B92AD55F2200A2DE7F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		13C295BC2AD55F2200A2DE7F /* PostKit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PostKit.xcdatamodel; sourceTree = "<group>"; };
 		13C295C72AD620EC00A2DE7F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		13C295C92AD620F700A2DE7F /* ModelSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSample.swift; sourceTree = "<group>"; };
 		13C295CB2AD6210A00A2DE7F /* ViewModelSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelSample.swift; sourceTree = "<group>"; };
 		13C295D22AD64C3500A2DE7F /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		13C295D42AD677FA00A2DE7F /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
@@ -62,6 +63,9 @@
 		13C295EC2AD7136E00A2DE7F /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		13C295F62AD714A700A2DE7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
+		A188C5742AD79DDF007473D3 /* DailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyModel.swift; sourceTree = "<group>"; };
+		A188C5762AD79E0E007473D3 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
+		A188C5782AD79E89007473D3 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		C674B8973F6DA180203B6836 /* Pods-PostKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.debug.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.debug.xcconfig"; sourceTree = "<group>"; };
 		DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -136,8 +140,10 @@
 		13C295C52AD620D400A2DE7F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				13C295C92AD620F700A2DE7F /* ModelSample.swift */,
 				13C295D42AD677FA00A2DE7F /* NavigationModel.swift */,
+				A188C5742AD79DDF007473D3 /* DailyModel.swift */,
+				A188C5762AD79E0E007473D3 /* MenuModel.swift */,
+				A188C5782AD79E89007473D3 /* StoreModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -198,7 +204,6 @@
 				C674B8973F6DA180203B6836 /* Pods-PostKit.debug.xcconfig */,
 				3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -334,8 +339,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				13C295BA2AD55F2200A2DE7F /* Persistence.swift in Sources */,
-				13C295CA2AD620F700A2DE7F /* ModelSample.swift in Sources */,
 				13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */,
+				A188C5772AD79E0E007473D3 /* MenuModel.swift in Sources */,
 				13C295DF2AD6C01300A2DE7F /* CustomBtn.swift in Sources */,
 				13C295CC2AD6210A00A2DE7F /* ViewModelSample.swift in Sources */,
 				13C295D32AD64C3500A2DE7F /* SettingView.swift in Sources */,
@@ -345,7 +350,9 @@
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
 				13C295DD2AD6B48400A2DE7F /* DesginSystem.swift in Sources */,
 				13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */,
+				A188C5752AD79DDF007473D3 /* DailyModel.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
+				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
