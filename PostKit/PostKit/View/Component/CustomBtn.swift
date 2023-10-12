@@ -30,7 +30,7 @@ struct CustomBasicBtn: View {
 // TODO: 색상 에셋 추가되면 색 바꿔야 해요
 struct CustomBtn: View {
     var btnDescription: String
-    @State private var isActive: Bool = false
+    @Binding var isActive: Bool
     var action: () -> Void
     var body: some View {
         Button(action: {
