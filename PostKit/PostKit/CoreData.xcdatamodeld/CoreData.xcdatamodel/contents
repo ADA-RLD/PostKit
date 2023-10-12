@@ -5,6 +5,7 @@
         <attribute name="dessert" optional="YES" attributeType="String"/>
         <attribute name="drink" optional="YES" attributeType="String"/>
         <attribute name="recordDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="recordResult" optional="YES" attributeType="String"/>
         <attribute name="weather" optional="YES" attributeType="String"/>
         <relationship name="storeData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreData" inverseName="dailyData" inverseEntity="StoreData"/>
     </entity>
@@ -13,6 +14,7 @@
         <attribute name="menuPoint" optional="YES" attributeType="String"/>
         <attribute name="menuRecordId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="recordDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="recordResult" optional="YES" attributeType="String"/>
         <relationship name="storeData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreData" inverseName="menuData" inverseEntity="StoreData"/>
     </entity>
     <entity name="StoreData" representedClassName="StoreData" syncable="YES" codeGenerationType="class">
