@@ -18,6 +18,11 @@ struct MenuView: View {
     @State var drinkSelected: [String] = []
     @State var dessertSelected: [String] = []
     
+    // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
+    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페의 사장이고 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘.")]
+    @State var currentInput: String = ""
+    
+    private let chatGptService = ChatGptService()
     
     var body: some View {
         VStack(alignment:.leading) {
@@ -65,9 +70,48 @@ struct MenuView: View {
             .font(.body2Bold())
             }
         }
-        CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action: {pathManager.path.append(.Result);})
+        CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action: {
+            sendMessage()
+            pathManager.path.append(.Result)
+        })
         .padding(.horizontal,paddingHorizontal)
        
+    }
+    
+    func sendMessage(){
+        Task{
+            var pointText = ""
+            if !coffeeSelected.isEmpty {
+                pointText = pointText + "이 메뉴의 특징으로는 "
+                for index in coffeeSelected.indices {
+                    pointText = pointText + "\(coffeeSelected[index]), "
+                }
+                pointText = pointText + "이 있어."
+            }
+            else if !drinkSelected.isEmpty {
+                pointText = pointText + "이 메뉴의 특징으로는 "
+                for index in drinkSelected.indices {
+                    pointText = pointText + "\(drinkSelected[index]), "
+                }
+                pointText = pointText + "이 있어."
+            }
+            else if !dessertSelected.isEmpty {
+                pointText = pointText + "이 메뉴의 특징으로는 "
+                for index in dessertSelected.indices {
+                    pointText = pointText + "\(dessertSelected[index]), "
+                }
+                pointText = pointText + "이 있어."
+            }
+            
+            self.currentInput = "메뉴의 이름은 \(self.menuname)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
+            let newMessage = Message(id: UUID(), role: .user, content: self.currentInput)
+            
+            self.messages.append(newMessage)
+            self.currentInput = ""
+            
+            let response = await chatGptService.sendMessage(messages: self.messages)
+            print(response as Any)
+        }
     }
 }
 
