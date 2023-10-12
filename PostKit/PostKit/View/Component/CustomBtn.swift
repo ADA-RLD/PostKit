@@ -15,7 +15,7 @@ struct CustomBasicBtn: View {
             action()
         }, label: {
             RoundedRectangle(cornerRadius: radius1)
-                .foregroundColor(Color.primary)
+                .foregroundColor(Color.main)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
                 .overlay {
@@ -37,11 +37,12 @@ struct CustomBtn: View {
             action()
         }, label: {
             RoundedRectangle(cornerRadius: radius1)
-                .foregroundColor(isActive ? Color.primary : Color.gray)
+                .foregroundColor(isActive ? Color.main : Color.gray3)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
                 .overlay {
                     Text(btnDescription)
+                        .font(.body1Bold())
                         .foregroundStyle(Color.white)
                 }
             
@@ -61,10 +62,11 @@ struct CustomDoubleeBtn: View {
                 leftAction()
             }, label: {
                 RoundedRectangle(cornerRadius: radius1)
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(Color.gray2)
                     .overlay {
                         Text(leftBtnDescription)
-                            .foregroundStyle(Color.black)
+                            .font(.body1Bold())
+                            .foregroundStyle(Color.gray5)
                     }
             })
             
@@ -72,9 +74,10 @@ struct CustomDoubleeBtn: View {
                 rightAction()
             }, label: {
                 RoundedRectangle(cornerRadius: radius1)
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(Color.main)
                     .overlay {
                         Text(rightBtnDescription)
+                            .font(.body1Bold())
                             .foregroundStyle(.white)
                     }
             })
