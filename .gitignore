@@ -175,3 +175,5 @@ Carthage/Build
 .UlyssesRoot
 .Ulysses-Settings.plist
 .Ulysses-Group.plist
+
+PostKit/PostKit/Model/Constants.swift
