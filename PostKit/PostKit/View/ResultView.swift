@@ -10,6 +10,7 @@ import UIKit
 
 struct ResultView: View {
     
+    @EnvironmentObject var pathManager: PathManager
     @State private var copyResult = "생성된 텍스트가 들어가요."
     @State private var isShowingToast = false
     private let pasteBoard = UIPasteboard.general
@@ -61,7 +62,7 @@ struct ResultView: View {
             
             // MARK: - 완료 / 재생성 버튼
             CustomDoubleeBtn(leftBtnDescription: "완료", rightBtnDescription: "재생성") {
-                // TODO: 메인으로
+                pathManager.path.removeAll()
             } rightAction: {
                 // TODO: 카피 재생성 기능
             }
