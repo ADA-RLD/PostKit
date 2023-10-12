@@ -9,23 +9,22 @@ import SwiftUI
 
 struct CustomTextfield: View {
     @ObservedObject var keyboard: KeyboardObserver = KeyboardObserver()
-    @Binding var menuname : String
+    @Binding var menuName : String
     var placeHolder: String = ""
     var body: some View {
-        TextField(placeHolder, text: $menuname, prompt: Text(placeHolder).foregroundStyle(Color.gray4))
-            .font(.system(size: 16))
-            .fontWeight(.bold)
+        TextField(placeHolder, text: $menuName, prompt: Text(placeHolder).foregroundStyle(Color.gray4))
+            .font(.body1Bold())
             .tint(Color.black)
             .padding()
             .background(Color.gray1)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .clipShape(RoundedRectangle(cornerRadius: radius1))
             .overlay {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: radius1)
                     .stroke(keyboard.isShowing ? Color.gray3 : Color.gray2)
             }
-            .onChange(of: menuname) {
-                _ in if menuname.count > 15 {
-                    menuname = String(menuname.prefix(15))
+            .onChange(of: menuName) {
+                _ in if menuName.count > 15 {
+                    menuName = String(menuName.prefix(15))
                 }
             }
             .onAppear {
@@ -35,9 +34,10 @@ struct CustomTextfield: View {
                 self.keyboard.removeObserver()
             }
             .overlay(alignment: .trailing) {
-                Text("\(self.menuname.count.description) /15")
+                Text("\(self.menuName.count.description) /15")
+                    .font(.body2Regular())
                     .foregroundStyle(keyboard.isShowing ? Color.black : Color.gray4)
-                    .padding(.trailing,20)
+                    .padding(.trailing, paddingHorizontal)
             }
     }
 }
