@@ -8,11 +8,41 @@
 import SwiftUI
 
 struct CustomHeader: View {
+    var action: () -> Void
+    var title: String
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack() {
+            Button(action: {
+                action()
+            }, label: {
+                Image(systemName: "chevron.backward")
+            })
+            .padding(.leading,16)
+            Spacer()
+            Text(title)
+                .font(.body1Bold())
+            Spacer()
+        }
+    }
+}
+
+struct OnboardingCustomHeader: View {
+    var action: () -> Void
+    var body: some View {
+        HStack {
+            Button(action: {
+                action()
+            }, label: {
+                Image(systemName: "chevron.backward")
+            })
+            Spacer()
+            .padding(.leading,16)
+            
+            
+        }
     }
 }
 
 #Preview {
-    CustomHeader()
+    CustomHeader(action: {print("")}, title: "내용")
 }

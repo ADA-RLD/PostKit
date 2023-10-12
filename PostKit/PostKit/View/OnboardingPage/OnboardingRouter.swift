@@ -7,12 +7,16 @@
 
 import SwiftUI
 
-struct OnboardingRouter: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+class OnboardingRouter: ObservableObject {
+    static let shared = OnboardingRouter()
+    private init() {}
+    
+    @Published var currentPage: Int = 0
+    
+    func nextPage() {
+        currentPage += 1
     }
-}
-
-#Preview {
-    OnboardingRouter()
+    func previousPage() {
+        currentPage -= 1
+    }
 }
