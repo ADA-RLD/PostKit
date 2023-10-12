@@ -6,14 +6,18 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ResultView: View {
     
     @State private var copyResult = "구름이 가득한 하늘이 내 기분과 딱 맞아!"
+    private let pasteBoard = UIPasteboard.general
     
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 24) {
+                
+                // MARK: - 타이틀과 설명
                 VStack(alignment: .leading, spacing: 12) {
                     Text("주문하신 카피가 나왔어요!")
                         .font(.title1())
@@ -23,6 +27,7 @@ struct ResultView: View {
                         .foregroundStyle(Color.gray4)
                 }
                 
+                // MARK: - 생성된 카피 출력 + 복사하기 버튼
                 VStack(alignment: .trailing, spacing: 20) {
                     VStack(alignment: .leading) {
                         Text(copyResult)
@@ -39,7 +44,7 @@ struct ResultView: View {
                     .cornerRadius(radius2)
                     
                     Button {
-                        // 카피 복사 기능
+                        copyToClipboard()
                     } label: {
                         HStack(spacing: 4.0) {
                             Image(systemName: "doc.on.doc")
@@ -49,19 +54,23 @@ struct ResultView: View {
                         .font(.body1Bold())
                     }
                 }
-                
             }
             Spacer()
             
+            // MARK: - 완료 / 재생성 버튼
             CustomDoubleeBtn(leftBtnDescription: "완료", rightBtnDescription: "재생성") {
-                // 메인으로 이동
+                // TODO: 메인으로
             } rightAction: {
-                //
+                // TODO: 카피 재생성 기능
             }
             .padding(.vertical, 12)
             
         }
         .padding(.horizontal, paddingHorizontal)
+    }
+    
+    func copyToClipboard() {
+        pasteBoard.string = copyResult
     }
 }
 
