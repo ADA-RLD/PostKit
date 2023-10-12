@@ -10,14 +10,14 @@ import UIKit
 
 struct ResultView: View {
     
-    @State private var copyResult = "구름이 가득한 하늘이 내 기분과 딱 맞아!"
+    @State private var copyResult = "생성된 텍스트가 들어가요."
+    @State private var isShowingToast = false
     private let pasteBoard = UIPasteboard.general
     
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 24) {
-                
-                // MARK: - 타이틀과 설명
+                // MARK: - 타이틀 + 설명
                 VStack(alignment: .leading, spacing: 12) {
                     Text("주문하신 카피가 나왔어요!")
                         .font(.title1())
@@ -45,6 +45,7 @@ struct ResultView: View {
                     
                     Button {
                         copyToClipboard()
+                        // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                     } label: {
                         HStack(spacing: 4.0) {
                             Image(systemName: "doc.on.doc")
@@ -52,6 +53,7 @@ struct ResultView: View {
                         }
                         .foregroundStyle(Color.main)
                         .font(.body1Bold())
+                        .disabled(isShowingToast)
                     }
                 }
             }
@@ -67,10 +69,52 @@ struct ResultView: View {
             
         }
         .padding(.horizontal, paddingHorizontal)
+        .toast(isShowing: $isShowingToast)
     }
     
+    // MARK: - 카피 복사
     func copyToClipboard() {
         pasteBoard.string = copyResult
+        isShowingToast = true
+    }
+}
+
+// MARK: - 기존 뷰 위에 토스트를 위로 올려줌
+struct ToastModifier: ViewModifier {
+    @Binding var isShowing: Bool
+    let duration: TimeInterval
+    func body(content: Content) -> some View {
+        ZStack{
+            content
+            if isShowing{
+                VStack{
+                    Spacer()
+                    Text("클립보드에 복사되었습니다!")
+                        .font(.body1Bold())
+                        .foregroundStyle(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 100)
+                        .background(.black.opacity(0.6))
+                        .cornerRadius(radius1)
+                        .padding(.horizontal, paddingHorizontal)
+                        .padding(.bottom, 20)
+                }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now()+duration){
+                        withAnimation {
+                            isShowing = false
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - 토스트를 띄워주는 모디파이어 적용
+extension View {
+    func toast(isShowing: Binding<Bool>, duration: TimeInterval = 1.5) -> some View {
+        modifier(ToastModifier(isShowing: isShowing, duration: duration))
     }
 }
 
