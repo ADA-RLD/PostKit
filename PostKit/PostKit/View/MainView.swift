@@ -27,7 +27,7 @@ struct MainView: View {
             .navigationDestination(for: StackViewType.self) { stackViewType in
                 switch stackViewType {
                 case .Menu:
-                    SettingView()
+                    MenuView()
                 case .Daily:
                     SettingView()
                 case .SettingHome:
@@ -36,6 +36,8 @@ struct MainView: View {
                     SettingStoreView()
                 case .SettingTone:
                     SettingToneView()
+                case .Result:
+                    ResultView()
                 }
                 
             }
