@@ -16,8 +16,9 @@ final class DailyModel : ObservableObject{
     @Published var weather : String?
     @Published var dessert : String?
     @Published var drink : String?
+    @Published var recordResult : String
 
-    init(_storeName: String?, _storeTone: String, _recordID: UUID = UUID(), _recordDate: Date, _weather: String? = nil, _dessert: String? = nil, _drink: String? = nil) {
+    init(_storeName: String?, _storeTone: String, _recordID: UUID = UUID(), _recordDate: Date, _weather: String? = nil, _dessert: String? = nil, _drink: String? = nil, _recordResult: String) {
         self.storeName = _storeName
         self.storeTone = _storeTone
         self.recordID = _recordID
@@ -25,5 +26,6 @@ final class DailyModel : ObservableObject{
         self.weather = _weather
         self.dessert = _dessert
         self.drink = _drink
+        self.recordResult = _recordResult
     }
 }
