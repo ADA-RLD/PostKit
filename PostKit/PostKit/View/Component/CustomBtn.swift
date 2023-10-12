@@ -15,7 +15,7 @@ struct CustomBasicBtn: View {
             action()
         }, label: {
             RoundedRectangle(cornerRadius: radius1)
-                .foregroundColor(Color.primary)
+                .foregroundColor(Color.main)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
                 .overlay {
@@ -37,18 +37,19 @@ func customButton <Content: View> () -> some View {
 // TODO: 색상 에셋 추가되면 색 바꿔야 해요
 struct CustomBtn: View {
     var btnDescription: String
-    @State private var isActive: Bool = false
+    @Binding var isActive: Bool
     var action: () -> Void
     var body: some View {
         Button(action: {
             action()
         }, label: {
             RoundedRectangle(cornerRadius: radius1)
-                .foregroundColor(isActive ? Color.primary : Color.gray)
+                .foregroundColor(isActive ? Color.main : Color.gray3)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
                 .overlay {
                     Text(btnDescription)
+                        .font(.body1Bold())
                         .foregroundStyle(Color.white)
                 }
             
@@ -68,10 +69,11 @@ struct CustomDoubleeBtn: View {
                 leftAction()
             }, label: {
                 RoundedRectangle(cornerRadius: radius1)
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(Color.gray2)
                     .overlay {
                         Text(leftBtnDescription)
-                            .foregroundStyle(Color.black)
+                            .font(.body1Bold())
+                            .foregroundStyle(Color.gray5)
                     }
             })
             
@@ -79,9 +81,10 @@ struct CustomDoubleeBtn: View {
                 rightAction()
             }, label: {
                 RoundedRectangle(cornerRadius: radius1)
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(Color.main)
                     .overlay {
                         Text(rightBtnDescription)
+                            .font(.body1Bold())
                             .foregroundStyle(.white)
                     }
             })
