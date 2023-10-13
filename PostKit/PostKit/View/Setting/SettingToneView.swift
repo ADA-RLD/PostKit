@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct SettingToneView: View {
-    
+struct SettingToneView: View {    
     @EnvironmentObject var pathManager: PathManager
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @State private var tone = ""
     @State private var isActive: Bool = false // 변경사항 생길 시 true
     

@@ -9,8 +9,13 @@ import SwiftUI
 
 @main
 struct PostKitApp: App {
-    let persistenceController = PersistenceController.shared
+    // Naviagtion path Controll
     @StateObject var pathManager = PathManager()
+    // AppStorage Controll
+    @StateObject private var appstorageManager = AppstorageManager()
+    // Onboarding Page Controll
+    let persistenceController = PersistenceController.shared
+
     
     //Core Data Manager
     let storeDataManager = StoreDataManager.instance
@@ -20,6 +25,7 @@ struct PostKitApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environmentObject(appstorageManager)
                 .environmentObject(pathManager)
                 .environment(\.managedObjectContext, storeDataManager.container.viewContext)
                 .environment(\.managedObjectContext, menuDataManager.container.viewContext)

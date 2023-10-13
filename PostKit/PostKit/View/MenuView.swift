@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MenuView: View {
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
     @State var menuName = ""
@@ -18,17 +19,19 @@ struct MenuView: View {
     @State var drinkSelected: [String] = []
     @State var dessertSelected: [String] = []
     
-
+    @ObservedObject var viewModel = ChatGptViewModel.shared
 
     // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
-    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페의 사장이고 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘.")]
+    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페를 운영하고 있으며 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘.")]
     @State var currentInput: String = ""
     
     private let chatGptService = ChatGptService()
     
     var body: some View {
-        
         VStack(alignment:.leading) {
+            CustomHeader(action: {pathManager.path.removeLast()}, title: "메뉴 카피 생성")
+                .padding(.bottom, paddingHorizontal)
+            
             Text("선택한 키워드를 기반으로 카피가 생성됩니다. \n키워드를 선택하지 않을 시 랜덤으로 생성됩니다.")
                 .font(.body2Bold())
                 .foregroundStyle(Color.gray4)
@@ -38,7 +41,7 @@ struct MenuView: View {
                 .foregroundStyle(Color.gray5)
                 .font(.body1Bold())
                 .padding(.bottom, 12)
-            CustomTextfield(menuName: self.$menuName, placeHolder: "아메리카노")
+            CustomTextfield(texLimit: 15, menuName: self.$menuName, placeHolder: "아메리카노")
                 .onChange(of: menuName)  {
                     _ in if menuName.count >= 1 {
                         isActive = true
@@ -79,17 +82,21 @@ struct MenuView: View {
                 .foregroundStyle(Color.gray5)
                 .font(.body2Bold())
             }
+            CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action: {
+                if isActive == true {
+                    sendMessage()
+                    pathManager.path.append(.Result)
+                }
+            })
+            .padding(.bottom, 12)
+            
         }.padding(.horizontal,paddingHorizontal)
             .onTapGesture {
                 hideKeyboard()
             }
-        CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action: {
-            sendMessage()
-            pathManager.path.append(.Result)
-        })
-        .padding(.horizontal,paddingHorizontal)
     }
     
+    // MARK: - Chat Gpt API에 응답 요청
     func sendMessage(){
         Task{
             var pointText = ""
@@ -117,11 +124,12 @@ struct MenuView: View {
             
             self.currentInput = "메뉴의 이름은 \(self.menuName)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
             let newMessage = Message(id: UUID(), role: .user, content: self.currentInput)
-            
             self.messages.append(newMessage)
+            viewModel.prompt = self.currentInput
             self.currentInput = ""
-            
             let response = await chatGptService.sendMessage(messages: self.messages)
+            viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
+            print(response?.choices.first?.message.content as Any)
             print(response as Any)
         }
     }
