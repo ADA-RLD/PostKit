@@ -41,7 +41,7 @@ struct MenuView: View {
                 .foregroundStyle(Color.gray5)
                 .font(.body1Bold())
                 .padding(.bottom, 12)
-            CustomTextfield(texLimit: 15, menuName: self.$menuName, placeHolder: "아메리카노")
+            CustomTextfield(menuName: $menuName, placeHolder: "아메리카노")
                 .onChange(of: menuName)  {
                     _ in if menuName.count >= 1 {
                         isActive = true
