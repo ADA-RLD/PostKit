@@ -27,7 +27,6 @@ struct MenuView: View {
     private let chatGptService = ChatGptService()
     
     var body: some View {
-        
         VStack(alignment:.leading) {
             Text("선택한 키워드를 기반으로 카피가 생성됩니다. \n키워드를 선택하지 않을 시 랜덤으로 생성됩니다.")
                 .font(.body2Bold())

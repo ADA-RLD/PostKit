@@ -30,3 +30,7 @@ struct OnboardingIntro: View {
        
     }
 }
+
+#Preview {
+    OnboardingIntro(onboardingRouter: OnboardingRouter.shared)
+}

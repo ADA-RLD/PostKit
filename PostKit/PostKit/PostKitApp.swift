@@ -11,6 +11,7 @@ import SwiftUI
 struct PostKitApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject var pathManager = PathManager()
+    @StateObject private var appstorageManager = AppstorageManager()
     
     //Core Data Manager
     let storeDataManager = StoreDataManager.instance
