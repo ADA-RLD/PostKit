@@ -29,6 +29,9 @@ struct MenuView: View {
     var body: some View {
         
         VStack(alignment:.leading) {
+            CustomHeader(action: {pathManager.path.removeLast()}, title: "메뉴 카피 생성")
+                .padding(.bottom, paddingHorizontal)
+            
             Text("선택한 키워드를 기반으로 카피가 생성됩니다. \n키워드를 선택하지 않을 시 랜덤으로 생성됩니다.")
                 .font(.body2Bold())
                 .foregroundStyle(Color.gray4)
@@ -38,7 +41,7 @@ struct MenuView: View {
                 .foregroundStyle(Color.gray5)
                 .font(.body1Bold())
                 .padding(.bottom, 12)
-            CustomTextfield(menuName: self.$menuName, placeHolder: "아메리카노")
+            CustomTextfield(texLimit: 15, menuName: self.$menuName, placeHolder: "아메리카노")
                 .onChange(of: menuName)  {
                     _ in if menuName.count >= 1 {
                         isActive = true
@@ -79,15 +82,18 @@ struct MenuView: View {
                 .foregroundStyle(Color.gray5)
                 .font(.body2Bold())
             }
+            CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action: {
+                if isActive == true {
+                    sendMessage()
+                    pathManager.path.append(.Result)
+                }
+            })
+            .padding(.bottom, 12)
+            
         }.padding(.horizontal,paddingHorizontal)
             .onTapGesture {
                 hideKeyboard()
             }
-        CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action: {
-            sendMessage()
-            pathManager.path.append(.Result)
-        })
-        .padding(.horizontal,paddingHorizontal)
     }
     
     func sendMessage(){
