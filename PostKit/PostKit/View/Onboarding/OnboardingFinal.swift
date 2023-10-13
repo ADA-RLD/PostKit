@@ -13,14 +13,20 @@ struct OnboardingFinal: View {
     @Binding var isFirstLaunching: Bool
     var body: some View {
         VStack {
-            OnboardingCustomHeader(action: onboardingRouter.previousPage)
+            VStack {
+                OnboardingCustomHeader(action: onboardingRouter.previousPage)
+            }
+            .padding(.vertical,18)
+            
             VStack(alignment:.leading) {
                 Text("\(appstorageManager.cafeName) 사장님,\n반가워요👋")
                     .font(.title1())
+                    .padding(.top,60)
                 Text("포스트킷과 함께\n카페 이야기를 적어내려가 봐요")
                     .font(.body1Bold())
                     .foregroundStyle(Color.gray4)
                     .padding(.top,40)
+                Spacer()
                 CustomBasicBtn(btnDescription:"확인", action: {isFirstLaunching.toggle()})
             }
             .padding(.horizontal,paddingHorizontal)
