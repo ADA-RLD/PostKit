@@ -12,7 +12,13 @@ struct SettingStoreView: View {
     @EnvironmentObject var appstorageManager: AppstorageManager
     var body: some View {
         VStack {
-            CustomTextfield(menuName: appstorageManager.$cafeName, placeHolder: appstorageManager.cafeName)
+            OnboardingCustomHeader(action: {pathManager.path.removeLast()})
+            VStack(alignment: .leading) {
+                CustomTextfield(menuName: appstorageManager.$cafeName, placeHolder: appstorageManager.cafeName)
+            }
+            .padding(.horizontal,paddingHorizontal)
+          
+            
         }
             
     }

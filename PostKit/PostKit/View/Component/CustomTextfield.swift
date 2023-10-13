@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CustomTextfield: View {
-    @ObservedObject var keyboard: KeyboardObserver = KeyboardObserver()
+    @StateObject var keyboard: KeyboardObserver = KeyboardObserver()
     @Binding var menuName : String
     var placeHolder: String
     var body: some View {
