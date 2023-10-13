@@ -68,12 +68,24 @@ struct ResultView: View {
                 pathManager.path.removeAll()
             } rightAction: {
                 // TODO: 카피 재생성 기능
+                regenerateAnswer()
             }
             .padding(.vertical, 12)
             
         }
         .padding(.horizontal, paddingHorizontal)
         .toast(isShowing: $isShowingToast)
+    }
+    
+    // MARK: - Chat GPT API에 재생성 요청
+    func regenerateAnswer() {
+        Task{
+            let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
+            self.messages.append(newMessage)
+            let response = await chatGptService.sendMessage(messages: self.messages)
+            print(response as Any)
+            viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
+        }
     }
     
     // MARK: - 카피 복사
