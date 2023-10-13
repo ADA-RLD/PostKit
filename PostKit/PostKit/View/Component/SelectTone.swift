@@ -27,7 +27,7 @@ extension SelectTone {
                             Button {
                                 self.tone = tones[item]
                             } label: {
-                                RoundedRectangle(cornerRadius: 16)
+                                RoundedRectangle(cornerRadius: radius1)
                                     .overlay(alignment: .leading) {
                                         Text(tones[item])
                                             .padding(.leading,paddingHorizontal)
