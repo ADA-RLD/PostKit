@@ -90,7 +90,7 @@ struct ResultView: View {
     
     // MARK: - 카피 복사
     func copyToClipboard() {
-        pasteBoard.string = copyResult
+        pasteBoard.string = viewModel.promptAnswer
         isShowingToast = true
     }
 }
