@@ -24,8 +24,7 @@ struct OnboardingStore: View {
                         .font(.body2Bold())
                         .foregroundStyle(Color.gray)
                         .padding(.top,12)
-                    
-                    CustomTextfield(texLimit: 15, menuName: appstorageManager.$cafeName, placeHolder: "동글이 카페")
+                    CustomTextfield(textLimit: 15, menuName: appstorageManager.$cafeName, placeHolder: "동글이 카페")
                         .padding(.top,40)
                     // cafeName이 비어있지 않으면 트루 OR false
                         .onChange(of: appstorageManager.$cafeName.wrappedValue) { lengthCount in
@@ -43,9 +42,7 @@ struct OnboardingStore: View {
             }
             .padding(.horizontal,paddingHorizontal)
         }
-            
-        }
-       
+    }
 }
 
 #Preview {
