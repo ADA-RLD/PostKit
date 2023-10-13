@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct OnboardingIntro: View {
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
-    
+
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
