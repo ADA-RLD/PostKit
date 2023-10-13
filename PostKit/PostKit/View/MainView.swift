@@ -12,6 +12,11 @@ import SwiftUI
 struct MainView: View {
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var pathManager: PathManager
+    
+    @StateObject var menuModel = MenuModel(_storeName: "", _storeTone: "", _menuName: "", _menuPoint: "", _recordResult: "")
+    @StateObject var dailyModel = DailyModel(_storeName: "", _storeTone: "", _recordResult: "")
+    
+    
     var body: some View {
         NavigationStack(path: $pathManager.path) {
             
@@ -26,7 +31,10 @@ struct MainView: View {
                 NavigationBtn(header: "메뉴",description: "카페의 메뉴에 대한 글을 써요", action: {pathManager.path.append(.Menu)})
             }
             .padding(.horizontal,20)
-            
+            .onAppear{
+                //뷰 생성시 데이터를 초기화 합니다.
+                resetData()
+            }
             // TODO: 뷰 만들면 여기 스위치문에 넣어주세요
             .navigationDestination(for: StackViewType.self) { stackViewType in
                 switch stackViewType {
@@ -43,7 +51,6 @@ struct MainView: View {
                 case .Result:
                     ResultView()
                 }
-                
             }
         }
     }
@@ -89,6 +96,18 @@ private func SettingBtn(action: @escaping () -> Void) -> some View {
                 .frame(width: 24,height: 24)
         })
     }
+}
+
+extension MainView : MainViewProtocol {
+    
+    func resetData() {
+        menuModel.menuName = ""
+        menuModel.menuPoint = ""
+        menuModel.recordResult = ""
+        
+        dailyModel.recordResult = ""
+    }
+    
 }
 
 #Preview {
