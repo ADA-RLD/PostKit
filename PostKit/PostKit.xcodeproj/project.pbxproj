@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A14ED0C2AD96D9A00357A79 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14ED0B2AD96D9A00357A79 /* Constants.swift */; };
 		13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295B02AD55F2100A2DE7F /* PostKitApp.swift */; };
 		13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B42AD55F2200A2DE7F /* Assets.xcassets */; };
 		13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B72AD55F2200A2DE7F /* Preview Assets.xcassets */; };
@@ -37,7 +38,6 @@
 		13C2961A2AD8F26300A2DE7F /* SelectTone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296192AD8F26300A2DE7F /* SelectTone.swift */; };
 		13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C2961B2AD8F32000A2DE7F /* ToneModel.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
-		7EF314CA2AD81D6A008E7338 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314C92AD81D6A008E7338 /* Constants.swift */; };
 		7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */; };
 		7EF314CE2AD81DE3008E7338 /* ChatGptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */; };
 		A188C5752AD79DDF007473D3 /* DailyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5742AD79DDF007473D3 /* DailyModel.swift */; };
@@ -60,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A14ED0B2AD96D9A00357A79 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		13C295AD2AD55F2100A2DE7F /* PostKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C295B02AD55F2100A2DE7F /* PostKitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostKitApp.swift; sourceTree = "<group>"; };
 		13C295B42AD55F2200A2DE7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -92,7 +93,6 @@
 		13C296192AD8F26300A2DE7F /* SelectTone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTone.swift; sourceTree = "<group>"; };
 		13C2961B2AD8F32000A2DE7F /* ToneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToneModel.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
-		7EF314C92AD81D6A008E7338 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptService.swift; sourceTree = "<group>"; };
 		7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptModel.swift; sourceTree = "<group>"; };
 		A188C5742AD79DDF007473D3 /* DailyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyModel.swift; sourceTree = "<group>"; };
@@ -194,9 +194,9 @@
 				A188C5762AD79E0E007473D3 /* MenuModel.swift */,
 				A188C5782AD79E89007473D3 /* StoreModel.swift */,
 				B986325F2AD7CFB200DE9FF5 /* KeywordsModel.swift */,
-				7EF314C92AD81D6A008E7338 /* Constants.swift */,
 				7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */,
 				13C2961B2AD8F32000A2DE7F /* ToneModel.swift */,
+				0A14ED0B2AD96D9A00357A79 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -424,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13C295BA2AD55F2200A2DE7F /* Persistence.swift in Sources */,
+				0A14ED0C2AD96D9A00357A79 /* Constants.swift in Sources */,
 				7EF314CE2AD81DE3008E7338 /* ChatGptModel.swift in Sources */,
 				13C2961A2AD8F26300A2DE7F /* SelectTone.swift in Sources */,
 				A188C58C2AD7CFD1007473D3 /* DailyProtocol.swift in Sources */,
@@ -460,7 +461,6 @@
 				13C2960E2AD8F15E00A2DE7F /* OnboardingIntro.swift in Sources */,
 				A188C58A2AD7CDD3007473D3 /* MenuProtocol.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
-				7EF314CA2AD81D6A008E7338 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
