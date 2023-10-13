@@ -22,7 +22,7 @@ struct MenuView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
 
     // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
-    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페를 운영하고 있으며 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘.")]
+    @State var messages: [Message] = []
     @State var currentInput: String = ""
     
     private let chatGptService = ChatGptService()
@@ -101,6 +101,7 @@ struct MenuView: View {
     func sendMessage(){
         Task{
             var pointText = ""
+            self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(appstorageManager.cafeName == "" ? "카페": appstorageManager.cafeName)를 운영하고 있으며 \(appstorageManager.cafeTone == "기본" ? "평범한" : appstorageManager.cafeTone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘."))
             if !coffeeSelected.isEmpty {
                 pointText = pointText + "이 메뉴의 특징으로는 "
                 for index in coffeeSelected.indices {

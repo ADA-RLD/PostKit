@@ -9,12 +9,12 @@ import SwiftUI
 import UIKit
 
 struct ResultView: View {
-    
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var copyResult = "생성된 텍스트가 들어가요."
     @State private var isShowingToast = false
     private let pasteBoard = UIPasteboard.general
-    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페를 운영하고 있으며 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘.")]
+    @State var messages: [Message] = []
     @ObservedObject var viewModel = ChatGptViewModel.shared
     private let chatGptService = ChatGptService()
     
@@ -80,6 +80,7 @@ struct ResultView: View {
     // MARK: - Chat GPT API에 재생성 요청
     func regenerateAnswer() {
         Task{
+            self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(appstorageManager.cafeName == "" ? "카페": appstorageManager.cafeName)를 운영하고 있으며 \(appstorageManager.cafeTone == "기본" ? "평범한" : appstorageManager.cafeTone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘."))
             let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
             self.messages.append(newMessage)
             let response = await chatGptService.sendMessage(messages: self.messages)
