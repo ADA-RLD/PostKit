@@ -27,6 +27,15 @@
 		13C295F32AD7136E00A2DE7F /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295EA2AD7136D00A2DE7F /* Pretendard-Thin.otf */; };
 		13C295F42AD7136E00A2DE7F /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295EB2AD7136E00A2DE7F /* Pretendard-ExtraLight.otf */; };
 		13C295F52AD7136E00A2DE7F /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295EC2AD7136E00A2DE7F /* Pretendard-Bold.otf */; };
+		13C2960C2AD8F15300A2DE7F /* OnboardingFinal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C2960B2AD8F15300A2DE7F /* OnboardingFinal.swift */; };
+		13C2960E2AD8F15E00A2DE7F /* OnboardingIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C2960D2AD8F15E00A2DE7F /* OnboardingIntro.swift */; };
+		13C296102AD8F16700A2DE7F /* OnboardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C2960F2AD8F16700A2DE7F /* OnboardingRouter.swift */; };
+		13C296122AD8F17100A2DE7F /* OnboardingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296112AD8F17100A2DE7F /* OnboardingStore.swift */; };
+		13C296142AD8F17D00A2DE7F /* OnboardingTone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296132AD8F17D00A2DE7F /* OnboardingTone.swift */; };
+		13C296162AD8F18900A2DE7F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296152AD8F18900A2DE7F /* OnboardingView.swift */; };
+		13C296182AD8F1F000A2DE7F /* CustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296172AD8F1F000A2DE7F /* CustomHeader.swift */; };
+		13C2961A2AD8F26300A2DE7F /* SelectTone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296192AD8F26300A2DE7F /* SelectTone.swift */; };
+		13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C2961B2AD8F32000A2DE7F /* ToneModel.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
 		7EF314CA2AD81D6A008E7338 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314C92AD81D6A008E7338 /* Constants.swift */; };
 		7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */; };
@@ -73,6 +82,15 @@
 		13C295EB2AD7136E00A2DE7F /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		13C295EC2AD7136E00A2DE7F /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		13C295F62AD714A700A2DE7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		13C2960B2AD8F15300A2DE7F /* OnboardingFinal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinal.swift; sourceTree = "<group>"; };
+		13C2960D2AD8F15E00A2DE7F /* OnboardingIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntro.swift; sourceTree = "<group>"; };
+		13C2960F2AD8F16700A2DE7F /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
+		13C296112AD8F17100A2DE7F /* OnboardingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStore.swift; sourceTree = "<group>"; };
+		13C296132AD8F17D00A2DE7F /* OnboardingTone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTone.swift; sourceTree = "<group>"; };
+		13C296152AD8F18900A2DE7F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		13C296172AD8F1F000A2DE7F /* CustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeader.swift; sourceTree = "<group>"; };
+		13C296192AD8F26300A2DE7F /* SelectTone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTone.swift; sourceTree = "<group>"; };
+		13C2961B2AD8F32000A2DE7F /* ToneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToneModel.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
 		7EF314C92AD81D6A008E7338 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptService.swift; sourceTree = "<group>"; };
@@ -157,6 +175,7 @@
 		13C295C42AD620C700A2DE7F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				13C2960A2AD8F14000A2DE7F /* Onboarding */,
 				13C295DB2AD6B46F00A2DE7F /* extension */,
 				13C295D62AD68BD600A2DE7F /* Setting */,
 				13C295C72AD620EC00A2DE7F /* MainView.swift */,
@@ -177,6 +196,7 @@
 				B986325F2AD7CFB200DE9FF5 /* KeywordsModel.swift */,
 				7EF314C92AD81D6A008E7338 /* Constants.swift */,
 				7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */,
+				13C2961B2AD8F32000A2DE7F /* ToneModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -199,6 +219,8 @@
 				13C295DE2AD6C01300A2DE7F /* CustomBtn.swift */,
 				B98632612AD7CFD500DE9FF5 /* CustomTextfield.swift */,
 				B98632632AD7CFEE00DE9FF5 /* Keywords.swift */,
+				13C296172AD8F1F000A2DE7F /* CustomHeader.swift */,
+				13C296192AD8F26300A2DE7F /* SelectTone.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -236,6 +258,19 @@
 				13C295EA2AD7136D00A2DE7F /* Pretendard-Thin.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		13C2960A2AD8F14000A2DE7F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				13C2960B2AD8F15300A2DE7F /* OnboardingFinal.swift */,
+				13C2960D2AD8F15E00A2DE7F /* OnboardingIntro.swift */,
+				13C2960F2AD8F16700A2DE7F /* OnboardingRouter.swift */,
+				13C296112AD8F17100A2DE7F /* OnboardingStore.swift */,
+				13C296132AD8F17D00A2DE7F /* OnboardingTone.swift */,
+				13C296152AD8F18900A2DE7F /* OnboardingView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		A188C5862AD7C878007473D3 /* Protocol */ = {
@@ -390,6 +425,7 @@
 			files = (
 				13C295BA2AD55F2200A2DE7F /* Persistence.swift in Sources */,
 				7EF314CE2AD81DE3008E7338 /* ChatGptModel.swift in Sources */,
+				13C2961A2AD8F26300A2DE7F /* SelectTone.swift in Sources */,
 				A188C58C2AD7CFD1007473D3 /* DailyProtocol.swift in Sources */,
 				13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */,
 				B986326C2AD7E76200DE9FF5 /* ResultView.swift in Sources */,
@@ -400,20 +436,28 @@
 				B98632662AD7D01500DE9FF5 /* WrappingHStack.swift in Sources */,
 				13C295DF2AD6C01300A2DE7F /* CustomBtn.swift in Sources */,
 				B98632682AD7D03800DE9FF5 /* MenuView.swift in Sources */,
+				13C296142AD8F17D00A2DE7F /* OnboardingTone.swift in Sources */,
+				13C296162AD8F18900A2DE7F /* OnboardingView.swift in Sources */,
 				13C295D32AD64C3500A2DE7F /* SettingView.swift in Sources */,
 				B98632602AD7CFB200DE9FF5 /* KeywordsModel.swift in Sources */,
+				13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */,
 				13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */,
+				13C296182AD8F1F000A2DE7F /* CustomHeader.swift in Sources */,
 				B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */,
 				A188C5812AD7BA1E007473D3 /* DailyDataManager.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
 				A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */,
 				A188C5832AD7BA5F007473D3 /* MenuDataManager.swift in Sources */,
 				7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */,
+				13C296102AD8F16700A2DE7F /* OnboardingRouter.swift in Sources */,
 				13C295DD2AD6B48400A2DE7F /* DesginSystem.swift in Sources */,
 				13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */,
+				13C2960C2AD8F15300A2DE7F /* OnboardingFinal.swift in Sources */,
 				A188C5752AD79DDF007473D3 /* DailyModel.swift in Sources */,
+				13C296122AD8F17100A2DE7F /* OnboardingStore.swift in Sources */,
 				A188C5852AD7BA89007473D3 /* StoreDataManager.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
+				13C2960E2AD8F15E00A2DE7F /* OnboardingIntro.swift in Sources */,
 				A188C58A2AD7CDD3007473D3 /* MenuProtocol.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
 				7EF314CA2AD81D6A008E7338 /* Constants.swift in Sources */,
