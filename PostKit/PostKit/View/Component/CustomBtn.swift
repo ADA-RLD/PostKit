@@ -11,19 +11,23 @@ struct CustomBasicBtn: View {
     var btnDescription: String
     var action: () -> Void
     var body: some View {
-        Button(action: {
-            action()
-        }, label: {
-            RoundedRectangle(cornerRadius: radius1)
-                .foregroundColor(Color.main)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .overlay {
-                    Text(btnDescription)
-                        .foregroundStyle(Color.white)
-                }
-               
-        })
+        VStack {
+            Button(action: {
+                action()
+            }, label: {
+                RoundedRectangle(cornerRadius: radius1)
+                    .foregroundColor(Color.main)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
+                    .overlay {
+                        Text(btnDescription)
+                            .foregroundStyle(Color.white)
+                    }
+                   
+            })
+        }
+        .padding(.vertical,12)
+
     }
 }
 
@@ -33,20 +37,24 @@ struct CustomBtn: View {
     @Binding var isActive: Bool
     var action: () -> Void
     var body: some View {
-        Button(action: {
-            action()
-        }, label: {
-            RoundedRectangle(cornerRadius: radius1)
-                .foregroundColor(isActive ? Color.main : Color.gray3)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .overlay {
-                    Text(btnDescription)
-                        .font(.body1Bold())
-                        .foregroundStyle(Color.white)
-                }
-            
-        })
+        VStack {
+            Button(action: {
+                action()
+            }, label: {
+                RoundedRectangle(cornerRadius: radius1)
+                    .foregroundColor(isActive ? Color.main : Color.gray3)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
+                    .overlay {
+                        Text(btnDescription)
+                            .font(.body1Bold())
+                            .foregroundStyle(Color.white)
+                    }
+                
+            })
+        }
+        .padding(.vertical,12)
+
     }
 }
 
