@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomTextfield: View {
     @StateObject var keyboard: KeyboardObserver = KeyboardObserver()
-    var texLimit : Int
+    var textLimit = 15
     @Binding var menuName : String
     var placeHolder: String
     var body: some View {
@@ -24,8 +24,8 @@ struct CustomTextfield: View {
                     .stroke(keyboard.isShowing ? Color.gray3 : Color.gray2)
             }
             .onChange(of: menuName) {
-                _ in if menuName.count > 15 {
-                    menuName = String(menuName.prefix(15))
+                _ in if menuName.count > textLimit {
+                    menuName = String(menuName.prefix(textLimit))
                 }
             }
             .onAppear {
@@ -35,7 +35,7 @@ struct CustomTextfield: View {
                 self.keyboard.removeObserver()
             }
             .overlay(alignment: .trailing) {
-                Text("\(self.menuName.count.description) /15")
+                Text("\(self.menuName.count.description) /\(textLimit)")
                     .font(.body2Regular())
                     .foregroundStyle(keyboard.isShowing ? Color.black : Color.gray4)
                     .padding(.trailing, paddingHorizontal)
