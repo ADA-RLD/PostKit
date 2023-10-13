@@ -94,6 +94,7 @@ struct MenuView: View {
             .onTapGesture {
                 hideKeyboard()
             }
+            .navigationBarBackButtonHidden()
     }
     
     func sendMessage(){
