@@ -14,7 +14,7 @@ struct ResultView: View {
     @State private var copyResult = "생성된 텍스트가 들어가요."
     @State private var isShowingToast = false
     private let pasteBoard = UIPasteboard.general
-    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페를 운영하고 있으며 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 700자 정도로 작성해줘.")]
+    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페를 운영하고 있으며 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘.")]
     @ObservedObject var viewModel = ChatGptViewModel.shared
     private let chatGptService = ChatGptService()
     
