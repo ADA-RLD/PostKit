@@ -12,7 +12,7 @@ struct Keywords: View {
     @Binding var selectedIndices: [String]
     
     var body: some View {
-        VStack {
+        ScrollView {
             WrappingHStack(alignment: .leading) {
                 ForEach(keyName.indices, id: \.self) { index in
                     Button( action: {
@@ -40,8 +40,11 @@ struct Keywords: View {
                     
                 }
             }
-            .padding(EdgeInsets(top: 12, leading: paddingHorizontal, bottom: 30, trailing: 0))
+            .padding(.vertical, 6)
+            .padding(.horizontal, 2)
+            //.padding(EdgeInsets(top: 12, leading: paddingHorizontal, bottom: 30, trailing: 0))
         }
+        .scrollDisabled(true)
     }
     
 
