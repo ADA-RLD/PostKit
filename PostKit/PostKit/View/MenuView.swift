@@ -18,10 +18,10 @@ struct MenuView: View {
     @State var drinkSelected: [String] = []
     @State var dessertSelected: [String] = []
     
-
+    @ObservedObject var viewModel = ChatGptViewModel.shared
 
     // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
-    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페의 사장이고 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘.")]
+    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페를 운영하고 있으며 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 700자 정도로 작성해줘.")]
     @State var currentInput: String = ""
     
     private let chatGptService = ChatGptService()
@@ -96,6 +96,7 @@ struct MenuView: View {
             }
     }
     
+    // MARK: - Chat Gpt API에 응답 요청
     func sendMessage(){
         Task{
             var pointText = ""
@@ -123,11 +124,12 @@ struct MenuView: View {
             
             self.currentInput = "메뉴의 이름은 \(self.menuName)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
             let newMessage = Message(id: UUID(), role: .user, content: self.currentInput)
-            
             self.messages.append(newMessage)
+            viewModel.prompt = self.currentInput
             self.currentInput = ""
-            
             let response = await chatGptService.sendMessage(messages: self.messages)
+            viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
+            print(response?.choices.first?.message.content as Any)
             print(response as Any)
         }
     }

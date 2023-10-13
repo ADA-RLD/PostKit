@@ -14,6 +14,9 @@ struct ResultView: View {
     @State private var copyResult = "생성된 텍스트가 들어가요."
     @State private var isShowingToast = false
     private let pasteBoard = UIPasteboard.general
+    @State var messages: [Message] = [Message(id: UUID(), role: .system, content: "너는 루시드 드림 카페를 운영하고 있으며 친근한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 700자 정도로 작성해줘.")]
+    @ObservedObject var viewModel = ChatGptViewModel.shared
+    private let chatGptService = ChatGptService()
     
     var body: some View {
         VStack {
@@ -31,7 +34,7 @@ struct ResultView: View {
                 // MARK: - 생성된 카피 출력 + 복사하기 버튼
                 VStack(alignment: .trailing, spacing: 20) {
                     VStack(alignment: .leading) {
-                        Text(copyResult)
+                        Text(viewModel.promptAnswer)
                             .multilineTextAlignment(.leading)
                             .font(.body1Bold())
                             .foregroundStyle(Color.gray5)
@@ -65,6 +68,7 @@ struct ResultView: View {
                 pathManager.path.removeAll()
             } rightAction: {
                 // TODO: 카피 재생성 기능
+                regenerateAnswer()
             }
             .padding(.vertical, 12)
             
@@ -73,9 +77,20 @@ struct ResultView: View {
         .toast(isShowing: $isShowingToast)
     }
     
+    // MARK: - Chat GPT API에 재생성 요청
+    func regenerateAnswer() {
+        Task{
+            let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
+            self.messages.append(newMessage)
+            let response = await chatGptService.sendMessage(messages: self.messages)
+            print(response as Any)
+            viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
+        }
+    }
+    
     // MARK: - 카피 복사
     func copyToClipboard() {
-        pasteBoard.string = copyResult
+        pasteBoard.string = viewModel.promptAnswer
         isShowingToast = true
     }
 }
