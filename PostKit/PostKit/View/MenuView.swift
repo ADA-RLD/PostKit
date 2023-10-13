@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MenuView: View {
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
     @State var menuName = ""
@@ -27,7 +28,6 @@ struct MenuView: View {
     private let chatGptService = ChatGptService()
     
     var body: some View {
-        
         VStack(alignment:.leading) {
             CustomHeader(action: {pathManager.path.removeLast()}, title: "메뉴 카피 생성")
                 .padding(.bottom, paddingHorizontal)

@@ -10,7 +10,9 @@ import SwiftUI
 
 
 struct MainView: View {
+    @AppStorage("_cafeName") var cafeName: String = ""
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     
     @StateObject var menuModel = MenuModel(_storeName: "", _storeTone: "", _menuName: "", _menuPoint: "", _recordResult: "")
