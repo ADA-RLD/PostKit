@@ -27,13 +27,16 @@ extension SelectTone {
                             Button {
                                 self.tone = tones[item]
                             } label: {
-                                RoundedRectangle(cornerRadius: radius1)
+                                RoundedRectangle(cornerRadius: radius2)
+                                    .stroke(tones[item] == tone ? Color.main: Color.gray1, lineWidth: 2)
+                                    .background(tones[item] == tone ? Color.sub: Color.gray1)
+                                    .frame(width:UIScreen.main.bounds.width/2 - paddingHorizontal,height: 60)
                                     .overlay(alignment: .leading) {
                                         Text(tones[item])
-                                            .padding(.leading,paddingHorizontal)
+                                            .font(.body1Bold())
+                                            .padding(.leading, 20)
+                                            .foregroundStyle(tones[item] == tone ? Color.main: Color.gray4)
                                     }
-                                    .foregroundStyle(tones[item] == tone ? Color.pink.opacity(0.7): Color.gray.opacity(0.4))
-                                    .frame(width:UIScreen.main.bounds.width/2 - paddingHorizontal,height: 60)
                             }
                         }
                     }
