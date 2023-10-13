@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @StateObject var onboardingRouter = OnboardingRouter.shared
     @Binding var isFirstLaunching: Bool
 
