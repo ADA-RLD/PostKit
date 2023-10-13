@@ -1,5 +1,5 @@
 //
-//  AppstorageManager.swift
+//  AppStorageModel.swift
 //  PostKit
 //
 //  Created by 김다빈 on 10/13/23.
