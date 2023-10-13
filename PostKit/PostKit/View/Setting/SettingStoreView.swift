@@ -14,7 +14,7 @@ struct SettingStoreView: View {
         VStack {
             OnboardingCustomHeader(action: {pathManager.path.removeLast()})
             VStack(alignment: .leading) {
-                CustomTextfield(menuName: appstorageManager.$cafeName, placeHolder: appstorageManager.cafeName)
+                CustomTextfield(texLimit: 15, menuName: appstorageManager.$cafeName, placeHolder: appstorageManager.cafeName)
             }
             .padding(.horizontal,paddingHorizontal)
           
