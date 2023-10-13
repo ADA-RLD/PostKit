@@ -10,6 +10,7 @@ import SwiftUI
 
 
 struct MainView: View {
+    @AppStorage("_cafeName") var cafeName: String = ""
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var pathManager: PathManager
     

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct OnboardingTone: View {
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
-    @State private var tone: String = "기본"
     var body: some View {
         VStack {
             OnboardingCustomHeader(action: onboardingRouter.previousPage)
@@ -19,7 +19,7 @@ struct OnboardingTone: View {
                 Text("선택한 톤을 바탕으로 카피가 생성됩니다.")
                     .font(.body2Bold())
                     .padding(.top,12)
-                SelectTone(tone: self.$tone)
+                SelectTone(tone: appstorageManager.$cafeTone)
                 CustomBasicBtn(btnDescription: "다음", action: {onboardingRouter.nextPage()})
                 
             }

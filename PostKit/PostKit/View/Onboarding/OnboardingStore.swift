@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingStore: View {
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     
     var body: some View {
@@ -20,6 +21,7 @@ struct OnboardingStore: View {
                     .font(.body2Bold())
                     .foregroundStyle(Color.gray)
                     .padding(.top,12)
+                CustomTextfield(menuName: appstorageManager.$cafeName, placeHolder: "동글이 카페")
                 CustomBasicBtn(btnDescription: "다음", action: {onboardingRouter.nextPage()})
             }
             .padding(.horizontal,paddingHorizontal)
@@ -27,4 +29,8 @@ struct OnboardingStore: View {
             
         }
        
+}
+
+#Preview {
+    OnboardingStore(onboardingRouter: OnboardingRouter.shared)
 }
