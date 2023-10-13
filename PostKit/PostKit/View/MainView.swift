@@ -43,7 +43,7 @@ struct MainView: View {
                 case .Menu:
                     MenuView()
                 case .Daily:
-                    SettingView()
+                    DailyView()
                 case .SettingHome:
                     SettingView()
                 case .SettingStore:
