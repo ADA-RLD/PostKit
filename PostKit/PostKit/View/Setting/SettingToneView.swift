@@ -8,25 +8,38 @@
 
 import SwiftUI
 
-struct SettingToneView: View {
+struct SettingToneView: View {    
+    @EnvironmentObject var pathManager: PathManager
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @State private var tone = ""
+    @State private var isActive: Bool = false // 변경사항 생길 시 true
+    
     var tones: [String] = ["기본","친구같은","전문적인","친절한","재치있는","열정적인","감성적인","활발한","세련된","우왕","개쩐다"]
+    
     var body: some View {
-        toggleBtns
+        VStack(alignment:.leading) {
+            CustomHeader(action: {
+                pathManager.path.removeLast()
+            }, title: "말투")
+            VStack {
+                toggleBtns
+                Spacer()
+                CustomBtn(btnDescription: "저장", isActive: self.$isActive) {
+                    // TODO: 변경 사항 저장
+                }
+            }
+            .padding(.horizontal,paddingHorizontal)
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
-
 
 extension SettingToneView {
     private var toggleBtns: some View {
-        VStack(alignment:.leading) {
-            Text("원하는 톤을 선택하세요")
-            Text("선택한 톤을 바탕으로 카피가 생성됩니다.")
-            SelectTone(tone: self.$tone)
-        }
-        .padding(.horizontal,paddingHorizontal)
+        SelectTone(tone: self.$tone)
     }
 }
+
 private func toggleBtn(answer: String) -> some View {
     Button {
         
