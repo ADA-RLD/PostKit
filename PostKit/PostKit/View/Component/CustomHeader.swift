@@ -22,7 +22,7 @@ struct CustomHeader: View {
             Text(title)
                 .font(.body1Bold())
             Spacer()
-        }
+        }.frame(height: 60)
     }
 }
 

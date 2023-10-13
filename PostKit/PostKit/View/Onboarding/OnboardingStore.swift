@@ -8,23 +8,46 @@
 import SwiftUI
 
 struct OnboardingStore: View {
+    @EnvironmentObject var appstorageManager: AppstorageManager
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
-    
+    @State private var isActive: Bool = false
     var body: some View {
         VStack {
             OnboardingCustomHeader(action: {onboardingRouter.previousPage()})
+                .padding(.horizontal,16)
             VStack(alignment: .leading) {
-                Text("매장의 이름을 알려주세요")
-                    .font(.title1())
-                Text("매장에 더 잘 맞는 커피가 생성됩니다.")
-                    .font(.body2Bold())
-                    .foregroundStyle(Color.gray)
-                    .padding(.top,12)
-                CustomBasicBtn(btnDescription: "다음", action: {onboardingRouter.nextPage()})
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("매장의 이름을 알려주세요")
+                        .font(.title1())
+                        .padding(.top,20)
+                    Text("매장에 더 잘 맞는 커피가 생성됩니다.")
+                        .font(.body2Bold())
+                        .foregroundStyle(Color.gray)
+                        .padding(.top,12)
+                    
+                    CustomTextfield(texLimit: 15, menuName: appstorageManager.$cafeName, placeHolder: "동글이 카페")
+                        .padding(.top,40)
+                    // cafeName이 비어있지 않으면 트루 OR false
+                        .onChange(of: appstorageManager.$cafeName.wrappedValue) { lengthCount in
+                            if !lengthCount.isEmpty {
+                                isActive = true
+                            } else {
+                                isActive = false
+                            }
+                        }
+                }
+                .padding(.top,20)
+                .padding(.bottom,80)
+                Spacer()
+                CustomBtn(btnDescription: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
             }
             .padding(.horizontal,paddingHorizontal)
         }
             
         }
        
+}
+
+#Preview {
+    OnboardingStore(onboardingRouter: OnboardingRouter.shared)
 }
