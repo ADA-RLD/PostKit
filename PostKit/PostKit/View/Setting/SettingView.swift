@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SettingView: View {
     @EnvironmentObject var pathManager: PathManager
-    
     var name: String?
     var body: some View {
         VStack {
@@ -36,6 +35,6 @@ private func SettingInfo(info: String, Answer: String?,action: @escaping () -> V
 
     }
 }
-#Preview {
-    SettingView()
-}
+//#Preview {
+//    SettingView()
+//}
