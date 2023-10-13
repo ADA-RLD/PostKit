@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CustomTextfield: View {
-    @ObservedObject var keyboard: KeyboardObserver = KeyboardObserver()
+    @StateObject var keyboard: KeyboardObserver = KeyboardObserver()
+    var texLimit : Int
     @Binding var menuName : String
-    var placeHolder: String = ""
+    var placeHolder: String
     var body: some View {
         TextField(placeHolder, text: $menuName, prompt: Text(placeHolder).foregroundStyle(Color.gray4))
             .font(.body1Bold())
