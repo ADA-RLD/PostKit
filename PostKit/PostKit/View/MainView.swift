@@ -15,7 +15,7 @@ struct MainView: View {
             
             VStack(alignment: .leading, spacing: 28){
                 SettingBtn(action: {pathManager.path.append(.SettingHome)})
-                
+
                 VStack(alignment:.leading ,spacing: 28){
                     Text("어떤 카피를 생성할까요?")
                         .fullScreenCover(isPresented: $isFirstLaunching) {
@@ -31,6 +31,7 @@ struct MainView: View {
                 
                 Spacer()
             }
+            .padding(.horizontal, paddingHorizontal)
             .padding(.top, paddingTop)
             .padding(.bottom, paddingBottom)
             
