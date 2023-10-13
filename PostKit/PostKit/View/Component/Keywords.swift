@@ -21,14 +21,14 @@ struct Keywords: View {
                         HStack {
                             Text(keyName[index])
                                 .font(.body2Regular())
-                                .foregroundStyle(selectedIndices.contains(keyName[index]) ? Color.primary : Color.gray4)
+                                .foregroundStyle(selectedIndices.contains(keyName[index]) ? Color.main : Color.gray4)
                                 .padding(EdgeInsets(top: 8, leading: radius1, bottom: 8, trailing: radius1))
-                                .background(selectedIndices.contains(keyName[index]) ? Color.secondary : Color.clear)
+                                .background(selectedIndices.contains(keyName[index]) ? Color.sub : Color.clear)
                                 .clipShape(RoundedRectangle(cornerRadius: radius1))
                                 .overlay {
                                     if selectedIndices.contains(keyName[index]){
                                         RoundedRectangle(cornerRadius: radius1)
-                                        .stroke(Color.primary,lineWidth: 2)
+                                        .stroke(Color.main,lineWidth: 2)
                                     } else {
                                         RoundedRectangle(cornerRadius: radius1)
                                         .stroke(Color.gray3,lineWidth: 1)
