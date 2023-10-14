@@ -59,8 +59,9 @@
 		B98632682AD7D03800DE9FF5 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632672AD7D03800DE9FF5 /* MenuView.swift */; };
 		B986326A2AD7D13400DE9FF5 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632692AD7D13400DE9FF5 /* KeyboardObserver.swift */; };
 		B986326C2AD7E76200DE9FF5 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986326B2AD7E76200DE9FF5 /* ResultView.swift */; };
-		B98632762AD9720400DE9FF5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632752AD9720400DE9FF5 /* Constants.swift */; };
 		B98632782AD9735000DE9FF5 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632772AD9735000DE9FF5 /* DailyView.swift */; };
+		B986327A2ADA5B3000DE9FF5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632792ADA5B3000DE9FF5 /* Constants.swift */; };
+		B986327C2ADA5DC300DE9FF5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,8 +121,9 @@
 		B98632672AD7D03800DE9FF5 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		B98632692AD7D13400DE9FF5 /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		B986326B2AD7E76200DE9FF5 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
-		B98632752AD9720400DE9FF5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B98632772AD9735000DE9FF5 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
+		B98632792ADA5B3000DE9FF5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		C674B8973F6DA180203B6836 /* Pods-PostKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.debug.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.debug.xcconfig"; sourceTree = "<group>"; };
 		DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -192,6 +194,7 @@
 				13C295C72AD620EC00A2DE7F /* MainView.swift */,
 				B98632772AD9735000DE9FF5 /* DailyView.swift */,
 				B98632672AD7D03800DE9FF5 /* MenuView.swift */,
+				B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */,
 				13C295CD2AD6211700A2DE7F /* Component */,
 				B986326B2AD7E76200DE9FF5 /* ResultView.swift */,
 			);
@@ -209,7 +212,7 @@
 				7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */,
 				13C2961B2AD8F32000A2DE7F /* ToneModel.swift */,
 				13C296232AD988FC00A2DE7F /* AppStorageManager.swift */,
-				B98632752AD9720400DE9FF5 /* Constants.swift */,
+				B98632792ADA5B3000DE9FF5 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -455,9 +458,11 @@
 				13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */,
 				B986326C2AD7E76200DE9FF5 /* ResultView.swift in Sources */,
 				B986326A2AD7D13400DE9FF5 /* KeyboardObserver.swift in Sources */,
+				B986327C2ADA5DC300DE9FF5 /* LoadingView.swift in Sources */,
 				A188C57F2AD7B822007473D3 /* CoreData.xcdatamodeld in Sources */,
 				B98632782AD9735000DE9FF5 /* DailyView.swift in Sources */,
 				A188C5772AD79E0E007473D3 /* MenuModel.swift in Sources */,
+				B986327A2ADA5B3000DE9FF5 /* Constants.swift in Sources */,
 				B98632642AD7CFEE00DE9FF5 /* Keywords.swift in Sources */,
 				B98632662AD7D01500DE9FF5 /* WrappingHStack.swift in Sources */,
 				13C295DF2AD6C01300A2DE7F /* CustomBtn.swift in Sources */,
@@ -469,7 +474,6 @@
 				13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */,
 				13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */,
 				13C296182AD8F1F000A2DE7F /* CustomHeader.swift in Sources */,
-				B98632762AD9720400DE9FF5 /* Constants.swift in Sources */,
 				B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */,
 				A188C5812AD7BA1E007473D3 /* DailyDataManager.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
