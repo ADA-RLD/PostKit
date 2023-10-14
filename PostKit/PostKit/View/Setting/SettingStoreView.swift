@@ -12,10 +12,17 @@ struct SettingStoreView: View {
     @EnvironmentObject var appstorageManager: AppstorageManager
     var body: some View {
         VStack {
-            OnboardingCustomHeader(action: {pathManager.path.removeLast()})
+            CustomHeader(action: {pathManager.path.removeLast()}, title: "매장 정보")
             VStack(alignment: .leading) {
+                Text("이름")
+                    .font(.body1Bold())
+                    .foregroundStyle(Color.gray5)
                 CustomTextfield(textLimit: 15, menuName: appstorageManager.$cafeName, placeHolder: appstorageManager.cafeName)
+                    .padding(.top,12)
+                Spacer()
+                CustomBtn(btnDescription: "저장", isActive: .constant(true), action: {pathManager.path.removeLast()})
             }
+            .navigationBarBackButtonHidden(true)
             .padding(.horizontal,paddingHorizontal)
         }
             
