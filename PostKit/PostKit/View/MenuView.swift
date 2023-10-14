@@ -12,7 +12,7 @@ struct MenuView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
     @State var menuName = ""
-    @State var isCoffeeOpened = false
+    @State var isCoffeeOpened = true
     @State var isDrinkOpened = false
     @State var isDessertOpened = false
     @State var coffeeSelected: [String] = []
@@ -57,7 +57,7 @@ struct MenuView: View {
                 .padding(.bottom, 12)
             
             ScrollView {
-                DisclosureGroup("커피") {
+                DisclosureGroup("커피", isExpanded: $isCoffeeOpened) {
                     Keywords(keyName: KeywordsModel().coffeeKeys, selectedIndices: self.$coffeeSelected)
                 }
                 .foregroundStyle(Color.gray5)
