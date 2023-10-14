@@ -21,6 +21,7 @@ struct LoadingView: View {
                 .font(.body2Bold())
                 .foregroundStyle(Color.gray4)
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

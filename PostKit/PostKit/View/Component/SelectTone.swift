@@ -29,7 +29,10 @@ extension SelectTone {
                             } label: {
                                 RoundedRectangle(cornerRadius: radius2)
                                     .stroke(tones[item] == tone ? Color.main: Color.gray1, lineWidth: 2)
-                                    .background(tones[item] == tone ? Color.sub: Color.gray1)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: radius2)
+                                            .fill(tones[item] == tone ? Color.sub: Color.gray1)
+                                        )
                                     .frame(width:UIScreen.main.bounds.width/2 - paddingHorizontal,height: 60)
                                     .overlay(alignment: .leading) {
                                         Text(tones[item])
