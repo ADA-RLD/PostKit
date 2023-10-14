@@ -20,14 +20,16 @@ struct OnboardingTone: View {
                 VStack(alignment: .leading) {
                     Text("원하는 톤을 선택하세요")
                         .font(.title1())
+                        .foregroundStyle(Color.gray6)
                         .padding(.top,20)
                     Text("선택한 톤을 바탕으로 카피가 생성됩니다.")
                         .font(.body2Bold())
+                        .foregroundStyle(Color.gray4)
                         .padding(.top,12)
                     SelectTone(tone: appstorageManager.$cafeTone)
                         .padding(.top,40)
                     Spacer()
-                    CustomBasicBtn(btnDescription: "다음", action: {onboardingRouter.nextPage()})
+                    CustomBtn(btnDescription: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
                 }
                 .padding(.horizontal,paddingHorizontal)
             }

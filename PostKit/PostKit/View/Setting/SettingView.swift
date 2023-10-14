@@ -17,8 +17,8 @@ struct SettingView: View {
                 pathManager.path.removeLast()
             }, title: "설정")
             VStack(spacing: 40.0) {
-                SettingInfo(info: "매장정보", Answer: name, action: {pathManager.path.append(.SettingStore)})
-                SettingInfo(info: "말투", Answer: name, action: {pathManager.path.append(.SettingTone)})
+                SettingInfo(info: "매장정보", Answer: appstorageManager.cafeName, action: {pathManager.path.append(.SettingStore)})
+                SettingInfo(info: "말투", Answer: appstorageManager.cafeTone, action: {pathManager.path.append(.SettingTone)})
                 Spacer()
             }
             .padding(.horizontal,paddingHorizontal)
