@@ -4,7 +4,7 @@
 //
 //  Created by 신서연 on 2023/10/13.
 //
-//이게 찐
+
 import SwiftUI
 
 struct DailyView: View {
@@ -15,7 +15,6 @@ struct DailyView: View {
     @State var dailyCoffeeSelected: [String] = []
     @State var dailyDessertSelected: [String] = []
     @State private var isContentsOpened = [false, false, false]
-    @State private var isWeatherOpened = false
     
     @ObservedObject var viewModel = ChatGptViewModel.shared
     // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
@@ -49,6 +48,9 @@ struct DailyView: View {
                             }
                         }, label: {
                             Text("더보기")
+                                .font(.body2Regular())
+                                .foregroundStyle(.gray4)
+                                .underline()
                         })
                     }
             
@@ -71,6 +73,9 @@ struct DailyView: View {
                             }
                         }, label: {
                             Text("더보기")
+                                .font(.body2Regular())
+                                .foregroundStyle(.gray4)
+                                .underline()
                         })
                     }
             
@@ -92,6 +97,9 @@ struct DailyView: View {
                             }
                         }, label: {
                             Text("더보기")
+                                .font(.body2Regular())
+                                .foregroundStyle(.gray4)
+                                .underline()
                         })
                     }
             
@@ -100,7 +108,7 @@ struct DailyView: View {
                         .padding(.bottom, 18)
             }
         }
-            CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action: {
+            CustomBtn(btnDescription: "카피생성", isActive: .constant(true), action: {
                 sendMessage()
                 pathManager.path.append(.Result)
             })
@@ -109,6 +117,7 @@ struct DailyView: View {
             
         }
         .padding(.horizontal,paddingHorizontal)
+        .navigationBarBackButtonHidden()
     }
     
     // MARK: - Chat Gpt API에 응답 요청
