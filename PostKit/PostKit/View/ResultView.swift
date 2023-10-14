@@ -79,9 +79,11 @@ struct ResultView: View {
                     
                 }
                 .padding(.horizontal, paddingHorizontal)
+                .padding(.top,paddingTop)
                 .toast(isShowing: $isShowingToast)
             }
         }
+        .navigationBarBackButtonHidden()
     }
     
     // MARK: - Chat GPT API에 재생성 요청
