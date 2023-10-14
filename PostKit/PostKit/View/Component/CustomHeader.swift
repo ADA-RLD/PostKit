@@ -16,13 +16,19 @@ struct CustomHeader: View {
                 action()
             }, label: {
                 Image(systemName: "chevron.backward")
+                    .font(.body1Bold())
+                    .foregroundStyle(Color.gray4)
+                    .frame(width: 24, height: 24)
             })
-            .padding(.leading,16)
             Spacer()
             Text(title)
                 .font(.body1Bold())
             Spacer()
-        }.frame(height: 60)
+        }
+        .padding(.leading,16)
+        .padding(.trailing, 40.0)
+        .frame(height: 60)
+        
     }
 }
 
@@ -34,6 +40,9 @@ struct OnboardingCustomHeader: View {
                 action()
             }, label: {
                 Image(systemName: "chevron.backward")
+                    .font(.body1Bold())
+                    .foregroundStyle(Color.gray4)
+                    .frame(width: 24, height: 24)
             })
             Spacer()
             .padding(.leading,16)
