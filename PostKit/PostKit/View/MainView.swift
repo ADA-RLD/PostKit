@@ -12,6 +12,7 @@ struct MainView: View {
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
+    @ObservedObject var viewModel = ChatGptViewModel.shared
     
     @StateObject var menuModel = MenuModel(_storeName: "", _storeTone: "", _menuName: "", _menuPoint: "", _recordResult: "")
     @StateObject var dailyModel = DailyModel(_storeName: "", _storeTone: "", _recordResult: "")
@@ -43,6 +44,7 @@ struct MainView: View {
             .padding(.bottom, paddingBottom)
             .onAppear{
                 //뷰 생성시 데이터를 초기화 합니다.
+                viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                 resetData()
             }
             // TODO: 뷰 만들면 여기 스위치문에 넣어주세요
