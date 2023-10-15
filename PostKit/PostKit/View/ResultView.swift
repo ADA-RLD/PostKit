@@ -39,10 +39,13 @@ struct ResultView: View {
                         // MARK: - 생성된 카피 출력 + 복사하기 버튼
                         VStack(alignment: .trailing, spacing: 20) {
                             VStack(alignment: .leading) {
-                                Text(viewModel.promptAnswer)
-                                    .multilineTextAlignment(.leading)
-                                    .font(.body1Bold())
-                                    .foregroundStyle(Color.gray5)
+                                ScrollView{
+                                    Text(viewModel.promptAnswer)
+                                        .lineLimit(nil)
+                                        .multilineTextAlignment(.leading)
+                                        .font(.body1Bold())
+                                        .foregroundStyle(Color.gray5)
+                                }
                                 Spacer()
                             }
                             .padding(.horizontal, 16)
