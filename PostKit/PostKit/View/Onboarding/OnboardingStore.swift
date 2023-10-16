@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct OnboardingStore: View {
-    @EnvironmentObject var appstorageManager: AppstorageManager
+    //@EnvironmentObject var appstorageManager: AppstorageManager
+    
+    //Core Data 저장을 위해 가지고 나가기
+    @State var cafeName : String
+    
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     @State private var isActive: Bool = false
     var body: some View {
@@ -24,10 +28,10 @@ struct OnboardingStore: View {
                         .font(.body2Bold())
                         .foregroundStyle(Color.gray)
                         .padding(.top,12)
-                    CustomTextfield(textLimit: 15, menuName: appstorageManager.$cafeName, placeHolder: "동글이 카페")
+                    CustomTextfield(textLimit: 15, menuName: $cafeName, placeHolder: "동글이 카페")
                         .padding(.top,40)
                     // cafeName이 비어있지 않으면 트루 OR false
-                        .onChange(of: appstorageManager.$cafeName.wrappedValue) { lengthCount in
+                        .onChange(of: $cafeName.wrappedValue) { lengthCount in
                             if !lengthCount.isEmpty {
                                 isActive = true
                             } else {
@@ -45,6 +49,6 @@ struct OnboardingStore: View {
     }
 }
 
-#Preview {
-    OnboardingStore(onboardingRouter: OnboardingRouter.shared)
-}
+//#Preview {
+//    OnboardingStore(onboardingRouter: OnboardingRouter.shared)
+//}

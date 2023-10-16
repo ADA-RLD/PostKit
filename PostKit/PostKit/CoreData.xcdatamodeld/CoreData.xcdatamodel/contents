@@ -18,7 +18,7 @@
         <relationship name="storeData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreData" inverseName="menuData" inverseEntity="StoreData"/>
     </entity>
     <entity name="StoreData" representedClassName="StoreData" syncable="YES" codeGenerationType="class">
-        <attribute name="storeName" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="storeName" optional="YES" attributeType="String"/>
         <attribute name="tone" optional="YES" attributeType="String"/>
         <relationship name="dailyData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DailyData" inverseName="storeData" inverseEntity="DailyData"/>
         <relationship name="menuData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MenuData" inverseName="storeData" inverseEntity="MenuData"/>
