@@ -12,7 +12,7 @@ struct OnboardingTone: View {
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     
     //Core Data 저장을 위해 가지고 나가기
-    @State var cafeTone : String
+    @Binding var cafeTone : String
     
     var body: some View {
         VStack {

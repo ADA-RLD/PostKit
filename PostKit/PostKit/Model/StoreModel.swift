@@ -8,10 +8,10 @@
 import Foundation
 
  class StoreModel : ObservableObject {
-     @Published var storeName : String?
+     @Published var storeName : String
      @Published var tone : String
 
-     init(_storeName: String? = nil, _tone: String) {
+     init(_storeName: String, _tone: String) {
          self.storeName = _storeName
          self.tone = _tone
      }

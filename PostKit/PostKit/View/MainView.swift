@@ -21,7 +21,7 @@ struct MainView: View {
     let menuDataManager = MenuDataManager.instance
     
     //CoreData 임시 Class
-    @StateObject var storeModel = StoreModel( _tone: "")
+    @StateObject var storeModel = StoreModel( _storeName: "", _tone: "")
     @StateObject var menuModel = MenuModel(_storeName: "", _storeTone: "", _menuName: "", _menuPoint: "", _recordResult: "")
     @StateObject var dailyModel = DailyModel(_storeName: "", _storeTone: "", _recordResult: "")
     
@@ -133,7 +133,7 @@ extension MainView : MainViewProtocol {
         do {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
             if let storeCoreData = storeDataArray.first {
-                self.storeModel.storeName = storeCoreData.storeName
+                self.storeModel.storeName = storeCoreData.storeName ?? ""
                 self.storeModel.tone = storeCoreData.tone ?? ""
             }
         } catch {
