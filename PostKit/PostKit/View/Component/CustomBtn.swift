@@ -7,30 +7,6 @@
 
 import SwiftUI
 
-struct CustomBasicBtn: View {
-    var btnDescription: String
-    var action: () -> Void
-    var body: some View {
-        VStack {
-            Button(action: {
-                action()
-            }, label: {
-                RoundedRectangle(cornerRadius: radius1)
-                    .foregroundColor(Color.main)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .overlay {
-                        Text(btnDescription)
-                            .foregroundStyle(Color.white)
-                    }
-                   
-            })
-        }
-        .padding(.vertical,12)
-
-    }
-}
-
 // TODO: 색상 에셋 추가되면 색 바꿔야 해요
 struct CustomBtn: View {
     var btnDescription: String

@@ -35,7 +35,7 @@ struct CustomTextfield: View {
                 self.keyboard.removeObserver()
             }
             .overlay(alignment: .trailing) {
-                Text("\(self.menuName.count.description) /\(textLimit)")
+                Text("\(self.menuName.count.description)/\(textLimit)")
                     .font(.body2Regular())
                     .foregroundStyle(keyboard.isShowing ? Color.black : Color.gray4)
                     .padding(.trailing, paddingHorizontal)

@@ -12,15 +12,16 @@ struct LoadingView: View {
         VStack {
             ProgressView()
                 .controlSize(.extraLarge)
-                .padding(.bottom, 46)
+                .padding(.bottom, 40)
             Text("카피가 만들어지고 있어요")
                 .font(.title1())
                 .foregroundStyle(Color.gray6)
-                .padding(.bottom, 16)
+                .padding(.bottom, 12)
             Text("30초 가량 소요될 수 있어요.")
                 .font(.body2Bold())
                 .foregroundStyle(Color.gray4)
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
