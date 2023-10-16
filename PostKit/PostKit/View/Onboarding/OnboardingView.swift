@@ -38,7 +38,7 @@ struct OnboardingView: View {
             saveStoreData()
         }
         .onChange(of: onboardingRouter.currentPage){
-            print("데이터 변경\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)")
+            print("데이터 변경\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
         }
     }
 }
@@ -47,7 +47,7 @@ extension OnboardingView : StoreProtocol {
     
     func saveStoreData() {
         self.storeDataManager.save()
-        print("Store 저장 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)")
+        print("Store 저장 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
     }
     
     func fetchStoreData() {
@@ -59,7 +59,7 @@ extension OnboardingView : StoreProtocol {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 self.storeModel.tone = storeCoreData.tone ?? ""
                 
-                print("Store Fetch 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)")
+                print("Store Fetch 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
             }
         } catch {
             print("ERROR STORE CORE DATA")
