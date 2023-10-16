@@ -16,6 +16,8 @@ struct MainView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
     let storeDataManager = StoreDataManager.instance
+    let dailyDataManager = DailyDataManager.instance
+    let menuDataManager = MenuDataManager.instance
     
     //CoreData Data 임시 Class
     @StateObject var storeModel = StoreModel( _tone: "")
@@ -129,9 +131,9 @@ extension MainView : MainViewProtocol {
         
         do {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
-            if let storeNameData = storeDataArray.first {
-                self.storeModel.storeName = storeNameData.storeName
-                self.storeModel.tone = storeNameData.tone ?? ""
+            if let storeCoreData = storeDataArray.first {
+                self.storeModel.storeName = storeCoreData.storeName
+                self.storeModel.tone = storeCoreData.tone ?? ""
             }
         } catch {
             print("ERROR STORE CORE DATA")
@@ -145,10 +147,12 @@ extension MainView : MainViewProtocol {
         let dailyRequest = NSFetchRequest<DailyData>(entityName: "dailyRecordId")
         
         do {
-            let dailyDataArray = try DailyDataManager().context.fetch(dailyRequest)
-            if let dailyUUID = dailyDataArray.first {
-                self.dailyModel.recordID = dailyDataArray.recordID
-                self.dailyModel.recordDate = dailyDataArray.recordDate
+            let dailyDataArray = try dailyDataManager.context.fetch(dailyRequest)
+            if let dailyCoreData = dailyDataArray.first {
+                self.dailyModel.recordDate = dailyCoreData.recordDate
+                self.dailyModel.weather = dailyCoreData.weather
+                self.dailyModel.dessert = dailyCoreData.dessert
+                self.dailyModel.drink = dailyCoreData.drink
             }
         } catch {
             print("ERROR DAILY CORE DATA")
@@ -159,13 +163,14 @@ extension MainView : MainViewProtocol {
     
     func fetchMenuData() {
         
-        let MenuRequest = NSFetchRequest<MenuData>(entityName: "menuRecordId")
+        let menuRequest = NSFetchRequest<MenuData>(entityName: "menuRecordId")
         
         do {
-            let storeDataArray = try storeDataManager.context.fetch(storeRequest)
-            if let storeNameData = storeDataArray.first {
-                self.storeModel.storeName = storeNameData.storeName
-                self.storeModel.tone = storeNameData.tone ?? ""
+            let menuDataArray = try menuDataManager.context.fetch(menuRequest)
+            if let menuCoreData = menuDataArray.first {
+                self.menuModel.recordDate = menuCoreData.recordDate
+                self.menuModel.menuName = menuCoreData.menuName ?? ""
+                self.menuModel.menuPoint = menuCoreData.menuPoint ?? ""
             }
         } catch {
             print("ERROR MENU CORE DATA")
@@ -178,6 +183,7 @@ extension MainView : MainViewProtocol {
         fetchStoreData()
         fetchDailyData()
         fetchMenuData()
+        
         
     }
     
