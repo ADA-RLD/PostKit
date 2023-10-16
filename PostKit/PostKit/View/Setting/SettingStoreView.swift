@@ -13,7 +13,7 @@ struct SettingStoreView: View {
     var body: some View {
         VStack {
             CustomHeader(action: {pathManager.path.removeLast()}, title: "매장 정보")
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text("이름")
                     .font(.body1Bold())
                     .foregroundStyle(Color.gray5)
