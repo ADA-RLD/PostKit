@@ -29,6 +29,7 @@ struct SettingToneView: View {
                 }
             }
             .padding(.horizontal,paddingHorizontal)
+            .padding(.top, paddingTop)
         }
         .navigationBarBackButtonHidden(true)
     }
