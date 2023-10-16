@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MainView: View {
     @AppStorage("_cafeName") var cafeName: String = ""
@@ -14,6 +15,10 @@ struct MainView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
+    let storeDataManager = StoreDataManager.instance
+    
+    //CoreData Data 임시 Class
+    @StateObject var storeModel = StoreModel( _tone: "")
     @StateObject var menuModel = MenuModel(_storeName: "", _storeTone: "", _menuName: "", _menuPoint: "", _recordResult: "")
     @StateObject var dailyModel = DailyModel(_storeName: "", _storeTone: "", _recordResult: "")
     
@@ -27,7 +32,7 @@ struct MainView: View {
                 VStack(alignment:.leading ,spacing: 28){
                     Text("어떤 카피를 생성할까요?")
                         .fullScreenCover(isPresented: $isFirstLaunching) {
-                            OnboardingView( isFirstLaunching: $isFirstLaunching)
+                            OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
                         }
                         .font(.system(size: 24,weight: .bold))
                     
@@ -109,13 +114,71 @@ private func SettingBtn(action: @escaping () -> Void) -> some View {
 }
 
 extension MainView : MainViewProtocol {
-    
+   
     func resetData() {
         menuModel.menuName = ""
         menuModel.menuPoint = ""
         menuModel.recordResult = ""
         
         dailyModel.recordResult = ""
+    }
+    
+    func fetchStoreData() {
+        
+        let storeRequest = NSFetchRequest<StoreData>(entityName: "storeName")
+        
+        do {
+            let storeDataArray = try storeDataManager.context.fetch(storeRequest)
+            if let storeNameData = storeDataArray.first {
+                self.storeModel.storeName = storeNameData.storeName
+                self.storeModel.tone = storeNameData.tone ?? ""
+            }
+        } catch {
+            print("ERROR STORE CORE DATA")
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    func fetchDailyData() {
+        
+        let dailyRequest = NSFetchRequest<DailyData>(entityName: "dailyRecordId")
+        
+        do {
+            let dailyDataArray = try DailyDataManager().context.fetch(dailyRequest)
+            if let dailyUUID = dailyDataArray.first {
+                self.dailyModel.recordID = dailyDataArray.recordID
+                self.dailyModel.recordDate = dailyDataArray.recordDate
+            }
+        } catch {
+            print("ERROR DAILY CORE DATA")
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    func fetchMenuData() {
+        
+        let MenuRequest = NSFetchRequest<MenuData>(entityName: "menuRecordId")
+        
+        do {
+            let storeDataArray = try storeDataManager.context.fetch(storeRequest)
+            if let storeNameData = storeDataArray.first {
+                self.storeModel.storeName = storeNameData.storeName
+                self.storeModel.tone = storeNameData.tone ?? ""
+            }
+        } catch {
+            print("ERROR MENU CORE DATA")
+            print(error.localizedDescription)
+        }
+    }
+    
+    func fetchAllData() {
+        
+        fetchStoreData()
+        fetchDailyData()
+        fetchMenuData()
+        
     }
     
 }
