@@ -15,9 +15,8 @@ struct OnboardingFinal: View {
         VStack {
             VStack {
                 OnboardingCustomHeader(action: onboardingRouter.previousPage)
+                    .padding(.horizontal,16)
             }
-            .padding(.vertical,18)
-            
             VStack(alignment:.leading) {
                 Text("\(appstorageManager.cafeName) 사장님,\n반가워요👋")
                     .font(.title1())

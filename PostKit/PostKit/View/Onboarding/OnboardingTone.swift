@@ -12,11 +12,9 @@ struct OnboardingTone: View {
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     var body: some View {
         VStack {
+            OnboardingCustomHeader(action: onboardingRouter.previousPage)
+                .padding(.horizontal,16)
             VStack {
-                OnboardingCustomHeader(action: onboardingRouter.previousPage)
-                    .padding(.vertical,18)
-                    .padding(.horizontal,16)
-                // TODO: padding값이 헤더값은 다른데 나중에 해두겠습니다.
                 VStack(alignment: .leading) {
                     Text("원하는 톤을 선택하세요")
                         .font(.title1())
