@@ -15,11 +15,12 @@ struct MainView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
+    //CoreData Manager
     let storeDataManager = StoreDataManager.instance
     let dailyDataManager = DailyDataManager.instance
     let menuDataManager = MenuDataManager.instance
     
-    //CoreData Data 임시 Class
+    //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _tone: "")
     @StateObject var menuModel = MenuModel(_storeName: "", _storeTone: "", _menuName: "", _menuPoint: "", _recordResult: "")
     @StateObject var dailyModel = DailyModel(_storeName: "", _storeTone: "", _recordResult: "")
@@ -127,7 +128,7 @@ extension MainView : MainViewProtocol {
     
     func fetchStoreData() {
         
-        let storeRequest = NSFetchRequest<StoreData>(entityName: "storeName")
+        let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
         
         do {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
@@ -144,7 +145,7 @@ extension MainView : MainViewProtocol {
     
     func fetchDailyData() {
         
-        let dailyRequest = NSFetchRequest<DailyData>(entityName: "dailyRecordId")
+        let dailyRequest = NSFetchRequest<DailyData>(entityName: "DailyData")
         
         do {
             let dailyDataArray = try dailyDataManager.context.fetch(dailyRequest)
@@ -163,12 +164,11 @@ extension MainView : MainViewProtocol {
     
     func fetchMenuData() {
         
-        let menuRequest = NSFetchRequest<MenuData>(entityName: "menuRecordId")
+        let menuRequest = NSFetchRequest<MenuData>(entityName: "MenuData")
         
         do {
             let menuDataArray = try menuDataManager.context.fetch(menuRequest)
             if let menuCoreData = menuDataArray.first {
-                self.menuModel.recordDate = menuCoreData.recordDate
                 self.menuModel.menuName = menuCoreData.menuName ?? ""
                 self.menuModel.menuPoint = menuCoreData.menuPoint ?? ""
             }
