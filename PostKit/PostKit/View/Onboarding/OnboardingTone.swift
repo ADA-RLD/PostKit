@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct OnboardingTone: View {
-    @EnvironmentObject var appstorageManager: AppstorageManager
+    //@EnvironmentObject var appstorageManager: AppstorageManager
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
+    
+    //Core Data 저장을 위해 가지고 나가기
+    @State var cafeTone : String
     
     var body: some View {
         VStack {
@@ -25,7 +28,7 @@ struct OnboardingTone: View {
                         .font(.body2Bold())
                         .foregroundStyle(Color.gray4)
                         .padding(.top,12)
-                    SelectTone(tone: appstorageManager.$cafeTone)
+                    SelectTone(tone: $cafeTone)
                         .padding(.top,40)
                     Spacer()
                     CustomBtn(btnDescription: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
