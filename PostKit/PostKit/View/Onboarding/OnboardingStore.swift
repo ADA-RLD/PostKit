@@ -11,7 +11,7 @@ struct OnboardingStore: View {
     //@EnvironmentObject var appstorageManager: AppstorageManager
     
     //Core Data 저장을 위해 가지고 나가기
-    @State var cafeName : String
+    @Binding var cafeName : String
     
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     @State private var isActive: Bool = false
@@ -43,7 +43,8 @@ struct OnboardingStore: View {
                 .padding(.top,20)
                 .padding(.bottom,80)
                 Spacer()
-                CustomBtn(btnDescription: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
+                CustomBtn(btnDescription: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()
+                print("\(cafeName)")})
             }
             .padding(.horizontal,paddingHorizontal)
         }
