@@ -83,7 +83,7 @@ struct MenuView: View {
                     .foregroundStyle(Color.gray5)
                     .font(.body2Bold())
                 }
-                CustomBtn(btnDescription: "카피생성", isActive: self.$isActive, action: {
+                CustomBtn(btnDescription: "카피 생성", isActive: self.$isActive, action: {
                     if isActive == true {
                         sendMessage()
                         pathManager.path.append(.Result)
