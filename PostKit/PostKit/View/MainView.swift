@@ -132,7 +132,7 @@ extension MainView : MainViewProtocol {
         
         do {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
-            if let storeCoreData = storeDataArray.first {
+            if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 self.storeModel.tone = storeCoreData.tone ?? ""
             }

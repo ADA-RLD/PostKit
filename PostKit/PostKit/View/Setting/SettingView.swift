@@ -63,7 +63,7 @@ extension SettingView: SettingProtocol {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
         
         do {
-            var storeDataArray = try storeDataManager.context.fetch(storeRequest)
+            let storeDataArray = try storeDataManager.context.fetch(storeRequest)
             print("StoreData: \(storeDataArray)")
             self.storeModel.storeName = storeDataArray.last?.storeName ?? ""
             self.storeModel.tone = storeDataArray.last?.tone ?? ""
