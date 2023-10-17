@@ -63,11 +63,11 @@ struct MainView: View {
                 case .Daily:
                     DailyView()
                 case .SettingHome:
-                    SettingView()
+                    SettingView(storeModel: storeModel)
                 case .SettingStore:
-                    SettingStoreView()
+                    SettingStoreView(storeName: $storeModel.storeName)
                 case .SettingTone:
-                    SettingToneView()
+                    SettingToneView(storeTone: $storeModel.tone)
                 case .Result:
                     ResultView()
                 }
