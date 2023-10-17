@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct SettingView: View {
     @EnvironmentObject var appstorageManager: AppstorageManager
@@ -47,6 +48,16 @@ private func SettingInfo(info: String, Answer: String?,action: @escaping () -> V
         }
     }
 }
-//#Preview {
-//    SettingView()
-//}
+
+extension SettingView : SettingProtocol {
+    func fetchStoreData() {
+        <#code#>
+    }
+    
+    func saveStoreData() {
+        <#code#>
+    }
+    
+    
+    
+}
