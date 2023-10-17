@@ -7,11 +7,18 @@
 
 
 import SwiftUI
+import CoreData
 
-struct SettingToneView: View {    
+struct SettingToneView: View {
     @EnvironmentObject var pathManager: PathManager
-    @EnvironmentObject var appstorageManager: AppstorageManager
-    @State private var tone = ""
+    //@EnvironmentObject var appstorageManager: AppstorageManager
+   
+    //CoreData Manager
+    let storeDataManager = StoreDataManager.instance
+    
+    //CoreData Data Class
+    @State var storeName: String = ""
+    @Binding var storeTone: String
     
     var tones: [String] = ["기본","친구같은","전문적인","친절한","재치있는","열정적인","감성적인","활발한","세련된"]
     
@@ -25,18 +32,20 @@ struct SettingToneView: View {
                 Spacer()
                 CustomBtn(btnDescription: "저장", isActive: .constant(true)) {
                     pathManager.path.removeLast()
+                    saveStoreData(storeName: storeName, storeTone: storeTone)
                 }
             }
             .padding(.horizontal,paddingHorizontal)
             .padding(.top, paddingTop)
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear{fetchStoreData()}
     }
 }
 
 extension SettingToneView {
     private var toggleBtns: some View {
-        SelectTone(tone: appstorageManager.$cafeTone)
+        SelectTone(tone: $storeTone)
     }
 }
 
@@ -50,6 +59,36 @@ private func toggleBtn(answer: String) -> some View {
             }
     }
 }
-#Preview {
-    SettingToneView()
+
+extension SettingToneView: SettingProtocol {
+    func fetchStoreData() {
+        let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
+        
+        do {
+            let storeDataArray = try storeDataManager.context.fetch(storeRequest)
+            print("StoreData: \(storeDataArray)")
+            if let storeCoreData = storeDataArray.first {
+                storeName = storeCoreData.storeName ?? ""
+                
+                print("Store Fetch 완료!\nStoreName: \(storeName)\n")
+            }
+        } catch {
+            print("ERROR STORE CORE DATA")
+            print(error.localizedDescription)
+        }
+    }
+    
+    func saveStoreData(storeName: String, storeTone: String) {
+        guard !storeName.isEmpty else { return }
+        let newStore = StoreData(context: storeDataManager.context)
+        newStore.storeName = storeName
+        newStore.tone = storeTone
+        print("StoreData: \(newStore)")
+        storeDataManager.save()
+        
+        print("Store 저장 완료!\nStoreName: \(newStore.storeName ?? "지정 안됨")\nStoreTone: \(newStore.tone)\n")
+        
+    }
+    
+
 }
