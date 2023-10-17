@@ -11,4 +11,12 @@ protocol MainViewProtocol {
     
     func resetData()
     
+    func fetchStoreData()
+    
+    func fetchDailyData()
+    
+    func fetchMenuData()
+    
+    func fetchAllData()
+    
 }
