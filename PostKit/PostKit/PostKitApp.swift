@@ -13,8 +13,7 @@ struct PostKitApp: App {
     @StateObject var pathManager = PathManager()
     // AppStorage Controll
     @StateObject private var appstorageManager = AppstorageManager()
-    // Onboarding Page Controll
-    let persistenceController = PersistenceController.shared
+    
 
     
     //Core Data Manager
@@ -30,9 +29,6 @@ struct PostKitApp: App {
                 .environment(\.managedObjectContext, storeDataManager.container.viewContext)
                 .environment(\.managedObjectContext, menuDataManager.container.viewContext)
                 .environment(\.managedObjectContext, dailyDataManager.container.viewContext)
-            
-            //            ContentView()
-            //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

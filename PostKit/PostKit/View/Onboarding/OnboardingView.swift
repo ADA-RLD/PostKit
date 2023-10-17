@@ -19,6 +19,13 @@ struct OnboardingView: View {
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
     
+    //CoreData 초기화
+    init(isFirstLaunching: Binding<Bool>, storeModel: StoreModel) {
+           self._isFirstLaunching = isFirstLaunching
+           self._storeModel = StateObject(wrappedValue: storeModel)
+           fetchStoreData()
+       }
+    
     var body: some View {
         VStack {
             if onboardingRouter.currentPage == 0 {
@@ -35,7 +42,7 @@ struct OnboardingView: View {
             fetchStoreData()
         }
         .onChange(of: isFirstLaunching) { _ in
-            saveStoreData()
+            saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
         }
         .onChange(of: onboardingRouter.currentPage){
             print("데이터 변경\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
@@ -45,8 +52,15 @@ struct OnboardingView: View {
 
 extension OnboardingView : StoreProtocol {
     
-    func saveStoreData() {
-        self.storeDataManager.save()
+    func saveStoreData(storeName: String, storeTone: String) {
+        
+        guard !storeName.isEmpty else { return }
+        let newStore = StoreData(context: storeDataManager.context)
+        newStore.storeName = storeName
+        newStore.tone = storeTone
+        print("StoreData: \(newStore)")
+        storeDataManager.save()
+        
         print("Store 저장 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
     }
     
@@ -55,6 +69,7 @@ extension OnboardingView : StoreProtocol {
         
         do {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
+            print("StoreData: \(storeDataArray)")
             if let storeCoreData = storeDataArray.first {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 self.storeModel.tone = storeCoreData.tone ?? ""
