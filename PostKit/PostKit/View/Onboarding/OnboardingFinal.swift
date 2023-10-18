@@ -30,7 +30,7 @@ struct OnboardingFinal: View {
             }
             .padding(.top,40)
             Spacer()
-            CtaBtn(btnDescription:"확인", isActive: .constant(true), action: {isFirstLaunching.toggle()})
+            CtaBtn(btnLabel:"확인", isActive: .constant(true), action: {isFirstLaunching.toggle()})
         }
     }
 }
