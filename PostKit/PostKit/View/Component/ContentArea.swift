@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-//MARK: Padding값을 미리 적용해서 CustomVstack을 적용
-struct CustomVstack<T: View>: View {
+//MARK: Padding값을 미리 적용해서 ContentArea라는 ViewBuilder를 만들어서 이제 따로 전체 패딩값을 주지 않아도 됩니다.
+struct ContentArea<T: View>: View {
     let content: T
     
     init(@ViewBuilder content: () -> T) {
@@ -25,17 +25,21 @@ struct CustomVstack<T: View>: View {
 }
 
 //CustomVstack을 활용한 뷰 예시
-import SwiftUI
 
 struct SampleView: View {
     var body: some View {
         VStack {
-            CustomVstack {
-                VStack() {
+            ContentArea {
+                VStack(spacing:40) {
                     Rectangle()
+                        .frame(height: 30)
+                    Rectangle()
+                        .frame(height: 30)
                     
                 }
+                .border(.blue)
             }
+            .border(.red)
             CtaBtn(btnDescription: "dd", isActive: .constant(true), action: {print("")})
         }
     }
