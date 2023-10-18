@@ -1,10 +1,6 @@
----
-name: Custom issue template
-about: Describe this issue template's purpose here.
-title: ''
-labels: ''
-assignees: ''
+📕 Issue Feature
+작업사항을 입력해주세요
 
----
-
-
+🧾Todo
+ todo
+ todo
