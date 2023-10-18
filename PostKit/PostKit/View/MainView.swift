@@ -59,7 +59,7 @@ struct MainView: View {
             .navigationDestination(for: StackViewType.self) { stackViewType in
                 switch stackViewType {
                 case .Menu:
-                    MenuView()
+                    MenuView(storeModel: storeModel, menuModel: menuModel)
                 case .Daily:
                     DailyView()
                 case .SettingHome:
@@ -152,7 +152,7 @@ extension MainView : MainViewProtocol {
         
         do {
             let dailyDataArray = try dailyDataManager.context.fetch(dailyRequest)
-            if let dailyCoreData = dailyDataArray.first {
+            if let dailyCoreData = dailyDataArray.last {
                 self.dailyModel.recordDate = dailyCoreData.recordDate
                 self.dailyModel.weather = dailyCoreData.weather
                 self.dailyModel.dessert = dailyCoreData.dessert
@@ -171,7 +171,7 @@ extension MainView : MainViewProtocol {
         
         do {
             let menuDataArray = try menuDataManager.context.fetch(menuRequest)
-            if let menuCoreData = menuDataArray.first {
+            if let menuCoreData = menuDataArray.last {
                 self.menuModel.menuName = menuCoreData.menuName ?? ""
                 self.menuModel.menuPoint = menuCoreData.menuPoint ?? ""
             }
