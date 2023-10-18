@@ -31,7 +31,7 @@ struct OnboardingTone: View {
                     SelectTone(tone: $cafeTone)
                         .padding(.top,40)
                     Spacer()
-                    CustomBtn(btnDescription: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
+                    CtaBtn(btnDescription: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
                 }
                 .padding(.horizontal,paddingHorizontal)
             }
