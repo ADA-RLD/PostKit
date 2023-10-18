@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MenuView: View {
-    @EnvironmentObject var appstorageManager: AppstorageManager
+    //@EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
-    @State var menuName = ""
     @State var isCoffeeOpened = true
     @State var isDrinkOpened = false
     @State var isDessertOpened = false
@@ -21,6 +21,13 @@ struct MenuView: View {
     
     @ObservedObject var viewModel = ChatGptViewModel.shared
 
+    //CoreData Manager
+    let dailyDataManager = DailyDataManager.instance
+    
+    //CoreData Data Class
+    @StateObject var storeModel : StoreModel
+    @StateObject var menuModel : MenuModel
+    
     // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
     @State var messages: [Message] = []
     @State var currentInput: String = ""
@@ -42,9 +49,9 @@ struct MenuView: View {
                     .foregroundStyle(Color.gray5)
                     .font(.body1Bold())
                     .padding(.bottom, 12)
-                CustomTextfield(menuName: $menuName, placeHolder: "아메리카노")
-                    .onChange(of: menuName)  {
-                        _ in if menuName.count >= 1 {
+                CustomTextfield(menuName: $menuModel.menuName, placeHolder: "아메리카노")
+                    .onChange(of: menuModel.menuName)  {
+                        _ in if menuModel.menuName.count >= 1 {
                             isActive = true
                         } else {
                             isActive = false
@@ -104,7 +111,7 @@ struct MenuView: View {
     func sendMessage(){
         Task{
             var pointText = ""
-            self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(appstorageManager.cafeName == "" ? "카페": appstorageManager.cafeName)를 운영하고 있으며 \(appstorageManager.cafeTone == "기본" ? "평범한" : appstorageManager.cafeTone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘."))
+            self.messages.append(Message(id: UUID(), role: .system, content: "너는 \($storeModel.storeName)를 운영하고 있으며 \($storeModel.tone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘."))
             if !coffeeSelected.isEmpty {
                 pointText = pointText + "이 메뉴의 특징으로는 "
                 for index in coffeeSelected.indices {
@@ -127,7 +134,7 @@ struct MenuView: View {
                 pointText = pointText + "이 있어."
             }
             
-            self.currentInput = "메뉴의 이름은 \(self.menuName)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
+            self.currentInput = "메뉴의 이름은 \(menuModel.menuName)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
             let newMessage = Message(id: UUID(), role: .user, content: self.currentInput)
             self.messages.append(newMessage)
             viewModel.prompt = self.currentInput
@@ -145,8 +152,25 @@ extension View {
     }
 }
 
+//extension MenuView : MenuProtocol {
+//    func saveMenuData(recordId: UUID, recordDate: Date?, menuName: String, menuPoint: String) {
+//        //이 뷰에서는 저장 안함?
+//    }
+//    
+//    func fetchMenuData(menuName: String, menuPoint: String) {
+//        
+//        let menuRequest = NSFetchRequest<MenuData>(entityName: "MenuData")
+//        
+//    }
+//    
+//    func deletStoreData(menuName: String, menuPoint: String) {
+//        <#code#>
+//    }
+//    
+//    
+//}
 
-#Preview {
-    MenuView()
-}
+//#Preview {
+//    MenuView()
+//}
 
