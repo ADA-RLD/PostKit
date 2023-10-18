@@ -26,7 +26,7 @@ struct OnboardingIntro: View {
             }
             .padding(.top,100)
             Spacer()
-            CtaBtn(btnDescription: "시작하기", isActive: .constant(true), action: {onboardingRouter.nextPage();print(onboardingRouter.currentPage)})
+            CtaBtn(btnLabel: "시작하기", isActive: .constant(true), action: {onboardingRouter.nextPage();print(onboardingRouter.currentPage)})
         }
         .onAppear {
             appstorageManager.$cafeName.wrappedValue = ""

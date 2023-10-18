@@ -72,7 +72,7 @@ struct CaptionResultView: View {
                     Spacer()
                     
                     // MARK: - 완료 / 재생성 버튼
-                    CustomDoubleeBtn(leftBtnDescription: "완료", rightBtnDescription: "재생성") {
+                    CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성") {
                         pathManager.path.removeAll()
                     } rightAction: {
                         // TODO: 카피 재생성 기능
