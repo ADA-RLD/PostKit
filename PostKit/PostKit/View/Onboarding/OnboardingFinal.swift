@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct OnboardingFinal: View {
-    @EnvironmentObject var appstorageManager: AppstorageManager
+    //@EnvironmentObject var appstorageManager: AppstorageManager
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     @Binding var isFirstLaunching: Bool
+    
+    //Core Data 저장을 위해 가지고 나가기
+    @Binding var storeName : String
+    
     var body: some View {
         VStack {
             VStack {
@@ -18,7 +22,7 @@ struct OnboardingFinal: View {
                     .padding(.horizontal,16)
             }
             VStack(alignment:.leading) {
-                Text("\(appstorageManager.cafeName) 사장님,\n반가워요👋")
+                Text("\(storeName) 사장님,\n반가워요👋")
                     .font(.title1())
                     .foregroundStyle(Color.gray6)
                     .padding(.top,60)
@@ -34,6 +38,6 @@ struct OnboardingFinal: View {
     }
 }
 
-#Preview {
-    OnboardingFinal(onboardingRouter: OnboardingRouter.shared, isFirstLaunching: .constant(true))
-}
+//#Preview {
+//    OnboardingFinal(onboardingRouter: OnboardingRouter.shared, isFirstLaunching: .constant(true))
+//}

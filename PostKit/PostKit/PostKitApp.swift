@@ -14,8 +14,6 @@ struct PostKitApp: App {
     // AppStorage Controll
     @StateObject private var appstorageManager = AppstorageManager()
     
-
-    
     //Core Data Manager
     let storeDataManager = StoreDataManager.instance
     let menuDataManager = MenuDataManager.instance
