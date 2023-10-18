@@ -11,7 +11,7 @@ struct LoadingView: View {
     var body: some View {
         VStack {
             ProgressView()
-                .controlSize(.extraLarge)
+                .controlSize(.large)
                 .padding(.bottom, 40)
             Text("카피가 만들어지고 있어요")
                 .font(.title1())
