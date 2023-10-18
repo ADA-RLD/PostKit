@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-struct ResultView: View {
+struct CaptionResultView: View {
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var copyResult = "생성된 텍스트가 들어가요."
@@ -149,5 +149,5 @@ extension View {
 }
 
 #Preview {
-    ResultView()
+    CaptionResultView()
 }
