@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomHeader: View {
     var action: () -> Void
-    var title: String
+    var title: String?
     var body: some View {
         HStack() {
             Button(action: {
@@ -21,7 +21,7 @@ struct CustomHeader: View {
                     .frame(width: 24, height: 24)
             })
             Spacer()
-            Text(title)
+            Text(title ?? "")
                 .font(.body1Bold())
             Spacer()
         }
@@ -45,10 +45,13 @@ struct OnboardingCustomHeader: View {
                     .frame(width: 24, height: 24)
             })
             Spacer()
-            .padding(.leading,16)
+           
             
             
         }
+        .padding(.trailing, 40.0)
+        .padding(.leading,16)
+        .frame(height: 60)
     }
 }
 
