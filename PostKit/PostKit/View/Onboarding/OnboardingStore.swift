@@ -16,36 +16,32 @@ struct OnboardingStore: View {
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     @State private var isActive: Bool = false
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             OnboardingCustomHeader(action: {onboardingRouter.previousPage()})
-                .padding(.horizontal,16)
-            VStack(alignment: .leading) {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("매장의 이름을 알려주세요")
-                        .font(.title1())
-                        .foregroundStyle(Color.gray6)
-                        .padding(.top,20)
-                    Text("매장에 더 잘 맞는 커피가 생성됩니다.")
-                        .font(.body2Bold())
-                        .foregroundStyle(Color.gray4)
-                        .padding(.top,12)
-                    CustomTextfield(textLimit: 15, menuName: $cafeName, placeHolder: "동글이 카페")
-                        .padding(.top,40)
-                    // cafeName이 비어있지 않으면 트루 OR false
-                        .onChange(of: $cafeName.wrappedValue) { lengthCount in
-                            if !lengthCount.isEmpty {
-                                isActive = true
-                            } else {
-                                isActive = false
+            ContentArea {
+                VStack(alignment:.leading,spacing: 40){
+                    VStack(alignment:.leading, spacing: 12) {
+                        Text("매장의 이름을 알려주세요")
+                            .font(.title1())
+                            .foregroundStyle(Color.gray6)
+                        Text("매장에 더 잘 맞는 커피가 생성됩니다.")
+                            .font(.body2Bold())
+                            .foregroundStyle(Color.gray4)
+                    }
+                    VStack(alignment: .leading) {
+                        CustomTextfield(textLimit: 15, menuName: $cafeName, placeHolder: "동글이 카페")
+                            .onChange(of: $cafeName.wrappedValue) { lengthCount in
+                                if !lengthCount.isEmpty {
+                                    isActive = true
+                                } else {
+                                    isActive = false
+                                }
                             }
-                        }
+                    }
                 }
-                .padding(.top,20)
-                .padding(.bottom,80)
-                Spacer()
-                CustomBtn(btnDescription: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
             }
-            .padding(.horizontal,paddingHorizontal)
+            Spacer()
+            CtaBtn(btnDescription: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
         }
     }
 }
