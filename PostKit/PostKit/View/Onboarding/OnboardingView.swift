@@ -44,9 +44,6 @@ struct OnboardingView: View {
         .onChange(of: isFirstLaunching) { _ in
             saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
         }
-        .onChange(of: onboardingRouter.currentPage){
-            print("데이터 변경\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
-        }
     }
 }
 
