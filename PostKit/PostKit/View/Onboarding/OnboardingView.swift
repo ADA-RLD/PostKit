@@ -35,7 +35,7 @@ struct OnboardingView: View {
             } else if onboardingRouter.currentPage == 2 {
                 OnboardingTone(cafeTone: $storeModel.tone)
             } else if onboardingRouter.currentPage == 3 {
-                OnboardingFinal(isFirstLaunching: $isFirstLaunching)
+                OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
             }
         }
         .onAppear{
@@ -69,7 +69,7 @@ extension OnboardingView : StoreProtocol {
             print("StoreData: \(storeDataArray)")
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
-                self.storeModel.tone = storeCoreData.tone ?? ""
+                self.storeModel.tone = "기본"
                 
                 print("Store Fetch 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
             }
