@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="DailyData" representedClassName=".DailyData" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="dailyRecordId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="dessert" optional="YES" attributeType="String"/>
         <attribute name="drink" optional="YES" attributeType="String"/>
@@ -10,6 +11,7 @@
         <relationship name="storeData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreData" inverseName="dailyData" inverseEntity="StoreData"/>
     </entity>
     <entity name="MenuData" representedClassName=".MenuData" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="menuName" optional="YES" attributeType="String"/>
         <attribute name="menuPoint" optional="YES" attributeType="String"/>
         <attribute name="menuRecordId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

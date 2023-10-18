@@ -30,9 +30,9 @@ struct SettingToneView: View {
             VStack {
                 toggleBtns
                 Spacer()
-                CtaBtn(btnDescription: "저장", isActive: .constant(true)) {
-                    pathManager.path.removeLast()
+                CtaBtn(btnDescription: "저장", isActive: .constant(true)) {                   
                     saveStoreData(storeName: storeName, storeTone: storeTone)
+                    pathManager.path.removeLast()
                 }
             }
             .padding(.horizontal,paddingHorizontal)
@@ -67,7 +67,7 @@ extension SettingToneView: SettingProtocol {
         do {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
             print("StoreData: \(storeDataArray)")
-            if let storeCoreData = storeDataArray.first {
+            if let storeCoreData = storeDataArray.last {
                 storeName = storeCoreData.storeName ?? ""
                 
                 print("Store Fetch 완료!\nStoreName: \(storeName)\n")

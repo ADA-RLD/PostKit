@@ -24,8 +24,8 @@ struct ContentArea<T: View>: View {
     }
 }
 
-//CustomVstack을 활용한 뷰 예시
-
+//MARK: CustomVstack을 활용한 뷰 예시
+/*
 struct SampleView: View {
     var body: some View {
         VStack {
@@ -48,3 +48,4 @@ struct SampleView: View {
 #Preview {
     SampleView()
 }
+*/

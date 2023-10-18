@@ -21,7 +21,7 @@ struct MainView: View {
     let menuDataManager = MenuDataManager.instance
     
     //CoreData 임시 Class
-    @StateObject var storeModel = StoreModel( _storeName: "", _tone: "")
+    @StateObject var storeModel = StoreModel( _storeName: "", _tone: "기본")
     @StateObject var menuModel = MenuModel(_storeName: "", _storeTone: "", _menuName: "", _menuPoint: "", _recordResult: "")
     @StateObject var dailyModel = DailyModel(_storeName: "", _storeTone: "", _recordResult: "")
     
@@ -59,7 +59,7 @@ struct MainView: View {
             .navigationDestination(for: StackViewType.self) { stackViewType in
                 switch stackViewType {
                 case .Menu:
-                    MenuView()
+                    MenuView(storeModel: storeModel, menuModel: menuModel)
                 case .Daily:
                     DailyView()
                 case .SettingHome:
@@ -72,6 +72,9 @@ struct MainView: View {
                     CaptionResultView()
                 }
             }
+        }
+        .onAppear{
+            fetchAllData()
         }
     }
 }
@@ -132,9 +135,9 @@ extension MainView : MainViewProtocol {
         
         do {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
-            if let storeCoreData = storeDataArray.first {
+            if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
-                self.storeModel.tone = storeCoreData.tone ?? ""
+                self.storeModel.tone = storeCoreData.tone ?? "기본"
             }
         } catch {
             print("ERROR STORE CORE DATA")
@@ -149,7 +152,7 @@ extension MainView : MainViewProtocol {
         
         do {
             let dailyDataArray = try dailyDataManager.context.fetch(dailyRequest)
-            if let dailyCoreData = dailyDataArray.first {
+            if let dailyCoreData = dailyDataArray.last {
                 self.dailyModel.recordDate = dailyCoreData.recordDate
                 self.dailyModel.weather = dailyCoreData.weather
                 self.dailyModel.dessert = dailyCoreData.dessert
@@ -168,7 +171,7 @@ extension MainView : MainViewProtocol {
         
         do {
             let menuDataArray = try menuDataManager.context.fetch(menuRequest)
-            if let menuCoreData = menuDataArray.first {
+            if let menuCoreData = menuDataArray.last {
                 self.menuModel.menuName = menuCoreData.menuName ?? ""
                 self.menuModel.menuPoint = menuCoreData.menuPoint ?? ""
             }

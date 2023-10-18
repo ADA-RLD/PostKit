@@ -17,7 +17,7 @@ protocol MenuProtocol {
     ///   - tone: 가게가 설정한 톤
     ///   - menuName: 설정 메뉴
     ///   - menuPoint: 메뉴 강점
-    func saveMenuData(recordId: UUID, recordDate: Date?, storeName: String?, tone: String, menuName: String, menuPoint: String)
+    func saveMenuData(recordId: UUID, recordDate: Date?, menuName: String, menuPoint: String)
     
     /// 뷰에서 필요하다면 저장된 메뉴와 강점을 Fetch할 수 있습니다
     /// - Parameters:
