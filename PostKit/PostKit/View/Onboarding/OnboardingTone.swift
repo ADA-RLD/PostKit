@@ -15,26 +15,27 @@ struct OnboardingTone: View {
     @Binding var cafeTone : String
     
     var body: some View {
-        VStack {
+        VStack(alignment:.leading,spacing: 0) {
             OnboardingCustomHeader(action: onboardingRouter.previousPage)
-                .padding(.horizontal,16)
-            VStack {
-                VStack(alignment: .leading) {
-                    Text("원하는 톤을 선택하세요")
-                        .font(.title1())
-                        .foregroundStyle(Color.gray6)
-                        .padding(.top,20)
-                    Text("선택한 톤을 바탕으로 카피가 생성됩니다.")
-                        .font(.body2Bold())
-                        .foregroundStyle(Color.gray4)
-                        .padding(.top,12)
+            ContentArea {
+                VStack(alignment: .leading,spacing: 40) {
+                    VStack(alignment: .leading,spacing: 12) {
+                        Text("원하는 톤을 선택하세요")
+                            .font(.title1())
+                            .foregroundStyle(Color.gray6)
+                            .padding(.top,20)
+                        Text("선택한 톤을 바탕으로 카피가 생성됩니다.")
+                            .font(.body2Bold())
+                            .foregroundStyle(Color.gray4)
+                            .padding(.top,12)
+                    }
                     SelectTone(tone: $cafeTone)
-                        .padding(.top,40)
-                    Spacer()
-                    CustomBtn(btnDescription: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
                 }
-                .padding(.horizontal,paddingHorizontal)
             }
+            
+            Spacer()
+
+            CtaBtn(btnDescription: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
         }
     }
 }

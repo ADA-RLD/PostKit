@@ -8,12 +8,12 @@
 import SwiftUI
 
 // TODO: 색상 에셋 추가되면 색 바꿔야 해요
-struct CustomBtn: View {
+struct CtaBtn: View {
     var btnDescription: String
     @Binding var isActive: Bool
     var action: () -> Void
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Button(action: {
                 action()
             }, label: {
@@ -28,7 +28,9 @@ struct CustomBtn: View {
                     }
                 
             })
+            .disabled(!isActive)
         }
+        .padding(.horizontal,paddingHorizontal)
         .padding(.vertical,12)
 
     }
@@ -41,7 +43,7 @@ struct CustomDoubleeBtn: View {
     var leftAction: () -> Void
     var rightAction: () -> Void
     var body: some View {
-        HStack {
+        HStack(spacing: 8) {
             Button(action: {
                 leftAction()
             }, label: {
@@ -68,6 +70,9 @@ struct CustomDoubleeBtn: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 56)
+        .padding(.horizontal,paddingHorizontal)
+        .padding(.vertical,12)
+      
     }
 }
 
