@@ -28,6 +28,7 @@ struct CtaBtn: View {
                     }
                 
             })
+            .disabled(!isActive)
         }
         .padding(.horizontal,paddingHorizontal)
         .padding(.vertical,12)
