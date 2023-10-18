@@ -68,8 +68,8 @@ struct MainView: View {
                     SettingStoreView(storeName: $storeModel.storeName)
                 case .SettingTone:
                     SettingToneView(storeTone: $storeModel.tone)
-                case .Result:
-                    ResultView()
+                case .CaptionResult:
+                    CaptionResultView()
                 }
             }
         }
