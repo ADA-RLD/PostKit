@@ -31,6 +31,7 @@ struct SettingStoreView: View {
                 Spacer()
                 CtaBtn(btnDescription: "저장", isActive: .constant(true), action: {
                     saveStoreData(storeName: storeName, storeTone: storeTone)
+                    pathManager.path.removeLast()
                 })
             }
             .navigationBarBackButtonHidden(true)
@@ -47,7 +48,7 @@ extension SettingStoreView : SettingProtocol {
         do {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
             print("StoreData: \(storeDataArray)")
-            if let storeCoreData = storeDataArray.first {
+            if let storeCoreData = storeDataArray.last {
                 storeTone = storeCoreData.tone ?? ""
                 
                 print("Store Fetch 완료!\nStoreTone: \(storeTone)\n")
