@@ -24,7 +24,7 @@ struct OnboardingFinal: View {
                         .foregroundStyle(Color.gray4)
                 }
             }
-            .padding(.top,paddingTop)
+            .padding(.top,40)
             Spacer()
             CtaBtn(btnDescription:"확인", isActive: .constant(true), action: {isFirstLaunching.toggle()})
         }

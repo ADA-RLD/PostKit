@@ -24,7 +24,7 @@ struct OnboardingStore: View {
                         Text("매장의 이름을 알려주세요")
                             .font(.title1())
                             .foregroundStyle(Color.gray6)
-                        Text("매장에 더 잘 맞는 커피가 생성됩니다.")
+                        Text("매장에 더 잘 맞는 카피가 생성됩니다.")
                             .font(.body2Bold())
                             .foregroundStyle(Color.gray4)
                     }
