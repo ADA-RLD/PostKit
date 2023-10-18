@@ -13,7 +13,7 @@ struct CtaBtn: View {
     @Binding var isActive: Bool
     var action: () -> Void
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Button(action: {
                 action()
             }, label: {
