@@ -31,8 +31,8 @@ struct SettingToneView: View {
                 toggleBtns
                 Spacer()
                 CustomBtn(btnDescription: "저장", isActive: .constant(true)) {
-                    pathManager.path.removeLast()
                     saveStoreData(storeName: storeName, storeTone: storeTone)
+                    pathManager.path.removeLast()
                 }
             }
             .padding(.horizontal,paddingHorizontal)
