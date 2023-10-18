@@ -9,7 +9,7 @@ import SwiftUI
 
 // TODO: 색상 에셋 추가되면 색 바꿔야 해요
 struct CtaBtn: View {
-    var btnDescription: String
+    var btnLabel: String
     @Binding var isActive: Bool
     var action: () -> Void
     var body: some View {
@@ -22,7 +22,7 @@ struct CtaBtn: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
                     .overlay {
-                        Text(btnDescription)
+                        Text(btnLabel)
                             .font(.body1Bold())
                             .foregroundStyle(Color.white)
                     }
@@ -38,8 +38,8 @@ struct CtaBtn: View {
 
 // TODO: 색상 애셋 추가되면 색 바꿔야 합니다.
 struct CustomDoubleeBtn: View {
-    var leftBtnDescription: String
-    var rightBtnDescription: String
+    var leftBtnLabel: String
+    var rightBtnLabel: String
     var leftAction: () -> Void
     var rightAction: () -> Void
     var body: some View {
@@ -50,7 +50,7 @@ struct CustomDoubleeBtn: View {
                 RoundedRectangle(cornerRadius: radius1)
                     .foregroundColor(Color.gray2)
                     .overlay {
-                        Text(leftBtnDescription)
+                        Text(leftBtnLabel)
                             .font(.body1Bold())
                             .foregroundStyle(Color.gray5)
                     }
@@ -62,7 +62,7 @@ struct CustomDoubleeBtn: View {
                 RoundedRectangle(cornerRadius: radius1)
                     .foregroundStyle(Color.main)
                     .overlay {
-                        Text(rightBtnDescription)
+                        Text(rightBtnLabel)
                             .font(.body1Bold())
                             .foregroundStyle(.white)
                     }
@@ -77,5 +77,5 @@ struct CustomDoubleeBtn: View {
 }
 
 #Preview {
-    CustomDoubleeBtn(leftBtnDescription: "d", rightBtnDescription: "d", leftAction: {print("hello")}, rightAction: {print("hello")})
+    CustomDoubleeBtn(leftBtnLabel: "d", rightBtnLabel: "d", leftAction: {print("hello")}, rightAction: {print("hello")})
 }

@@ -30,7 +30,7 @@ struct SettingToneView: View {
             VStack {
                 toggleBtns
                 Spacer()
-                CtaBtn(btnDescription: "저장", isActive: .constant(true)) {                   
+                CtaBtn(btnLabel: "저장", isActive: .constant(true)) {                   
                     saveStoreData(storeName: storeName, storeTone: storeTone)
                     pathManager.path.removeLast()
                 }
