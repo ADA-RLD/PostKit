@@ -31,6 +31,7 @@ struct SettingStoreView: View {
                 Spacer()
                 CustomBtn(btnDescription: "저장", isActive: .constant(true), action: {
                     saveStoreData(storeName: storeName, storeTone: storeTone)
+                    pathManager.path.removeLast()
                 })
             }
             .navigationBarBackButtonHidden(true)
