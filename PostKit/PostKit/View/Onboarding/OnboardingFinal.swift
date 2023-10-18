@@ -20,7 +20,7 @@ struct OnboardingFinal: View {
             OnboardingCustomHeader(action: onboardingRouter.previousPage)
             ContentArea {
                 VStack(alignment:.leading,spacing: 40) {
-                    Text("\(appstorageManager.cafeName) 사장님,\n반가워요👋")
+                    Text("\(storeName) 사장님,\n반가워요👋")
                         .font(.title1())
                         .foregroundStyle(Color.gray6)
                     Text("포스트킷과 함께\n카페 이야기를 적어내려가 봐요")
