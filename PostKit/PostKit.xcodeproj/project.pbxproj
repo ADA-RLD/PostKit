@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		139B2C7E2ADFF8690036BD18 /* ContentArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C7D2ADFF8690036BD18 /* ContentArea.swift */; };
 		13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295B02AD55F2100A2DE7F /* PostKitApp.swift */; };
 		13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B42AD55F2200A2DE7F /* Assets.xcassets */; };
 		13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B72AD55F2200A2DE7F /* Preview Assets.xcassets */; };
@@ -16,7 +17,7 @@
 		13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295D72AD68BEA00A2DE7F /* SettingStoreView.swift */; };
 		13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295D92AD68BF600A2DE7F /* SettingToneView.swift */; };
 		13C295DD2AD6B48400A2DE7F /* DesginSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295DC2AD6B48400A2DE7F /* DesginSystem.swift */; };
-		13C295DF2AD6C01300A2DE7F /* CustomBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295DE2AD6C01300A2DE7F /* CustomBtn.swift */; };
+		13C295DF2AD6C01300A2DE7F /* CtaBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295DE2AD6C01300A2DE7F /* CtaBtn.swift */; };
 		13C295ED2AD7136E00A2DE7F /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295E42AD7136D00A2DE7F /* Pretendard-Medium.otf */; };
 		13C295EE2AD7136E00A2DE7F /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295E52AD7136D00A2DE7F /* Pretendard-ExtraBold.otf */; };
 		13C295EF2AD7136E00A2DE7F /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295E62AD7136D00A2DE7F /* Pretendard-SemiBold.otf */; };
@@ -66,6 +67,7 @@
 
 /* Begin PBXFileReference section */
 		0A14ED0B2AD96D9A00357A79 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		139B2C7D2ADFF8690036BD18 /* ContentArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentArea.swift; sourceTree = "<group>"; };
 		13C295AD2AD55F2100A2DE7F /* PostKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C295B02AD55F2100A2DE7F /* PostKitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostKitApp.swift; sourceTree = "<group>"; };
 		13C295B42AD55F2200A2DE7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,7 +78,7 @@
 		13C295D72AD68BEA00A2DE7F /* SettingStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStoreView.swift; sourceTree = "<group>"; };
 		13C295D92AD68BF600A2DE7F /* SettingToneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingToneView.swift; sourceTree = "<group>"; };
 		13C295DC2AD6B48400A2DE7F /* DesginSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesginSystem.swift; sourceTree = "<group>"; };
-		13C295DE2AD6C01300A2DE7F /* CustomBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBtn.swift; sourceTree = "<group>"; };
+		13C295DE2AD6C01300A2DE7F /* CtaBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CtaBtn.swift; sourceTree = "<group>"; };
 		13C295E42AD7136D00A2DE7F /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		13C295E52AD7136D00A2DE7F /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		13C295E62AD7136D00A2DE7F /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -230,11 +232,12 @@
 		13C295CD2AD6211700A2DE7F /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				13C295DE2AD6C01300A2DE7F /* CustomBtn.swift */,
+				13C295DE2AD6C01300A2DE7F /* CtaBtn.swift */,
 				B98632612AD7CFD500DE9FF5 /* CustomTextfield.swift */,
 				B98632632AD7CFEE00DE9FF5 /* Keywords.swift */,
 				13C296172AD8F1F000A2DE7F /* CustomHeader.swift */,
 				13C296192AD8F26300A2DE7F /* SelectTone.swift */,
+				139B2C7D2ADFF8690036BD18 /* ContentArea.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				139B2C7E2ADFF8690036BD18 /* ContentArea.swift in Sources */,
 				7EF314CE2AD81DE3008E7338 /* ChatGptModel.swift in Sources */,
 				13C2961A2AD8F26300A2DE7F /* SelectTone.swift in Sources */,
 				13C296242AD988FC00A2DE7F /* AppStorageManager.swift in Sources */,
@@ -472,7 +476,7 @@
 				A188C5772AD79E0E007473D3 /* MenuModel.swift in Sources */,
 				B98632642AD7CFEE00DE9FF5 /* Keywords.swift in Sources */,
 				B98632662AD7D01500DE9FF5 /* WrappingHStack.swift in Sources */,
-				13C295DF2AD6C01300A2DE7F /* CustomBtn.swift in Sources */,
+				13C295DF2AD6C01300A2DE7F /* CtaBtn.swift in Sources */,
 				B98632682AD7D03800DE9FF5 /* MenuView.swift in Sources */,
 				13C296142AD8F17D00A2DE7F /* OnboardingTone.swift in Sources */,
 				13C296162AD8F18900A2DE7F /* OnboardingView.swift in Sources */,
