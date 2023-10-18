@@ -43,7 +43,7 @@ struct OnboardingStore: View {
                 .padding(.top,20)
                 .padding(.bottom,80)
                 Spacer()
-                CustomBtn(btnDescription: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
+                CtaBtn(btnDescription: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
             }
             .padding(.horizontal,paddingHorizontal)
         }

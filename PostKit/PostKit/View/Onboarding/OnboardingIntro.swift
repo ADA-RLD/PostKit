@@ -25,7 +25,7 @@ struct OnboardingIntro: View {
             Spacer()
 
             VStack() {
-                CustomBtn(btnDescription: "시작하기", isActive: .constant(true), action: {onboardingRouter.nextPage();print(onboardingRouter.currentPage)})
+                CtaBtn(btnDescription: "시작하기", isActive: .constant(true), action: {onboardingRouter.nextPage();print(onboardingRouter.currentPage)})
             }
             .frame(alignment: .bottom)
         }
