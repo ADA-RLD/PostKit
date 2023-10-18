@@ -16,8 +16,8 @@
 		13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295D42AD677FA00A2DE7F /* NavigationModel.swift */; };
 		13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295D72AD68BEA00A2DE7F /* SettingStoreView.swift */; };
 		13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295D92AD68BF600A2DE7F /* SettingToneView.swift */; };
-		13C295DD2AD6B48400A2DE7F /* DesginSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295DC2AD6B48400A2DE7F /* DesginSystem.swift */; };
-		13C295DF2AD6C01300A2DE7F /* CtaBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295DE2AD6C01300A2DE7F /* CtaBtn.swift */; };
+		13C295DD2AD6B48400A2DE7F /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295DC2AD6B48400A2DE7F /* DesignSystem.swift */; };
+		13C295DF2AD6C01300A2DE7F /* CTABtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295DE2AD6C01300A2DE7F /* CTABtn.swift */; };
 		13C295ED2AD7136E00A2DE7F /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295E42AD7136D00A2DE7F /* Pretendard-Medium.otf */; };
 		13C295EE2AD7136E00A2DE7F /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295E52AD7136D00A2DE7F /* Pretendard-ExtraBold.otf */; };
 		13C295EF2AD7136E00A2DE7F /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13C295E62AD7136D00A2DE7F /* Pretendard-SemiBold.otf */; };
@@ -77,8 +77,8 @@
 		13C295D42AD677FA00A2DE7F /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
 		13C295D72AD68BEA00A2DE7F /* SettingStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStoreView.swift; sourceTree = "<group>"; };
 		13C295D92AD68BF600A2DE7F /* SettingToneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingToneView.swift; sourceTree = "<group>"; };
-		13C295DC2AD6B48400A2DE7F /* DesginSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesginSystem.swift; sourceTree = "<group>"; };
-		13C295DE2AD6C01300A2DE7F /* CtaBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CtaBtn.swift; sourceTree = "<group>"; };
+		13C295DC2AD6B48400A2DE7F /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		13C295DE2AD6C01300A2DE7F /* CTABtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTABtn.swift; sourceTree = "<group>"; };
 		13C295E42AD7136D00A2DE7F /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		13C295E52AD7136D00A2DE7F /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		13C295E62AD7136D00A2DE7F /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		13C295CD2AD6211700A2DE7F /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				13C295DE2AD6C01300A2DE7F /* CtaBtn.swift */,
+				13C295DE2AD6C01300A2DE7F /* CTABtn.swift */,
 				B98632612AD7CFD500DE9FF5 /* CustomTextfield.swift */,
 				B98632632AD7CFEE00DE9FF5 /* Keywords.swift */,
 				13C296172AD8F1F000A2DE7F /* CustomHeader.swift */,
@@ -256,7 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				B98632652AD7D01500DE9FF5 /* WrappingHStack.swift */,
-				13C295DC2AD6B48400A2DE7F /* DesginSystem.swift */,
+				13C295DC2AD6B48400A2DE7F /* DesignSystem.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -476,7 +476,7 @@
 				A188C5772AD79E0E007473D3 /* MenuModel.swift in Sources */,
 				B98632642AD7CFEE00DE9FF5 /* Keywords.swift in Sources */,
 				B98632662AD7D01500DE9FF5 /* WrappingHStack.swift in Sources */,
-				13C295DF2AD6C01300A2DE7F /* CtaBtn.swift in Sources */,
+				13C295DF2AD6C01300A2DE7F /* CTABtn.swift in Sources */,
 				B98632682AD7D03800DE9FF5 /* MenuView.swift in Sources */,
 				13C296142AD8F17D00A2DE7F /* OnboardingTone.swift in Sources */,
 				13C296162AD8F18900A2DE7F /* OnboardingView.swift in Sources */,
@@ -493,7 +493,7 @@
 				7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */,
 				13C296102AD8F16700A2DE7F /* OnboardingRouter.swift in Sources */,
 				7EF314D22AD96A69008E7338 /* ChatGptViewModel.swift in Sources */,
-				13C295DD2AD6B48400A2DE7F /* DesginSystem.swift in Sources */,
+				13C295DD2AD6B48400A2DE7F /* DesignSystem.swift in Sources */,
 				13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */,
 				13C2960C2AD8F15300A2DE7F /* OnboardingFinal.swift in Sources */,
 				A188C5752AD79DDF007473D3 /* DailyModel.swift in Sources */,

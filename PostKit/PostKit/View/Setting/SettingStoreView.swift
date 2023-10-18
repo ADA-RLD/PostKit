@@ -29,7 +29,7 @@ struct SettingStoreView: View {
                 CustomTextfield(textLimit: 15, menuName: $storeName, placeHolder: storeName)
                     .padding(.top,12)
                 Spacer()
-                CtaBtn(btnDescription: "저장", isActive: .constant(true), action: {
+                CtaBtn(btnLabel: "저장", isActive: .constant(true), action: {
                     saveStoreData(storeName: storeName, storeTone: storeTone)
                     pathManager.path.removeLast()
                 })
