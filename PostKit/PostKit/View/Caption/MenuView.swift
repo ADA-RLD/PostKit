@@ -86,7 +86,7 @@ struct MenuView: View {
                 CustomBtn(btnDescription: "카피 생성", isActive: self.$isActive, action: {
                     if isActive == true {
                         sendMessage()
-                        pathManager.path.append(.Result)
+                        pathManager.path.append(.CaptionResult)
                     }
                 })
                 .padding(.bottom, 12)

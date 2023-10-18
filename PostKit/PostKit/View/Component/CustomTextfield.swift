@@ -13,7 +13,7 @@ struct CustomTextfield: View {
     @Binding var menuName : String
     var placeHolder: String
     var body: some View {
-        TextField(placeHolder, text: $menuName, prompt: Text(placeHolder).foregroundStyle(Color.gray4))
+        TextField(placeHolder, text: $menuName, prompt: Text(placeHolder).foregroundColor(Color.gray4))
             .font(.body1Bold())
             .tint(Color.black)
             .padding()
