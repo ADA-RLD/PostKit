@@ -24,71 +24,81 @@ struct CaptionResultView: View {
                 LoadingView()
             }
             else{
-                VStack {
-                    VStack(alignment: .leading, spacing: 24) {
-                        // MARK: - 타이틀 + 설명
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("주문하신 카피가 나왔어요!")
-                                .font(.title1())
-                                .foregroundStyle(Color.gray6)
-                            Text("생성된 피드가 마음에 들지 않는다면\n다시 생성하기 버튼을 통해 새로운 피드를 생성해 보세요.")
-                                .font(.body2Bold())
-                                .foregroundStyle(Color.gray4)
-                        }
-                        
-                        // MARK: - 생성된 카피 출력 + 복사하기 버튼
-                        VStack(alignment: .trailing, spacing: 20) {
-                            VStack(alignment: .leading) {
-                                ScrollView(showsIndicators: false){
-                                    Text(viewModel.promptAnswer)
-                                        .lineLimit(nil)
-                                        .multilineTextAlignment(.leading)
-                                        .font(.body1Bold())
-                                        .foregroundStyle(Color.gray5)
-                                }
-                                Spacer()
-                            }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 20)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 400)
-                            .background(Color.gray1)
-                            .cornerRadius(radius2)
-                            
-                            Button {
-                                copyToClipboard()
-                                // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
-                            } label: {
-                                HStack(spacing: 4.0) {
-                                    Image(systemName: "doc.on.doc")
-                                    Text("복사하기")
-                                }
-                                .foregroundStyle(Color.main)
-                                .font(.body1Bold())
-                                .disabled(isShowingToast)
-                            }
-                        }
-                    }
-                    Spacer()
-                    
-                    // MARK: - 완료 / 재생성 버튼
-                    CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성") {
-                        pathManager.path.removeAll()
-                    } rightAction: {
-                        // TODO: 카피 재생성 기능
-                        regenerateAnswer()
-                    }
-                    .padding(.vertical, 12)
-                    
-                }
-                .padding(.horizontal, paddingHorizontal)
-                .padding(.top,paddingTop)
-                .toast(isShowing: $isShowingToast)
+                captionResult
             }
         }
         .navigationBarBackButtonHidden()
     }
+}
+
+//MARK: 가독성을 위해 View를 분리했습니다.
+extension CaptionResultView {
+    private var captionResult: some View {
+        VStack(alignment:.leading,spacing:0) {
+            ContentArea {
+                VStack(alignment: .leading, spacing: 24) {
+                    // MARK: - 타이틀 + 설명
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("주문하신 카피가 나왔어요!")
+                            .font(.title1())
+                            .foregroundStyle(Color.gray6)
+                        Text("생성된 피드가 마음에 들지 않는다면\n다시 생성하기 버튼을 통해 새로운 피드를 생성해 보세요.")
+                            .font(.body2Bold())
+                            .foregroundStyle(Color.gray4)
+                    }
+                    
+                    // MARK: - 생성된 카피 출력 + 복사하기 버튼
+                    VStack(alignment: .trailing, spacing: 20) {
+                        VStack(alignment: .leading) {
+                            ScrollView(showsIndicators: false){
+                                Text(viewModel.promptAnswer)
+                                    .lineLimit(nil)
+                                    .multilineTextAlignment(.leading)
+                                    .font(.body1Bold())
+                                    .foregroundStyle(Color.gray5)
+                            }
+                            Spacer()
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 400)
+                        .background(Color.gray1)
+                        .cornerRadius(radius2)
+                        
+                        Button {
+                            copyToClipboard()
+                            // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
+                        } label: {
+                            HStack(spacing: 4.0) {
+                                Image(systemName: "doc.on.doc")
+                                Text("복사하기")
+                            }
+                            .foregroundStyle(Color.main)
+                            .font(.body1Bold())
+                            .disabled(isShowingToast)
+                        }
+                    }
+                }
+            }
+            Spacer()
+            
+            // MARK: - 완료 / 재생성 버튼
+            CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성") {
+                pathManager.path.removeAll()
+            } rightAction: {
+                regenerateAnswer()
+            }
+            .padding(.vertical, 12)
+            
+        }
+        .toast(isShowing: $isShowingToast)
+    }
     
+}
+
+// MARK: 코드의 가독성을 위해 function들을 따로 모았습니다.
+extension CaptionResultView {
     // MARK: - Chat GPT API에 재생성 요청
     func regenerateAnswer() {
         Task{
