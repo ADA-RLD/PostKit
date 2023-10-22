@@ -87,7 +87,7 @@ struct CaptionResultView: View {
             }
         }
         .navigationBarBackButtonHidden()
-    }
+    } 
     
     // MARK: - Chat GPT API에 재생성 요청
     func regenerateAnswer() {
