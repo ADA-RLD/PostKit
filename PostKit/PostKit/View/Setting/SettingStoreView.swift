@@ -22,12 +22,14 @@ struct SettingStoreView: View {
     var body: some View {
         VStack {
             CustomHeader(action: {pathManager.path.removeLast()}, title: "매장 정보")
-            VStack(alignment: .leading, spacing: 0) {
-                Text("이름")
-                    .font(.body1Bold())
-                    .foregroundStyle(Color.gray5)
-                CustomTextfield(textLimit: 15, menuName: $storeName, placeHolder: storeName)
-                    .padding(.top,12)
+            ContentArea{
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("이름")
+                        .font(.body1Bold())
+                        .foregroundStyle(Color.gray5)
+                    CustomTextfield(textLimit: 15, menuName: $storeName, placeHolder: storeName)
+                        .padding(.top,12)
+                }
                 Spacer()
                 CtaBtn(btnLabel: "저장", isActive: .constant(true), action: {
                     saveStoreData(storeName: storeName, storeTone: storeTone)
@@ -35,7 +37,6 @@ struct SettingStoreView: View {
                 })
             }
             .navigationBarBackButtonHidden(true)
-            .padding(.horizontal,paddingHorizontal)
         }
         .onAppear{fetchStoreData()}
     }
