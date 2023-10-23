@@ -94,7 +94,7 @@ extension CaptionResultView {
         }
         .toast(isShowing: $isShowingToast)
     }
-    
+
 }
 
 // MARK: 코드의 가독성을 위해 function들을 따로 모았습니다.
