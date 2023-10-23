@@ -11,21 +11,22 @@ import CoreData
 struct OnboardingView: View {
     @EnvironmentObject var appstorageManager: AppstorageManager
     @StateObject var onboardingRouter = OnboardingRouter.shared
-    @Binding var isFirstLaunching: Bool 
+    @Binding var isFirstLaunching: Bool
 
     //CoreData Manager
     let storeDataManager = StoreDataManager.instance
     
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
-    
+
+    // TODO: 쇼케이스 끝나면 바꿔야 합니다.
     //CoreData 초기화
-    init(isFirstLaunching: Binding<Bool>, storeModel: StoreModel) {
-           self._isFirstLaunching = isFirstLaunching
-           self._storeModel = StateObject(wrappedValue: storeModel)
-           fetchStoreData()
-       }
-    
+//    init(isFirstLaunching: Binding<Bool>, storeModel: StoreModel) {
+//           self._isFirstLaunching = isFirstLaunching
+//           self._storeModel = StateObject(wrappedValue: storeModel)
+//           fetchStoreData()
+//       }
+//    
     var body: some View {
         VStack {
             if onboardingRouter.currentPage == 0 {
