@@ -20,7 +20,7 @@ struct SettingView: View {
     
     var name: String?
     var body: some View {
-        VStack{
+        VStack(spacing: 0) {
             CustomHeader(action: {
                 pathManager.path.removeLast()
             }, title: "설정")

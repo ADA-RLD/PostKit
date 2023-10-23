@@ -10,6 +10,7 @@ import CoreData
 
 struct MainView: View {
     @AppStorage("_cafeName") var cafeName: String = ""
+    
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
@@ -34,9 +35,7 @@ struct MainView: View {
 
                 VStack(alignment:.leading ,spacing: 28){
                     Text("어떤 카피를 생성할까요?")
-                        .fullScreenCover(isPresented: .constant(true)) {
-                            OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
-                        }
+                       
                         .font(.system(size: 24,weight: .bold))
                     
                     VStack(spacing: 12){
@@ -72,6 +71,9 @@ struct MainView: View {
                     CaptionResultView()
                 }
             }
+        }
+        .fullScreenCover(isPresented: .constant(true)) {
+            OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
         }
         .onAppear{
             fetchAllData()
