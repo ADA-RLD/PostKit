@@ -72,7 +72,7 @@ struct MainView: View {
                 }
             }
         }
-        .fullScreenCover(isPresented: .constant(true)) {
+        .fullScreenCover(isPresented: $isFirstLaunching) {
             OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
         }
         .onAppear{
