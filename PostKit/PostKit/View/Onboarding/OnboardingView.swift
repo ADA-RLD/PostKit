@@ -11,7 +11,7 @@ import CoreData
 struct OnboardingView: View {
     @EnvironmentObject var appstorageManager: AppstorageManager
     @StateObject var onboardingRouter = OnboardingRouter.shared
-    @Binding var isFirstLaunching: Bool
+    @Binding var isFirstLaunching: Bool 
 
     //CoreData Manager
     let storeDataManager = StoreDataManager.instance

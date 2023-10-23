@@ -20,24 +20,23 @@ struct SettingStoreView: View {
     @State var storeTone: String = ""
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             CustomHeader(action: {pathManager.path.removeLast()}, title: "매장 정보")
             ContentArea{
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 12) {
                     Text("이름")
                         .font(.body1Bold())
                         .foregroundStyle(Color.gray5)
                     CustomTextfield(textLimit: 15, menuName: $storeName, placeHolder: storeName)
-                        .padding(.top,12)
                 }
-                Spacer()
-                CtaBtn(btnLabel: "저장", isActive: .constant(true), action: {
-                    saveStoreData(storeName: storeName, storeTone: storeTone)
-                    pathManager.path.removeLast()
-                })
             }
-            .navigationBarBackButtonHidden(true)
+            Spacer()
+            CtaBtn(btnLabel: "저장", isActive: .constant(true), action: {
+                saveStoreData(storeName: storeName, storeTone: storeTone)
+                pathManager.path.removeLast()
+            })
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear{fetchStoreData()}
     }
 }

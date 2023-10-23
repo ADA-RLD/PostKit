@@ -34,7 +34,7 @@ struct CaptionResultView: View {
 //MARK: 가독성을 위해 View를 분리했습니다.
 extension CaptionResultView {
     private var captionResult: some View {
-        VStack(alignment:.leading,spacing:0) {
+        VStack(alignment:.leading, spacing:0) {
             ContentArea {
                 VStack(alignment: .leading, spacing: 24) {
                     // MARK: - 타이틀 + 설명
