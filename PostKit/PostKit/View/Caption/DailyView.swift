@@ -23,10 +23,10 @@ struct DailyView: View {
     private let chatGptService = ChatGptService()
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 0) {
             CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 카피 생성")
-                .padding(.bottom,20)
-            VStack {
+            
+            ContentArea {
                 ScrollView {
                     VStack(alignment:.leading) {
                         Text("선택한 키워드를 기반으로 카피가 생성됩니다. \n키워드를 선택하지 않을 시 랜덤으로 생성됩니다.")
@@ -34,7 +34,6 @@ struct DailyView: View {
                             .foregroundStyle(Color.gray4)
                             .padding(.bottom, 28)
                         
-                        //                ScrollView {
                         VStack(alignment: .leading) {
                             Text("날씨 / 계절")
                                 .foregroundStyle(Color.gray5)
@@ -109,27 +108,31 @@ struct DailyView: View {
                                         .padding(.bottom, paddingBottom)
                                     
                                 })
-                               
+                                
                             }
                         }
-
+                        
                     }
+                    
                 }
                 .scrollIndicators(.hidden)
-                CtaBtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
-                    sendMessage()
-                    pathManager.path.append(.CaptionResult)
-                })
-                .padding(.bottom, 12)
             }
-            .padding(.horizontal,paddingHorizontal)
+            CtaBtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
+                sendMessage()
+                pathManager.path.append(.CaptionResult)
+            })
        
         }
         .navigationBarBackButtonHidden()
     }
     
+
+}
+
+//MARK: extension Function
+extension DailyView {
     // MARK: - Chat Gpt API에 응답 요청
-    func sendMessage(){
+    func sendMessage() {
         Task{
             var pointText = ""
             

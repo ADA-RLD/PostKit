@@ -34,7 +34,7 @@ struct MainView: View {
 
                 VStack(alignment:.leading ,spacing: 28){
                     Text("어떤 카피를 생성할까요?")
-                        .fullScreenCover(isPresented: $isFirstLaunching) {
+                        .fullScreenCover(isPresented: .constant(true)) {
                             OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
                         }
                         .font(.system(size: 24,weight: .bold))
