@@ -16,7 +16,7 @@ class ChatGptService {
         
         let body = chatGptBody(model: "gpt-4", messages: openAIMessages)
         let headers: HTTPHeaders =  [
-            "Authorization" : "Bearer \(Constants.OpenAIAPIKey)"
+            "Authorization" : "Bearer \(Constants.ChatGptAPIKey)"
         ]
         
         return try? await AF.request(baseUrl, method: .post, parameters: body, encoder: .json, headers: headers).serializingDecodable(chatGptResponse.self).value
