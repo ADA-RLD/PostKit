@@ -41,7 +41,7 @@ struct OnboardingStore: View {
                 }
             }
             Spacer()
-            CtaBtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
+            CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
         }
     }
 }

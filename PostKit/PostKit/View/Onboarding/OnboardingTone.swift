@@ -33,7 +33,7 @@ struct OnboardingTone: View {
             
             Spacer()
 
-            CtaBtn(btnLabel: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
+            CTABtn(btnLabel: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
         }
     }
 }

@@ -33,7 +33,7 @@ struct SettingToneView: View {
                 }
             }
             Spacer()
-            CtaBtn(btnLabel: "저장", isActive: .constant(true)) {
+            CTABtn(btnLabel: "저장", isActive: .constant(true)) {
                 saveStoreData(storeName: storeName, storeTone: storeTone)
                 pathManager.path.removeLast()
             }
