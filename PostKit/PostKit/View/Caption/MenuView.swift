@@ -98,7 +98,7 @@ struct MenuView: View {
                 }
             }
             Spacer()
-            CtaBtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
+            CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
                 if isActive == true {
                     sendMessage()
                     pathManager.path.append(.CaptionResult)
