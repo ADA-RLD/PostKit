@@ -11,8 +11,7 @@ import CoreData
 struct MainView: View {
     @AppStorage("_cafeName") var cafeName: String = ""
     
-//    @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
-    @State var isFirstLaunching: Bool = true
+    @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared

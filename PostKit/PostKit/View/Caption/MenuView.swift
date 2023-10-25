@@ -116,9 +116,9 @@ struct MenuView: View {
         Task{
             var pointText = ""
             if storeModel.tone == "기본"{
-                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \($storeModel.storeName)를 운영하고 있으며 평범한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘."))
+                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \($storeModel.storeName)를 운영하고 있으며 평범한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 300자 정도로 작성해줘."))
             }else{
-                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \($storeModel.storeName)를 운영하고 있으며 \($storeModel.tone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘."))
+                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \($storeModel.storeName)를 운영하고 있으며 \($storeModel.tone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 300자 정도로 작성해줘."))
             }
             if !coffeeSelected.isEmpty {
                 pointText = pointText + "이 메뉴의 특징으로는 "
