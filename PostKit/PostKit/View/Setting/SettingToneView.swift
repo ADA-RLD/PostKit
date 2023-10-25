@@ -23,20 +23,20 @@ struct SettingToneView: View {
     var tones: [String] = ["기본","친구같은","전문적인","친절한","재치있는","열정적인","감성적인","활발한","세련된"]
     
     var body: some View {
-        VStack(alignment:.leading) {
+        VStack(alignment:.leading,spacing: 0) {
             CustomHeader(action: {
                 pathManager.path.removeLast()
             }, title: "말투")
-            VStack {
-                toggleBtns
-                Spacer()
-                CtaBtn(btnLabel: "저장", isActive: .constant(true)) {                   
-                    saveStoreData(storeName: storeName, storeTone: storeTone)
-                    pathManager.path.removeLast()
+            ContentArea {
+                VStack(spacing: 0) {
+                    SelectTone(tone: $storeTone)
                 }
             }
-            .padding(.horizontal,paddingHorizontal)
-            .padding(.top, paddingTop)
+            Spacer()
+            CtaBtn(btnLabel: "저장", isActive: .constant(true)) {
+                saveStoreData(storeName: storeName, storeTone: storeTone)
+                pathManager.path.removeLast()
+            }
         }
         .navigationBarBackButtonHidden(true)
         .onAppear{fetchStoreData()}

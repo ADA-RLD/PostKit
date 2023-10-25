@@ -20,18 +20,18 @@ struct SettingView: View {
     
     var name: String?
     var body: some View {
-        VStack{
+        VStack(spacing: 0) {
             CustomHeader(action: {
                 pathManager.path.removeLast()
             }, title: "설정")
-            VStack(spacing: 40.0) {
-                SettingInfo(info: "매장 정보", Answer: storeModel.storeName, action: {pathManager.path.append(.SettingStore)})
-                SettingInfo(info: "말투", Answer: storeModel.tone, action: {pathManager.path.append(.SettingTone)})
-                Spacer()
+            ContentArea {
+                VStack(spacing: 40.0) {
+                    SettingInfo(info: "매장 정보", Answer: storeModel.storeName, action: {pathManager.path.append(.SettingStore)})
+                    SettingInfo(info: "말투", Answer: storeModel.tone, action: {pathManager.path.append(.SettingTone)})
+            
+                }
             }
-            .padding(.horizontal,paddingHorizontal)
-            .padding(.top, paddingTop)
-            .padding(.bottom, paddingBottom)
+            Spacer()
         }
         .onAppear{fetchStoreData()}
         .navigationBarBackButtonHidden(true)
