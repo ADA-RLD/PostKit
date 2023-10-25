@@ -115,7 +115,7 @@ struct DailyView: View {
                 .scrollIndicators(.hidden)
             }
         }
-        CtaBtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
+        CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
             sendMessage()
             pathManager.path.append(.CaptionResult)
         })
