@@ -23,113 +23,114 @@ struct DailyView: View {
     private let chatGptService = ChatGptService()
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 0) {
             CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 카피 생성")
-                .padding(.bottom,20)
-            VStack {
-                ScrollView {
-                    VStack(alignment:.leading) {
-                        Text("선택한 키워드를 기반으로 카피가 생성됩니다. \n키워드를 선택하지 않을 시 랜덤으로 생성됩니다.")
-                            .font(.body2Bold())
-                            .foregroundStyle(Color.gray4)
-                            .padding(.bottom, 28)
-                        
-                        //                ScrollView {
-                        VStack(alignment: .leading) {
-                            Text("날씨 / 계절")
-                                .foregroundStyle(Color.gray5)
-                                .font(.body1Bold())
-                                .padding(.bottom, 12)
-                            Keywords(keyName: KeywordsModel().weatherKeys , selectedIndices: self.$weatherSelected)
-                                .frame(height: isContentsOpened[0] ? 180 : 80)
-                                .padding(.bottom, 12)
+            
+            ContentArea {
+                VStack(alignment: .leading, spacing: 28) {
+                    Text("선택한 키워드를 기반으로 카피가 생성됩니다. \n키워드를 선택하지 않을 시 랜덤으로 생성됩니다.")
+                        .font(.body2Bold())
+                        .foregroundStyle(Color.gray4)
+            
+                    ScrollView {
+                        VStack(alignment:.leading, spacing: 24) {
+                          
                             
-                            if !isContentsOpened[0] {
-                                Button(action: {
-                                    withAnimation(.spring()) {
-                                        isContentsOpened[0].toggle()
-                                    }
-                                }, label: {
-                                    Text("더보기")
-                                        .font(.body2Regular())
-                                        .foregroundStyle(.gray4)
-                                        .underline()
-                                        .padding(.bottom,24)
-                                })
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("날씨 / 계절")
+                                    .foregroundStyle(Color.gray5)
+                                    .font(.body1Bold())
+                                Keywords(keyName: KeywordsModel().weatherKeys , selectedIndices: self.$weatherSelected)
+                                    .frame(height: isContentsOpened[0] ? 180 : 80)
+                                
+                                if !isContentsOpened[0] {
+                                    Button(action: {
+                                        withAnimation(.spring()) {
+                                            isContentsOpened[0].toggle()
+                                        }
+                                    }, label: {
+                                        Text("더보기")
+                                            .font(.body2Regular())
+                                            .foregroundStyle(.gray4)
+                                            .underline()
+                                    })
+                                }
                             }
                             
                             Divider()
-                                .padding(.bottom, 24)
                             
-                            Text("커피 / 음료")
-                                .foregroundStyle(Color.gray5)
-                                .font(.body1Bold())
-                                .padding(.bottom, 12)
-                            
-                            Keywords(keyName: KeywordsModel().dailyCoffeeKeys, selectedIndices: self.$dailyCoffeeSelected)
-                                .frame(height: isContentsOpened[1] ? 180 : 80)
-                                .padding(.bottom, 12)
-                            
-                            if !isContentsOpened[1] {
-                                Button(action: {
-                                    withAnimation(.spring()) {
-                                        isContentsOpened[1].toggle()
-                                    }
-                                }, label: {
-                                    Text("더보기")
-                                        .font(.body2Regular())
-                                        .foregroundStyle(.gray4)
-                                        .underline()
-                                        .padding(.bottom,24)
-                                })
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("커피 / 음료")
+                                    .foregroundStyle(Color.gray5)
+                                    .font(.body1Bold())
+                                
+                                Keywords(keyName: KeywordsModel().dailyCoffeeKeys, selectedIndices: self.$dailyCoffeeSelected)
+                                    .frame(height: isContentsOpened[1] ? 180 : 80)
+                                
+                                if !isContentsOpened[1] {
+                                    Button(action: {
+                                        withAnimation(.spring()) {
+                                            isContentsOpened[1].toggle()
+                                        }
+                                    }, label: {
+                                        Text("더보기")
+                                            .font(.body2Regular())
+                                            .foregroundStyle(.gray4)
+                                            .underline()
+                                    })
+                                }
                             }
                             
                             Divider()
-                                .padding(.bottom, 24)
-                            Text("디저트")
-                                .foregroundStyle(Color.gray5)
-                                .font(.body1Bold())
-                                .padding(.bottom, 12)
                             
-                            Keywords(keyName: KeywordsModel().dailyDessertKeys, selectedIndices: self.$dailyDessertSelected)
-                                .frame(height: isContentsOpened[2] ? 140 : 80)
-                                .padding(.bottom, 12)
-                            
-                            
-                            if !isContentsOpened[2] {
-                                Button(action: {
-                                    withAnimation(.spring()) {
-                                        isContentsOpened[2].toggle()
-                                    }
-                                }, label: {
-                                    Text("더보기")
-                                        .font(.body2Regular())
-                                        .foregroundStyle(.gray4)
-                                        .underline()
-                                        .padding(.bottom, paddingBottom)
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("디저트")
+                                    .foregroundStyle(Color.gray5)
+                                    .font(.body1Bold())
+                                
+                                Keywords(keyName: KeywordsModel().dailyDessertKeys, selectedIndices: self.$dailyDessertSelected)
+                                    .frame(height: isContentsOpened[2] ? 140 : 80)
+                                
+                                
+                                if !isContentsOpened[2] {
+                                    Button(action: {
+                                        withAnimation(.spring()) {
+                                            isContentsOpened[2].toggle()
+                                        }
+                                    }, label: {
+                                        Text("더보기")
+                                            .font(.body2Regular())
+                                            .foregroundStyle(.gray4)
+                                            .underline()
+                                        
+                                    })
                                     
-                                })
-                               
+                                }
                             }
                         }
-
+                        
                     }
+                    
                 }
                 .scrollIndicators(.hidden)
-                CtaBtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
-                    sendMessage()
-                    pathManager.path.append(.CaptionResult)
-                })
-                .padding(.bottom, 12)
             }
-            .padding(.horizontal,paddingHorizontal)
-       
         }
+        CtaBtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
+            sendMessage()
+            pathManager.path.append(.CaptionResult)
+        })
         .navigationBarBackButtonHidden()
+        
     }
     
+}
+
+
+
+//MARK: extension Function
+extension DailyView {
     // MARK: - Chat Gpt API에 응답 요청
-    func sendMessage(){
+    func sendMessage() {
         Task{
             var pointText = ""
             

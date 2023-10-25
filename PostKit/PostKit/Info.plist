@@ -12,5 +12,7 @@
 		<string>Pretendard-Thin.otf</string>
 		<string></string>
 	</array>
+	<key>UILaunchScreen</key>
+	<dict/>
 </dict>
 </plist>
