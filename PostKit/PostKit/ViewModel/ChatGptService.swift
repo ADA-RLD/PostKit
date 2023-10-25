@@ -10,7 +10,7 @@ import Alamofire
 
 class ChatGptService {
     private let baseUrl = "https://api.openai.com/v1/chat/completions"
-    
+    // 키 오류를 대비해서 랜덤하게 키를 게속 바꿔줍니다.
     func getRandomKey() -> String {
         let randomIndex = Int.random(in: 0..<Constants.ChatGptAPIKey.count)
         return Constants.ChatGptAPIKey[randomIndex]
