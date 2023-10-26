@@ -18,14 +18,10 @@ struct MainView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
     //CoreData Manager
-    let storeDataManager = StoreDataManager.instance
-    let dailyDataManager = DailyDataManager.instance
-    let menuDataManager = MenuDataManager.instance
+    let coreDataManager = CoreDataManager.instance
     
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: "기본")
-    @StateObject var menuModel = MenuModel(_storeName: "", _storeTone: "", _menuName: "", _menuPoint: "", _recordResult: "")
-    @StateObject var dailyModel = DailyModel(_storeName: "", _storeTone: "", _recordResult: "")
     
     
     var body: some View {
@@ -138,11 +134,7 @@ extension MainView {
 extension MainView : MainViewProtocol {
     
     func resetData() {
-        menuModel.menuName = ""
-        menuModel.menuPoint = ""
-        menuModel.recordResult = ""
-        
-        dailyModel.recordResult = ""
+       
     }
     
     func fetchStoreData() {
@@ -150,7 +142,7 @@ extension MainView : MainViewProtocol {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
         
         do {
-            let storeDataArray = try storeDataManager.context.fetch(storeRequest)
+            let storeDataArray = try coreDataManager.context.fetch(storeRequest)
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 self.storeModel.tone = storeCoreData.tone ?? "기본"
@@ -162,45 +154,9 @@ extension MainView : MainViewProtocol {
         
     }
     
-    func fetchDailyData() {
-        
-        let dailyRequest = NSFetchRequest<DailyData>(entityName: "DailyData")
-        
-        do {
-            let dailyDataArray = try dailyDataManager.context.fetch(dailyRequest)
-            if let dailyCoreData = dailyDataArray.last {
-                self.dailyModel.recordDate = dailyCoreData.recordDate
-                self.dailyModel.weather = dailyCoreData.weather
-                self.dailyModel.dessert = dailyCoreData.dessert
-                self.dailyModel.drink = dailyCoreData.drink
-            }
-        } catch {
-            print("ERROR DAILY CORE DATA")
-            print(error.localizedDescription)
-        }
-        
-    }
-    
-    func fetchMenuData() {
-        
-        let menuRequest = NSFetchRequest<MenuData>(entityName: "MenuData")
-        
-        do {
-            let menuDataArray = try menuDataManager.context.fetch(menuRequest)
-            if let menuCoreData = menuDataArray.last {
-                self.menuModel.menuName = menuCoreData.menuName ?? ""
-                self.menuModel.menuPoint = menuCoreData.menuPoint ?? ""
-            }
-        } catch {
-            print("ERROR MENU CORE DATA")
-            print(error.localizedDescription)
-        }
-    }
-    
     func fetchAllData() {
         fetchStoreData()
-        fetchDailyData()
-        fetchMenuData()
+        
     }
     
 }

@@ -18,6 +18,9 @@ struct CaptionResultView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     private let chatGptService = ChatGptService()
     
+    //CoreData Manager
+    let coreDataManager = CoreDataManager.instance
+    
     var body: some View {
         ZStack{
             if viewModel.promptAnswer == "생성된 텍스트가 들어가요." {
@@ -25,6 +28,10 @@ struct CaptionResultView: View {
             }
             else{
                 captionResult
+                    .onAppear{
+                        //Caption이 생성되면 바로 CoreData에 저장
+                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), Result: viewModel.promptAnswer)
+                    }
             }
         }
         .navigationBarBackButtonHidden()
@@ -156,6 +163,31 @@ extension View {
     func toast(isShowing: Binding<Bool>, duration: TimeInterval = 1.5) -> some View {
         modifier(ToastModifier(isShowing: isShowing, duration: duration))
     }
+}
+
+extension CaptionResultView : CaptionResultProtocol {
+    func convertDayTime(time: Date) -> Date {
+        let today = Date()
+        let timezone = TimeZone.autoupdatingCurrent
+        let secondsFromGMT = timezone.secondsFromGMT(for: today)
+        let localizedDate = today.addingTimeInterval(TimeInterval(secondsFromGMT))
+        return localizedDate
+    }
+    
+    func saveCaptionResult(category: String, date: Date, Result: String) {
+        let newCaption = CaptionResult(context: coreDataManager.context)
+        newCaption.resultId = UUID()
+        newCaption.date = date
+        newCaption.category = category
+        newCaption.caption = Result
+        coreDataManager.save()
+        print("Caption 저장 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)")
+    }
+    
+    func fetchCaptionResult(category: String) {
+        print("Fetch 불필요")
+    }
+    
 }
 
 #Preview {

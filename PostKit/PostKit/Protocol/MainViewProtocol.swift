@@ -13,10 +13,6 @@ protocol MainViewProtocol {
     
     func fetchStoreData()
     
-    func fetchDailyData()
-    
-    func fetchMenuData()
-    
     func fetchAllData()
     
 }

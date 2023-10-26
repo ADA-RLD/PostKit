@@ -22,9 +22,6 @@ struct MenuView: View {
     
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
-    //CoreData Manager
-    let dailyDataManager = DailyDataManager.instance
-    
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
     
@@ -149,6 +146,7 @@ struct MenuView: View {
             self.currentInput = ""
             let response = await chatGptService.sendMessage(messages: self.messages)
             viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
+            viewModel.category = "Menu"
             print(response?.choices.first?.message.content as Any)
             print(response as Any)
         }

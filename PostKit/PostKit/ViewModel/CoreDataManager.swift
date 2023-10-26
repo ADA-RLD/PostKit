@@ -8,9 +8,9 @@
 import Foundation
 import CoreData
 
- struct StoreDataManager  {
+ struct CoreDataManager  {
 
-     static let instance = StoreDataManager()
+     static let instance = CoreDataManager()
         let container: NSPersistentContainer
         let context: NSManagedObjectContext
 
