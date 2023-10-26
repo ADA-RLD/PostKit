@@ -38,13 +38,13 @@ struct MenuView: View {
         VStack(alignment: .leading, spacing: 0) {
             CustomHeader(action: {pathManager.path.removeLast()}, title: "메뉴 카피 생성")
             
-            ContentArea {
-                VStack(alignment:.leading, spacing: 28) {
-                    Text("선택한 키워드를 기반으로 카피가 생성됩니다. \n키워드를 선택하지 않을 시 랜덤으로 생성됩니다.")
-                        .font(.body2Bold())
-                        .foregroundStyle(Color.gray4)
-                    
-                    ScrollView {
+            
+            ScrollView {
+                ContentArea {
+                    VStack(alignment:.leading, spacing: 28) {
+                        Text("선택한 키워드를 기반으로 카피가 생성됩니다. \n키워드를 선택하지 않을 시 랜덤으로 생성됩니다.")
+                            .font(.body2Bold())
+                            .foregroundStyle(Color.gray4)
                         VStack(alignment: .leading, spacing: 28) {
                             VStack(alignment: .leading, spacing: 12) {
                                 Text("메뉴 이름 *")
@@ -98,7 +98,7 @@ struct MenuView: View {
                 }
             }
             Spacer()
-            CtaBtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
+            CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
                 if isActive == true {
                     sendMessage()
                     pathManager.path.append(.CaptionResult)
@@ -116,9 +116,9 @@ struct MenuView: View {
         Task{
             var pointText = ""
             if storeModel.tone == "기본"{
-                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \($storeModel.storeName)를 운영하고 있으며 평범한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘."))
+                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \($storeModel.storeName)를 운영하고 있으며 평범한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로  작성해줘."))
             }else{
-                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \($storeModel.storeName)를 운영하고 있으며 \($storeModel.tone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 600자 정도로 작성해줘."))
+                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \($storeModel.storeName)를 운영하고 있으며 \($storeModel.tone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 150자 정도로 작성해줘."))
             }
             if !coffeeSelected.isEmpty {
                 pointText = pointText + "이 메뉴의 특징으로는 "

@@ -31,7 +31,7 @@ struct SettingStoreView: View {
                 }
             }
             Spacer()
-            CtaBtn(btnLabel: "저장", isActive: .constant(true), action: {
+            CTABtn(btnLabel: "저장", isActive: .constant(true), action: {
                 saveStoreData(storeName: storeName, storeTone: storeTone)
                 pathManager.path.removeLast()
             })
