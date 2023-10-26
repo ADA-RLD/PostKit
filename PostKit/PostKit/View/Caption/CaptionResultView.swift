@@ -28,6 +28,9 @@ struct CaptionResultView: View {
             }
             else{
                 captionResult
+                    .onAppear{
+                        saveCaptionResult(category: viewModel.category, Result: viewModel.promptAnswer)
+                    }
             }
         }
         .navigationBarBackButtonHidden()
@@ -163,9 +166,9 @@ extension View {
 
 extension CaptionResultView : CaptionResultProtocol {
     
-    func saveCaptionResult(Id: UUID, category: String, Result: String) {
+    func saveCaptionResult(category: String, Result: String) {
         let newCaption = CaptionResult(context: coreDataManager.context)
-        newCaption.resultId = Id
+        newCaption.resultId = UUID()
         newCaption.date = Date()
         newCaption.category = category
         newCaption.caption = Result
