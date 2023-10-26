@@ -9,7 +9,7 @@ import Foundation
 
 protocol CaptionResultProtocol {
     
-    func saveCaptionResult(Id: UUID, date: Date,category: String, Result: String)
+    func saveCaptionResult(Id: UUID,category: String, Result: String)
     
     func fetchCaptionResult(category: String)
 }
