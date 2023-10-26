@@ -8,7 +8,7 @@
 import SwiftUI
 
 // TODO: 색상 에셋 추가되면 색 바꿔야 해요
-struct CtaBtn: View {
+struct CTABtn: View {
     var btnLabel: String
     @Binding var isActive: Bool
     var action: () -> Void
