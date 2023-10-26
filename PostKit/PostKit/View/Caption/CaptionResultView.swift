@@ -29,6 +29,7 @@ struct CaptionResultView: View {
             else{
                 captionResult
                     .onAppear{
+                        //Caption이 생성되면 바로 CoreData에 저장
                         saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), Result: viewModel.promptAnswer)
                     }
             }
