@@ -15,9 +15,7 @@ struct PostKitApp: App {
     @StateObject private var appstorageManager = AppstorageManager()
     
     //Core Data Manager
-    let storeDataManager = StoreDataManager.instance
-    let menuDataManager = MenuDataManager.instance
-    let dailyDataManager = DailyDataManager.instance
+    let storeDataManager = CoreDataManager.instance
 
     var body: some Scene {
         WindowGroup {
@@ -25,8 +23,6 @@ struct PostKitApp: App {
                 .environmentObject(appstorageManager)
                 .environmentObject(pathManager)
                 .environment(\.managedObjectContext, storeDataManager.container.viewContext)
-                .environment(\.managedObjectContext, menuDataManager.container.viewContext)
-                .environment(\.managedObjectContext, dailyDataManager.container.viewContext)
         }
     }
 }

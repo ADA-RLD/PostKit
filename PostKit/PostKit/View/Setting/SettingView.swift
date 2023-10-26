@@ -13,7 +13,7 @@ struct SettingView: View {
     @EnvironmentObject var pathManager: PathManager
     
     //CoreData Manager
-    let storeDataManager = StoreDataManager.instance
+    let storeDataManager = CoreDataManager.instance
     
     //CoreData Data Class
     @StateObject var storeModel : StoreModel

@@ -13,7 +13,7 @@ struct SettingStoreView: View {
     @EnvironmentObject var appstorageManager: AppstorageManager
     
     //CoreData Manager
-    let storeDataManager = StoreDataManager.instance
+    let storeDataManager = CoreDataManager.instance
     
     //CoreData Data Class
     @Binding var storeName: String
