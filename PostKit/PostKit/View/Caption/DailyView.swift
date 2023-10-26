@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct DailyView: View {
-    @EnvironmentObject var appstorageManager: AppstorageManager
+    //@EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
     @State var weatherSelected: [String] = []
@@ -17,6 +18,13 @@ struct DailyView: View {
     @State private var isContentsOpened = [false, false, false]
     
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    
+    //CoreData Manager
+    let storeDataManager = StoreDataManager.instance
+    
+    //CoreData Data Class
+    @StateObject var storeModel : StoreModel
+    
     // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
     @State var messages: [Message] = []
     @State var currentInput: String = ""
@@ -136,7 +144,7 @@ extension DailyView {
         Task{
             var pointText = ""
             
-            self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(appstorageManager.cafeName == "" ? "카페": appstorageManager.cafeName)를 운영하고 있으며 \(appstorageManager.cafeTone == "기본" ? "평범한" : appstorageManager.cafeTone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
+            self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)를 운영하고 있으며 \(storeModel.tone == "기본" ? "평범한" : storeModel.tone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
             
             if !weatherSelected.isEmpty {
                 pointText = pointText + "오늘 날씨의 특징으로는 "
@@ -175,7 +183,7 @@ extension DailyView {
     }
 }
 
-#Preview {
-    DailyView()
-}
+//#Preview {
+//    DailyView()
+//}
 

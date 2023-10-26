@@ -11,10 +11,12 @@ import Foundation
 final class ChatGptViewModel: ObservableObject {
     static let shared = ChatGptViewModel()
     
+    @Published var category : String
     @Published var prompt : String
     @Published var promptAnswer :String
     
-    init(prompt: String = "", promptAnswer: String = "생성된 텍스트가 들어가요.") {
+    init(category: String = "", prompt: String = "", promptAnswer: String = "생성된 텍스트가 들어가요.") {
+        self.category = category
         self.prompt = prompt
         self.promptAnswer = promptAnswer
     }
