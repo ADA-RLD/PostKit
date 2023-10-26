@@ -22,9 +22,6 @@ struct MenuView: View {
     
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
-    //CoreData Manager
-    let dailyDataManager = DailyDataManager.instance
-    
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
     

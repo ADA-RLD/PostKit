@@ -14,7 +14,7 @@ struct SettingToneView: View {
     //@EnvironmentObject var appstorageManager: AppstorageManager
    
     //CoreData Manager
-    let storeDataManager = StoreDataManager.instance
+    let storeDataManager = CoreDataManager.instance
     
     //CoreData Data Class
     @State var storeName: String = ""

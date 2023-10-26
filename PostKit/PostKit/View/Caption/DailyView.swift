@@ -20,7 +20,7 @@ struct DailyView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
     //CoreData Manager
-    let storeDataManager = StoreDataManager.instance
+    let storeDataManager = CoreDataManager.instance
     
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
