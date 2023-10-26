@@ -17,7 +17,7 @@ class ChatGptService {
     }
     
     func sendMessage(messages: [Message]) async -> chatGptResponse? {
-        let openAIMessages = messages.map({chatGptMessage(role: .system, content: $0.content)})
+        let openAIMessages = messages.map({chatGptMessage(role: .user, content: $0.content)})
         let randomKey = getRandomKey()
         let body = chatGptBody(model: "gpt-4-0613", messages: openAIMessages)
         let headers: HTTPHeaders =  [
