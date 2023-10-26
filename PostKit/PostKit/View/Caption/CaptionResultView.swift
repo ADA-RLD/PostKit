@@ -29,7 +29,7 @@ struct CaptionResultView: View {
             else{
                 captionResult
                     .onAppear{
-                        saveCaptionResult(category: viewModel.category, Result: viewModel.promptAnswer)
+                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), Result: viewModel.promptAnswer)
                     }
             }
         }
@@ -165,11 +165,18 @@ extension View {
 }
 
 extension CaptionResultView : CaptionResultProtocol {
+    func convertDayTime(time: Date) -> Date {
+        let today = Date()
+        let timezone = TimeZone.autoupdatingCurrent
+        let secondsFromGMT = timezone.secondsFromGMT(for: today)
+        let localizedDate = today.addingTimeInterval(TimeInterval(secondsFromGMT))
+        return localizedDate
+    }
     
-    func saveCaptionResult(category: String, Result: String) {
+    func saveCaptionResult(category: String, date: Date, Result: String) {
         let newCaption = CaptionResult(context: coreDataManager.context)
         newCaption.resultId = UUID()
-        newCaption.date = Date()
+        newCaption.date = date
         newCaption.category = category
         newCaption.caption = Result
         print("Caption 저장 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)")

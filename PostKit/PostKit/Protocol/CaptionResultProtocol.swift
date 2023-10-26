@@ -8,8 +8,9 @@
 import Foundation
 
 protocol CaptionResultProtocol {
+    func convertDayTime(time: Date) -> Date
     
-    func saveCaptionResult(category: String, Result: String)
+    func saveCaptionResult(category: String, date: Date ,Result: String)
     
     func fetchCaptionResult(category: String)
 }
