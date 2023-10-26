@@ -14,7 +14,7 @@ struct OnboardingView: View {
     @Binding var isFirstLaunching: Bool
 
     //CoreData Manager
-    let storeDataManager = StoreDataManager.instance
+    let coreDataManager = CoreDataManager.instance
     
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
@@ -53,11 +53,11 @@ extension OnboardingView : StoreProtocol {
     func saveStoreData(storeName: String, storeTone: String) {
         
         guard !storeName.isEmpty else { return }
-        let newStore = StoreData(context: storeDataManager.context)
+        let newStore = StoreData(context: coreDataManager.context)
         newStore.storeName = storeName
         newStore.tone = storeTone
         print("StoreData: \(newStore)")
-        storeDataManager.save()
+        coreDataManager.save()
         
         print("Store 저장 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
     }
@@ -66,7 +66,7 @@ extension OnboardingView : StoreProtocol {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
         
         do {
-            let storeDataArray = try storeDataManager.context.fetch(storeRequest)
+            let storeDataArray = try coreDataManager.context.fetch(storeRequest)
             print("StoreData: \(storeDataArray)")
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
