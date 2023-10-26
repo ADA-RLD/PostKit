@@ -200,12 +200,9 @@ extension MainView : MainViewProtocol {
     }
     
     func fetchAllData() {
-        
         fetchStoreData()
         fetchDailyData()
         fetchMenuData()
-        
-        
     }
     
 }
