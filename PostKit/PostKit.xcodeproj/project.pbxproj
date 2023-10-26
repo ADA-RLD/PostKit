@@ -50,6 +50,7 @@
 		A188C58C2AD7CFD1007473D3 /* DailyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C58B2AD7CFD1007473D3 /* DailyProtocol.swift */; };
 		A188C5922AD968A7007473D3 /* MainViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5912AD968A7007473D3 /* MainViewProtocol.swift */; };
 		A188C5942ADE22FC007473D3 /* SettingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5932ADE22FC007473D3 /* SettingProtocol.swift */; };
+		A1956B6C2AEA774500B20472 /* CaptionResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1956B6B2AEA774500B20472 /* CaptionResultProtocol.swift */; };
 		B98632602AD7CFB200DE9FF5 /* KeywordsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986325F2AD7CFB200DE9FF5 /* KeywordsModel.swift */; };
 		B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632612AD7CFD500DE9FF5 /* CustomTextfield.swift */; };
 		B98632642AD7CFEE00DE9FF5 /* Keywords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632632AD7CFEE00DE9FF5 /* Keywords.swift */; };
@@ -109,6 +110,7 @@
 		A188C58B2AD7CFD1007473D3 /* DailyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProtocol.swift; sourceTree = "<group>"; };
 		A188C5912AD968A7007473D3 /* MainViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProtocol.swift; sourceTree = "<group>"; };
 		A188C5932ADE22FC007473D3 /* SettingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProtocol.swift; sourceTree = "<group>"; };
+		A1956B6B2AEA774500B20472 /* CaptionResultProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionResultProtocol.swift; sourceTree = "<group>"; };
 		B986325F2AD7CFB200DE9FF5 /* KeywordsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsModel.swift; sourceTree = "<group>"; };
 		B98632612AD7CFD500DE9FF5 /* CustomTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextfield.swift; sourceTree = "<group>"; };
 		B98632632AD7CFEE00DE9FF5 /* Keywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keywords.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				A188C58B2AD7CFD1007473D3 /* DailyProtocol.swift */,
 				A188C5912AD968A7007473D3 /* MainViewProtocol.swift */,
 				A188C5932ADE22FC007473D3 /* SettingProtocol.swift */,
+				A1956B6B2AEA774500B20472 /* CaptionResultProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				B986327C2ADA5DC300DE9FF5 /* LoadingView.swift in Sources */,
 				A188C57F2AD7B822007473D3 /* CoreData.xcdatamodeld in Sources */,
 				B98632782AD9735000DE9FF5 /* DailyView.swift in Sources */,
+				A1956B6C2AEA774500B20472 /* CaptionResultProtocol.swift in Sources */,
 				B98632642AD7CFEE00DE9FF5 /* Keywords.swift in Sources */,
 				B98632662AD7D01500DE9FF5 /* WrappingHStack.swift in Sources */,
 				13C295DF2AD6C01300A2DE7F /* CTABtn.swift in Sources */,
