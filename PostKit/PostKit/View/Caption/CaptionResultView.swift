@@ -180,8 +180,8 @@ extension CaptionResultView : CaptionResultProtocol {
         newCaption.date = date
         newCaption.category = category
         newCaption.caption = Result
-        print("Caption 저장 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)")
         coreDataManager.save()
+        print("Caption 저장 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)")
     }
     
     func fetchCaptionResult(category: String) {

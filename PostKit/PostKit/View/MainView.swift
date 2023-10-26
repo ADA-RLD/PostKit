@@ -18,7 +18,7 @@ struct MainView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
     //CoreData Manager
-    let storeDataManager = CoreDataManager.instance
+    let coreDataManager = CoreDataManager.instance
     
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: "기본")
@@ -142,7 +142,7 @@ extension MainView : MainViewProtocol {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
         
         do {
-            let storeDataArray = try storeDataManager.context.fetch(storeRequest)
+            let storeDataArray = try coreDataManager.context.fetch(storeRequest)
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 self.storeModel.tone = storeCoreData.tone ?? "기본"
