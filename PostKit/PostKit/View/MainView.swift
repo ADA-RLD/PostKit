@@ -17,7 +17,7 @@ struct MainView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
-    //CoreData Managerx
+    //CoreData Manager
     let storeDataManager = StoreDataManager.instance
     let dailyDataManager = DailyDataManager.instance
     let menuDataManager = MenuDataManager.instance
