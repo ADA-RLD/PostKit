@@ -12,11 +12,12 @@ struct MainView: View {
     @AppStorage("_cafeName") var cafeName: String = ""
     
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
+
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
-    //CoreData Manager
+    //CoreData Managerx
     let storeDataManager = StoreDataManager.instance
     let dailyDataManager = DailyDataManager.instance
     let menuDataManager = MenuDataManager.instance
@@ -72,7 +73,7 @@ struct MainView: View {
                 }
             }
         }
-        // TODO: 쇼케이스 끝나면 한번만 할 수 있게 바꿔야 할 꺼에요
+        .navigationBarBackButtonHidden()
         .fullScreenCover(isPresented: $isFirstLaunching) {
             OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
         }

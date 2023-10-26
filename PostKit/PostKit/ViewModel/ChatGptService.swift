@@ -19,7 +19,7 @@ class ChatGptService {
     func sendMessage(messages: [Message]) async -> chatGptResponse? {
         let openAIMessages = messages.map({chatGptMessage(role: .system, content: $0.content)})
         let randomKey = getRandomKey()
-        let body = chatGptBody(model: "gpt-3.5-turbo-0301", messages: openAIMessages)
+        let body = chatGptBody(model: "gpt-4-0613", messages: openAIMessages)
         let headers: HTTPHeaders =  [
             "Authorization" : "Bearer \(randomKey)"
         ]
