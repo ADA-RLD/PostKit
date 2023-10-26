@@ -12,7 +12,7 @@ struct MainView: View {
     @AppStorage("_cafeName") var cafeName: String = ""
     
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
-
+    
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared
@@ -29,14 +29,67 @@ struct MainView: View {
     
     
     var body: some View {
+        ZStack {
+            if isFirstLaunching == true {
+                OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
+            }
+            else {
+                mainView
+            }
+            
+        }
+        
+    }
+}
+
+// MARK: - 카테고리 버튼
+private func NavigationBtn(header: String, description: String,action: @escaping () -> Void) -> some View {
+    Button(action: {
+        action()
+    }) {
+        RoundedRectangle(cornerRadius: radius2)
+            .frame(maxWidth: .infinity)
+            .frame(height: 106)
+            .overlay(alignment: .leading) {
+                VStack(alignment: .leading,spacing: 8) {
+                    Text(header)
+                        .font(.title2())
+                        .foregroundStyle(Color.gray6)
+                    Text(description)
+                        .font(.body2Bold())
+                        .foregroundStyle(Color.gray4)
+                }
+                .padding(.horizontal,16)
+            }
+            .foregroundStyle(Color.sub)
+    }
+}
+
+// MARK: - 설정 버튼
+private func SettingBtn(action: @escaping () -> Void) -> some View {
+    HStack(alignment: .center) {
+        Spacer()
+        Button(action: {
+            action()
+        }, label: {
+            Image(systemName: "gearshape")
+                .resizable()
+                .foregroundStyle(Color.gray5)
+                .frame(width: 24,height: 24)
+        })
+    }
+}
+
+extension MainView {
+    private var mainView: some View {
         NavigationStack(path: $pathManager.path) {
             
             VStack(alignment: .leading, spacing: 28){
                 SettingBtn(action: {pathManager.path.append(.SettingHome)})
-
+                
                 VStack(alignment:.leading ,spacing: 28){
                     Text("어떤 카피를 생성할까요?")
-                       
+                    
                         .font(.system(size: 24,weight: .bold))
                     
                     VStack(spacing: 12){
@@ -74,57 +127,16 @@ struct MainView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .fullScreenCover(isPresented: $isFirstLaunching) {
-            OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
-        }
         .onAppear{
             fetchAllData()
         }
+        
     }
-}
-
-// MARK: - 카테고리 버튼
-private func NavigationBtn(header: String, description: String,action: @escaping () -> Void) -> some View {
-    VStack {
-        Button(action: {
-            action()
-        }) {
-            RoundedRectangle(cornerRadius: radius2)
-                .frame(maxWidth: .infinity)
-                .frame(height: 106)
-                .overlay(alignment: .leading) {
-                    VStack(alignment: .leading,spacing: 8) {
-                        Text(header)
-                            .font(.title2())
-                            .foregroundStyle(Color.gray6)
-                        Text(description)
-                            .font(.body2Bold())
-                            .foregroundStyle(Color.gray4)
-                    }
-                    .padding(.horizontal,16)
-                }
-                .foregroundStyle(Color.sub)
-        }
-    }
-}
-
-// MARK: - 설정 버튼
-private func SettingBtn(action: @escaping () -> Void) -> some View {
-    HStack(alignment: .center) {
-        Spacer()
-        Button(action: {
-            action()
-        }, label: {
-            Image(systemName: "gearshape")
-                .resizable()
-                .foregroundStyle(Color.gray5)
-                .frame(width: 24,height: 24)
-        })
-    }
+    
 }
 
 extension MainView : MainViewProtocol {
-   
+    
     func resetData() {
         menuModel.menuName = ""
         menuModel.menuPoint = ""
@@ -186,12 +198,9 @@ extension MainView : MainViewProtocol {
     }
     
     func fetchAllData() {
-        
         fetchStoreData()
         fetchDailyData()
         fetchMenuData()
-        
-        
     }
     
 }
