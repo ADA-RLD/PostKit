@@ -44,26 +44,24 @@ struct MainView: View {
 
 // MARK: - 카테고리 버튼
 private func NavigationBtn(header: String, description: String,action: @escaping () -> Void) -> some View {
-    VStack {
-        Button(action: {
-            action()
-        }) {
-            RoundedRectangle(cornerRadius: radius2)
-                .frame(maxWidth: .infinity)
-                .frame(height: 106)
-                .overlay(alignment: .leading) {
-                    VStack(alignment: .leading,spacing: 8) {
-                        Text(header)
-                            .font(.title2())
-                            .foregroundStyle(Color.gray6)
-                        Text(description)
-                            .font(.body2Bold())
-                            .foregroundStyle(Color.gray4)
-                    }
-                    .padding(.horizontal,16)
+    Button(action: {
+        action()
+    }) {
+        RoundedRectangle(cornerRadius: radius2)
+            .frame(maxWidth: .infinity)
+            .frame(height: 106)
+            .overlay(alignment: .leading) {
+                VStack(alignment: .leading,spacing: 8) {
+                    Text(header)
+                        .font(.title2())
+                        .foregroundStyle(Color.gray6)
+                    Text(description)
+                        .font(.body2Bold())
+                        .foregroundStyle(Color.gray4)
                 }
-                .foregroundStyle(Color.sub)
-        }
+                .padding(.horizontal,16)
+            }
+            .foregroundStyle(Color.sub)
     }
 }
 
