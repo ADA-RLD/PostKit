@@ -12,6 +12,7 @@ struct MenuView: View {
     //@EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
+    @State var menuName = ""
     @State var isCoffeeOpened = true
     @State var isDrinkOpened = false
     @State var isDessertOpened = false
@@ -26,7 +27,6 @@ struct MenuView: View {
     
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
-    @StateObject var menuModel : MenuModel
     
     // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
     @State var messages: [Message] = []
@@ -51,9 +51,9 @@ struct MenuView: View {
                                     .foregroundStyle(Color.gray5)
                                     .font(.body1Bold())
                                 
-                                CustomTextfield(menuName: $menuModel.menuName, placeHolder: "아메리카노")
-                                    .onChange(of: menuModel.menuName)  {
-                                        _ in if menuModel.menuName.count >= 1 {
+                                CustomTextfield(menuName: $menuName, placeHolder: "아메리카노")
+                                    .onChange(of: menuName)  {
+                                        _ in if menuName.count >= 1 {
                                             isActive = true
                                         } else {
                                             isActive = false
@@ -142,7 +142,7 @@ struct MenuView: View {
                 pointText = pointText + "이 있어."
             }
             
-            self.currentInput = "메뉴의 이름은 \(menuModel.menuName)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
+            self.currentInput = "메뉴의 이름은 \(menuName)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
             let newMessage = Message(id: UUID(), role: .user, content: self.currentInput)
             self.messages.append(newMessage)
             viewModel.prompt = self.currentInput
@@ -159,24 +159,6 @@ extension View {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
-
-//extension MenuView : MenuProtocol {
-//    func saveMenuData(recordId: UUID, recordDate: Date?, menuName: String, menuPoint: String) {
-//        //이 뷰에서는 저장 안함?
-//    }
-//
-//    func fetchMenuData(menuName: String, menuPoint: String) {
-//
-//        let menuRequest = NSFetchRequest<MenuData>(entityName: "MenuData")
-//
-//    }
-//
-//    func deletStoreData(menuName: String, menuPoint: String) {
-//        <#code#>
-//    }
-//
-//
-//}
 
 //#Preview {
 //    MenuView()
