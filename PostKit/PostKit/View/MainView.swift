@@ -21,7 +21,7 @@ struct MainView: View {
     let coreDataManager = CoreDataManager.instance
     
     //CoreData 임시 Class
-    @StateObject var storeModel = StoreModel( _storeName: "", _tone: "기본")
+    @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
     
     
     var body: some View {
@@ -145,7 +145,8 @@ extension MainView : MainViewProtocol {
             let storeDataArray = try coreDataManager.context.fetch(storeRequest)
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
-                self.storeModel.tone = storeCoreData.tone ?? "기본"
+                // TODO: 코어데이터 함수 변경 필요
+//                self.storeModel.tone = storeCoreData.tone ?? ["기본"]
             }
         } catch {
             print("ERROR STORE CORE DATA")

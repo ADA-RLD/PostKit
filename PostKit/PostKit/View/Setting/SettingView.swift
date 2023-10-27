@@ -27,7 +27,8 @@ struct SettingView: View {
             ContentArea {
                 VStack(spacing: 40.0) {
                     SettingInfo(info: "매장 정보", Answer: storeModel.storeName, action: {pathManager.path.append(.SettingStore)})
-                    SettingInfo(info: "말투", Answer: storeModel.tone, action: {pathManager.path.append(.SettingTone)})
+                    // TODO: 코어데이터 함수 변경 필요
+//                    SettingInfo(info: "말투", Answer: storeModel.tone, action: {pathManager.path.append(.SettingTone)})
             
                 }
             }
@@ -66,7 +67,8 @@ extension SettingView: SettingProtocol {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
             print("StoreData: \(storeDataArray)")
             self.storeModel.storeName = storeDataArray.last?.storeName ?? ""
-            self.storeModel.tone = storeDataArray.last?.tone ?? ""
+            //TODO: CoreData 함수 변경 필요
+//            self.storeModel.tone = storeDataArray.last?.tone ?? ""
             print("데이터 Fetch완료\nStoreData: \(storeModel.storeName)\nStoreTone: \(storeModel.tone)\n")
             
         } catch {
