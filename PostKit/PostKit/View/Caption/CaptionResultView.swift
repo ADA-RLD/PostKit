@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import CoreData
 import UIKit
 
 struct CaptionResultView: View {
-    @EnvironmentObject var appstorageManager: AppstorageManager
+    //@EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var copyResult = "생성된 텍스트가 들어가요."
     @State private var isShowingToast = false
@@ -20,6 +21,9 @@ struct CaptionResultView: View {
     
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
+    
+    //CoreData Data Class
+    @StateObject var storeModel : StoreModel
     
     var body: some View {
         ZStack{
@@ -107,10 +111,10 @@ extension CaptionResultView {
 // MARK: 코드의 가독성을 위해 function들을 따로 모았습니다.
 extension CaptionResultView {
     // MARK: - Chat GPT API에 재생성 요청
-    func regenerateAnswer() {
+    func regenerateAnswer() { /* Daily, Menu를 선택하지 않아도 이전 답변을 참고하여 재생성 합니다.*/
         Task{
             viewModel.promptAnswer = "생성된 텍스트가 들어가요."
-            self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(appstorageManager.cafeName == "" ? "카페": appstorageManager.cafeName)를 운영하고 있으며 \(appstorageManager.cafeTone == "기본" ? "평범한" : appstorageManager.cafeTone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 150자 정도로 작성해줘."))
+            self.messages.append(Message(id: UUID(), role: .assistant, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)를 운영하고 있으며 \(storeModel.tone == "기본" ? "평범한" : storeModel.tone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 150자 정도로 작성해줘."))
             let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
             self.messages.append(newMessage)
             let response = await chatGptService.sendMessage(messages: self.messages)
@@ -190,6 +194,6 @@ extension CaptionResultView : CaptionResultProtocol {
     
 }
 
-#Preview {
-    CaptionResultView()
-}
+//#Preview {
+//    CaptionResultView()
+//}

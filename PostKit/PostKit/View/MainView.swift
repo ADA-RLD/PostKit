@@ -118,7 +118,7 @@ extension MainView {
                 case .SettingTone:
                     SettingToneView(storeTone: $storeModel.tone)
                 case .CaptionResult:
-                    CaptionResultView()
+                    CaptionResultView(storeModel: storeModel)
                 }
             }
         }
