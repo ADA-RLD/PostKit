@@ -194,6 +194,6 @@ extension CaptionResultView : CaptionResultProtocol {
     
 }
 
-#Preview {
-    CaptionResultView()
-}
+//#Preview {
+//    CaptionResultView()
+//}
