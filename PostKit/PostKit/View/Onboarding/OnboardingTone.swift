@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct OnboardingTone: View {
-    //@EnvironmentObject var appstorageManager: AppstorageManager
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     
     //Core Data 저장을 위해 가지고 나가기
-    @Binding var cafeTone : String
+    @Binding var cafeTone : [String]
     
     var body: some View {
         VStack(alignment:.leading,spacing: 0) {
@@ -27,13 +26,13 @@ struct OnboardingTone: View {
                             .font(.body2Bold())
                             .foregroundStyle(Color.gray4)
                     }
-                    SelectTone(tone: $cafeTone)
+                    SelectTone(selectedTones: $cafeTone)
                 }
             }
             
             Spacer()
 
-            CTABtn(btnLabel: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
+            CTABtn(btnLabel: "다음", isActive: .constant(true), action: {print(cafeTone);onboardingRouter.nextPage()})
         }
     }
 }

@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct SelectTone: View {
-    @Binding var tone: String
+    @Binding var selectedTones: [String]
     var body: some View {
         toggleBtns
     }
 }
 
+//MARK: Extension: View
 extension SelectTone {
     private var toggleBtns: some View {
         VStack(alignment:.leading, spacing: 12) {
@@ -25,20 +26,20 @@ extension SelectTone {
                         //마지막 행에 추가가 안된 데이터의 값을 나타날때 생기는 오류 방지
                         if item < tones.count {
                             Button {
-                                self.tone = tones[item]
+                                addTone(tone: tones[item])
                             } label: {
                                 RoundedRectangle(cornerRadius: radius2)
-                                    .stroke(tones[item] == tone ? Color.main: Color.gray1, lineWidth: 2)
+                                    .stroke(selectedTones.contains(tones[item]) ? Color.main: Color.gray1, lineWidth: 2)
                                     .background(
                                         RoundedRectangle(cornerRadius: radius2)
-                                            .fill(tones[item] == tone ? Color.sub: Color.gray1)
+                                            .fill(selectedTones.contains(tones[item]) ? Color.sub: Color.gray1)
                                         )
                                     .frame(width:UIScreen.main.bounds.width/2 - paddingHorizontal - 6,height: 60)
                                     .overlay(alignment: .leading) {
                                         Text(tones[item])
                                             .font(.body1Bold())
                                             .padding(.leading, 20)
-                                            .foregroundStyle(tones[item] == tone ? Color.main: Color.gray4)
+                                            .foregroundStyle(selectedTones.contains(tones[item]) ? Color.main: Color.gray4)
                                     }
                             }
                         }
@@ -47,18 +48,36 @@ extension SelectTone {
             }
         }
     }
-}
-private func toggleBtn(answer: String) -> some View {
-    Button {
-        
-    } label: {
-        RoundedRectangle(cornerRadius: 16)
-            .overlay {
-                Text(answer)
-            }
+    
+    private func toggleBtn(answer: String) -> some View {
+        Button {
+            
+        } label: {
+            RoundedRectangle(cornerRadius: 16)
+                .overlay {
+                    Text(answer)
+                }
+        }
     }
 }
 
-#Preview {
-    SelectTone(tone: .constant("S"))
+
+// MARK: Extension: Function
+extension SelectTone {
+    private func addTone(tone: String) {
+        
+        if !selectedTones.contains(tone) {
+            
+            if selectedTones.count >= 3 {
+                selectedTones.removeFirst()
+                selectedTones.append(tone)
+            }
+            
+            else {
+                selectedTones.append(tone)
+            }
+            
+        }
+        
+    }
 }
