@@ -10,13 +10,11 @@ import CoreData
 
 struct MainView: View {
     @AppStorage("_cafeName") var cafeName: String = ""
-    
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
-    
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared
-    
+    @State var historySelected = "피드 글"
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
@@ -155,11 +153,104 @@ extension MainView {
     }
     
     private var mainHistoryView: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("히스토리 예정입니다.")
+        ContentArea {
+            VStack(alignment: .leading, spacing: 20) {
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    
+                    Text("히스토리")
+                        .font(.title1())
+                        .foregroundColor(Color.gray6)
+                    
+                    Text("히스토리를 탭하면 내용이 복사됩니다.")
+                        .font(.body2Bold())
+                        .foregroundColor(Color.gray4)
+                }
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    
+                    historyIndicator
+                    
+                    TabView(selection: $historySelected) {
+                        
+                        feedHistory
+                            .tag("피드 글")
+                        
+                        hashtagHistory
+                            .tag("해시태그")
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    
+                }
+            }
         }
     }
     
+    private var historyIndicator: some View {
+        HStack(spacing: 16) {
+            
+            Button(action: {
+                historySelected = "피드 글"
+            }, label: {
+                Text("피드 글")
+            })
+            
+            Button(action: {
+                historySelected = "해시태그"
+            }, label: {
+                Text("해시태그")
+            })
+        }
+    }
+    
+    private var feedHistory: some View {
+        VStack {
+            feedHisoryDetail(tag: "일상", date: Date(), content: "구름이 가득한 하늘이 내 기분과 딱 맞아!\n쌀쌀한 날씨에는 요거트 프라푸치노가 최고지🌥️❄️\n뜨거운 커피보다는 상큼한 요거트와 얼음이 어우러진 이 음료, 겨울 날씨에도 내 마음을 녹일 수 있어. 한 모금에 신선한 맛이 느껴지는 이 순간!")
+        }
+    }
+    
+    // TODO: 해시태그 히스토리는 여기에 작업해주세요
+    private var hashtagHistory: some View {
+        VStack {
+            
+        }
+    }
+    
+    private func feedHisoryDetail(tag: String, date: Date, content: String) -> some View {
+        RoundedRectangle(cornerRadius: radius1)
+            .frame(height: 160)
+            .foregroundColor(Color.gray1)
+            .overlay(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 8) {
+                    
+                    HStack(spacing: 0) {
+                        
+                        Text(tag)
+                            .font(.body2Bold())
+                            .foregroundColor(Color.white)
+                            .padding(.horizontal, 9.5)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .background(Color.main)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundColor(.clear)
+                            }
+            
+                        Spacer()
+                        
+                        Text(date, style: .date)
+                            .font(.body2Bold())
+                            .foregroundColor(Color.gray4)
+                    }
+                    
+                    Text(content)
+                        .font(.body2Bold())
+                        .foregroundColor(Color.gray5)
+                    
+                }
+                .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
+            }
+    }
 }
 
 extension MainView : MainViewProtocol {
@@ -169,7 +260,6 @@ extension MainView : MainViewProtocol {
     }
     
     func fetchStoreData() {
-        
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
         
         do {
@@ -183,12 +273,9 @@ extension MainView : MainViewProtocol {
             print("ERROR STORE CORE DATA")
             print(error.localizedDescription)
         }
-        
     }
     
     func fetchAllData() {
         fetchStoreData()
-        
     }
-    
 }
