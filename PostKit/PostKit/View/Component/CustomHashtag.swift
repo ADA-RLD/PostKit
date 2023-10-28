@@ -8,11 +8,34 @@
 import SwiftUI
 
 struct CustomHashtag: View {
+    let tagText: String
+    let deleteAction: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            HStack {
+                Text(tagText)
+                    .font(.body2Regular())
+                    .foregroundStyle(.main)
+                Image(systemName: "xmark")
+                    .font(.body2Regular())
+                    .foregroundStyle(.main)
+                    .onTapGesture {
+                        deleteAction()
+                    }
+            }
+            .padding(EdgeInsets(top: 8, leading: radius1, bottom: 8, trailing: radius1))
+            .background(Color.sub)
+            .clipShape(RoundedRectangle(cornerRadius: radius1))
+            .overlay {
+                RoundedRectangle(cornerRadius: radius1)
+                    .stroke(Color.main,lineWidth: 2)
+            }
+        }
     }
-}
+
 
 #Preview {
-    CustomHashtag()
+    CustomHashtag(tagText: "hi") {
+        print("hello")
+    }
 }
