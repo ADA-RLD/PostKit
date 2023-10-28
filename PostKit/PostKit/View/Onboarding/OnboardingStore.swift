@@ -29,7 +29,7 @@ struct OnboardingStore: View {
                             .foregroundStyle(Color.gray4)
                     }
                     VStack(alignment: .leading) {
-                        CustomTextfield(textLimit: 15, menuName: $cafeName, placeHolder: "동글이 카페")
+                        CustomTextfield(text: $cafeName, placeHolder: "동글이 카페")
                             .onChange(of: $cafeName.wrappedValue) { lengthCount in
                                 if !lengthCount.isEmpty {
                                     isActive = true
