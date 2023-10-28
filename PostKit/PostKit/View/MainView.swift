@@ -32,7 +32,6 @@ struct MainView: View {
             else {
                 NavigationStack(path: $pathManager.path) {
                     TabView {
-                        
                         mainCaptionView
                             .tabItem {
                                 Image(systemName: "plus.app.fill")
@@ -44,9 +43,6 @@ struct MainView: View {
                                 Image(systemName: "clock.fill")
                                 Text("히스토리")
                             }
-                        
-                        
-                        
                     }
                     // TODO: 뷰 만들면 여기 스위치문에 넣어주세요
                     .navigationDestination(for: StackViewType.self) { stackViewType in
@@ -119,25 +115,43 @@ private func SettingBtn(action: @escaping () -> Void) -> some View {
 
 extension MainView {
     private var mainCaptionView: some View {
-        VStack(alignment: .leading, spacing: 28) {
-            SettingBtn(action: {pathManager.path.append(.SettingHome)})
+        ContentArea {
             
-            VStack(alignment:.leading ,spacing: 28) {
-                Text("어떤 카피를 생성할까요?")
+            VStack(spacing: 28) {
+                SettingBtn(action: {pathManager.path.append(.SettingHome)})
                 
-                    .font(.system(size: 24,weight: .bold))
-                
-                VStack(spacing: 12) {
-                    NavigationBtn(header: "일상",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Daily)})
-                    NavigationBtn(header: "메뉴",description: "카페의 메뉴에 대한 글을 써요", action: {pathManager.path.append(.Menu)})
+                VStack(alignment: .leading, spacing: 28) {
+                    
+                    Text("어떤 카피를 생성할까요?")
+                        .font(.title1())
+                    
+                    VStack(alignment: .leading, spacing: 12) {
+                        
+                        Text("캡션")
+                            .font(.body2Bold())
+                            .foregroundColor(Color.gray4)
+                        
+                        NavigationBtn(header: "일상",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Daily)})
+                        
+                        NavigationBtn(header: "메뉴",description: "카페의 메뉴에 대한 글을 써요", action: {pathManager.path.append(.Menu)})
+                    }
+                    
+                    VStack(alignment: .leading, spacing: 12) {
+                        
+                        Text("해시태그")
+                            .font(.body2Bold())
+                            .foregroundColor(Color.gray4)
+                        
+                        NavigationBtn(header: "해시태그",description: "가벼운 카페 일상 글을 써요", action: {
+                            //TODO: 해시태그 생성 뷰 만들면 여기에 path추가해 주세요!
+                        })
+                    }
                 }
+                
+                Spacer()
             }
-            
-            Spacer()
         }
-        .padding(.horizontal, paddingHorizontal)
-        .padding(.top, paddingTop)
-        .padding(.bottom, paddingBottom)
+       
     }
     
     private var mainHistoryView: some View {
