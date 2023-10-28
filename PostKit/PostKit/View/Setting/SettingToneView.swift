@@ -18,9 +18,8 @@ struct SettingToneView: View {
     
     //CoreData Data Class
     @State var storeName: String = ""
-    @Binding var storeTone: String
+    @Binding var storeTone: [String]
     
-    var tones: [String] = ["기본","친구같은","전문적인","친절한","재치있는","열정적인","감성적인","활발한","세련된"]
     
     var body: some View {
         VStack(alignment:.leading,spacing: 0) {
@@ -29,12 +28,13 @@ struct SettingToneView: View {
             }, title: "말투")
             ContentArea {
                 VStack(spacing: 0) {
-                    SelectTone(tone: $storeTone)
+                    SelectTone(selectedTones: $storeTone)
                 }
             }
             Spacer()
             CTABtn(btnLabel: "저장", isActive: .constant(true)) {
-                saveStoreData(storeName: storeName, storeTone: storeTone)
+                //TODO: coredata 형식 변경 필요
+//                saveStoreData(storeName: storeName, storeTone: storeTone)
                 pathManager.path.removeLast()
             }
         }
@@ -45,7 +45,7 @@ struct SettingToneView: View {
 
 extension SettingToneView {
     private var toggleBtns: some View {
-        SelectTone(tone: $storeTone)
+        SelectTone(selectedTones: $storeTone)
     }
 }
 

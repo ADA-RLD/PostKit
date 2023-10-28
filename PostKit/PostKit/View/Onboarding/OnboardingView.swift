@@ -43,7 +43,8 @@ struct OnboardingView: View {
             fetchStoreData()
         }
         .onChange(of: isFirstLaunching) { _ in
-            saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
+            //TODO: 코어데이터 함수 변경 필요
+//            saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
         }
     }
 }
@@ -70,7 +71,7 @@ extension OnboardingView : StoreProtocol {
             print("StoreData: \(storeDataArray)")
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
-                self.storeModel.tone = "기본"
+                self.storeModel.tone = ["기본"]
                 
                 print("Store Fetch 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
             }
