@@ -30,7 +30,48 @@ struct MainView: View {
                 OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
             }
             else {
-                mainView
+                NavigationStack(path: $pathManager.path) {
+                    TabView {
+                        
+                        mainCaptionView
+                            .tabItem {
+                                Image(systemName: "plus.app.fill")
+                                Text("생성")
+                            }
+                        
+                        mainHistoryView
+                            .tabItem {
+                                Image(systemName: "clock.fill")
+                                Text("히스토리")
+                            }
+                        
+                        
+                        
+                    }
+                    // TODO: 뷰 만들면 여기 스위치문에 넣어주세요
+                    .navigationDestination(for: StackViewType.self) { stackViewType in
+                        switch stackViewType {
+                        case .Menu:
+                            MenuView(storeModel: storeModel)
+                        case .Daily:
+                            DailyView(storeModel: storeModel)
+                        case .SettingHome:
+                            SettingView(storeModel: storeModel)
+                        case .SettingStore:
+                            SettingStoreView(storeName: $storeModel.storeName)
+                        case .SettingTone:
+                            SettingToneView(storeTone: $storeModel.tone)
+                        case .CaptionResult:
+                            CaptionResultView(storeModel: storeModel)
+                        }
+                    }
+                }
+                .navigationBarBackButtonHidden()
+                .onAppear{
+                    fetchAllData()
+                    viewModel.promptAnswer = "생성된 텍스트가 들어가요."
+                    resetData()
+                }
             }
             
         }
@@ -77,56 +118,32 @@ private func SettingBtn(action: @escaping () -> Void) -> some View {
 }
 
 extension MainView {
-    private var mainView: some View {
-        NavigationStack(path: $pathManager.path) {
+    private var mainCaptionView: some View {
+        VStack(alignment: .leading, spacing: 28) {
+            SettingBtn(action: {pathManager.path.append(.SettingHome)})
             
-            VStack(alignment: .leading, spacing: 28){
-                SettingBtn(action: {pathManager.path.append(.SettingHome)})
+            VStack(alignment:.leading ,spacing: 28) {
+                Text("어떤 카피를 생성할까요?")
                 
-                VStack(alignment:.leading ,spacing: 28){
-                    Text("어떤 카피를 생성할까요?")
-                    
-                        .font(.system(size: 24,weight: .bold))
-                    
-                    VStack(spacing: 12){
-                        NavigationBtn(header: "일상",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Daily)})
-                        NavigationBtn(header: "메뉴",description: "카페의 메뉴에 대한 글을 써요", action: {pathManager.path.append(.Menu)})
-                    }
-                }
+                    .font(.system(size: 24,weight: .bold))
                 
-                Spacer()
-            }
-            .padding(.horizontal, paddingHorizontal)
-            .padding(.top, paddingTop)
-            .padding(.bottom, paddingBottom)
-            .onAppear{
-                //뷰 생성시 데이터를 초기화 합니다.
-                viewModel.promptAnswer = "생성된 텍스트가 들어가요."
-                resetData()
-            }
-            // TODO: 뷰 만들면 여기 스위치문에 넣어주세요
-            .navigationDestination(for: StackViewType.self) { stackViewType in
-                switch stackViewType {
-                case .Menu:
-                    MenuView(storeModel: storeModel)
-                case .Daily:
-                    DailyView(storeModel: storeModel)
-                case .SettingHome:
-                    SettingView(storeModel: storeModel)
-                case .SettingStore:
-                    SettingStoreView(storeName: $storeModel.storeName)
-                case .SettingTone:
-                    SettingToneView(storeTone: $storeModel.tone)
-                case .CaptionResult:
-                    CaptionResultView(storeModel: storeModel)
+                VStack(spacing: 12) {
+                    NavigationBtn(header: "일상",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Daily)})
+                    NavigationBtn(header: "메뉴",description: "카페의 메뉴에 대한 글을 써요", action: {pathManager.path.append(.Menu)})
                 }
             }
+            
+            Spacer()
         }
-        .navigationBarBackButtonHidden()
-        .onAppear{
-            fetchAllData()
+        .padding(.horizontal, paddingHorizontal)
+        .padding(.top, paddingTop)
+        .padding(.bottom, paddingBottom)
+    }
+    
+    private var mainHistoryView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("히스토리 예정입니다.")
         }
-        
     }
     
 }
@@ -134,7 +151,7 @@ extension MainView {
 extension MainView : MainViewProtocol {
     
     func resetData() {
-       
+        
     }
     
     func fetchStoreData() {
@@ -146,7 +163,7 @@ extension MainView : MainViewProtocol {
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 // TODO: 코어데이터 함수 변경 필요
-//                self.storeModel.tone = storeCoreData.tone ?? ["기본"]
+                //                self.storeModel.tone = storeCoreData.tone ?? ["기본"]
             }
         } catch {
             print("ERROR STORE CORE DATA")
