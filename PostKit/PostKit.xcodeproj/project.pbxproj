@@ -51,6 +51,8 @@
 		A188C5922AD968A7007473D3 /* MainViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5912AD968A7007473D3 /* MainViewProtocol.swift */; };
 		A188C5942ADE22FC007473D3 /* SettingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5932ADE22FC007473D3 /* SettingProtocol.swift */; };
 		A1956B6C2AEA774500B20472 /* CaptionResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1956B6B2AEA774500B20472 /* CaptionResultProtocol.swift */; };
+		B96211E92AED16CC0074CBE1 /* HashtagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96211E82AED16CC0074CBE1 /* HashtagView.swift */; };
+		B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */; };
 		B98632602AD7CFB200DE9FF5 /* KeywordsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986325F2AD7CFB200DE9FF5 /* KeywordsModel.swift */; };
 		B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632612AD7CFD500DE9FF5 /* CustomTextfield.swift */; };
 		B98632642AD7CFEE00DE9FF5 /* Keywords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632632AD7CFEE00DE9FF5 /* Keywords.swift */; };
@@ -111,6 +113,8 @@
 		A188C5912AD968A7007473D3 /* MainViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewProtocol.swift; sourceTree = "<group>"; };
 		A188C5932ADE22FC007473D3 /* SettingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProtocol.swift; sourceTree = "<group>"; };
 		A1956B6B2AEA774500B20472 /* CaptionResultProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionResultProtocol.swift; sourceTree = "<group>"; };
+		B96211E82AED16CC0074CBE1 /* HashtagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagView.swift; sourceTree = "<group>"; };
+		B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHashtag.swift; sourceTree = "<group>"; };
 		B986325F2AD7CFB200DE9FF5 /* KeywordsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsModel.swift; sourceTree = "<group>"; };
 		B98632612AD7CFD500DE9FF5 /* CustomTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextfield.swift; sourceTree = "<group>"; };
 		B98632632AD7CFEE00DE9FF5 /* Keywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keywords.swift; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 		13C295C42AD620C700A2DE7F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B96211E72AED16A90074CBE1 /* Hashtag */,
 				13C296292ADF875100A2DE7F /* Caption */,
 				13C2960A2AD8F14000A2DE7F /* Onboarding */,
 				13C295DB2AD6B46F00A2DE7F /* Extension */,
@@ -228,6 +233,7 @@
 				13C296172AD8F1F000A2DE7F /* CustomHeader.swift */,
 				13C296192AD8F26300A2DE7F /* SelectTone.swift */,
 				139B2C7D2ADFF8690036BD18 /* ContentArea.swift */,
+				B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -310,6 +316,14 @@
 				A1956B6B2AEA774500B20472 /* CaptionResultProtocol.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		B96211E72AED16A90074CBE1 /* Hashtag */ = {
+			isa = PBXGroup;
+			children = (
+				B96211E82AED16CC0074CBE1 /* HashtagView.swift */,
+			);
+			path = Hashtag;
 			sourceTree = "<group>";
 		};
 		D2EED1AA8014945B0B79CFF3 /* Pods */ = {
@@ -485,6 +499,7 @@
 				13C295DD2AD6B48400A2DE7F /* DesignSystem.swift in Sources */,
 				13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */,
 				13C2960C2AD8F15300A2DE7F /* OnboardingFinal.swift in Sources */,
+				B96211E92AED16CC0074CBE1 /* HashtagView.swift in Sources */,
 				13C296122AD8F17100A2DE7F /* OnboardingStore.swift in Sources */,
 				A188C5852AD7BA89007473D3 /* CoreDataManager.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
@@ -492,6 +507,7 @@
 				13C2960E2AD8F15E00A2DE7F /* OnboardingIntro.swift in Sources */,
 				A188C58A2AD7CDD3007473D3 /* MenuProtocol.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
+				B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */,
 				A188C5922AD968A7007473D3 /* MainViewProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -627,7 +643,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"PostKit/Preview Content\"";
-				DEVELOPMENT_TEAM = F5LF3NUCU2;
+				DEVELOPMENT_TEAM = U65UYKH3S3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PostKit/Info.plist;
@@ -662,7 +678,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"PostKit/Preview Content\"";
-				DEVELOPMENT_TEAM = F5LF3NUCU2;
+				DEVELOPMENT_TEAM = U65UYKH3S3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PostKit/Info.plist;
