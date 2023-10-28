@@ -48,17 +48,6 @@ extension SelectTone {
             }
         }
     }
-    
-    private func toggleBtn(answer: String) -> some View {
-        Button {
-            
-        } label: {
-            RoundedRectangle(cornerRadius: 16)
-                .overlay {
-                    Text(answer)
-                }
-        }
-    }
 }
 
 
