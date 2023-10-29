@@ -19,7 +19,7 @@ struct PostKitApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HashtagView()
+            MainView()
                 .environmentObject(appstorageManager)
                 .environmentObject(pathManager)
                 .environment(\.managedObjectContext, storeDataManager.container.viewContext)
