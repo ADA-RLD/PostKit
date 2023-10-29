@@ -27,7 +27,7 @@ struct SettingStoreView: View {
                     Text("이름")
                         .font(.body1Bold())
                         .foregroundStyle(Color.gray5)
-                    CustomTextfield(textLimit: 15, menuName: $storeName, placeHolder: storeName)
+                    CustomTextfield(text: $storeName, placeHolder: storeName)
                 }
             }
             Spacer()

@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct CustomTextfield: View {
+    enum CustomTextfieldState {
+        case one
+        case reuse
+    }
+    
     @StateObject var keyboard: KeyboardObserver = KeyboardObserver()
-    var textLimit = 15
-    @Binding var menuName : String
+    @Binding var text : String
+    
     var placeHolder: String
+    var customTextfieldState: CustomTextfieldState = .one
+    var completion: () -> Void = {}
+    var textLimit = 15
+    
     var body: some View {
-        TextField(placeHolder, text: $menuName, prompt: Text(placeHolder).foregroundColor(Color.gray3))
+        TextField(placeHolder, text: $text, prompt: Text(placeHolder).foregroundColor(Color.gray3))
             .font(.body1Bold())
-            .tint(Color.black)
+            .tint(Color.gray6)
             .padding()
             .background(Color.gray1)
             .clipShape(RoundedRectangle(cornerRadius: radius1))
@@ -23,9 +32,9 @@ struct CustomTextfield: View {
                 RoundedRectangle(cornerRadius: radius1)
                     .stroke(keyboard.isShowing ? Color.gray3 : Color.gray2)
             }
-            .onChange(of: menuName) {
-                _ in if menuName.count > textLimit {
-                    menuName = String(menuName.prefix(textLimit))
+            .onChange(of: text) {
+                _ in if text.count > textLimit {
+                    text = String(text.prefix(textLimit))
                 }
             }
             .onAppear {
@@ -35,11 +44,19 @@ struct CustomTextfield: View {
                 self.keyboard.removeObserver()
             }
             .overlay(alignment: .trailing) {
-                Text("\(self.menuName.count.description)/\(textLimit)")
+                Text("\(self.text.count.description)/\(textLimit)")
                     .font(.body2Regular())
-                    .foregroundStyle(keyboard.isShowing ? Color.black : Color.gray4)
+                    .foregroundStyle(keyboard.isShowing ? Color.gray6 : Color.gray4)
                     .padding(.trailing, paddingHorizontal)
             }
+            .submitLabel(.done)
+            .onSubmit {
+                if customTextfieldState == .reuse {
+                    completion()
+                    text = ""
+                }
+            }
+            
     }
 }
 
