@@ -93,6 +93,7 @@ struct MenuView: View {
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
             Spacer()
             CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
