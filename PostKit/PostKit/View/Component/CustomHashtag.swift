@@ -15,10 +15,10 @@ struct CustomHashtag: View {
             HStack {
                 Text(tagText)
                     .font(.body2Regular())
-                    .foregroundStyle(.main)
+                    .foregroundColor(.main)
                 Image(systemName: "xmark")
                     .font(.body2Regular())
-                    .foregroundStyle(.main)
+                    .foregroundColor(.main)
                     .onTapGesture {
                         deleteAction()
                     }
