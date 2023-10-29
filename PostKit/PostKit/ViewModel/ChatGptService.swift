@@ -13,7 +13,7 @@ class ChatGptService {
     // 키 오류를 대비해서 랜덤하게 키를 게속 바꿔줍니다.
     func getRandomKey() -> String {
         let randomIndex = Int.random(in: 0..<Constants.ChatGptAPIKey.count)
-        return Constants.ChatGptAPIKey
+        return Constants.ChatGptAPIKey[randomIndex]
     }
     
     func sendMessage(messages: [Message]) async -> chatGptResponse? {
