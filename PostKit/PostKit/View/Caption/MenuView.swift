@@ -48,7 +48,7 @@ struct MenuView: View {
                                     .foregroundStyle(Color.gray5)
                                     .font(.body1Bold())
                                 
-                                CustomTextfield(menuName: $menuName, placeHolder: "아메리카노")
+                                CustomTextfield(text: $menuName, placeHolder: "아메리카노")
                                     .onChange(of: menuName)  {
                                         _ in if menuName.count >= 1 {
                                             isActive = true
@@ -93,6 +93,7 @@ struct MenuView: View {
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
             Spacer()
             CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
