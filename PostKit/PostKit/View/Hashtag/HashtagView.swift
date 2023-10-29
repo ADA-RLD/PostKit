@@ -14,6 +14,7 @@ struct HashtagView: View {
     @State private var locationTags: [String] = []
     @State private var emphasizeTags: [String] = []
     
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             CustomHeader(action: {}, title: "해시태그 생성")
@@ -32,14 +33,15 @@ struct HashtagView: View {
                             CustomTextfield(text: $locationText, placeHolder: "한남동", customTextfieldState: .reuse) {
                                 if !locationText.isEmpty {
                                     locationTags.append(locationText)
+                                    checkTags()
                                 }
                             }
-                                
                         }
                         WrappingHStack(alignment: .leading) {
                             ForEach(locationTags, id: \.self) { tag in
                                 CustomHashtag(tagText: tag) {
                                     locationTags.removeAll(where: { $0 == tag })
+                                    checkTags()
                                 }
                             }
                         }
@@ -51,6 +53,7 @@ struct HashtagView: View {
                             CustomTextfield(text: $emphasizeText, placeHolder: "마카롱", customTextfieldState: .reuse) {
                                 if !emphasizeText.isEmpty {
                                     emphasizeTags.append(emphasizeText)
+                                    
                                 }
                             }
                         }
@@ -65,9 +68,17 @@ struct HashtagView: View {
                 }
             }
             Spacer()
-            CTABtn(btnLabel: "해시태그 생성", isActive: .constant(true), action: {})
+            CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {})
         }
         .navigationBarBackButtonHidden()
+    }
+    
+    private func checkTags() {
+        if !locationTags.isEmpty {
+            isActive = true
+        } else {
+            isActive = false
+        }
     }
 }
 
