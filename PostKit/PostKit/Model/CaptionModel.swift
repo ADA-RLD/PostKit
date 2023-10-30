@@ -7,8 +7,8 @@
 
 import Foundation
 
-class CaptionModel : ObservableObject {
-    @Published var id : UUID
+class CaptionModel : Identifiable {
+    @Published var id : UUID = UUID()
     @Published var date : Date
     @Published var category : String
     @Published var caption : String
