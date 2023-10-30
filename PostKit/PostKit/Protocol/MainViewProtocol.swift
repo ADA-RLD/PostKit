@@ -13,4 +13,5 @@ protocol MainViewProtocol {
     
     func fetchStoreData()
     
+    func fetchCaptionData()
 }
