@@ -23,8 +23,7 @@ struct MainView: View {
     
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
-    @StateObject var captionModel = CaptionModel(_id: UUID(), _date: Date(), _category: "", _caption: "")
-    
+    @State private var captions: [CaptionModel] = []
     
     var body: some View {
         ZStack {
@@ -226,8 +225,13 @@ extension MainView {
     }
     
     private var feedHistory: some View {
+        
         VStack {
-            feedHisoryDetail(tag: "일상", date: Date(), content: "구름이 가득한 하늘이 내 기분과 딱 맞아!\n쌀쌀한 날씨에는 요거트 프라푸치노가 최고지🌥️❄️\n뜨거운 커피보다는 상큼한 요거트와 얼음이 어우러진 이 음료, 겨울 날씨에도 내 마음을 녹일 수 있어. 한 모금에 신선한 맛이 느껴지는 이 순간!")
+            ScrollView{
+                ForEach(captions) { item in
+                    feedHisoryDetail(tag: item.category, date: item.date, content: item.caption)
+                }
+            }
         }
         .toast(isShowing: $isShowingToast)
     }
@@ -235,8 +239,9 @@ extension MainView {
     // TODO: 해시태그 히스토리는 여기에 작업해주세요
     private var hashtagHistory: some View {
         VStack {
-            
-            hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
+            ScrollView{
+                hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
+            }
         }
         .toast(isShowing: $isShowingToast)
     }
@@ -338,19 +343,21 @@ extension MainView : MainViewProtocol {
     }
     
     func fetchCaptionData() {
-        let CaptionRequest = NSFetchRequest<CaptionResult>(entityName: "caption")
+        let CaptionRequest = NSFetchRequest<CaptionResult>(entityName: "CaptionResult")
         
         do {
-            let captionArray = try coreDataManager.context.fetch(CaptionRequest)
-            if let captionCoreData = captionArray.last {
-                self.captionModel.id = captionCoreData.resultId ?? UUID()
-                self.captionModel.date = captionCoreData.date ?? Date()
-                self.captionModel.category = captionCoreData.category ?? ""
-                self.captionModel.caption = captionCoreData.caption ?? ""
+               let captionArray = try coreDataManager.context.fetch(CaptionRequest)
+            captions = captionArray.map { captionCoreData in
+                return CaptionModel(
+                    _id: captionCoreData.resultId ?? UUID(),
+                    _date: captionCoreData.date ?? Date(),
+                    _category: captionCoreData.category ?? "",
+                    _caption: captionCoreData.caption ?? ""
+                )
             }
-        } catch {
-            print("ERROR CAPTION CORE DATA")
-            print(error.localizedDescription)
-        }
+           } catch {
+               print("ERROR FETCHING CAPTION CORE DATA")
+               print(error.localizedDescription)
+           }
     }
 }
