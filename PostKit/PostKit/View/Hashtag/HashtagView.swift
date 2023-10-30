@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct HashtagView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -15,6 +16,11 @@ struct HashtagView: View {
     @State private var locationTags: [String] = []
     @State private var emphasizeTags: [String] = []
     
+    //CoreData Manager
+    private let coreDataManager = CoreDataManager.instance
+    
+    //CoreData Class
+    @State private var hashtags: [HashtagModel] = []
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -84,6 +90,32 @@ struct HashtagView: View {
             isActive = false
         }
     }
+}
+
+extension HashtagView : HashtagProtocol {
+    func FetchHashtag() {
+        let HashtagRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
+        
+        do {
+            let hashtagDataArray = try coreDataManager.context.fetch(HashtagRequest)
+            hashtags = hashtagDataArray.map{ hashtagCoreData in
+                return HashtagModel(
+                    _id: hashtagCoreData.resultId ?? UUID(),
+                    _date: <#Date#>,
+                    _locationTag: <#[String]#>,
+                    _keyword: <#[String]#>,
+                    _hashtag: <#String#>
+                )
+            }
+        } catch {
+            
+        }
+    }
+    
+    func SaveHashtag() {
+        //결과는 HashtagResultView에서 저장합니다.
+    }
+    
 }
 
 #Preview {

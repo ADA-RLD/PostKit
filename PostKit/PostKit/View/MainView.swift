@@ -17,6 +17,7 @@ struct MainView: View {
     @State var historySelected = "피드 글"
     @ObservedObject var viewModel = ChatGptViewModel.shared
     private let pasteBoard = UIPasteboard.general
+    
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
     private let hapticManger = HapticManager.instance
