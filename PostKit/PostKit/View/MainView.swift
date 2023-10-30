@@ -18,7 +18,8 @@ struct MainView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     private let pasteBoard = UIPasteboard.general
     //CoreData Manager
-    let coreDataManager = CoreDataManager.instance
+    private let coreDataManager = CoreDataManager.instance
+    private let hapticManger = HapticManager.instance
     
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
@@ -37,12 +38,19 @@ struct MainView: View {
                                 Image(systemName: "plus.app.fill")
                                 Text("생성")
                             }
+                            .onTapGesture {
+                                hapticManger.notification(type: .success)
+                            }
                         
                         mainHistoryView
                             .tabItem {
                                 Image(systemName: "clock.fill")
                                 Text("히스토리")
                             }
+                            .onTapGesture {
+                                hapticManger.notification(type: .success)
+                            }
+                            
                     }
                     // TODO: 뷰 만들면 여기 스위치문에 넣어주세요
                     .navigationDestination(for: StackViewType.self) { stackViewType in
@@ -216,6 +224,7 @@ extension MainView {
         VStack {
             feedHisoryDetail(tag: "일상", date: Date(), content: "구름이 가득한 하늘이 내 기분과 딱 맞아!\n쌀쌀한 날씨에는 요거트 프라푸치노가 최고지🌥️❄️\n뜨거운 커피보다는 상큼한 요거트와 얼음이 어우러진 이 음료, 겨울 날씨에도 내 마음을 녹일 수 있어. 한 모금에 신선한 맛이 느껴지는 이 순간!")
         }
+        .toast(isShowing: $isShowingToast)
     }
     
     // TODO: 해시태그 히스토리는 여기에 작업해주세요
@@ -270,6 +279,7 @@ extension MainView {
 extension MainView {
     // MARK: - 카피 복사
     private func copyToClipboard() {
+        hapticManger.notification(type: .success)
         pasteBoard.string = viewModel.promptAnswer
         isShowingToast = true
     }

@@ -18,6 +18,7 @@ struct CaptionResultView: View {
     @State var messages: [Message] = []
     @ObservedObject var viewModel = ChatGptViewModel.shared
     private let chatGptService = ChatGptService()
+    private let hapticManger = HapticManager.instance
     
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
@@ -125,6 +126,7 @@ extension CaptionResultView {
     
     // MARK: - 카피 복사
     func copyToClipboard() {
+        hapticManger.notification(type: .success)
         pasteBoard.string = viewModel.promptAnswer
         isShowingToast = true
     }
