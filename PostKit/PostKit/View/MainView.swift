@@ -267,7 +267,7 @@ extension MainView : MainViewProtocol {
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 // TODO: 코어데이터 함수 변경 필요
-                //                self.storeModel.tone = storeCoreData.tone ?? ["기본"]
+                self.storeModel.tone = storeCoreData.tones ?? ["기본"]
             }
         } catch {
             print("ERROR STORE CORE DATA")
