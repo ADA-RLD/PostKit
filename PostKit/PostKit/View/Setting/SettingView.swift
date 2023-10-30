@@ -26,9 +26,9 @@ struct SettingView: View {
             }, title: "설정")
             ContentArea {
                 VStack(spacing: 40.0) {
-                    SettingInfo(info: "매장 정보", Answer: storeModel.storeName, action: {pathManager.path.append(.SettingStore)})
+                    settingStoreInfo(info: "매장 정보", Answer: storeModel.storeName, action: {pathManager.path.append(.SettingStore)})
                     // TODO: 코어데이터 함수 변경 필요
-//                    SettingInfo(info: "말투", Answer: storeModel.tone, action: {pathManager.path.append(.SettingTone)})
+                    settingToneInfo(info: "말투", tones: storeModel.tone, action: {pathManager.path.append(.SettingTone)})
             
                 }
             }
@@ -39,7 +39,7 @@ struct SettingView: View {
     }
 }
 
-private func SettingInfo(info: String, Answer: String?,action: @escaping () -> Void) -> some View {
+private func settingStoreInfo(info: String, Answer: String?,action: @escaping () -> Void) -> some View {
     HStack {
         Text(info)
             .font(.body1Bold())
@@ -50,6 +50,25 @@ private func SettingInfo(info: String, Answer: String?,action: @escaping () -> V
         } label: {
             HStack(spacing: 8.0) {
                 Text(Answer ?? "미입력")
+                Text(Image(systemName: "chevron.right"))
+            }
+            .font(.body1Bold())
+            .foregroundStyle(Color.gray4)
+        }
+    }
+}
+
+private func settingToneInfo(info: String, tones: Array<String>?, action: @escaping () -> Void) -> some View {
+    HStack {
+        Text(info)
+            .font(.body1Bold())
+            .foregroundStyle(Color.gray5)
+        Spacer()
+        Button {
+            action()
+        } label: {
+            HStack(spacing: 8.0) {
+                Text((tones?.isEmpty ?? true ? "기본" : tones?.joined(separator: ", ")) ?? "기본")
                 Text(Image(systemName: "chevron.right"))
             }
             .font(.body1Bold())
