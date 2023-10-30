@@ -87,7 +87,9 @@ extension SettingView: SettingProtocol {
             print("StoreData: \(storeDataArray)")
             self.storeModel.storeName = storeDataArray.last?.storeName ?? ""
             //TODO: CoreData 함수 변경 필요
-//            self.storeModel.tone = storeDataArray.last?.tone ?? ""
+            self.storeModel.tone[0] = storeDataArray.last?.tone1 ?? ""
+            self.storeModel.tone[1] = storeDataArray.last?.tone2 ?? ""
+            self.storeModel.tone[2] = storeDataArray.last?.tone3 ?? ""
             print("데이터 Fetch완료\nStoreData: \(storeModel.storeName)\nStoreTone: \(storeModel.tone)\n")
             
         } catch {
@@ -96,7 +98,7 @@ extension SettingView: SettingProtocol {
         }
     }
     
-    func saveStoreData(storeName: String, storeTone: String) {
+    func saveStoreData(storeName: String, storeTone: Array<String>) {
        print("필요 없어요~")
     }
 }
