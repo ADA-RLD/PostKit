@@ -57,6 +57,8 @@ struct MainView: View {
                             SettingToneView(storeTone: $storeModel.tone)
                         case .CaptionResult:
                             CaptionResultView(storeModel: storeModel)
+                        case .Hashtag:
+                            HashtagView()
                         }
                     }
                 }
@@ -140,7 +142,7 @@ extension MainView {
                             .font(.body2Bold())
                             .foregroundColor(Color.gray4)
                         
-                        NavigationBtn(header: "해시태그",description: "가벼운 카페 일상 글을 써요", action: {
+                        NavigationBtn(header: "해시태그",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Hashtag)
                             //TODO: 해시태그 생성 뷰 만들면 여기에 path추가해 주세요!
                         })
                     }
@@ -258,20 +260,18 @@ extension MainView {
             .foregroundColor(Color.gray1)
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
-                        
-                    Text(date, style: .date)
-                            .font(.body2Bold())
-                            .foregroundColor(Color.gray4)
                     
+                    Text(date, style: .date)
+                        .font(.body2Bold())
+                        .foregroundColor(Color.gray4)
                     
                     Text(hashtagContent)
                         .font(.body2Bold())
                         .foregroundColor(Color.gray5)
-                    
                 }
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
-    }
+      }
 }
 
 extension MainView : MainViewProtocol {
