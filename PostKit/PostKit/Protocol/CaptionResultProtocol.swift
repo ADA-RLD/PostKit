@@ -20,7 +20,7 @@ protocol CaptionResultProtocol {
     ///   - Result: 생셩된 결과 입력
     func saveCaptionResult(category: String, date: Date ,Result: String)
     
-    /// 저장된 결과 데이터를 저장
-    /// - Parameter category: 카테고리 분류를 위해 Daily 혹은 Menu를 입력받습니다.
-    func fetchCaptionResult(category: String)
+    /// 가지고 있는 정보를 초기화합니다.
+    /// - Parameter Result: 초기화 대상
+    func initCaptionResult(Result: String)
 }

@@ -35,7 +35,7 @@ struct CaptionResultView: View {
                 captionResult
                     .onAppear{
                         //Caption이 생성되면 바로 CoreData에 저장
-                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), Result: viewModel.promptAnswer)
+//                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), Result: viewModel.promptAnswer)
                     }
             }
         }
@@ -190,8 +190,8 @@ extension CaptionResultView : CaptionResultProtocol {
         print("Caption 저장 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)")
     }
     
-    func fetchCaptionResult(category: String) {
-        print("Fetch 불필요")
+    func initCaptionResult(Result: String) {
+//        Result = "생성된 텍스트가 들어가요."
     }
     
 }
