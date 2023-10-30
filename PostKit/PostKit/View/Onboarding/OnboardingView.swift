@@ -52,7 +52,6 @@ struct OnboardingView: View {
 extension OnboardingView : StoreProtocol {
     
     func saveStoreData(storeName: String, storeTone: Array<String>) {
-        print("\(storeName), \(storeTone)")
         guard !storeName.isEmpty else { return }
         let newStore = StoreData(context: coreDataManager.context)
         newStore.storeName = storeName
