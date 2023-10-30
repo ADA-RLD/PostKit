@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HashtagView: View {
+    @EnvironmentObject var pathManager: PathManager
     @State private var locationText = ""
     @State private var emphasizeText = ""
     @State private var isActive: Bool = false

@@ -100,7 +100,6 @@ extension CaptionResultView {
             } rightAction: {
                 regenerateAnswer()
             }
-            .padding(.vertical, 12)
             
         }
         .toast(isShowing: $isShowingToast)

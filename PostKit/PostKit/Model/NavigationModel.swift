@@ -15,6 +15,9 @@ enum StackViewType {
     case SettingStore
     case SettingTone
     case CaptionResult
+    case HashtagResult
+    case ErrorNetwork
+    case ErrorResultFailed
 }
 
 class PathManager: ObservableObject {
