@@ -11,6 +11,6 @@ protocol SettingProtocol {
     
     func fetchStoreData()
     
-    func saveStoreData(storeName: String, storeTone: String)
+    func saveStoreData(storeName: String, storeTone: Array<String>)
     
 }
