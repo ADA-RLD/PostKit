@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HashtagView: View {
+    @EnvironmentObject var pathManager: PathManager
     @State private var locationText = ""
     @State private var emphasizeText = ""
     @State private var isActive: Bool = false
@@ -17,7 +18,7 @@ struct HashtagView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            CustomHeader(action: {}, title: "해시태그 생성")
+            CustomHeader(action: {pathManager.path.removeLast()}, title: "해시태그 생성")
             
             ScrollView {
                 ContentArea {
