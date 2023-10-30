@@ -57,6 +57,8 @@ struct MainView: View {
                             SettingToneView(storeTone: $storeModel.tone)
                         case .CaptionResult:
                             CaptionResultView(storeModel: storeModel)
+                        case .Hashtag:
+                            HashtagView()
                         }
                     }
                 }
@@ -140,7 +142,7 @@ extension MainView {
                             .font(.body2Bold())
                             .foregroundColor(Color.gray4)
                         
-                        NavigationBtn(header: "해시태그",description: "가벼운 카페 일상 글을 써요", action: {
+                        NavigationBtn(header: "해시태그",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Hashtag)
                             //TODO: 해시태그 생성 뷰 만들면 여기에 path추가해 주세요!
                         })
                     }
@@ -212,7 +214,7 @@ extension MainView {
     // TODO: 해시태그 히스토리는 여기에 작업해주세요
     private var hashtagHistory: some View {
         VStack {
-            
+            hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
         }
     }
     
@@ -251,6 +253,25 @@ extension MainView {
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
     }
+    
+    private func hashtagHistoryDetail(date : Date, hashtagContent : String) -> some View {
+        RoundedRectangle(cornerRadius: radius1)
+            .frame(height: 160)
+            .foregroundColor(Color.gray1)
+            .overlay(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 8) {
+                    
+                    Text(date, style: .date)
+                        .font(.body2Bold())
+                        .foregroundColor(Color.gray4)
+                    
+                    Text(hashtagContent)
+                        .font(.body2Bold())
+                        .foregroundColor(Color.gray5)
+                }
+                .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
+            }
+      }
 }
 
 extension MainView : MainViewProtocol {
