@@ -13,8 +13,10 @@ struct MainView: View {
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
-    @ObservedObject var viewModel = ChatGptViewModel.shared
+    @State private var isShowingToast = false
     @State var historySelected = "피드 글"
+    @ObservedObject var viewModel = ChatGptViewModel.shared
+    private let pasteBoard = UIPasteboard.general
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
@@ -117,6 +119,7 @@ private func SettingBtn(action: @escaping () -> Void) -> some View {
     }
 }
 
+//MARK: extension: MainView Views
 extension MainView {
     private var mainCaptionView: some View {
         ContentArea {
@@ -225,6 +228,9 @@ extension MainView {
     private func feedHisoryDetail(tag: String, date: Date, content: String) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
+            .onTapGesture {
+                copyToClipboard()
+            }
             .foregroundColor(Color.gray1)
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
@@ -257,6 +263,17 @@ extension MainView {
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
     }
+}
+
+
+//MARK: extension MainView Functions
+extension MainView {
+    // MARK: - 카피 복사
+    private func copyToClipboard() {
+        pasteBoard.string = viewModel.promptAnswer
+        isShowingToast = true
+    }
+    
 }
 
 extension MainView : MainViewProtocol {
