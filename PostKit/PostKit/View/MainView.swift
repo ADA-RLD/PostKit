@@ -13,10 +13,13 @@ struct MainView: View {
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
-    @ObservedObject var viewModel = ChatGptViewModel.shared
+    @State private var isShowingToast = false
     @State var historySelected = "피드 글"
+    @ObservedObject var viewModel = ChatGptViewModel.shared
+    private let pasteBoard = UIPasteboard.general
     //CoreData Manager
-    let coreDataManager = CoreDataManager.instance
+    private let coreDataManager = CoreDataManager.instance
+    private let hapticManger = HapticManager.instance
     
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
@@ -35,12 +38,19 @@ struct MainView: View {
                                 Image(systemName: "plus.app.fill")
                                 Text("생성")
                             }
+                            .onTapGesture {
+                                hapticManger.notification(type: .success)
+                            }
                         
                         mainHistoryView
                             .tabItem {
                                 Image(systemName: "clock.fill")
                                 Text("히스토리")
                             }
+                            .onTapGesture {
+                                hapticManger.notification(type: .success)
+                            }
+                            
                     }
                     // TODO: 뷰 만들면 여기 스위치문에 넣어주세요
                     .navigationDestination(for: StackViewType.self) { stackViewType in
@@ -57,6 +67,12 @@ struct MainView: View {
                             SettingToneView(storeTone: $storeModel.tone)
                         case .CaptionResult:
                             CaptionResultView(storeModel: storeModel)
+                        case .HashtagResult:
+                            HashtagResultView()
+                        case .ErrorNetwork:
+                            ErrorView(errorCasue: "네트워크 문제", errorDescription: "네트워크 연결을 확인해주세요")
+                        case .ErrorResultFailed:
+                            ErrorView(errorCasue: "결과 생성 실패", errorDescription: "결과 생성에 실패했어요 ㅠ-ㅠ")
                         case .Hashtag:
                             HashtagView()
                         }
@@ -113,6 +129,7 @@ private func SettingBtn(action: @escaping () -> Void) -> some View {
     }
 }
 
+//MARK: extension: MainView Views
 extension MainView {
     private var mainCaptionView: some View {
         ContentArea {
@@ -209,6 +226,7 @@ extension MainView {
         VStack {
             feedHisoryDetail(tag: "일상", date: Date(), content: "구름이 가득한 하늘이 내 기분과 딱 맞아!\n쌀쌀한 날씨에는 요거트 프라푸치노가 최고지🌥️❄️\n뜨거운 커피보다는 상큼한 요거트와 얼음이 어우러진 이 음료, 겨울 날씨에도 내 마음을 녹일 수 있어. 한 모금에 신선한 맛이 느껴지는 이 순간!")
         }
+        .toast(isShowing: $isShowingToast)
     }
     
     // TODO: 해시태그 히스토리는 여기에 작업해주세요
@@ -216,11 +234,15 @@ extension MainView {
         VStack {
             hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
         }
+        .toast(isShowing: $isShowingToast)
     }
     
     private func feedHisoryDetail(tag: String, date: Date, content: String) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
+            .onTapGesture {
+                copyToClipboard()
+            }
             .foregroundColor(Color.gray1)
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
@@ -258,6 +280,9 @@ extension MainView {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
+            .onTapGesture {
+                copyToClipboard()
+            }
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
                     
@@ -272,6 +297,18 @@ extension MainView {
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
       }
+}
+
+
+//MARK: extension MainView Functions
+extension MainView {
+    // MARK: - 카피 복사
+    private func copyToClipboard() {
+        hapticManger.notification(type: .success)
+        pasteBoard.string = viewModel.promptAnswer
+        isShowingToast = true
+    }
+    
 }
 
 extension MainView : MainViewProtocol {
