@@ -42,9 +42,9 @@ struct OnboardingView: View {
         .onAppear{
             fetchStoreData()
         }
-        .onChange(of: isFirstLaunching) { _ in
+        .onChange(of: onboardingRouter.currentPage == 3) { _ in
             //TODO: 코어데이터 함수 변경 필요
-//            saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
+            saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
         }
     }
 }
@@ -52,17 +52,15 @@ struct OnboardingView: View {
 extension OnboardingView : StoreProtocol {
     
     func saveStoreData(storeName: String, storeTone: Array<String>) {
-        
+        print("\(storeName), \(storeTone)")
         guard !storeName.isEmpty else { return }
         let newStore = StoreData(context: coreDataManager.context)
         newStore.storeName = storeName
-        newStore.tone1 = storeTone[0]
-        newStore.tone2 = storeTone[1]
-        newStore.tone3 = storeTone[2]
+        newStore.tones = storeTone
         print("StoreData: \(newStore)")
         coreDataManager.save()
         
-        print("Store 저장 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
+        print("Onboarding 저장 완료!\nStoreName: \(newStore.storeName ?? "지정 안됨")\nStoreTone: \(newStore.tones)\n")
     }
     
     func fetchStoreData() {
@@ -75,7 +73,7 @@ extension OnboardingView : StoreProtocol {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 self.storeModel.tone = ["기본"]
                 
-                print("Store Fetch 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
+                print("Onboarding Fetch 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
             }
         } catch {
             print("ERROR STORE CORE DATA")
