@@ -11,7 +11,6 @@ import CoreData
 
 struct SettingToneView: View {
     @EnvironmentObject var pathManager: PathManager
-    //@EnvironmentObject var appstorageManager: AppstorageManager
    
     //CoreData Manager
     let storeDataManager = CoreDataManager.instance
@@ -34,7 +33,7 @@ struct SettingToneView: View {
             Spacer()
             CTABtn(btnLabel: "저장", isActive: .constant(true)) {
                 //TODO: coredata 형식 변경 필요
-//                saveStoreData(storeName: storeName, storeTone: storeTone)
+                saveStoreData(storeName: storeName, storeTone: storeTone)
                 pathManager.path.removeLast()
             }
         }
