@@ -23,6 +23,7 @@ struct MainView: View {
     
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
+    @StateObject var captionModel = CaptionModel(_id: UUID(), _date: Date(), _category: "", _caption: "")
     
     
     var body: some View {
@@ -83,6 +84,8 @@ struct MainView: View {
                     fetchStoreData()
                     viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                     resetData()
+                    
+                    fetchCaptionData()
                 }
             }
             
@@ -340,10 +343,14 @@ extension MainView : MainViewProtocol {
         do {
             let captionArray = try coreDataManager.context.fetch(CaptionRequest)
             if let captionCoreData = captionArray.last {
-                
+                self.captionModel.id = captionCoreData.resultId ?? UUID()
+                self.captionModel.date = captionCoreData.date ?? Date()
+                self.captionModel.category = captionCoreData.category ?? ""
+                self.captionModel.caption = captionCoreData.caption ?? ""
             }
         } catch {
-            
+            print("ERROR CAPTION CORE DATA")
+            print(error.localizedDescription)
         }
     }
 }
