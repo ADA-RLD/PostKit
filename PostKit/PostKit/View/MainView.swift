@@ -57,6 +57,12 @@ struct MainView: View {
                             SettingToneView(storeTone: $storeModel.tone)
                         case .CaptionResult:
                             CaptionResultView(storeModel: storeModel)
+                        case .HashtagResult:
+                            HashtagResultView()
+                        case .ErrorNetwork:
+                            ErrorView(errorCasue: "네트워크 문제", errorDescription: "네트워크 연결을 확인해주세요")
+                        case .ErrorResultFailed:
+                            ErrorView(errorCasue: "결과 생성 실패", errorDescription: "결과 생성에 실패했어요 ㅠ-ㅠ")
                         }
                     }
                 }
