@@ -13,7 +13,7 @@ protocol StoreProtocol {
     /// - Parameters:
     ///   - storeName: (옵셔널) 가게 이름
     ///   - tone: 선택한 글 톤
-    func saveStoreData(storeName: String, storeTone: String)
+    func saveStoreData(storeName: String, storeTone: Array<String>)
     
     /// CoreData에서 필요한 경우 가계의 정보를 불러옵니다.
     /// - Parameters:
