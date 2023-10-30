@@ -8,8 +8,6 @@
     </entity>
     <entity name="StoreData" representedClassName=".StoreData" syncable="YES" codeGenerationType="class">
         <attribute name="storeName" optional="YES" attributeType="String"/>
-        <attribute name="tone1" optional="YES" attributeType="String"/>
-        <attribute name="tone2" optional="YES" attributeType="String"/>
-        <attribute name="tone3" optional="YES" attributeType="String"/>
+        <attribute name="tones" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
     </entity>
 </model>
