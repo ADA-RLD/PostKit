@@ -232,6 +232,7 @@ extension MainView {
     // TODO: 해시태그 히스토리는 여기에 작업해주세요
     private var hashtagHistory: some View {
         VStack {
+            
             hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
         }
         .toast(isShowing: $isShowingToast)
@@ -333,4 +334,16 @@ extension MainView : MainViewProtocol {
         }
     }
     
+    func fetchCaptionData() {
+        let CaptionRequest = NSFetchRequest<CaptionResult>(entityName: "caption")
+        
+        do {
+            let captionArray = try coreDataManager.context.fetch(CaptionRequest)
+            if let captionCoreData = captionArray.last {
+                
+            }
+        } catch {
+            
+        }
+    }
 }
