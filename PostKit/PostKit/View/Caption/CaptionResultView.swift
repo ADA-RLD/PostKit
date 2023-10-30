@@ -35,7 +35,7 @@ struct CaptionResultView: View {
                 captionResult
                     .onAppear{
                         //Caption이 생성되면 바로 CoreData에 저장
-//                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), Result: viewModel.promptAnswer)
+                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), Result: viewModel.promptAnswer)
                     }
             }
         }
@@ -98,6 +98,7 @@ extension CaptionResultView {
             // MARK: - 완료 / 재생성 버튼
             CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성") {
                 pathManager.path.removeAll()
+                viewModel.promptAnswer = "생성된 텍스트가 들어가요."
             } rightAction: {
                 regenerateAnswer()
             }
