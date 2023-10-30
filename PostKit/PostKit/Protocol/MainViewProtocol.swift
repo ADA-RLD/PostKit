@@ -13,6 +13,4 @@ protocol MainViewProtocol {
     
     func fetchStoreData()
     
-    func fetchAllData()
-    
 }
