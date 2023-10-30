@@ -62,7 +62,7 @@ struct MainView: View {
                 }
                 .navigationBarBackButtonHidden()
                 .onAppear{
-                    fetchAllData()
+                    fetchStoreData()
                     viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                     resetData()
                 }
@@ -275,7 +275,4 @@ extension MainView : MainViewProtocol {
         }
     }
     
-    func fetchAllData() {
-        fetchStoreData()
-    }
 }
