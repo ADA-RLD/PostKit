@@ -98,6 +98,7 @@ extension CaptionResultView {
             // MARK: - 완료 / 재생성 버튼
             CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성") {
                 pathManager.path.removeAll()
+                viewModel.promptAnswer = "생성된 텍스트가 들어가요."
             } rightAction: {
                 regenerateAnswer()
             }
@@ -190,8 +191,8 @@ extension CaptionResultView : CaptionResultProtocol {
         print("Caption 저장 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)")
     }
     
-    func fetchCaptionResult(category: String) {
-        print("Fetch 불필요")
+    func initCaptionResult(Result: String) {
+//        Result = "생성된 텍스트가 들어가요."
     }
     
 }
