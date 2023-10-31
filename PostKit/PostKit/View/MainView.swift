@@ -192,7 +192,8 @@ extension MainView {
                             .font(.body2Bold())
                             .foregroundColor(Color.gray4)
                     }
-                    .padding(EdgeInsets(top: 28, leading: 16, bottom: 28, trailing: 16))
+                    .padding(.vertical,28)
+                    .padding(.horizontal,16)
                 }
         }
     }
@@ -220,7 +221,8 @@ extension MainView {
                     }
                     
                 }
-                .padding(EdgeInsets(top: 28, leading: 16, bottom: 28, trailing: 16))
+                .padding(.vertical,28)
+                .padding(.horizontal,16)
             }
     }
     
@@ -383,7 +385,8 @@ extension MainView {
                         .font(.body2Bold())
                         .foregroundColor(Color.gray5)
                 }
-                .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
+                .padding(.horizontal,16)
+                .padding(.vertical,24)
             }
       }
 }
