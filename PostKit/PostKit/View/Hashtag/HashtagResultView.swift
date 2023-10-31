@@ -20,7 +20,8 @@ struct HashtagResultView: View {
     let coreDataManager = CoreDataManager.instance
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        resultView()
+            .navigationBarBackButtonHidden()
     }
 }
 
@@ -73,8 +74,9 @@ extension HashtagResultView {
                 Text(hashTags)
                     .font(.body1Bold())
                     .foregroundColor(Color.gray5)
+                    .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
             }
-            .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
+          
     }
 }
 

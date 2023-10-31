@@ -4,7 +4,6 @@
 //
 //  Created by 김다빈 on 10/11/23.
 //
-
 import SwiftUI
 import CoreData
 
@@ -140,7 +139,7 @@ extension MainView {
     private var mainCaptionView: some View {
         ContentArea {
             
-            VStack(spacing: 28) {
+            VStack(alignment:.leading ,spacing: 28) {
                 SettingBtn(action: {pathManager.path.append(.SettingHome)})
                 
                 VStack(alignment: .leading, spacing: 28) {
@@ -148,25 +147,9 @@ extension MainView {
                     Text("어떤 카피를 생성할까요?")
                         .font(.title1())
                     
-                    VStack(alignment: .leading, spacing: 12) {
-                        
-                        Text("캡션")
-                            .font(.body2Bold())
-                            .foregroundColor(Color.gray4)
-                        
-                        NavigationBtn(header: "일상",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Daily)})
-                        
-                        NavigationBtn(header: "메뉴",description: "카페의 메뉴에 대한 글을 써요", action: {pathManager.path.append(.Menu)})
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 12) {
-                        
-                        Text("해시태그")
-                            .font(.body2Bold())
-                            .foregroundColor(Color.gray4)
-                        
-                        NavigationBtn(header: "해시태그",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Hashtag)
-                        })
+                    VStack(alignment: .leading, spacing: 20) {
+                        captionArea()
+                        hashtagArea()
                     }
                 }
                 
@@ -174,6 +157,73 @@ extension MainView {
             }
         }
        
+    }
+    
+    private func captionBtn(captionName: String, action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            RoundedRectangle(cornerRadius: radius2)
+                .foregroundColor(Color.white)
+                .frame(height: 60)
+                .overlay(alignment: .center) {
+                    Text(captionName)
+                        .font(.body1Bold())
+                        .foregroundColor(Color.gray5)
+                }
+        }
+    }
+    
+    private func hashtagArea() -> some View {
+        Button {
+            pathManager.path.append(.Hashtag)
+        } label: {
+            RoundedRectangle(cornerRadius: radius1)
+                .frame(height: 104)
+                .foregroundColor(Color.sub)
+                .overlay(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 8) {
+
+                        Text("해시태그")
+                            .font(.title2())
+                            .foregroundColor(Color.gray6)
+                        
+                        Text("우리 카페에는 어떤 해시태그가 어울릴까?")
+                            .font(.body2Bold())
+                            .foregroundColor(Color.gray4)
+                    }
+                    .padding(.vertical,28)
+                    .padding(.horizontal,16)
+                }
+        }
+    }
+    
+    private func captionArea() -> some View {
+        RoundedRectangle(cornerRadius: radius1)
+            .frame(height: 180)
+            .frame(maxWidth: .infinity)
+            .foregroundColor(Color.sub)
+            .overlay(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        
+                        Text("캡션")
+                            .font(.title2())
+                            .foregroundColor(Color.gray6)
+                        Text("카페의 메뉴에 대한 글을 써요")
+                            .font(.body2Bold())
+                            .foregroundColor(Color.gray4)
+                    }
+                    
+                    HStack(spacing: 8) {
+                        captionBtn(captionName: "일상", action: {pathManager.path.append(.Daily)})
+                        captionBtn(captionName: "메뉴", action: {pathManager.path.append(.Menu)})
+                    }
+                    
+                }
+                .padding(.vertical,28)
+                .padding(.horizontal,16)
+            }
     }
     
     private var mainHistoryView: some View {
@@ -337,7 +387,8 @@ extension MainView {
                         .font(.body2Bold())
                         .foregroundColor(Color.gray5)
                 }
-                .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
+                .padding(.horizontal,16)
+                .padding(.vertical,24)
             }
       }
 }
