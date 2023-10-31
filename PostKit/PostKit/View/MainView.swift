@@ -25,6 +25,7 @@ struct MainView: View {
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
     @State private var captions: [CaptionModel] = []
+    @State private var hashtags: [HashtagModel] = []
     
     var body: some View {
         ZStack {
@@ -86,6 +87,7 @@ struct MainView: View {
                     resetData()
                     
                     fetchCaptionData()
+                    fetchHashtagData()
                 }
             }
             
@@ -241,6 +243,9 @@ extension MainView {
     private var hashtagHistory: some View {
         VStack {
             ScrollView{
+                ForEach(hashtags) { item in
+                    hashtagHistoryDetail(date: item.date, hashtagContent: item.hashtag)
+                }
                 hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
             }
         }
@@ -360,5 +365,25 @@ extension MainView : MainViewProtocol {
                print("ERROR FETCHING CAPTION CORE DATA")
                print(error.localizedDescription)
            }
+    }
+    
+    func fetchHashtagData() {
+        let HashtagRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
+        
+        do {
+            let hashtagDataArray = try coreDataManager.context.fetch(HashtagRequest)
+            hashtags = hashtagDataArray.map{ hashtagCoreData in
+                return HashtagModel(
+                    _id: hashtagCoreData.resultId ?? UUID(),
+                    _date: hashtagCoreData.date ?? Date(),
+                    _locationTag: hashtagCoreData.locationTag ?? [""],
+                    _keyword: hashtagCoreData.keyword ?? [""],
+                    _hashtag: hashtagCoreData.hashtag ?? ""
+                )
+            }
+        } catch {
+            print("ERROR STORE CORE DATA")
+            print(error.localizedDescription)
+        }
     }
 }
