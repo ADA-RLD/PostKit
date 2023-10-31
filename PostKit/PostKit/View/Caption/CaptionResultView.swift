@@ -116,7 +116,18 @@ extension CaptionResultView {
         Task{
             viewModel.promptAnswer = "생성된 텍스트가 들어가요."
             //TODO: COREDATA 변경 필요
-//            self.messages.append(Message(id: UUID(), role: .assistant, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)를 운영하고 있으며 \(storeModel.tone == "기본" ? "평범한" : storeModel.tone) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 글은 150자 정도로 작성해줘."))
+            if storeModel.tone.contains("기본") {
+                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)를 운영하고 있으며 평범한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
+            }else{
+                
+                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)"))
+
+                  for _tone in storeModel.tone {
+                      self.messages.append(Message(id: UUID(), role: .system, content: "\(_tone == "기본" ? "평범한": _tone)"))
+                  }
+                
+                self.messages.append(Message(id: UUID(), role: .system, content:"말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
+            }
             let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
             self.messages.append(newMessage)
             let response = await chatGptService.sendMessage(messages: self.messages)
