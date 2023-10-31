@@ -18,6 +18,7 @@ struct MainView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @Namespace var nameSpace
     private let pasteBoard = UIPasteboard.general
+    
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
     private let hapticManger = HapticManager.instance

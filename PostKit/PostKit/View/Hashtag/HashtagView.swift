@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct HashtagView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -15,6 +16,11 @@ struct HashtagView: View {
     @State private var locationTags: [String] = []
     @State private var emphasizeTags: [String] = []
     
+    //CoreData Manager
+    private let coreDataManager = CoreDataManager.instance
+    
+    //CoreData Class
+    @State private var hashtags: [HashtagModel] = []
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -74,6 +80,7 @@ struct HashtagView: View {
             Spacer()
             CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {pathManager.path.append(.HashtagResult)})
         }
+        .onAppear{FetchHashtag()}
         .navigationBarBackButtonHidden()
     }
     
@@ -84,6 +91,42 @@ struct HashtagView: View {
             isActive = false
         }
     }
+}
+
+extension HashtagView : HashtagProtocol {
+    
+    func convertDayTime(time: Date) -> Date {
+        let today = Date()
+        let timezone = TimeZone.autoupdatingCurrent
+        let secondsFromGMT = timezone.secondsFromGMT(for: today)
+        let localizedDate = today.addingTimeInterval(TimeInterval(secondsFromGMT))
+        return localizedDate
+    }
+    
+    func FetchHashtag() {
+        let HashtagRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
+        
+        do {
+            let hashtagDataArray = try coreDataManager.context.fetch(HashtagRequest)
+            hashtags = hashtagDataArray.map{ hashtagCoreData in
+                return HashtagModel(
+                    _id: hashtagCoreData.resultId ?? UUID(),
+                    _date: hashtagCoreData.date ?? Date(),
+                    _locationTag: hashtagCoreData.locationTag ?? [""],
+                    _keyword: hashtagCoreData.keyword ?? [""],
+                    _hashtag: hashtagCoreData.hashtag ?? ""
+                )
+            }
+        } catch {
+            print("ERROR STORE CORE DATA")
+            print(error.localizedDescription)
+        }
+    }
+    
+    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, Result: String) {
+        //결과는 HashtagResultView에서 저장합니다.
+    }
+    
 }
 
 #Preview {
