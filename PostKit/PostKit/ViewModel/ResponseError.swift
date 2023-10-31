@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum ResponseError: String, Error {
+    case noResponse = "답변이 생성되지 않았습니다."
+}
