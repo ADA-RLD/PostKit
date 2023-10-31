@@ -16,6 +16,7 @@ struct MainView: View {
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @Namespace var nameSpace
     private let pasteBoard = UIPasteboard.general
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
@@ -162,7 +163,6 @@ extension MainView {
                             .foregroundColor(Color.gray4)
                         
                         NavigationBtn(header: "해시태그",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Hashtag)
-                            //TODO: 해시태그 생성 뷰 만들면 여기에 path추가해 주세요!
                         })
                     }
                 }
@@ -211,15 +211,39 @@ extension MainView {
         HStack(spacing: 16) {
             
             Button(action: {
-                historySelected = "피드 글"
+                withAnimation(.spring(response: 0.5,dampingFraction: 0.8)) {
+                    historySelected = "피드 글"
+                }
             }, label: {
                 Text("피드 글")
+                    .font(.title2())
+                    .foregroundColor(Color.black)
+                    .overlay(alignment: .bottom) {
+                        if historySelected == "피드 글" {
+                            Rectangle()
+                                .foregroundColor(Color.black)
+                                .frame(height: 2)
+                                .matchedGeometryEffect(id: "activeStroke", in: nameSpace)
+                        }
+                    }
             })
             
             Button(action: {
-                historySelected = "해시태그"
+                withAnimation(.spring(response: 0.5,dampingFraction: 0.8)) {
+                    historySelected = "해시태그"
+                }
             }, label: {
                 Text("해시태그")
+                    .font(.title2())
+                    .foregroundColor(Color.black)
+                    .overlay(alignment: .bottom) {
+                        if historySelected == "해시태그" {
+                            Rectangle()
+                                .foregroundColor(Color.black)
+                                .frame(height: 2)
+                                .matchedGeometryEffect(id: "activeStroke", in: nameSpace)
+                        }
+                    }
             })
         }
     }
@@ -236,7 +260,6 @@ extension MainView {
         .toast(isShowing: $isShowingToast)
     }
     
-    // TODO: 해시태그 히스토리는 여기에 작업해주세요
     private var hashtagHistory: some View {
         VStack {
             ScrollView{
