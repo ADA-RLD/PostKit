@@ -193,12 +193,8 @@ extension MainView {
                             .foregroundColor(Color.gray4)
                     }
                     .padding(EdgeInsets(top: 28, leading: 16, bottom: 28, trailing: 16))
-                    
                 }
-               
         }
-
-      
     }
     
     private func captionArea() -> some View {
@@ -226,7 +222,6 @@ extension MainView {
                 }
                 .padding(EdgeInsets(top: 28, leading: 16, bottom: 28, trailing: 16))
             }
-          
     }
     
     private var mainHistoryView: some View {
