@@ -141,58 +141,65 @@ extension DailyView {
     // MARK: - Chat Gpt API에 응답 요청
     func sendMessage() {
         Task{
-            var pointText = ""
-            
-            print("생성 정보 :\nStore Name : \(storeModel.storeName)\nTone : \(storeModel.tone)")
-            // TODO: COREDATA 변경필요
-            if storeModel.tone.contains("기본") {
-                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)를 운영하고 있으며 평범한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
-            }else{
-                
-                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)"))
-
-                  for _tone in storeModel.tone {
-                      self.messages.append(Message(id: UUID(), role: .system, content: "\(_tone == "기본" ? "평범한": _tone)"))
-                  }
-                
-                self.messages.append(Message(id: UUID(), role: .system, content:"말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
-            }
-            
-            if !weatherSelected.isEmpty {
-                pointText = pointText + "오늘 날씨의 특징으로는 "
-                for index in weatherSelected.indices {
-                    pointText = pointText + "\(weatherSelected[index]), "
-                }
-                pointText = pointText + "이 있어."
-            }
-            
-            if !dailyCoffeeSelected.isEmpty {
-                pointText = pointText + "오늘 이야기하고자 하는 음료는 "
-                for index in dailyCoffeeSelected.indices {
-                    pointText = pointText + "\(dailyCoffeeSelected[index]), "
-                }
-                pointText = pointText + "이 있어."
-            }
-            
-            if !dailyDessertSelected.isEmpty {
-                pointText = pointText + "오늘 이야기하고자 하는 디저트는 "
-                for index in dailyDessertSelected.indices {
-                    pointText = pointText + "\(dailyDessertSelected[index]), "
-                }
-                pointText = pointText + "이 있어."
-            }
-            
-            self.currentInput = "카페 일상과 관련된 인스타그램 피드를 작성해줘. \(pointText)"
-            let newMessage = Message(id: UUID(), role: .user, content: self.currentInput)
-            self.messages.append(newMessage)
-            viewModel.prompt = self.currentInput
-            self.currentInput = ""
-            let response = await chatGptService.sendMessage(messages: self.messages)
-            viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
-            viewModel.category = "Daily"
-            print(response?.choices.first?.message.content as Any)
-            print(response as Any)
+            createPrompt()
+            self.messages.append(Message(id: UUID(), role: .user, content: self.currentInput))
+            await createCaption()
         }
+    }
+    
+    func createPrompt(){
+        var pointText = ""
+        
+        print("생성 정보 :\nStore Name : \(storeModel.storeName)\nTone : \(storeModel.tone)")
+        // TODO: COREDATA 변경필요
+        if storeModel.tone.contains("기본") {
+            self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)를 운영하고 있으며 평범한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150000000자 정도로 작성해줘."))
+        }
+        else{
+            self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)"))
+
+              for _tone in storeModel.tone {
+                  self.messages.append(Message(id: UUID(), role: .system, content: "\(_tone == "기본" ? "평범한": _tone)"))
+              }
+            
+            self.messages.append(Message(id: UUID(), role: .system, content:"말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
+        }
+        
+        if !weatherSelected.isEmpty {
+            pointText = pointText + "오늘 날씨의 특징으로는 "
+            for index in weatherSelected.indices {
+                pointText = pointText + "\(weatherSelected[index]), "
+            }
+            pointText = pointText + "이 있어."
+        }
+        
+        if !dailyCoffeeSelected.isEmpty {
+            pointText = pointText + "오늘 이야기하고자 하는 음료는 "
+            for index in dailyCoffeeSelected.indices {
+                pointText = pointText + "\(dailyCoffeeSelected[index]), "
+            }
+            pointText = pointText + "이 있어."
+        }
+        
+        if !dailyDessertSelected.isEmpty {
+            pointText = pointText + "오늘 이야기하고자 하는 디저트는 "
+            for index in dailyDessertSelected.indices {
+                pointText = pointText + "\(dailyDessertSelected[index]), "
+            }
+            pointText = pointText + "이 있어."
+        }
+        
+        self.currentInput = "카페 일상과 관련된 인스타그램 피드를 작성해줘. \(pointText)"
+    }
+    
+    func createCaption() async{
+        viewModel.prompt = self.currentInput
+        self.currentInput = ""
+        let response = await chatGptService.sendMessage(messages: self.messages)
+        viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
+        viewModel.category = "Daily"
+        print(response?.choices.first?.message.content as Any)
+        print(response as Any)
     }
 }
 
