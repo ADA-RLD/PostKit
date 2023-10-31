@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		139B2C7E2ADFF8690036BD18 /* ContentArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C7D2ADFF8690036BD18 /* ContentArea.swift */; };
-		139B2C822AE9359D0036BD18 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C812AE9359D0036BD18 /* Constants.swift */; };
 		139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C882AECF0CD0036BD18 /* ErrorView.swift */; };
 		139B2C8B2AEF34890036BD18 /* HashtagResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */; };
 		139B2C8D2AEF42390036BD18 /* HapticManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C8C2AEF42390036BD18 /* HapticManger.swift */; };
@@ -42,6 +41,8 @@
 		13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C2961B2AD8F32000A2DE7F /* ToneModel.swift */; };
 		13C296242AD988FC00A2DE7F /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296232AD988FC00A2DE7F /* AppStorageManager.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
+		7E0605022AF07DD1003A87BC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605012AF07DD1003A87BC /* Constants.swift */; };
+		7E0605042AF08258003A87BC /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605032AF08258003A87BC /* ResponseError.swift */; };
 		7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */; };
 		7EF314CE2AD81DE3008E7338 /* ChatGptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */; };
 		7EF314D22AD96A69008E7338 /* ChatGptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */; };
@@ -73,7 +74,6 @@
 /* Begin PBXFileReference section */
 		0A14ED0B2AD96D9A00357A79 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		139B2C7D2ADFF8690036BD18 /* ContentArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentArea.swift; sourceTree = "<group>"; };
-		139B2C812AE9359D0036BD18 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		139B2C882AECF0CD0036BD18 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagResultView.swift; sourceTree = "<group>"; };
 		139B2C8C2AEF42390036BD18 /* HapticManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManger.swift; sourceTree = "<group>"; };
@@ -110,6 +110,8 @@
 		13C2961D2AD9734800A2DE7F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		13C296232AD988FC00A2DE7F /* AppStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageManager.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
+		7E0605012AF07DD1003A87BC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7E0605032AF08258003A87BC /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptService.swift; sourceTree = "<group>"; };
 		7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptModel.swift; sourceTree = "<group>"; };
 		7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptViewModel.swift; sourceTree = "<group>"; };
@@ -229,8 +231,8 @@
 				7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */,
 				13C2961B2AD8F32000A2DE7F /* ToneModel.swift */,
 				13C296232AD988FC00A2DE7F /* AppStorageManager.swift */,
-				139B2C812AE9359D0036BD18 /* Constants.swift */,
 				A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */,
+				7E0605012AF07DD1003A87BC /* Constants.swift */,
 				A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */,
 			);
 			path = Model;
@@ -244,6 +246,7 @@
 				7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */,
 				7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */,
 				139B2C8C2AEF42390036BD18 /* HapticManger.swift */,
+				7E0605032AF08258003A87BC /* ResponseError.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -517,9 +520,9 @@
 				13C295D32AD64C3500A2DE7F /* SettingView.swift in Sources */,
 				B98632602AD7CFB200DE9FF5 /* KeywordsModel.swift in Sources */,
 				13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */,
+				7E0605022AF07DD1003A87BC /* Constants.swift in Sources */,
 				13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */,
 				13C296182AD8F1F000A2DE7F /* CustomHeader.swift in Sources */,
-				139B2C822AE9359D0036BD18 /* Constants.swift in Sources */,
 				B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */,
 				139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
@@ -532,6 +535,7 @@
 				13C2960C2AD8F15300A2DE7F /* OnboardingFinal.swift in Sources */,
 				B96211E92AED16CC0074CBE1 /* HashtagView.swift in Sources */,
 				13C296122AD8F17100A2DE7F /* OnboardingStore.swift in Sources */,
+				7E0605042AF08258003A87BC /* ResponseError.swift in Sources */,
 				A188C5852AD7BA89007473D3 /* CoreDataManager.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
 				A188C5942ADE22FC007473D3 /* SettingProtocol.swift in Sources */,
