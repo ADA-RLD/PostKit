@@ -24,6 +24,33 @@ class ChatGptService {
             "Authorization" : "Bearer \(randomKey)"
         ]
         
-        return try? await AF.request(baseUrl, method: .post, parameters: body, encoder: .json, headers: headers).serializingDecodable(chatGptResponse.self).value
+        do {
+            let response = try? await AF.request(baseUrl, method: .post, parameters: body, encoder: .json, headers: headers)
+                .serializingDecodable(chatGptResponse.self)
+                .value
+            
+            if response == nil {
+                throw ResponseError.noResponse
+            }
+            
+            return response
+        } 
+        catch {
+            print("error: \(error)")
+            // MARK: - Chat Gpt 에러 처리
+            if error._code == NSURLErrorTimedOut {
+                print("Time Out Error 발생")
+                return chatGptResponse(choices: [chatGptChoice(message: chatGptMessage(role: .system, content: "TIMEOUT"))])
+            }
+            else if error as! ResponseError == ResponseError.noResponse {
+                print("Nil Response Error 발생")
+                return chatGptResponse(choices: [chatGptChoice(message: chatGptMessage(role: .system, content: "NILError"))])
+            }
+            else {
+                print("error: \(error)")
+                print("Server Error 발생")
+                return chatGptResponse(choices: [chatGptChoice(message: chatGptMessage(role: .system, content: "ServerError"))])
+            }
+        }
     }
 }
