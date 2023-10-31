@@ -101,14 +101,15 @@ extension HashtagView : HashtagProtocol {
             hashtags = hashtagDataArray.map{ hashtagCoreData in
                 return HashtagModel(
                     _id: hashtagCoreData.resultId ?? UUID(),
-                    _date: <#Date#>,
-                    _locationTag: <#[String]#>,
-                    _keyword: <#[String]#>,
-                    _hashtag: <#String#>
+                    _date: hashtagCoreData.date ?? Date(),
+                    _locationTag: hashtagCoreData.locationTag ?? [""],
+                    _keyword: hashtagCoreData.keyword ?? [""],
+                    _hashtag: hashtagCoreData.hashtag ?? ""
                 )
             }
         } catch {
-            
+            print("ERROR STORE CORE DATA")
+            print(error.localizedDescription)
         }
     }
     
