@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct HashtagResultView: View {
     private let pasteBoard = UIPasteboard.general
     @State private var isShowingToast = false
     @EnvironmentObject var pathManager: PathManager
+    
     private let dummidata: String = "#서울카페 #서울숲카페 #서울숲브런치맛집 #성\n수동휘낭시에 #성수동여행 #서울숲카페탐방 #성\n수동디저트 #성수동감성카페 #서울신상카페 #서\n울숲카페거리 #성수동분위기좋은카페 #성수동데\n이트 #성수동핫플 #서울숲핫플레이스"
+    
+    //CoreData Manager
+    let coreDataManager = CoreDataManager.instance
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
@@ -69,6 +75,31 @@ extension HashtagResultView {
     }
 }
 
+extension HashtagResultView : HashtagProtocol {
+    func convertDayTime(time: Date) -> Date {
+        let today = Date()
+        let timezone = TimeZone.autoupdatingCurrent
+        let secondsFromGMT = timezone.secondsFromGMT(for: today)
+        let localizedDate = today.addingTimeInterval(TimeInterval(secondsFromGMT))
+        return localizedDate
+    }
+    
+    func FetchHashtag() {
+        //여기서는 fetch하지 않아요
+    }
+    
+    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, Result: String) {
+        let newHashtag = HashtagData(context: coreDataManager.context)
+        newHashtag.resultId = UUID()
+        newHashtag.date = date
+        newHashtag.hashtag = Result
+        coreDataManager.save()
+        
+        print("Hashtag 저장 완료!\n resultId : \(newHashtag.resultId)\n Date : \(newHashtag.date)\n Hashtag : \(newHashtag.hashtag)")
+    }
+    
+    
+}
 
 //MARK: Function
 extension HashtagResultView {
