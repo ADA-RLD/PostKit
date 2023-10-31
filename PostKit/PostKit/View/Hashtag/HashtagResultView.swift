@@ -114,7 +114,6 @@ extension HashtagResultView : HashtagProtocol {
 //MARK: Function
 extension HashtagResultView {
     // MARK: 카피 복사
-    // TODO: 실제로 결과값이 생기면 복사해야합니다.
     private func copyToClipboard() {
         pasteBoard.string = viewModel.hashtag
         isShowingToast = true
