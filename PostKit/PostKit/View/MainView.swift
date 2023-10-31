@@ -262,6 +262,7 @@ extension MainView {
                     feedHisoryDetail(tag: item.category, date: item.date, content: item.caption)
                 }
             }
+            .refreshable{fetchCaptionData()}
         }
         .toast(isShowing: $isShowingToast)
     }
@@ -274,6 +275,7 @@ extension MainView {
                 }
                 hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
             }
+            .refreshable {fetchHashtagData()}
         }
         .toast(isShowing: $isShowingToast)
     }
@@ -387,6 +389,7 @@ extension MainView : MainViewProtocol {
                     _caption: captionCoreData.caption ?? ""
                 )
             }
+            captions.sort { $0.date > $1.date }
            } catch {
                print("ERROR FETCHING CAPTION CORE DATA")
                print(error.localizedDescription)
@@ -407,6 +410,7 @@ extension MainView : MainViewProtocol {
                     _hashtag: hashtagCoreData.hashtag ?? ""
                 )
             }
+            hashtags.sort { $0.date > $1.date }
         } catch {
             print("ERROR STORE CORE DATA")
             print(error.localizedDescription)
