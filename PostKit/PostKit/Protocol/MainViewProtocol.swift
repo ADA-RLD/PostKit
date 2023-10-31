@@ -14,4 +14,6 @@ protocol MainViewProtocol {
     func fetchStoreData()
     
     func fetchCaptionData()
+    
+    func fetchHashtagData()
 }
