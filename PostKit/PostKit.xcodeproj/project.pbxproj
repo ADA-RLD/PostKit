@@ -70,6 +70,7 @@
 		B986326C2AD7E76200DE9FF5 /* CaptionResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986326B2AD7E76200DE9FF5 /* CaptionResultView.swift */; };
 		B98632782AD9735000DE9FF5 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632772AD9735000DE9FF5 /* DailyView.swift */; };
 		B986327C2ADA5DC300DE9FF5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */; };
+		B9872A332AF115CB000A795C /* HashtagPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A322AF115CB000A795C /* HashtagPopover.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,6 +141,7 @@
 		B986326B2AD7E76200DE9FF5 /* CaptionResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionResultView.swift; sourceTree = "<group>"; };
 		B98632772AD9735000DE9FF5 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		B9872A322AF115CB000A795C /* HashtagPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagPopover.swift; sourceTree = "<group>"; };
 		C674B8973F6DA180203B6836 /* Pods-PostKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.debug.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.debug.xcconfig"; sourceTree = "<group>"; };
 		DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -354,6 +356,7 @@
 			children = (
 				B96211E82AED16CC0074CBE1 /* HashtagView.swift */,
 				139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */,
+				B9872A322AF115CB000A795C /* HashtagPopover.swift */,
 			);
 			path = Hashtag;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				A188C5942ADE22FC007473D3 /* SettingProtocol.swift in Sources */,
 				139B2C8F2AF0B6030036BD18 /* Ex+UINaivgationController.swift in Sources */,
 				13C2960E2AD8F15E00A2DE7F /* OnboardingIntro.swift in Sources */,
+				B9872A332AF115CB000A795C /* HashtagPopover.swift in Sources */,
 				A1B75AD22AEFE24100DFD343 /* HashtagModel.swift in Sources */,
 				A188C58A2AD7CDD3007473D3 /* MenuProtocol.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
