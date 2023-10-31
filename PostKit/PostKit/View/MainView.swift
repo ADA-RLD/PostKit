@@ -16,7 +16,9 @@ struct MainView: View {
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @Namespace var nameSpace
     private let pasteBoard = UIPasteboard.general
+    
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
     private let hapticManger = HapticManager.instance
@@ -24,6 +26,7 @@ struct MainView: View {
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
     @State private var captions: [CaptionModel] = []
+    @State private var hashtags: [HashtagModel] = []
     
     var body: some View {
         ZStack {
@@ -85,6 +88,7 @@ struct MainView: View {
                     resetData()
                     
                     fetchCaptionData()
+                    fetchHashtagData()
                 }
             }
             
@@ -162,7 +166,6 @@ extension MainView {
                             .foregroundColor(Color.gray4)
                         
                         NavigationBtn(header: "해시태그",description: "가벼운 카페 일상 글을 써요", action: {pathManager.path.append(.Hashtag)
-                            //TODO: 해시태그 생성 뷰 만들면 여기에 path추가해 주세요!
                         })
                     }
                 }
@@ -195,10 +198,13 @@ extension MainView {
                     TabView(selection: $historySelected) {
                         
                         feedHistory
+                            .highPriorityGesture(DragGesture())
                             .tag("피드 글")
-                        
+                           
                         hashtagHistory
+                            .highPriorityGesture(DragGesture())
                             .tag("해시태그")
+                   
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     
@@ -211,15 +217,39 @@ extension MainView {
         HStack(spacing: 16) {
             
             Button(action: {
-                historySelected = "피드 글"
+                withAnimation(.spring(response: 0.5,dampingFraction: 0.8)) {
+                    historySelected = "피드 글"
+                }
             }, label: {
                 Text("피드 글")
+                    .font(.title2())
+                    .foregroundColor(Color.black)
+                    .overlay(alignment: .bottom) {
+                        if historySelected == "피드 글" {
+                            Rectangle()
+                                .foregroundColor(Color.black)
+                                .frame(height: 2)
+                                .matchedGeometryEffect(id: "activeStroke", in: nameSpace)
+                        }
+                    }
             })
             
             Button(action: {
-                historySelected = "해시태그"
+                withAnimation(.spring(response: 0.5,dampingFraction: 0.8)) {
+                    historySelected = "해시태그"
+                }
             }, label: {
                 Text("해시태그")
+                    .font(.title2())
+                    .foregroundColor(Color.black)
+                    .overlay(alignment: .bottom) {
+                        if historySelected == "해시태그" {
+                            Rectangle()
+                                .foregroundColor(Color.black)
+                                .frame(height: 2)
+                                .matchedGeometryEffect(id: "activeStroke", in: nameSpace)
+                        }
+                    }
             })
         }
     }
@@ -236,10 +266,12 @@ extension MainView {
         .toast(isShowing: $isShowingToast)
     }
     
-    // TODO: 해시태그 히스토리는 여기에 작업해주세요
     private var hashtagHistory: some View {
         VStack {
             ScrollView{
+                ForEach(hashtags) { item in
+                    hashtagHistoryDetail(date: item.date, hashtagContent: item.hashtag)
+                }
                 hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
             }
         }
@@ -359,5 +391,25 @@ extension MainView : MainViewProtocol {
                print("ERROR FETCHING CAPTION CORE DATA")
                print(error.localizedDescription)
            }
+    }
+    
+    func fetchHashtagData() {
+        let HashtagRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
+        
+        do {
+            let hashtagDataArray = try coreDataManager.context.fetch(HashtagRequest)
+            hashtags = hashtagDataArray.map{ hashtagCoreData in
+                return HashtagModel(
+                    _id: hashtagCoreData.resultId ?? UUID(),
+                    _date: hashtagCoreData.date ?? Date(),
+                    _locationTag: hashtagCoreData.locationTag ?? [""],
+                    _keyword: hashtagCoreData.keyword ?? [""],
+                    _hashtag: hashtagCoreData.hashtag ?? ""
+                )
+            }
+        } catch {
+            print("ERROR STORE CORE DATA")
+            print(error.localizedDescription)
+        }
     }
 }
