@@ -14,9 +14,9 @@ struct HashtagResultView: View {
     @EnvironmentObject var pathManager: PathManager
     
     //Create Hashtag
-    private let hashTagService = HashTagService()
+    private let hashTagService = HashtagService()
     
-    @ObservedObject var viewModel = HashTagViewModel.shared
+    @ObservedObject var viewModel = HashtagViewModel.shared
 
     private let pasteBoard = UIPasteboard.general
 //    private let dummidata: String = "#서울카페 #서울숲카페 #서울숲브런치맛집 #성\n수동휘낭시에 #성수동여행 #서울숲카페탐방 #성\n수동디저트 #성수동감성카페 #서울신상카페 #서\n울숲카페거리 #성수동분위기좋은카페 #성수동데\n이트 #성수동핫플 #서울숲핫플레이스"
@@ -52,10 +52,10 @@ extension HashtagResultView {
                     }
                     
                     VStack(alignment: .trailing, spacing: 20) {
-                        hashtagRectangle(hashTags: "\(viewModel.hashTag)")
+                        hashtagRectangle(hashTags: "\(viewModel.hashtag)")
                     }
                     // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
-                    .onAppear{SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, Result: viewModel.hashTag)}
+                    .onAppear{SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, Result: viewModel.hashtag)}
                 }
             }
             Spacer()
@@ -64,7 +64,7 @@ extension HashtagResultView {
             CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성", leftAction: {
                 pathManager.path.removeAll()
             }, rightAction: {
-                viewModel.hashTag = hashTagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
+                viewModel.hashtag = hashTagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
             })
             
         }
@@ -116,7 +116,7 @@ extension HashtagResultView {
     // MARK: 카피 복사
     // TODO: 실제로 결과값이 생기면 복사해야합니다.
     private func copyToClipboard() {
-        pasteBoard.string = viewModel.hashTag
+        pasteBoard.string = viewModel.hashtag
         isShowingToast = true
     }
 }

@@ -16,10 +16,10 @@ struct HashtagView: View {
     @State private var locationTags: [String] = []
     @State private var emphasizeTags: [String] = []
     
-    @ObservedObject var viewModel = HashTagViewModel.shared
+    @ObservedObject var viewModel = HashtagViewModel.shared
     
     //Create Hashtag
-    private let hashTagService = HashTagService()
+    private let hashTagService = HashtagService()
     
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
@@ -87,7 +87,7 @@ struct HashtagView: View {
                 Task{
                     viewModel.emphasizeKey = emphasizeTags
                     viewModel.locationKey = locationTags
-                    viewModel.hashTag = hashTagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
+                    viewModel.hashtag = hashTagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
                     
                     print(hashTagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
                     

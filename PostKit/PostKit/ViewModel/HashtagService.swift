@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HashTagService {
+class HashtagService {
     func createHashtag(locationArr: Array<String>, emphasizeArr: Array<String>) -> String{
         // 생성할 최대 해시태그 수
         let maxCnt = 15
