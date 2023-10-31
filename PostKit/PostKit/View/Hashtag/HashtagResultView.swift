@@ -47,6 +47,8 @@ extension HashtagResultView {
                     VStack(alignment: .trailing, spacing: 20) {
                         hashtagRectangle(hashTags: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성\n수동휘낭시에 #성수동여행 #서울숲카페탐방 #성\n수동디저트 #성수동감성카페 #서울신상카페 #서\n울숲카페거리 #성수동분위기좋은카페 #성수동데\n이트 #성수동핫플 #서울숲핫플레이스")
                     }
+                    // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
+                    .onAppear{SaveHashtag(date: convertDayTime(time: Date()), locationTag: [""], keyword: [""], Result: "결과값")}
                 }
             }
             Spacer()

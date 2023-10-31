@@ -25,6 +25,7 @@ struct MainView: View {
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
     @State private var captions: [CaptionModel] = []
+    @State private var hashtags: [HashtagModel] = []
     
     var body: some View {
         ZStack {
@@ -360,5 +361,25 @@ extension MainView : MainViewProtocol {
                print("ERROR FETCHING CAPTION CORE DATA")
                print(error.localizedDescription)
            }
+    }
+    
+    func fetchHashtagData() {
+        let HashtagRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
+        
+        do {
+            let hashtagDataArray = try coreDataManager.context.fetch(HashtagRequest)
+            hashtags = hashtagDataArray.map{ hashtagCoreData in
+                return HashtagModel(
+                    _id: hashtagCoreData.resultId ?? UUID(),
+                    _date: hashtagCoreData.date ?? Date(),
+                    _locationTag: hashtagCoreData.locationTag ?? [""],
+                    _keyword: hashtagCoreData.keyword ?? [""],
+                    _hashtag: hashtagCoreData.hashtag ?? ""
+                )
+            }
+        } catch {
+            print("ERROR STORE CORE DATA")
+            print(error.localizedDescription)
+        }
     }
 }
