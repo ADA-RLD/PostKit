@@ -78,7 +78,7 @@ struct HashtagView: View {
                 .scrollIndicators(.hidden)
             }
             Spacer()
-            CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {})
+            CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {pathManager.path.append(.HashtagResult)})
         }
         .onAppear{FetchHashtag()}
         .navigationBarBackButtonHidden()
