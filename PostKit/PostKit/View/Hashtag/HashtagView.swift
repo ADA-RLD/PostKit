@@ -76,7 +76,6 @@ struct HashtagView: View {
                                     }
                                 }
                                 
-                                
                                 VStack(alignment: .leading, spacing: 12) {
                                     HStack {
                                         Text("강조키워드")
@@ -121,10 +120,8 @@ struct HashtagView: View {
                 }
                 Spacer()
                 CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {})
-                
-                    .navigationBarBackButtonHidden()
+                .navigationBarBackButtonHidden()
             }
-            
             if isShowingDescription {
                 popoverView(popupState)
                     .frame(maxWidth: .infinity)
@@ -132,7 +129,6 @@ struct HashtagView: View {
                     .background(Color.gray5.opacity(0.3))
             }
         }
-       
     }
     
     private func handlePopoverClick(location: CGPoint, clickType: PopOverType) {
@@ -153,7 +149,6 @@ struct HashtagView: View {
         }
     }
     
-    
     @ViewBuilder
     func popoverView(_ type: PopOverType) -> some View {
         VStack {
@@ -167,7 +162,7 @@ struct HashtagView: View {
                             .frame(width: 18, height: 12)
                             .offset(x: 10, y: 3)
                     }
-                    ZStack() {
+                    ZStack {
                         RoundedRectangle(cornerRadius: radius1)
                             .frame(width: 200, height: 167)
                             .foregroundColor(.gray1)
@@ -193,7 +188,6 @@ struct HashtagView: View {
                                 }
                             }
                         }
-                        
                     }
                 }
                 .frame(width: 166, height: 119)
