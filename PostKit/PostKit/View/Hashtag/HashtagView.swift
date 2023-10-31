@@ -19,7 +19,7 @@ struct HashtagView: View {
     @ObservedObject var viewModel = HashtagViewModel.shared
     
     //Create Hashtag
-    private let hashTagService = HashtagService()
+    private let hashtagService = HashtagService()
     
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
@@ -87,9 +87,9 @@ struct HashtagView: View {
                 Task{
                     viewModel.emphasizeKey = emphasizeTags
                     viewModel.locationKey = locationTags
-                    viewModel.hashtag = hashTagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
+                    viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
                     
-                    print(hashTagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
+                    print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
                     
                     pathManager.path.append(.HashtagResult)
                 }

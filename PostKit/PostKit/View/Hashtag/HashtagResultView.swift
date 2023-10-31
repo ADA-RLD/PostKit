@@ -14,7 +14,7 @@ struct HashtagResultView: View {
     @EnvironmentObject var pathManager: PathManager
     
     //Create Hashtag
-    private let hashTagService = HashtagService()
+    private let hashtagService = HashtagService()
     
     @ObservedObject var viewModel = HashtagViewModel.shared
 
@@ -64,7 +64,7 @@ extension HashtagResultView {
             CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성", leftAction: {
                 pathManager.path.removeAll()
             }, rightAction: {
-                viewModel.hashtag = hashTagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
+                viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
             })
             
         }
