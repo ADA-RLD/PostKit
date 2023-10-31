@@ -26,6 +26,7 @@ struct HashtagResultView: View {
     
     var body: some View {
         resultView()
+            .navigationBarBackButtonHidden()
     }
 }
 
@@ -78,8 +79,9 @@ extension HashtagResultView {
                 Text(hashTags)
                     .font(.body1Bold())
                     .foregroundColor(Color.gray5)
+                    .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
             }
-            .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
+          
     }
 }
 
