@@ -18,7 +18,7 @@ protocol CaptionResultProtocol {
     ///   - category: 카테고리 Daily 혹은 Menu 저장
     ///   - date: 생성된 날짜를 저장
     ///   - Result: 생셩된 결과 입력
-    func saveCaptionResult(category: String, date: Date ,Result: String)
+    func saveCaptionResult(category: String, date: Date, Result: String)
     
     /// 가지고 있는 정보를 초기화합니다.
     /// - Parameter Result: 초기화 대상
