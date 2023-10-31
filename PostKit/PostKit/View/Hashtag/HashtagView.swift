@@ -16,6 +16,11 @@ struct HashtagView: View {
     @State private var locationTags: [String] = []
     @State private var emphasizeTags: [String] = []
     
+    @ObservedObject var viewModel = HashTagViewModel.shared
+    
+    //Create Hashtag
+    private let hashTagService = HashTagService()
+    
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
     
@@ -78,7 +83,17 @@ struct HashtagView: View {
                 .scrollIndicators(.hidden)
             }
             Spacer()
-            CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {pathManager.path.append(.HashtagResult)})
+            CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {
+                Task{
+                    viewModel.emphasizeKey = emphasizeTags
+                    viewModel.locationKey = locationTags
+                    viewModel.hashTag = hashTagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
+                    
+                    print(hashTagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
+                    
+                    pathManager.path.append(.HashtagResult)
+                }
+            })
         }
         .onAppear{FetchHashtag()}
         .navigationBarBackButtonHidden()
