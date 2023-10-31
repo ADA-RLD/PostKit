@@ -21,6 +21,7 @@ struct HashtagResultView: View {
     
     var body: some View {
         resultView()
+            .navigationBarBackButtonHidden()
     }
 }
 
