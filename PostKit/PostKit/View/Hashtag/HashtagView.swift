@@ -80,6 +80,7 @@ struct HashtagView: View {
             Spacer()
             CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {})
         }
+        .onAppear{FetchHashtag()}
         .navigationBarBackButtonHidden()
     }
     
@@ -93,6 +94,15 @@ struct HashtagView: View {
 }
 
 extension HashtagView : HashtagProtocol {
+    
+    func convertDayTime(time: Date) -> Date {
+        let today = Date()
+        let timezone = TimeZone.autoupdatingCurrent
+        let secondsFromGMT = timezone.secondsFromGMT(for: today)
+        let localizedDate = today.addingTimeInterval(TimeInterval(secondsFromGMT))
+        return localizedDate
+    }
+    
     func FetchHashtag() {
         let HashtagRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
         
@@ -113,7 +123,7 @@ extension HashtagView : HashtagProtocol {
         }
     }
     
-    func SaveHashtag() {
+    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, Result: String) {
         //결과는 HashtagResultView에서 저장합니다.
     }
     
