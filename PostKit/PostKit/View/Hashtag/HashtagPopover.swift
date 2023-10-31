@@ -21,71 +21,15 @@ enum PopOverType {
         "지역의 랜드마크",
         "ex) 남산타워, 한강, 서울숲..."
       ]
-      case .keyword: return ["Bang"]
+      case .keyword: return [
+        "카페의 대표 메뉴",
+        "ex) 휘낭시에, 딸기케이크, 소금커피, 푸딩",
+        "카페의 특징",
+        "ex) 애견동반, 브런치맛집, 대형카페, 노키즈존"
+      ]
       }
     }
-    
-    var offset : CGSize {
-        switch self {
-        case .region: return CGSize(width: UIScreen.main.bounds.width/2 - 120, height: -UIScreen.main.bounds.height/2 + 330)
-        case .keyword: return CGSize(width: UIScreen.main.bounds.width-20, height: UIScreen.main.bounds.height-166)
-        }
-    }
 }
-
-struct HashtagPopover: View {
-    @Binding var isShowingDescription: Bool
-    
-    var body: some View {
-        Button(action: {
-            // 물음표 아이콘을 누를 때마다 설명 화면 표시 여부를 토글
-            withAnimation(.easeInOut){
-                isShowingDescription.toggle()
-            }
-            // 2초 뒤 설명 화면 숨김
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                withAnimation(.easeInOut) {
-                    isShowingDescription = false
-                }
-            }
-        }, label: {
-            Image(systemName: "info.circle")
-                .foregroundColor(.gray3)
-        })
-        .padding()
-    }
-}
-
-
-
-struct test: View {
-    var text: [String]
-    var descripiotn: [String]
-    var body: some View {
-        ForEach(text.indices, id: \.self) { i in
-            VStack(alignment: .leading, spacing: 12) {
-                Text(text[i])
-                Text(descripiotn[i])
-            }
-            
-        }
-    }
-}
-/*
-struct popoverText : View {
-    var title : String
-    var subtitle: String
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title)
-                .foregroundColor(.gray5)
-                .font(.body2Bold())
-            Text(subtitle)
-                .foregroundColor(.gray4)
-                .font(.body2Regular())
-        }
-    }
-}*/
 
 struct TriangleView: Shape {
     func path(in rect: CGRect) -> Path {
@@ -97,9 +41,4 @@ struct TriangleView: Shape {
         
         return path
     }
-}
-
-
-#Preview {
-    HashtagPopover(isShowingDescription: .constant(true))
 }

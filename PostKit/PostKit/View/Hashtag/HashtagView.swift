@@ -17,11 +17,14 @@ struct HashtagView: View {
     @State private var showingAlert = false
     
     @State private var isShowingDescription = false
-    @State private var popupState: PopOverType = .region
+    @State private var popupState: PopOverType = .keyword
+    
+    @State private var regionPopoverOffsetFromTop: CGFloat = 0
+    @State private var keywordPopoverOffsetFromTop: CGFloat = 0
+    
     
     var body: some View {
         ZStack {
-        //TODO: GeometryReader 활용 해상도 수정 필요
             VStack(alignment: .leading, spacing: 0) {
                 CustomHeader(action: {pathManager.path.removeLast()}, title: "해시태그 생성")
                 
@@ -39,9 +42,11 @@ struct HashtagView: View {
                                             .font(.body1Bold())
                                             .foregroundColor(.gray5)
                                         Spacer()
-                                        HashtagPopover(isShowingDescription: $isShowingDescription)
-                                            .border(.red)
-                                        
+                                        Image(systemName: "info.circle")
+                                            .foregroundColor(.gray3)
+                                            .onTapGesture(count:1, coordinateSpace: .global) { location in
+                                                handlePopoverClick(location: location, clickType: .region)
+                                            }
                                     }
                                     ZStack(alignment: .topLeading) {
                                         CustomTextfield(text: $locationText, placeHolder: "한남동", customTextfieldState: .reuse) {
@@ -73,9 +78,17 @@ struct HashtagView: View {
                                 
                                 
                                 VStack(alignment: .leading, spacing: 12) {
-                                    Text("강조키워드")
-                                        .font(.body1Bold())
-                                        .foregroundColor(.gray5)
+                                    HStack {
+                                        Text("강조키워드")
+                                            .font(.body1Bold())
+                                            .foregroundColor(.gray5)
+                                        Spacer()
+                                        Image(systemName: "info.circle")
+                                            .foregroundColor(.gray3)
+                                            .onTapGesture(count:1, coordinateSpace: .global) { location in
+                                                handlePopoverClick(location: location, clickType: .keyword)
+                                            }
+                                    }
                                     ZStack(alignment: .topLeading) {
                                         CustomTextfield(text: $emphasizeText, placeHolder: "마카롱", customTextfieldState: .reuse) {
                                             if !emphasizeText.isEmpty && emphasizeTags.count <= 4 {
@@ -112,54 +125,82 @@ struct HashtagView: View {
                     .navigationBarBackButtonHidden()
             }
             
-            popoverView(.region)
-                .frame(maxWidth: .infinity)
-                .frame(maxHeight: .infinity)
-                .background(Color.gray5.opacity(0.3))
-            
+            if isShowingDescription {
+                popoverView(popupState)
+                    .frame(maxWidth: .infinity)
+                    .frame(maxHeight: .infinity)
+                    .background(Color.gray5.opacity(0.3))
+            }
         }
        
+    }
+    
+    private func handlePopoverClick(location: CGPoint, clickType: PopOverType) {
+        switch clickType {
+        case .region:
+            regionPopoverOffsetFromTop = location.y
+        case .keyword:
+            keywordPopoverOffsetFromTop = location.y
+        }
+        popupState = clickType
+        withAnimation(.easeInOut){
+            isShowingDescription.toggle()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            withAnimation(.easeInOut) {
+                isShowingDescription = false
+            }
+        }
     }
     
     
     @ViewBuilder
     func popoverView(_ type: PopOverType) -> some View {
-        VStack(spacing: 0) {
-            TriangleView()
-                .foregroundColor(.gray1)
-                .frame(width: 18, height: 12)
-            ZStack() {
-                RoundedRectangle(cornerRadius: radius1)
-                    .frame(width: 200, height: 167)
-                    .foregroundColor(.gray1)
-                
-                VStack(alignment: .leading, spacing: 6) {
-                    
-                    switch type {
-                    case .region:
-                        VStack {
-                            ForEach(0..<type.description.count, id: \.self) { index in
-                                if index % 2 == 1 {
-                                    Text(type.description[index])
-                                        .foregroundColor(.gray5)
-                                        .font(.body2Bold())
+        VStack {
+            HStack {
+                Spacer()
+                VStack(spacing: 0) {
+                    HStack {
+                        Spacer()
+                        TriangleView()
+                            .foregroundColor(.gray1)
+                            .frame(width: 18, height: 12)
+                            .offset(x: 10, y: 3)
+                    }
+                    ZStack() {
+                        RoundedRectangle(cornerRadius: radius1)
+                            .frame(width: 200, height: 167)
+                            .foregroundColor(.gray1)
+                        
+                        VStack(alignment: .leading) {
+                            
+                            switch type {
+                            case .region:
+                                VStack(alignment: .leading, spacing: 6) {
+                                    ForEach(0..<type.description.count, id: \.self) { index in
+                                        Text(type.description[index])
+                                            .foregroundColor(index % 2 == 1 ? .gray4 : .gray5)
+                                            .font(.body2Bold())
+                                    }
                                 }
-                                else {
-                                    Text(type.description[index])
-                                        .foregroundColor(.gray4)
-                                        .font(.body2Regular())
+                            case .keyword:
+                                VStack(alignment: .leading, spacing: 6) {
+                                    ForEach(0..<type.description.count, id: \.self) { index in
+                                        Text(type.description[index])
+                                            .foregroundColor(index % 2 == 1 ? .gray4 : .gray5)
+                                            .font(.body2Bold())
+                                    }
                                 }
                             }
                         }
-                    case .keyword:
-                        EmptyView()
+                        
                     }
                 }
                 .frame(width: 166, height: 119)
-                
+                .offset(x: 4, y: type == .region ? regionPopoverOffsetFromTop + 26 : keywordPopoverOffsetFromTop + 26)
             }
-            .offset(type.offset)
-            
+            .padding(.horizontal, 40)
+            Spacer()
         }
     }
     
