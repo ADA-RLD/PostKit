@@ -87,6 +87,7 @@ struct MainView: View {
                     resetData()
                     
                     fetchCaptionData()
+                    fetchHashtagData()
                 }
             }
             
@@ -242,6 +243,9 @@ extension MainView {
     private var hashtagHistory: some View {
         VStack {
             ScrollView{
+                ForEach(hashtags) { item in
+                    hashtagHistoryDetail(date: item.date, hashtagContent: item.hashtag)
+                }
                 hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
             }
         }
