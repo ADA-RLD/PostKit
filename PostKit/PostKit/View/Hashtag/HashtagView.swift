@@ -12,15 +12,14 @@ struct HashtagView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var locationText = ""
     @State private var emphasizeText = ""
-    @State private var isActive: Bool = false
     @State private var locationTags: [String] = []
     @State private var emphasizeTags: [String] = []
-    @State private var showingAlert = false
+    @State private var isActive: Bool = false
     @State private var isShowingDescription = false
     @State private var popupState: PopOverType = .keyword
-    
     @State private var regionPopoverOffsetFromTop: CGFloat = 0
     @State private var keywordPopoverOffsetFromTop: CGFloat = 0
+    @State private var showingAlert = false
     
     @ObservedObject var viewModel = HashtagViewModel.shared
     
@@ -58,6 +57,7 @@ struct HashtagView: View {
                                                 handlePopoverClick(location: location, clickType: .region)
                                             }
                                     }
+                                    
                                     ZStack(alignment: .topLeading) {
                                         CustomTextfield(text: $locationText, placeHolder: "한남동", customTextfieldState: .reuse) {
                                             if !locationText.isEmpty && locationTags.count <= 4 {
@@ -72,6 +72,7 @@ struct HashtagView: View {
                                                   dismissButton: .default(Text("확인")))
                                         }
                                     }
+                                    
                                     Text("최대 5개까지 작성가능합니다.")
                                         .font(.body2Regular())
                                         .foregroundColor(.gray3)
@@ -91,13 +92,16 @@ struct HashtagView: View {
                                         Text("강조 키워드")
                                             .font(.body1Bold())
                                             .foregroundColor(.gray5)
+                                        
                                         Spacer()
+                                        
                                         Image(systemName: "info.circle")
                                             .foregroundColor(.gray3)
                                             .onTapGesture(count:1, coordinateSpace: .global) { location in
                                                 handlePopoverClick(location: location, clickType: .keyword)
                                             }
                                     }
+                                    
                                     ZStack(alignment: .topLeading) {
                                         CustomTextfield(text: $emphasizeText, placeHolder: "마카롱", customTextfieldState: .reuse) {
                                             if !emphasizeText.isEmpty && emphasizeTags.count <= 4 {
@@ -111,6 +115,7 @@ struct HashtagView: View {
                                                   dismissButton: .default(Text("확인")))
                                         }
                                     }
+                                    
                                     Text("최대 5개까지 작성가능합니다.")
                                         .font(.body2Regular())
                                         .foregroundColor(.gray3)
@@ -154,7 +159,10 @@ struct HashtagView: View {
         .onAppear{FetchHashtag()}
         .navigationBarBackButtonHidden()
     }
-    
+}
+
+//MARK: extension: HashtagView Functions
+extension HashtagView {
     private func handlePopoverClick(location: CGPoint, clickType: PopOverType) {
         switch clickType {
         case .region:
@@ -173,11 +181,23 @@ struct HashtagView: View {
         }
     }
     
+    private func checkTags() {
+        if !locationTags.isEmpty {
+            isActive = true
+        } else {
+            isActive = false
+        }
+    }
+}
+
+//MARK: extension: HashtagView Views
+extension HashtagView {
     @ViewBuilder
     func popoverView(_ type: PopOverType) -> some View {
         VStack {
             HStack {
                 Spacer()
+                
                 VStack(spacing: 0) {
                     HStack {
                         Spacer()
@@ -186,13 +206,13 @@ struct HashtagView: View {
                             .frame(width: 18, height: 12)
                             .offset(x: 10, y: 3)
                     }
+                    
                     ZStack {
                         RoundedRectangle(cornerRadius: radius1)
                             .frame(width: 200, height: 167)
                             .foregroundColor(.gray1)
                         
                         VStack(alignment: .leading) {
-                            
                             switch type {
                             case .region:
                                 VStack(alignment: .leading, spacing: 6) {
@@ -220,14 +240,6 @@ struct HashtagView: View {
             .padding(.horizontal, 40)
             
             Spacer()
-        }
-    }
-    
-    private func checkTags() {
-        if !locationTags.isEmpty {
-            isActive = true
-        } else {
-            isActive = false
         }
     }
 }
