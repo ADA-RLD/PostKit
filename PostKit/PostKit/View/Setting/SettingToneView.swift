@@ -48,7 +48,7 @@ struct SettingToneView: View {
         }
     }
 }
-// MARK: Views
+// MARK: Views 뷰를 익스텐션입니다.
 extension SettingToneView {
     private var toggleBtns: some View {
         SelectTone(selectedTones: $storeTone)
@@ -66,7 +66,7 @@ private func toggleBtn(answer: String) -> some View {
     }
 }
 
-// MARK: function
+// MARK: 함수를 관리하는 익스텐션입니다.
 extension SettingToneView {
     private func isActiveCheck() {
         if storeTone .isEmpty {

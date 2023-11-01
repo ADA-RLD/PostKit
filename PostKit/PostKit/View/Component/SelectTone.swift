@@ -44,7 +44,6 @@ extension SelectTone {
                             }
                         }
                     }
-                    
                 }
             }
         }
@@ -72,9 +71,6 @@ extension SelectTone {
             if let firstIndex = selectedTones.firstIndex(of: tone) {
                 selectedTones.remove(at: firstIndex)
             }
-            
         }
-
-        
     }
 }
