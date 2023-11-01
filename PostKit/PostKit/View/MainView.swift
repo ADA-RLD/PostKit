@@ -309,7 +309,7 @@ extension MainView {
         VStack {
             ScrollView{
                 ForEach(captions) { item in
-                    feedHisoryDetail(tag: item.category, date: item.date, content: item.caption)
+                    feedHisoryDetail(tag: item.category, date: convertDate(date: item.date), content: item.caption)
                 }
             }
             .refreshable{fetchCaptionData()}
@@ -323,14 +323,13 @@ extension MainView {
                 ForEach(hashtags) { item in
                     hashtagHistoryDetail(date: item.date, hashtagContent: item.hashtag)
                 }
-                hashtagHistoryDetail(date: Date(), hashtagContent: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성수동휘낭시에 #성수동여행 #서울숲카페탐방 #성수동디저트 #성수동감성카페 #서울신상카페 #서울숲카페거리 #성수동분위기좋은카페 #성수동데이트 #성수동핫플 #서울숲핫플레이스")
             }
             .refreshable {fetchHashtagData()}
         }
         .toast(isShowing: $isShowingToast)
     }
     
-    private func feedHisoryDetail(tag: String, date: Date, content: String) -> some View {
+    private func feedHisoryDetail(tag: String, date: String, content: String) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .onTapGesture {
@@ -355,7 +354,7 @@ extension MainView {
             
                         Spacer()
                         
-                        Text(date, style: .date)
+                        Text(date)
                             .font(.body2Bold())
                             .foregroundColor(Color.gray4)
                     }
@@ -466,5 +465,15 @@ extension MainView : MainViewProtocol {
             print("ERROR STORE CORE DATA")
             print(error.localizedDescription)
         }
+    }
+    
+    func convertDate(date: Date) -> String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+      
+        var convertDate = formatter.string(from: date)
+        
+        return convertDate
     }
 }

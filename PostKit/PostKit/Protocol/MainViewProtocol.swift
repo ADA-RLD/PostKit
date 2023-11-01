@@ -16,4 +16,6 @@ protocol MainViewProtocol {
     func fetchCaptionData()
     
     func fetchHashtagData()
+    
+    func convertDate(date: Date) -> String
 }
