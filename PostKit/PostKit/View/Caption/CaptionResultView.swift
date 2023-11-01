@@ -10,8 +10,8 @@ import CoreData
 import UIKit
 
 struct CaptionResultView: View {
-    //@EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
+    @State private var copyId : UUID
     @State private var copyResult = "생성된 텍스트가 들어가요."
     @State private var likeCopy = false //좋아요 버튼 결과뷰에서 변경될 수 있으니까 여기 선언
     @State private var isShowingToast = false
@@ -36,7 +36,8 @@ struct CaptionResultView: View {
                 captionResult
                     .onAppear{
                         //Caption이 생성되면 바로 CoreData에 저장
-                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
+                        //수정을 위해 UUID를 저장
+                        copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
                     }
             }
         }
@@ -192,7 +193,7 @@ extension CaptionResultView : CaptionResultProtocol {
         return localizedDate
     }
     
-    func saveCaptionResult(category: String, date: Date, result: String, like: Bool) {
+    func saveCaptionResult(category: String, date: Date, result: String, like: Bool) -> UUID {
         let newCaption = CaptionResult(context: coreDataManager.context)
         newCaption.resultId = UUID()
         newCaption.date = date
