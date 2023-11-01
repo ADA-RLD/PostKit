@@ -8,6 +8,7 @@ import SwiftUI
 import CoreData
 
 struct MainView: View {
+    @AppStorage("_coin") var coin: Int = 0
     @AppStorage("_cafeName") var cafeName: String = ""
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager

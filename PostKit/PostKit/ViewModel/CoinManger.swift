@@ -7,16 +7,17 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class CoinManger: ObservableObject {
     
-    @Published var coin: Int = 0
+    @AppStorage("coin") var coin: Int = 0
     
     private var cancellable: AnyCancellable?
     static let shared = CoinManger()
     
     init() {
-        cancellable = Timer.publish(every: 120, on: .main, in: .default)
+        cancellable = Timer.publish(every: 170, on: .main, in: .default)
             .autoconnect()
             .sink { [weak self] _ in
                 
