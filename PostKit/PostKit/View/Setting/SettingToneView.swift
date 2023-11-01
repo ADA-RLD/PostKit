@@ -69,7 +69,7 @@ private func toggleBtn(answer: String) -> some View {
 // MARK: 함수를 관리하는 익스텐션입니다.
 extension SettingToneView {
     private func isActiveCheck() {
-        if storeTone .isEmpty {
+        if storeTone.isEmpty {
             isActive = false
         }
         else if storeTone.count > 0 {
