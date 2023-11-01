@@ -168,6 +168,7 @@ struct HashtagView: View {
                     .frame(maxWidth: .infinity)
                     .frame(maxHeight: .infinity)
                     .background(Color.gray5.opacity(0.3))
+                    .zIndex(1)
             }
         }
         .onAppear{FetchHashtag()}
@@ -246,6 +247,7 @@ extension HashtagView {
                 .frame(width: 166, height: 119)
                 .offset(x: 4, y: type == .region ? headerHeight + titleHeight + 96 : headerHeight + titleHeight + regionAreaHeight + 124 )
             }
+            .zIndex(2)
             .padding(.horizontal, 40)
             
             Spacer()
