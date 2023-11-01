@@ -35,7 +35,7 @@ struct CaptionResultView: View {
                 captionResult
                     .onAppear{
                         //Caption이 생성되면 바로 CoreData에 저장
-                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), Result: viewModel.promptAnswer)
+                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer)
                     }
             }
         }
@@ -191,12 +191,13 @@ extension CaptionResultView : CaptionResultProtocol {
         return localizedDate
     }
     
-    func saveCaptionResult(category: String, date: Date, Result: String) {
+    func saveCaptionResult(category: String, date: Date, result: String, like: Bool) {
         let newCaption = CaptionResult(context: coreDataManager.context)
         newCaption.resultId = UUID()
         newCaption.date = date
         newCaption.category = category
-        newCaption.caption = Result
+        newCaption.caption = result
+        newCaption.like = false
         coreDataManager.save()
         print("Caption 저장 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)")
     }
