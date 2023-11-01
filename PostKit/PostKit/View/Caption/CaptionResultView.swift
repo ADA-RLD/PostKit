@@ -17,6 +17,8 @@ struct CaptionResultView: View {
     private let pasteBoard = UIPasteboard.general
     @State var messages: [Message] = []
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var coinManger = CoinManger.shared
+    
     private let chatGptService = ChatGptService()
     private let hapticManger = HapticManager.instance
     
@@ -100,7 +102,10 @@ extension CaptionResultView {
                 pathManager.path.removeAll()
                 viewModel.promptAnswer = "생성된 텍스트가 들어가요."
             } rightAction: {
-                regenerateAnswer()
+                if coinManger.coin < 5 {
+                    coinManger.coinUse()
+                    regenerateAnswer()
+                }
             }
             
         }

@@ -16,6 +16,7 @@ struct DailyView: View {
     @State var dailyDessertSelected: [String] = []
     @State private var isContentsOpened = [false, false, false]
     
+    @ObservedObject var coinManger = CoinManger.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
     //CoreData Manager
@@ -125,8 +126,13 @@ struct DailyView: View {
         }
         
         CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
-            sendMessage()
-            pathManager.path.append(.CaptionResult)
+            if coinManger.coin < 5 {
+                sendMessage()
+                pathManager.path.append(.CaptionResult)
+                coinManger.coinUse()
+                print(coinManger.coin)
+            }
+          
         })
         .navigationBarBackButtonHidden()
         

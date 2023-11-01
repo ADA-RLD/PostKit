@@ -1,0 +1,30 @@
+//
+//  CoinManger.swift
+//  PostKit
+//
+//  Created by 김다빈 on 11/1/23.
+//
+
+import Foundation
+import Combine
+
+class CoinManger: ObservableObject {
+    
+    @Published var coin: Int = 0
+    
+    private var cancellable: AnyCancellable?
+    static let shared = CoinManger()
+    
+    init() {
+        cancellable = Timer.publish(every: 30, on: .main, in: .default)
+            .autoconnect()
+            .sink { [weak self] _ in
+                
+                self?.coin = 0
+            }
+    }
+    
+    func coinUse() {
+        coin += 1
+    }
+}
