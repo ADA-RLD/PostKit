@@ -197,7 +197,7 @@ extension DailyView {
         self.currentInput = ""
         let response = await chatGptService.sendMessage(messages: self.messages)
         viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
-        viewModel.category = "Daily"
+        viewModel.category = "일상"
         print(response?.choices.first?.message.content as Any)
         print(response as Any)
     }

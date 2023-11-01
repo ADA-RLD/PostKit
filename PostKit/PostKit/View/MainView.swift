@@ -309,7 +309,7 @@ extension MainView {
         VStack {
             ScrollView{
                 ForEach(captions) { item in
-                    feedHisoryDetail(tag: item.category, date: item.date, content: item.caption)
+                    feedHisoryDetail(tag: item.category, date: convertDate(date: item.date), content: item.caption)
                 }
             }
             .refreshable{fetchCaptionData()}
@@ -329,7 +329,7 @@ extension MainView {
         .toast(isShowing: $isShowingToast)
     }
     
-    private func feedHisoryDetail(tag: String, date: Date, content: String) -> some View {
+    private func feedHisoryDetail(tag: String, date: String, content: String) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .onTapGesture {
@@ -354,7 +354,7 @@ extension MainView {
             
                         Spacer()
                         
-                        Text(date, style: .date)
+                        Text(date)
                             .font(.body2Bold())
                             .foregroundColor(Color.gray4)
                     }
@@ -465,5 +465,15 @@ extension MainView : MainViewProtocol {
             print("ERROR STORE CORE DATA")
             print(error.localizedDescription)
         }
+    }
+    
+    func convertDate(date: Date) -> String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+      
+        var convertDate = formatter.string(from: date)
+        
+        return convertDate
     }
 }
