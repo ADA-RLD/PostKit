@@ -16,7 +16,7 @@ class CoinManger: ObservableObject {
     static let shared = CoinManger()
     
     init() {
-        cancellable = Timer.publish(every: 30, on: .main, in: .default)
+        cancellable = Timer.publish(every: 120, on: .main, in: .default)
             .autoconnect()
             .sink { [weak self] _ in
                 
