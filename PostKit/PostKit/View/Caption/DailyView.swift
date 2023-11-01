@@ -15,6 +15,7 @@ struct DailyView: View {
     @State var dailyCoffeeSelected: [String] = []
     @State var dailyDessertSelected: [String] = []
     @State private var isContentsOpened = [false, false, false]
+    @State private var isPresented: Bool = false
     
     @ObservedObject var coinManger = CoinManger.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
@@ -132,7 +133,13 @@ struct DailyView: View {
                 coinManger.coinUse()
                 print(coinManger.coin)
             }
+            else {
+                isPresented.toggle()
+            }
           
+        })
+        .alert(isPresented: $isPresented, content: {
+            return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
         })
         .navigationBarBackButtonHidden()
         
