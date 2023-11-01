@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 import UIKit
 
-
 enum ActiveAlert {
     case first, second
 }
@@ -23,7 +22,7 @@ struct CaptionResultView: View {
     @State private var isPresented: Bool = false
     @State private var activeAlert: ActiveAlert = .first
     @ObservedObject var viewModel = ChatGptViewModel.shared
-    @ObservedObject var coinManger = CoinManger.shared
+    @ObservedObject var coinManger = CoinManager.shared
     
     private let pasteBoard = UIPasteboard.general
     private let chatGptService = ChatGptService()
@@ -126,7 +125,6 @@ extension CaptionResultView {
                     let btn1 = Alert.Button.default(Text("취소")) {
                         
                     }
-                    
                     let btn2 = Alert.Button.default(Text("재생성")) {
                         if coinManger.coin < 5 {
                             coinManger.coinUse()
@@ -140,9 +138,7 @@ extension CaptionResultView {
                 }
             }
         }
-        
     }
-
 }
 
 // MARK: 코드의 가독성을 위해 function들을 따로 모았습니다.

@@ -21,7 +21,7 @@ struct MenuView: View {
     @State private var dessertSelected: [String] = []
     @State private var isPresented: Bool = false
     
-    @ObservedObject var coinManger = CoinManger.shared
+    @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
     //CoreData Data Class
@@ -100,11 +100,10 @@ struct MenuView: View {
             Spacer()
             CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
                 if isActive == true {
-                    if coinManger.coin < 5 {
-                        coinManger.coinUse()
+                    if coinManager.coin < 5 {
+                        coinManager.coinUse()
                         sendMessage()
                         pathManager.path.append(.CaptionResult)
-                        print(coinManger.coin)
                     }
                     else {
                         isPresented.toggle()

@@ -16,7 +16,7 @@ struct MainView: View {
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
     @ObservedObject var viewModel = ChatGptViewModel.shared
-    @ObservedObject var coinManger = CoinManger.shared
+    @ObservedObject var coinManger = CoinManager.shared
     @Namespace var nameSpace
     private let pasteBoard = UIPasteboard.general
     

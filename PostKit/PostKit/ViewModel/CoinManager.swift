@@ -9,12 +9,10 @@ import Foundation
 import Combine
 import SwiftUI
 
-class CoinManger: ObservableObject {
-    
+class CoinManager: ObservableObject {
     @AppStorage("coin") var coin: Int = 0
-    
     private var cancellable: AnyCancellable?
-    static let shared = CoinManger()
+    static let shared = CoinManager()
     
     init() {
         cancellable = Timer.publish(every: 170, on: .main, in: .default)
