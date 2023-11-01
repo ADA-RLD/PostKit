@@ -238,6 +238,7 @@ extension HashtagView {
                                         Text(type.description[index])
                                             .foregroundColor(index % 2 == 1 ? .gray4 : .gray5)
                                             .font(.body2Bold())
+                                            .lineSpacing(6)
                                     }
                                 }
                             }
