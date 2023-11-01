@@ -4,7 +4,7 @@
 //
 //  Created by 김다빈 on 11/1/23.
 //
-
+import Mixpanel
 import Foundation
 import UIKit
 
@@ -15,6 +15,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
     // ...
+      Mixpanel.initialize(token: "Your Token", trackAutomaticEvents: true)
+      Mixpanel.mainInstance().track(event: "Signed Up", properties: [
+        "Signup Type" : "Referral",
+      ])
     return true
   }
 }
