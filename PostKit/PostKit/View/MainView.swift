@@ -325,6 +325,9 @@ extension MainView {
             ScrollView{
                 ForEach(hashtags) { item in
                     hashtagHistoryDetail(date: item.date, hashtagContent: item.hashtag)
+                        .onChange(of: item.hashtag){ _ in
+                            saveHashtageData(_uuid: item.id, _result: item.hashtag)
+                        }
                 }
             }
             .refreshable {fetchHashtagData()}
@@ -468,7 +471,7 @@ extension MainView : MainViewProtocol {
     }
     
     func saveCaptionData(_uuid: UUID, _result: String, _like: Bool) {
-        //captionModel의 uuid가 같을 경우
+        //captionModel의 UUID가 같을 경우
         if let isExisting = captions.first(where:{ $0.id == _uuid }){
             isExisting.caption = _result
             isExisting.like = _like
@@ -484,12 +487,29 @@ extension MainView : MainViewProtocol {
             
             coreDataManager.save()
             
-            print("Caption 수정 완료!\n resultId : \(newCaption.id)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
+            print("Caption 새로 저장 완료!\n resultId : \(newCaption.id)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
         }
     }
     
-    func saveHashtageData(_uuid uuid: UUID, _result result: String) {
-        <#code#>
+    func saveHashtageData(_uuid: UUID, _result: String) {
+        //hashtageModel의 UUID가 같을 경우
+        if let isExisting = hashtags.first(where: {$0.id == _uuid}) {
+            isExisting.hashtag = _result
+            
+            coreDataManager.save()
+            
+            print("Hashtage 수정 완료!\n resultId : \(isExisting.id)\n Date : \(isExisting.date)\n Hashtag : \(isExisting.hashtag)\n")
+            
+        } else {
+            //혹시나 없을 경우에는 저장합니다.
+            let newCaption = CaptionResult(context: coreDataManager.context)
+            newCaption.resultId = UUID()
+            newCaption.like = false
+            
+            coreDataManager.save()
+            
+            print("Hashtag 새로 저장 완료!\n resultId : \(newCaption.id)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
+        }
     }
     
     func convertDate(date: Date) -> String {
