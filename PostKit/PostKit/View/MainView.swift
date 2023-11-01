@@ -84,7 +84,6 @@ struct MainView: View {
                 .onAppear{
                     fetchStoreData()
                     viewModel.promptAnswer = "생성된 텍스트가 들어가요."
-                    resetData()
                     
                     fetchCaptionData()
                     fetchHashtagData()
@@ -309,7 +308,11 @@ extension MainView {
         VStack {
             ScrollView{
                 ForEach(captions) { item in
-                    feedHisoryDetail(tag: item.category, date: convertDate(date: item.date), content: item.caption)
+                    //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
+                    feedHisoryDetail(tag: item.category, date: convertDate(date: item.date), content: item.caption, like: item.like)
+                        .onChange(of: item.like){ _ in
+                            saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
+                        }
                 }
             }
             .refreshable{fetchCaptionData()}
@@ -329,7 +332,7 @@ extension MainView {
         .toast(isShowing: $isShowingToast)
     }
     
-    private func feedHisoryDetail(tag: String, date: String, content: String) -> some View {
+    private func feedHisoryDetail(tag: String, date: String, content: String, like: Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .onTapGesture {
@@ -405,11 +408,7 @@ extension MainView {
 }
 
 extension MainView : MainViewProtocol {
-    
-    func resetData() {
-        
-    }
-    
+   
     func fetchStoreData() {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
         
@@ -436,7 +435,8 @@ extension MainView : MainViewProtocol {
                     _id: captionCoreData.resultId ?? UUID(),
                     _date: captionCoreData.date ?? Date(),
                     _category: captionCoreData.category ?? "",
-                    _caption: captionCoreData.caption ?? ""
+                    _caption: captionCoreData.caption ?? "",
+                    _like: captionCoreData.like 
                 )
             }
             captions.sort { $0.date > $1.date }
@@ -465,6 +465,31 @@ extension MainView : MainViewProtocol {
             print("ERROR STORE CORE DATA")
             print(error.localizedDescription)
         }
+    }
+    
+    func saveCaptionData(_uuid: UUID, _result: String, _like: Bool) {
+        //captionModel의 uuid가 같을 경우
+        if let isExisting = captions.first(where:{ $0.id == _uuid }){
+            isExisting.caption = _result
+            isExisting.like = _like
+            coreDataManager.save()
+            
+            print("Caption 수정 완료!\n resultId : \(isExisting.id)\n Date : \(isExisting.date)\n Category : \(isExisting.category)\n Caption : \(isExisting.caption)\n")
+            
+        } else {
+            //혹시나 없을 경우에는 저장합니다.
+            let newCaption = CaptionResult(context: coreDataManager.context)
+            newCaption.resultId = UUID()
+            newCaption.like = false
+            
+            coreDataManager.save()
+            
+            print("Caption 수정 완료!\n resultId : \(newCaption.id)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
+        }
+    }
+    
+    func saveHashtageData(_uuid uuid: UUID, _result result: String) {
+        <#code#>
     }
     
     func convertDate(date: Date) -> String {

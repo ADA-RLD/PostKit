@@ -13,6 +13,7 @@ struct CaptionResultView: View {
     //@EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var copyResult = "생성된 텍스트가 들어가요."
+    @State private var likeCopy = false //좋아요 버튼 결과뷰에서 변경될 수 있으니까 여기 선언
     @State private var isShowingToast = false
     private let pasteBoard = UIPasteboard.general
     @State var messages: [Message] = []
@@ -35,7 +36,7 @@ struct CaptionResultView: View {
                 captionResult
                     .onAppear{
                         //Caption이 생성되면 바로 CoreData에 저장
-                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer)
+                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
                     }
             }
         }
