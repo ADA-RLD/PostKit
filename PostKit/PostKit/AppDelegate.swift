@@ -8,7 +8,6 @@ import Mixpanel
 import Foundation
 import UIKit
 
-
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(
     _ application: UIApplication,
