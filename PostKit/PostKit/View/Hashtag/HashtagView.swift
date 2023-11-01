@@ -15,13 +15,18 @@ struct HashtagView: View {
     @State private var locationTags: [String] = []
     @State private var emphasizeTags: [String] = []
     @State private var showingAlert = false
-    
     @State private var isShowingDescription = false
     @State private var popupState: PopOverType = .keyword
     
     @State private var regionPopoverOffsetFromTop: CGFloat = 0
     @State private var keywordPopoverOffsetFromTop: CGFloat = 0
+    @ObservedObject var viewModel = HashtagViewModel.shared
     
+    //Create Hashtag
+    private let hashtagService = HashtagService()
+    
+    //CoreData Manager
+    private let coreDataManager = CoreDataManager.instance    
     
     var body: some View {
         ZStack {
@@ -195,6 +200,17 @@ struct HashtagView: View {
             }
             .padding(.horizontal, 40)
             Spacer()
+            CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {
+                Task{
+                    viewModel.emphasizeKey = emphasizeTags
+                    viewModel.locationKey = locationTags
+                    viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
+                    
+                    print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
+                    
+                    pathManager.path.append(.HashtagResult)
+                }
+            })
         }
     }
     

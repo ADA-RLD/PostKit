@@ -12,15 +12,21 @@ struct HashtagResultView: View {
  
     @State private var isShowingToast = false
     @EnvironmentObject var pathManager: PathManager
+    
+    //Create Hashtag
+    private let hashtagService = HashtagService()
+    
+    @ObservedObject var viewModel = HashtagViewModel.shared
 
     private let pasteBoard = UIPasteboard.general
-    private let dummidata: String = "#서울카페 #서울숲카페 #서울숲브런치맛집 #성\n수동휘낭시에 #성수동여행 #서울숲카페탐방 #성\n수동디저트 #성수동감성카페 #서울신상카페 #서\n울숲카페거리 #성수동분위기좋은카페 #성수동데\n이트 #성수동핫플 #서울숲핫플레이스"
+//    private let dummidata: String = "#서울카페 #서울숲카페 #서울숲브런치맛집 #성\n수동휘낭시에 #성수동여행 #서울숲카페탐방 #성\n수동디저트 #성수동감성카페 #서울신상카페 #서\n울숲카페거리 #성수동분위기좋은카페 #성수동데\n이트 #성수동핫플 #서울숲핫플레이스"
     
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        resultView()
+            .navigationBarBackButtonHidden()
     }
 }
 
@@ -46,10 +52,10 @@ extension HashtagResultView {
                     }
                     
                     VStack(alignment: .trailing, spacing: 20) {
-                        hashtagRectangle(hashTags: "#서울카페 #서울숲카페 #서울숲브런치맛집 #성\n수동휘낭시에 #성수동여행 #서울숲카페탐방 #성\n수동디저트 #성수동감성카페 #서울신상카페 #서\n울숲카페거리 #성수동분위기좋은카페 #성수동데\n이트 #성수동핫플 #서울숲핫플레이스")
+                        hashtagRectangle(hashTags: "\(viewModel.hashtag)")
                     }
                     // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
-                    .onAppear{SaveHashtag(date: convertDayTime(time: Date()), locationTag: [""], keyword: [""], Result: "결과값")}
+                    .onAppear{SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, Result: viewModel.hashtag)}
                 }
             }
             Spacer()
@@ -58,7 +64,7 @@ extension HashtagResultView {
             CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성", leftAction: {
                 pathManager.path.removeAll()
             }, rightAction: {
-                //TODO: 해시태그 재생성 기능 추가해주세요!
+                viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
             })
             
         }
@@ -73,8 +79,9 @@ extension HashtagResultView {
                 Text(hashTags)
                     .font(.body1Bold())
                     .foregroundColor(Color.gray5)
+                    .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
             }
-            .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
+          
     }
 }
 
@@ -107,9 +114,8 @@ extension HashtagResultView : HashtagProtocol {
 //MARK: Function
 extension HashtagResultView {
     // MARK: 카피 복사
-    // TODO: 실제로 결과값이 생기면 복사해야합니다.
     private func copyToClipboard() {
-        pasteBoard.string = dummidata
+        pasteBoard.string = viewModel.hashtag
         isShowingToast = true
     }
 }
