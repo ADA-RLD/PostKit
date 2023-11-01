@@ -14,12 +14,14 @@ struct HashtagView: View {
     @State private var emphasizeText = ""
     @State private var locationTags: [String] = []
     @State private var emphasizeTags: [String] = []
-    @State private var isActive: Bool = false
+    @State private var isActive = false
     @State private var isShowingDescription = false
-    @State private var popupState: PopOverType = .keyword
-    @State private var regionPopoverOffsetFromTop: CGFloat = 0
-    @State private var keywordPopoverOffsetFromTop: CGFloat = 0
     @State private var showingAlert = false
+    @State private var popupState: PopOverType = .keyword
+    @State private var headerHeight: CGFloat = 0
+    @State private var titleHeight: CGFloat = 0
+    @State private var regionAreaHeight: CGFloat = 0
+    @State private var keywordLimit = 4
     
     @ObservedObject var viewModel = HashtagViewModel.shared
     
@@ -36,6 +38,9 @@ struct HashtagView: View {
         ZStack{
             VStack(alignment: .leading, spacing: 0) {
                 CustomHeader(action: {pathManager.path.removeLast()}, title: "해시태그 생성")
+                    .readSize { size in
+                        headerHeight = size.height
+                    }
                 
                 ScrollView {
                     ContentArea {
@@ -43,6 +48,12 @@ struct HashtagView: View {
                             Text("입력한 지역명을 기반으로 해시태그가 생성됩니다. \n강조 키워드 미입력 시 기본 키워드만의 조합으로 생성됩니다.")
                                 .font(.body2Bold())
                                 .foregroundColor(.gray4)
+                                .readSize { size in
+                                    titleHeight = size.height
+                                }
+                                .onTapGesture {
+                                    isShowingDescription = true
+                                }
                             
                             VStack(alignment: .leading, spacing: 28) {
                                 VStack(alignment: .leading, spacing: 12) {
@@ -54,16 +65,16 @@ struct HashtagView: View {
                                         Image(systemName: "info.circle")
                                             .foregroundColor(.gray3)
                                             .onTapGesture(count:1, coordinateSpace: .global) { location in
-                                                handlePopoverClick(location: location, clickType: .region)
+                                                handlePopoverClick(clickType: .region)
                                             }
                                     }
                                     
                                     ZStack(alignment: .topLeading) {
                                         CustomTextfield(text: $locationText, placeHolder: "한남동", customTextfieldState: .reuse) {
-                                            if !locationText.isEmpty && locationTags.count <= 4 {
+                                            if !locationText.isEmpty && locationTags.count <= keywordLimit {
                                                 locationTags.append(locationText)
                                                 checkTags()
-                                            } else if locationTags.count > 4 {
+                                            } else if locationTags.count > keywordLimit {
                                                 showingAlert = true
                                             }
                                         }
@@ -86,6 +97,9 @@ struct HashtagView: View {
                                         }
                                     }
                                 }
+                                .readSize { size in
+                                    regionAreaHeight = size.height
+                                }
                                 
                                 VStack(alignment: .leading, spacing: 12) {
                                     HStack {
@@ -98,15 +112,15 @@ struct HashtagView: View {
                                         Image(systemName: "info.circle")
                                             .foregroundColor(.gray3)
                                             .onTapGesture(count:1, coordinateSpace: .global) { location in
-                                                handlePopoverClick(location: location, clickType: .keyword)
+                                                handlePopoverClick( clickType: .keyword)
                                             }
                                     }
                                     
                                     ZStack(alignment: .topLeading) {
                                         CustomTextfield(text: $emphasizeText, placeHolder: "마카롱", customTextfieldState: .reuse) {
-                                            if !emphasizeText.isEmpty && emphasizeTags.count <= 4 {
+                                            if !emphasizeText.isEmpty && emphasizeTags.count <= keywordLimit {
                                                 emphasizeTags.append(emphasizeText)
-                                            } else if emphasizeTags.count > 4 {
+                                            } else if emphasizeTags.count > keywordLimit {
                                                 showingAlert = true
                                             }
                                         }
@@ -163,13 +177,7 @@ struct HashtagView: View {
 
 //MARK: extension: HashtagView Functions
 extension HashtagView {
-    private func handlePopoverClick(location: CGPoint, clickType: PopOverType) {
-        switch clickType {
-        case .region:
-            regionPopoverOffsetFromTop = location.y
-        case .keyword:
-            keywordPopoverOffsetFromTop = location.y
-        }
+    private func handlePopoverClick(clickType: PopOverType) {
         popupState = clickType
         withAnimation(.easeInOut){
             isShowingDescription.toggle()
@@ -192,6 +200,7 @@ extension HashtagView {
 
 //MARK: extension: HashtagView Views
 extension HashtagView {
+    
     @ViewBuilder
     func popoverView(_ type: PopOverType) -> some View {
         VStack {
@@ -235,7 +244,7 @@ extension HashtagView {
                     }
                 }
                 .frame(width: 166, height: 119)
-                .offset(x: 4, y: type == .region ? regionPopoverOffsetFromTop + 26 : keywordPopoverOffsetFromTop + 26)
+                .offset(x: 4, y: type == .region ? headerHeight + titleHeight + 96 : headerHeight + titleHeight + regionAreaHeight + 124 )
             }
             .padding(.horizontal, 40)
             
@@ -284,6 +293,30 @@ extension HashtagView : HashtagProtocol {
         print("Hashtag 저장 완료!\n resultId : \(newHashtag.resultId)\n Date : \(newHashtag.date)\n Hashtag : \(newHashtag.hashtag)\n")
     }
     
+}
+
+struct ScrollOffsetPreferenceKey: PreferenceKey {
+    static var defaultValue: CGPoint = .zero
+    static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {
+    }
+}
+
+struct SizePreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+    }
+}
+
+extension View{
+    func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
+        background(
+            GeometryReader { geometryProxy in
+                Color.clear
+                    .preference(key: SizePreferenceKey.self, value: geometryProxy.size)
+            }
+        )
+        .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
+    }
 }
 
 #Preview {
