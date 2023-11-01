@@ -89,6 +89,8 @@ struct HashtagView: View {
                     viewModel.locationKey = locationTags
                     viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
                     
+                    SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, Result: viewModel.hashtag)
+                    
                     print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
                     
                     pathManager.path.append(.HashtagResult)
@@ -139,7 +141,13 @@ extension HashtagView : HashtagProtocol {
     }
     
     func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, Result: String) {
-        //결과는 HashtagResultView에서 저장합니다.
+        let newHashtag = HashtagData(context: coreDataManager.context)
+        newHashtag.resultId = UUID()
+        newHashtag.date = date
+        newHashtag.hashtag = Result
+        coreDataManager.save()
+        
+        print("Hashtag 저장 완료!\n resultId : \(newHashtag.resultId)\n Date : \(newHashtag.date)\n Hashtag : \(newHashtag.hashtag)\n")
     }
     
 }
