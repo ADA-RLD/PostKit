@@ -43,7 +43,6 @@
 		13C296242AD988FC00A2DE7F /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296232AD988FC00A2DE7F /* AppStorageManager.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
 		7E0605042AF08258003A87BC /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605032AF08258003A87BC /* ResponseError.swift */; };
-		7E0605062AF0A2C6003A87BC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605052AF0A2C6003A87BC /* Constants.swift */; };
 		7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605072AF108A5003A87BC /* HashtagService.swift */; };
 		7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605092AF13965003A87BC /* HashtagViewModel.swift */; };
 		7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */; };
@@ -72,6 +71,8 @@
 		B986326C2AD7E76200DE9FF5 /* CaptionResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986326B2AD7E76200DE9FF5 /* CaptionResultView.swift */; };
 		B98632782AD9735000DE9FF5 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632772AD9735000DE9FF5 /* DailyView.swift */; };
 		B986327C2ADA5DC300DE9FF5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */; };
+		B9872A392AF2380B000A795C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A382AF2380B000A795C /* Constants.swift */; };
+		B9872A3B2AF23870000A795C /* HashtagPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A3A2AF23870000A795C /* HashtagPopover.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,7 +116,6 @@
 		13C296232AD988FC00A2DE7F /* AppStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageManager.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
 		7E0605032AF08258003A87BC /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
-		7E0605052AF0A2C6003A87BC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7E0605072AF108A5003A87BC /* HashtagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagService.swift; sourceTree = "<group>"; };
 		7E0605092AF13965003A87BC /* HashtagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagViewModel.swift; sourceTree = "<group>"; };
 		7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptService.swift; sourceTree = "<group>"; };
@@ -144,6 +144,8 @@
 		B986326B2AD7E76200DE9FF5 /* CaptionResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionResultView.swift; sourceTree = "<group>"; };
 		B98632772AD9735000DE9FF5 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		B9872A382AF2380B000A795C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B9872A3A2AF23870000A795C /* HashtagPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagPopover.swift; sourceTree = "<group>"; };
 		C674B8973F6DA180203B6836 /* Pods-PostKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.debug.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.debug.xcconfig"; sourceTree = "<group>"; };
 		DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -239,7 +241,7 @@
 				13C296232AD988FC00A2DE7F /* AppStorageManager.swift */,
 				A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */,
 				A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */,
-				7E0605052AF0A2C6003A87BC /* Constants.swift */,
+				B9872A382AF2380B000A795C /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -360,6 +362,7 @@
 			children = (
 				B96211E82AED16CC0074CBE1 /* HashtagView.swift */,
 				139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */,
+				B9872A3A2AF23870000A795C /* HashtagPopover.swift */,
 			);
 			path = Hashtag;
 			sourceTree = "<group>";
@@ -530,13 +533,13 @@
 				B98632602AD7CFB200DE9FF5 /* KeywordsModel.swift in Sources */,
 				13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */,
 				7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */,
-				7E0605062AF0A2C6003A87BC /* Constants.swift in Sources */,
 				13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */,
 				13C296182AD8F1F000A2DE7F /* CustomHeader.swift in Sources */,
 				B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */,
 				139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
 				A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */,
+				B9872A3B2AF23870000A795C /* HashtagPopover.swift in Sources */,
 				7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */,
 				13C296102AD8F16700A2DE7F /* OnboardingRouter.swift in Sources */,
 				7EF314D22AD96A69008E7338 /* ChatGptViewModel.swift in Sources */,
@@ -555,6 +558,7 @@
 				A188C58A2AD7CDD3007473D3 /* MenuProtocol.swift in Sources */,
 				7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
+				B9872A392AF2380B000A795C /* Constants.swift in Sources */,
 				B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */,
 				A188C5922AD968A7007473D3 /* MainViewProtocol.swift in Sources */,
 			);
