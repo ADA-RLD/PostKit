@@ -11,7 +11,7 @@ import UIKit
 
 struct CaptionResultView: View {
     @EnvironmentObject var pathManager: PathManager
-    @State private var copyId : UUID
+    @State private var copyId = UUID()
     @State private var copyResult = "생성된 텍스트가 들어가요."
     @State private var likeCopy = false //좋아요 버튼 결과뷰에서 변경될 수 있으니까 여기 선언
     @State private var isShowingToast = false
@@ -202,6 +202,8 @@ extension CaptionResultView : CaptionResultProtocol {
         newCaption.like = false
         coreDataManager.save()
         print("Caption 저장 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)")
+        
+        return newCaption.resultId ?? UUID()
     }
     
     func initCaptionResult(Result: String) {
@@ -213,3 +215,4 @@ extension CaptionResultView : CaptionResultProtocol {
 //#Preview {
 //    CaptionResultView()
 //}
+
