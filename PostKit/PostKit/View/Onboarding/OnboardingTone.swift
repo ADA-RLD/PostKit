@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnboardingTone: View {
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
+    @State var isActive: Bool = false
     
     //Core Data 저장을 위해 가지고 나가기
     @Binding var cafeTone : [String]
@@ -33,12 +34,28 @@ struct OnboardingTone: View {
                     }
                     
                     SelectTone(selectedTones: $cafeTone)
+                        .onChange(of: cafeTone) { _ in
+                            isActiveCheck()
+                        }
+                    
                 }
             }
             
             Spacer()
 
-            CTABtn(btnLabel: "다음", isActive: .constant(true), action: {onboardingRouter.nextPage()})
+            CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
+        }
+    }
+}
+
+extension OnboardingTone {
+    
+    private func isActiveCheck() {
+        if cafeTone .isEmpty {
+            isActive = false
+        }
+        else {
+            isActive = true
         }
     }
 }

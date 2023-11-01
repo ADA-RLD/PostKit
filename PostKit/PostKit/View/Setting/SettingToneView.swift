@@ -17,6 +17,7 @@ struct SettingToneView: View {
     
     //CoreData Data Class
     @State var storeName: String = ""
+    @State var isActive: Bool = false
     @Binding var storeTone: [String]
     
     
@@ -28,20 +29,26 @@ struct SettingToneView: View {
             ContentArea {
                 VStack(spacing: 0) {
                     SelectTone(selectedTones: $storeTone)
+                        .onChange(of: storeTone) { _ in
+                            isActiveCheck()
+                        }
                 }
             }
             Spacer()
-            CTABtn(btnLabel: "저장", isActive: .constant(true)) {
+            CTABtn(btnLabel: "저장", isActive: $isActive) {
                 //TODO: coredata 형식 변경 필요
                 saveStoreData(storeName: storeName, storeTone: storeTone)
                 pathManager.path.removeLast()
             }
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear{fetchStoreData()}
+        .onAppear {
+            fetchStoreData()
+            isActiveCheck()
+        }
     }
 }
-
+// MARK: Views
 extension SettingToneView {
     private var toggleBtns: some View {
         SelectTone(selectedTones: $storeTone)
@@ -56,6 +63,18 @@ private func toggleBtn(answer: String) -> some View {
             .overlay {
                 Text(answer)
             }
+    }
+}
+
+// MARK: function
+extension SettingToneView {
+    private func isActiveCheck() {
+        if storeTone .isEmpty {
+            isActive = false
+        }
+        else if storeTone.count > 0 {
+            isActive = true
+        }
     }
 }
 
