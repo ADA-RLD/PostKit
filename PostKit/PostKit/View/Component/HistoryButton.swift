@@ -9,13 +9,13 @@ import SwiftUI
 
 struct HistoryButton: View {
     var buttonText: String  
-
-    init(buttonText: String) {
-        self.buttonText = buttonText
-    }
+    var historyRightAction: () -> Void
+    
     var body: some View {
             HStack(alignment: .bottom) {
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    
+                }, label: {
                     HStack {
                         Image(systemName: "heart.fill")
                         Text("좋아요")
@@ -29,16 +29,19 @@ struct HistoryButton: View {
                         .stroke(Color.main,lineWidth: 2)
                 }
                 Spacer()
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    //수정하기 & 복사하기
+                    historyRightAction()
+                }, label: {
                     Text(buttonText)
                         .font(.body2Bold())
                         .foregroundColor(.white)
                         .padding(EdgeInsets(top: 6, leading: radius1, bottom: 6, trailing: radius1))
                 }).background(RoundedRectangle(cornerRadius: radius1).fill(Color.main))
-            }
+            }.padding(.horizontal, 16)
         }
     }
 
 #Preview {
-    HistoryButton(buttonText: "저장하기")
+    HistoryButton(buttonText: "저장하기", historyRightAction: {})
 }
