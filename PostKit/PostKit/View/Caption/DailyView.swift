@@ -41,7 +41,7 @@ struct DailyView: View {
             Spacer()
             //TODO: 모듈화 필요 BottomView로 변경 예정
             CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
-                if coinManager.coin < 5 {
+                if coinManager.coin > CoinManager.minimalCoin {
                     Task{
                         sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected)
                         pathManager.path.append(.CaptionResult)
@@ -175,7 +175,7 @@ extension DailyView {
         }
         
         return CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
-            if coinManager.coin < 5 {
+            if coinManager.coin > CoinManager.minimalCoin {
                 Task{
                     sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected)
                     pathManager.path.append(.CaptionResult)
