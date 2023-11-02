@@ -60,7 +60,6 @@ extension MenuView {
                 KeywordAppend()
                 SelectTextLength(selected: $textLength)
             }
-
         }
     }
     
@@ -76,8 +75,7 @@ extension MenuView {
                         .font(.body1Bold())
                         .foregroundColor(Color.gray5)
                     CustomTextfield(text: $menuName, placeHolder: "아이스 아메리카노")
-                        .onChange(of: menuName)  {
-                            _ in if menuName.count >= 1 {
+                        .onChange(of: menuName)  { _ in if menuName.count >= 1 {
                                 isActive = true
                             } else {
                                 isActive = false

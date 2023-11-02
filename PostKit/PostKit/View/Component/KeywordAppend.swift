@@ -32,7 +32,6 @@ struct KeywordAppend: View {
                             .font(.body1Bold())
                             .foregroundColor(Color.gray5)
                     })
-                    
                 }
                 .padding(.all,20)
             }
