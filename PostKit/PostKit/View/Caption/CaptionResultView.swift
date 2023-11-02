@@ -21,6 +21,7 @@ struct CaptionResultView: View {
     @State private var messages: [Message] = []
     @State private var isPresented: Bool = false
     @State private var activeAlert: ActiveAlert = .first
+    @State private var showModal = false
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     
@@ -56,15 +57,21 @@ struct CaptionResultView: View {
 extension CaptionResultView {
     private var captionResult: some View {
         VStack(alignment:.leading, spacing:0) {
+            //TODO: trailing 적용이 안됌
+            VStack(alignment: .trailing) {
+                Button(action: {
+                    pathManager.path.removeAll()
+                    //완료버튼을 누르면 저장되나요?????
+                    viewModel.promptAnswer = "생성된 텍스트가 들어가요."
+                }, label: {
+                    Text("완료")
+                        .font(.body1Bold())
+                        .foregroundColor(.gray5)
+                })
+            }
+            
             ContentArea {
                 VStack(alignment: .leading, spacing: 24) {
-                    VStack(alignment: .trailing) {
-                        Button(action: {}, label: {
-                            Text("완료")
-                                .font(.body1Bold())
-                                .foregroundColor(.gray5)
-                        })
-                    }
                     // MARK: - 타이틀 + 설명
                     VStack(alignment: .leading, spacing: 12) {
                         Text("주문하신 글이 나왔어요!")
@@ -91,30 +98,21 @@ extension CaptionResultView {
                         .background(Color.gray1)
                         .cornerRadius(radius2)
                         
-                        
-                        HistoryButton(buttonText: "수정하기")
-//                        Button {
-//                            copyToClipboard()
-//                            // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
-//                        } label: {
-//                            HStack(spacing: 4.0) {
-//                                Image(systemName: "doc.on.doc")
-//                                Text("복사하기")
-//                            }
-//                            .foregroundStyle(Color.main)
-//                            .font(.body1Bold())
-//                            .disabled(isShowingToast)
-//                        }
+                        // TODO: 좋아요/ 복사하기button action 추가
+                        HistoryButton(buttonText: "수정하기", historyRightAction: {
+                            self.showModal = true
+                        }).sheet(isPresented: self.$showModal, content: {
+                            CaptionResultChangeView()
+                        })
                     }
                 }
             }
             Spacer()
+           
             
             // MARK: - 완료 / 재생성 버튼
-            CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성") {
-                pathManager.path.removeAll()
-                viewModel.promptAnswer = "생성된 텍스트가 들어가요."
-            } rightAction: {
+            CustomDoubleeBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
+                print("이건 재생성이야")
                 if coinManager.coin < 5 {
                     activeAlert = .first
                     isPresented.toggle()
@@ -123,8 +121,11 @@ extension CaptionResultView {
                     activeAlert = .second
                     isPresented.toggle()
                 }
+            } rightAction: {
+                print("이건 복사야")
+                // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함 + 토스트가 안 뜸!!!!
+                copyToClipboard()
             }
-        
             .alert(isPresented: $isPresented) {
                 switch activeAlert {
                 case .first:
