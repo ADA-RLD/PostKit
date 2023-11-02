@@ -10,7 +10,8 @@ import Combine
 import SwiftUI
 
 class CoinManager: ObservableObject {
-    @AppStorage("coin") var coin: Int = 0
+    @AppStorage("coin") var coin: Int = 5
+    static let minimalCoin: Int = 0
     private var cancellable: AnyCancellable?
     static let shared = CoinManager()
     
@@ -20,11 +21,11 @@ class CoinManager: ObservableObject {
             .autoconnect()
             .sink { [weak self] _ in
                 
-                self?.coin = 0
+                self?.coin = 5
             }
     }
     
     func coinUse() {
-        coin += 1
+        coin -= 1
     }
 }

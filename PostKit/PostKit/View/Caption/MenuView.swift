@@ -35,9 +35,13 @@ struct MenuView: View {
     
     var body: some View {
         VStack(alignment:.leading, spacing: 0) {
+            
             headerArea()
+            
             contents()
+            
             Spacer()
+            
             bottomArea()
             
         }
@@ -89,7 +93,7 @@ extension MenuView {
     private func bottomArea() -> some View {
         CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
             if isActive == true {
-                if coinManager.coin < 5 {
+                if coinManager.coin > CoinManager.minimalCoin {
                     coinManager.coinUse()
                     sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
                     pathManager.path.append(.CaptionResult)
@@ -100,7 +104,7 @@ extension MenuView {
             }
         })
         .alert(isPresented: $isPresented, content: {
-            return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능 합니다."))
+            return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
         })
     }
     
@@ -171,7 +175,7 @@ extension MenuView {
             Spacer()
             CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
                 if isActive == true {
-                    if coinManager.coin < 5 {
+                    if coinManager.coin > CoinManager.minimalCoin {
                         coinManager.coinUse()
                         sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
                         pathManager.path.append(.CaptionResult)
@@ -182,7 +186,7 @@ extension MenuView {
                 }
             })
             .alert(isPresented: $isPresented, content: {
-                return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능 합니다."))
+                return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
             })
             .onTapGesture {
                 hideKeyboard()
