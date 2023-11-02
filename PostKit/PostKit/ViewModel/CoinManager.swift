@@ -1,5 +1,5 @@
 //
-//  CoinManger.swift
+//  CoinManager.swift
 //  PostKit
 //
 //  Created by 김다빈 on 11/1/23.
