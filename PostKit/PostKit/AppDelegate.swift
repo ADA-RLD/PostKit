@@ -13,7 +13,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    // ...
       Mixpanel.initialize(token: Constants.MixpanelToken, trackAutomaticEvents: true)
       Mixpanel.mainInstance().track(event: "Signed Up", properties: [
         "Signup Type" : "Referral",
