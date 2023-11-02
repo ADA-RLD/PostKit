@@ -19,7 +19,9 @@ struct MenuView: View {
     @State private var coffeeSelected: [String] = []
     @State private var drinkSelected: [String] = []
     @State private var dessertSelected: [String] = []
-    @State private var isPresented: Bool = false
+    @State private var isAlertPresented: Bool = false
+    @State private var isModalPresented: Bool = false
+    @State private var isSelected: [String] = []
     @State private var textLength: Int = 1
     
     @ObservedObject var coinManager = CoinManager.shared
@@ -45,6 +47,9 @@ struct MenuView: View {
             bottomArea()
             
         }
+        .sheet(isPresented: $isModalPresented, content: {
+            KeywordModal(selectKeyWords: $isSelected)
+        })
         .onTapGesture {
             hideKeyboard()
         }
@@ -61,7 +66,9 @@ extension MenuView {
         ContentArea {
             VStack(alignment: .leading, spacing: 16) {
                 menuInput()
-                KeywordAppend()
+                
+                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
+                
                 SelectTextLength(selected: $textLength)
             }
         }
@@ -99,11 +106,11 @@ extension MenuView {
                     pathManager.path.append(.CaptionResult)
                 }
                 else {
-                    isPresented.toggle()
+                    isAlertPresented.toggle()
                 }
             }
         })
-        .alert(isPresented: $isPresented, content: {
+        .alert(isPresented: $isAlertPresented, content: {
             return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
         })
     }
@@ -181,11 +188,11 @@ extension MenuView {
                         pathManager.path.append(.CaptionResult)
                     }
                     else {
-                        isPresented.toggle()
+                        isAlertPresented.toggle()
                     }
                 }
             })
-            .alert(isPresented: $isPresented, content: {
+            .alert(isPresented: $isAlertPresented, content: {
                 return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
             })
             .onTapGesture {
