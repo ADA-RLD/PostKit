@@ -16,6 +16,7 @@ struct DailyView: View {
     @State private var dailyDessertSelected: [String] = []
     @State private var isContentsOpened = [false, false, false]
     @State private var isPresented: Bool = false
+    @State private var textLength: Int = 1
     
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
@@ -31,6 +32,53 @@ struct DailyView: View {
     let chatGptService = ChatGptService()
     
     var body: some View {
+        VStack(spacing: 0) {
+            headerArea()
+            
+            contents()
+              
+            Spacer()
+            
+            CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
+                if coinManager.coin < 5 {
+                    Task{
+                        sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected)
+                        pathManager.path.append(.CaptionResult)
+                        coinManager.coinUse()
+                        print(coinManager.coin)
+                    }
+                }
+                else {
+                    isPresented.toggle()
+                }
+            })
+            .alert(isPresented: $isPresented, content: {
+                return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
+            })
+        }
+        .navigationBarBackButtonHidden()
+    }
+}
+
+// MARK: View의 모둘화를 한 extension 모음입니다.
+extension DailyView {
+    
+    private func headerArea() -> some View {
+        CustomHeader(action: {pathManager.path.removeLast()}, title: "일상글")
+    }
+    
+    private func contents() -> some View {
+        ContentArea {
+            VStack(alignment: .leading, spacing: 16) {
+                KeywordAppend()
+                
+                SelectTextLength(selected: $textLength)
+                
+            }
+        }
+    }
+    
+    private var beforeView: some View {
         VStack(alignment: .leading, spacing: 0) {
             CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 카피 생성")
             ScrollView {
@@ -125,7 +173,7 @@ struct DailyView: View {
             }
         }
         
-        CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
+        return CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
             if coinManager.coin < 5 {
                 Task{
                     sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected)
@@ -143,6 +191,12 @@ struct DailyView: View {
         })
         .navigationBarBackButtonHidden()
     }
+}
+
+
+// MARK: View의 펑션들을 관리 하는 extension입니다. 추후 MVVM으로 변경이 필요합니다.
+extension DailyView {
+    
 }
 
 //#Preview {
