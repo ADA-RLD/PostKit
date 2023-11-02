@@ -153,15 +153,20 @@ extension KeywordModal {
     
     private func segementationElement(point: String) -> some View {
         Button {
-            selectKeyWords.append(point)
-            if coffeePoint.contains(point) {
-                coffeePoint.removeAll(where: { $0 == point})
+            if selectKeyWords.count < 5 {
+                selectKeyWords.append(point)
+                if coffeePoint.contains(point) {
+                    coffeePoint.removeAll(where: { $0 == point})
+                }
+                else if dessertPoint.contains(point) {
+                    dessertPoint.removeAll(where: { $0 == point})
+                }
+                else if drinkPoint.contains(point) {
+                    drinkPoint.removeAll(where: { $0 == point})
+                }
             }
-            else if dessertPoint.contains(point) {
-                dessertPoint.removeAll(where: { $0 == point})
-            }
-            else if drinkPoint.contains(point) {
-                drinkPoint.removeAll(where: { $0 == point})
+            else {
+                isShowingAlert.toggle()
             }
         } label: {
             Text(point)
