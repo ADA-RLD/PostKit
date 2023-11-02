@@ -319,6 +319,7 @@ extension MainView {
                         }
                         .onTapGesture {
                             deleteCaptionData(_uuid: item.id)
+                            fetchCaptionData()
                         }
                 }
             }
@@ -523,39 +524,27 @@ extension MainView : MainViewProtocol {
     }
     
     func deleteCaptionData(_uuid: UUID) {
+        let fetchRequest = NSFetchRequest<CaptionResult>(entityName: "CaptionResult")
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CaptionResult")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        // NSPredicate를 사용하여 조건을 설정
+        let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
+        fetchRequest.predicate = predicate
         
         do {
-            try coreDataManager.context.execute(deleteRequest)
-        } catch {
-            print("Error deleting existing data: \(error)")
-        }
-        
-        if let index = captions.firstIndex(where: { $0.id == _uuid }) {
-            captions.remove(at: index)
+            let captionArray = try coreDataManager.context.fetch(fetchRequest)
             
-            for captionModel in captions {
-                let captionEntity = CaptionResult(context: coreDataManager.context)
-                captionEntity.resultId = captionModel.id
-                captionEntity.date = captionModel.date
-                captionEntity.category = captionModel.category
-                captionEntity.caption = captionModel.caption
-                captionEntity.like = captionModel.like
-                // 다른 속성 설정
-                
-                do {
-                    try coreDataManager.save()
-                } catch {
-                    print("Error saving data: \(error)")
-                }
+            for captionEntity in captionArray {
+                coreDataManager.context.delete(captionEntity)
             }
+            
+            try coreDataManager.context.save()
+        } catch {
+            print("Error deleting data: \(error)")
         }
     }
     
     func deleteHashtagData(_uuid: UUID) {
-        //아직
+        
     }
     
     func convertDate(date: Date) -> String {
