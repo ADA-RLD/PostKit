@@ -49,7 +49,7 @@ class HashtagService {
                 }
             }
             
-            resultArr.append(emphasizeArr[index] + locationArr[idx])
+            resultArr.append(locationArr[idx] + emphasizeArr[index])
         }
         
         // 일반 키워드 사용 location + basic

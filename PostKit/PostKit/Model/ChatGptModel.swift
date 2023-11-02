@@ -28,6 +28,7 @@ struct chatGptResponse: Decodable {
 }
 
 struct chatGptChoice: Decodable {
+    let finish_reason: String
     let message: chatGptMessage
 }
 
