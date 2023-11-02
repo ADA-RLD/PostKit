@@ -22,11 +22,8 @@ struct CaptionResultView: View {
     @State private var messages: [Message] = []
     @State private var isPresented: Bool = false
     @State private var activeAlert: ActiveAlert = .first
-<<<<<<< HEAD
     @State private var showModal = false
-=======
     @State private var cancellables = Set<AnyCancellable>()
->>>>>>> develop
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     
