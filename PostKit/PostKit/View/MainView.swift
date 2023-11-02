@@ -336,6 +336,10 @@ extension MainView {
                         .onChange(of: item.hashtag){ _ in
                             saveHashtageData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                         }
+                        .onTapGesture {
+                            deleteHashtagData(_uuid: item.id)
+                            fetchHashtagData()
+                        }
                 }
             }
             .refreshable {fetchHashtagData()}
@@ -543,7 +547,23 @@ extension MainView : MainViewProtocol {
     }
     
     func deleteHashtagData(_uuid: UUID) {
+        let fetchRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
         
+        // NSPredicate를 사용하여 조건을 설정
+        let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
+        fetchRequest.predicate = predicate
+        
+        do {
+            let hashtagArray = try coreDataManager.context.fetch(fetchRequest)
+            
+            for hashtagEntity in hashtagArray {
+                coreDataManager.context.delete(hashtagEntity)
+            }
+            
+            try coreDataManager.context.save()
+        } catch {
+            print("Error deleting data: \(error)")
+        }
     }
     
     func convertDate(date: Date) -> String {
