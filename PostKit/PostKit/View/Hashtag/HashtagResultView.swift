@@ -11,6 +11,7 @@ import CoreData
 struct HashtagResultView: View {
  
     @State private var isShowingToast = false
+    @State private var isLike = false //좋아요 버튼은 결과뷰에서만 존재합니다
     @EnvironmentObject var pathManager: PathManager
     
     //Create Hashtag
@@ -55,7 +56,8 @@ extension HashtagResultView {
                     }
                     .onChange(of: viewModel.hashtag){ _ in
                         // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
-                        SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, Result: viewModel.hashtag)
+                        //isLike 변수는 좋아요 입니다.
+                        SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
                     }
                 }
             }
@@ -99,11 +101,12 @@ extension HashtagResultView : HashtagProtocol {
         //여기서는 fetch하지 않아요
     }
     
-    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, Result: String) {
+    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) {
         let newHashtag = HashtagData(context: coreDataManager.context)
         newHashtag.resultId = UUID()
         newHashtag.date = date
-        newHashtag.hashtag = Result
+        newHashtag.hashtag = result
+        newHashtag.like = isLike
         coreDataManager.save()
         
         print("Hashtag 저장 완료!\n resultId : \(newHashtag.resultId)\n Date : \(newHashtag.date)\n Hashtag : \(newHashtag.hashtag)\n")

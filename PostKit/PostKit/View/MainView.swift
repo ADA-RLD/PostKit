@@ -328,9 +328,9 @@ extension MainView {
         VStack {
             ScrollView{
                 ForEach(hashtags) { item in
-                    hashtagHistoryDetail(date: item.date, hashtagContent: item.hashtag)
+                    hashtagHistoryDetail(date: item.date, hashtagContent: item.hashtag, hashtageLike: item.isLike)
                         .onChange(of: item.hashtag){ _ in
-                            saveHashtageData(_uuid: item.id, _result: item.hashtag)
+                            saveHashtageData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                         }
                 }
             }
@@ -378,7 +378,7 @@ extension MainView {
             }
     }
     
-    private func hashtagHistoryDetail(date : Date, hashtagContent : String) -> some View {
+    private func hashtagHistoryDetail(date : Date, hashtagContent : String, hashtageLike : Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
@@ -464,7 +464,8 @@ extension MainView : MainViewProtocol {
                     _date: hashtagCoreData.date ?? Date(),
                     _locationTag: hashtagCoreData.locationTag ?? [""],
                     _keyword: hashtagCoreData.keyword ?? [""],
-                    _hashtag: hashtagCoreData.hashtag ?? ""
+                    _hashtag: hashtagCoreData.hashtag ?? "", 
+                    _isLike: hashtagCoreData.like
                 )
             }
             hashtags.sort { $0.date > $1.date }
@@ -495,10 +496,11 @@ extension MainView : MainViewProtocol {
         }
     }
     
-    func saveHashtageData(_uuid: UUID, _result: String) {
+    func saveHashtageData(_uuid: UUID, _result: String, _like: Bool) {
         //hashtageModel의 UUID가 같을 경우
         if let isExisting = hashtags.first(where: {$0.id == _uuid}) {
             isExisting.hashtag = _result
+            isExisting.isLike = _like
             
             coreDataManager.save()
             
@@ -508,7 +510,7 @@ extension MainView : MainViewProtocol {
             //혹시나 없을 경우에는 저장합니다.
             let newCaption = CaptionResult(context: coreDataManager.context)
             newCaption.resultId = UUID()
-            newCaption.like = false
+            newCaption.like = _like
             
             coreDataManager.save()
             

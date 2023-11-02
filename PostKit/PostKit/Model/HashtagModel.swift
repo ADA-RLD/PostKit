@@ -13,12 +13,14 @@ class HashtagModel: Identifiable {
     @Published var locationTag : [String]
     @Published var keyword : [String]
     @Published var hashtag : String
+    @Published var isLike: Bool
     
-    init(_id: UUID, _date: Date, _locationTag: [String], _keyword: [String], _hashtag: String) {
+    init(_id: UUID, _date: Date, _locationTag: [String], _keyword: [String], _hashtag: String, _isLike: Bool) {
         self.id = _id
         self.date = _date
         self.locationTag = _locationTag
         self.keyword = _keyword
         self.hashtag = _hashtag
+        self.isLike = _isLike
     }
 }
