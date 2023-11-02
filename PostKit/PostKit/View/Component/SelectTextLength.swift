@@ -10,7 +10,7 @@ import SwiftUI
 struct SelectTextLength: View {
     @Binding var selected: Int
     
-    let items: [String] = ["짧음","중간","긺"]
+    let textLength: [String] = ["짧음","중간","긺"]
     
     var body: some View {
         RoundedRectangle(cornerRadius: radius1)
@@ -25,7 +25,7 @@ struct SelectTextLength: View {
                         .foregroundColor(.gray5)
                     
                     HStack(spacing: 0) {
-                        ForEach(Array(items.enumerated()), id: \.offset) { idx, item in
+                        ForEach(Array(textLength.enumerated()), id: \.offset) { idx, item in
                             RaidioBtn(title: item, id: idx,selectedId: self.$selected)
                             Spacer()
                             
