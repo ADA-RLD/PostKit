@@ -44,6 +44,8 @@
 		13C296242AD988FC00A2DE7F /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296232AD988FC00A2DE7F /* AppStorageManager.swift */; };
 		13ECB5072AF28C1B0046E6BE /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 13ECB5062AF28C1B0046E6BE /* Mixpanel */; };
 		13ECB5092AF28C8B0046E6BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB5082AF28C8B0046E6BE /* AppDelegate.swift */; };
+		13ECB50B2AF372D60046E6BE /* KeywordAppend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB50A2AF372D60046E6BE /* KeywordAppend.swift */; };
+		13ECB50D2AF377530046E6BE /* SelectTextLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB50C2AF377530046E6BE /* SelectTextLength.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
 		7E0605042AF08258003A87BC /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605032AF08258003A87BC /* ResponseError.swift */; };
 		7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605072AF108A5003A87BC /* HashtagService.swift */; };
@@ -124,6 +126,8 @@
 		13C2961D2AD9734800A2DE7F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		13C296232AD988FC00A2DE7F /* AppStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageManager.swift; sourceTree = "<group>"; };
 		13ECB5082AF28C8B0046E6BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		13ECB50A2AF372D60046E6BE /* KeywordAppend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordAppend.swift; sourceTree = "<group>"; };
+		13ECB50C2AF377530046E6BE /* SelectTextLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTextLength.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
 		7E0605032AF08258003A87BC /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		7E0605072AF108A5003A87BC /* HashtagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagService.swift; sourceTree = "<group>"; };
@@ -292,6 +296,8 @@
 				139B2C7D2ADFF8690036BD18 /* ContentArea.swift */,
 				B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */,
 				B9872A462AF394DA000A795C /* HistoryButton.swift */,
+				13ECB50A2AF372D60046E6BE /* KeywordAppend.swift */,
+				13ECB50C2AF377530046E6BE /* SelectTextLength.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -561,6 +567,7 @@
 				A1B75AD02AEFDF9200DFD343 /* HashtagProtocol.swift in Sources */,
 				B98632682AD7D03800DE9FF5 /* MenuView.swift in Sources */,
 				13C296142AD8F17D00A2DE7F /* OnboardingTone.swift in Sources */,
+				13ECB50D2AF377530046E6BE /* SelectTextLength.swift in Sources */,
 				13C296162AD8F18900A2DE7F /* OnboardingView.swift in Sources */,
 				13C295D32AD64C3500A2DE7F /* SettingView.swift in Sources */,
 				B98632602AD7CFB200DE9FF5 /* KeywordsModel.swift in Sources */,
@@ -594,6 +601,7 @@
 				7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */,
 				B9872A432AF335C1000A795C /* HashtagPopoverExtension.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
+				13ECB50B2AF372D60046E6BE /* KeywordAppend.swift in Sources */,
 				B9872A3D2AF23D15000A795C /* Constants.swift in Sources */,
 				B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */,
 				A188C5922AD968A7007473D3 /* MainViewProtocol.swift in Sources */,
