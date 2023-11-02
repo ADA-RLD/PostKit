@@ -11,8 +11,8 @@ import CoreData
 struct HashtagResultView: View {
  
     @State private var isShowingToast = false
-    @EnvironmentObject var pathManager: PathManager
     @State private var isLike = false //좋아요 버튼은 결과뷰에서만 존재합니다
+    @EnvironmentObject var pathManager: PathManager
     
     //Create Hashtag
     private let hashtagService = HashtagService()
