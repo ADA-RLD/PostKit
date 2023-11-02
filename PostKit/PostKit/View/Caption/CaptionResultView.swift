@@ -122,7 +122,7 @@ extension CaptionResultView {
             .alert(isPresented: $isPresented) {
                 switch activeAlert {
                 case .first:
-                    let cancleBtn = Alert.Button.default(Text("취소")) {
+                    let cancelBtn = Alert.Button.default(Text("취소")) {
                         
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
@@ -131,7 +131,7 @@ extension CaptionResultView {
                             regenerateAnswer()
                         }
                     }
-                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/5"), primaryButton: cancleBtn, secondaryButton: regenreateBtn)
+                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/5"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
                     
                 case .second:
                     return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
