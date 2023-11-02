@@ -14,7 +14,7 @@ struct HistoryButton: View {
     var body: some View {
             HStack(alignment: .bottom) {
                 Button(action: {
-                    
+                // TODO: 좋아요 button action 추가
                 }, label: {
                     HStack {
                         Image(systemName: "heart.fill")
@@ -30,7 +30,6 @@ struct HistoryButton: View {
                 }
                 Spacer()
                 Button(action: {
-                    //수정하기 & 복사하기
                     historyRightAction()
                 }, label: {
                     Text(buttonText)

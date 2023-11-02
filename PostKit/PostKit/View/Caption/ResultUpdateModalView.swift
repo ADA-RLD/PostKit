@@ -37,7 +37,7 @@ struct ResultUpdateModalView: View {
                     .font(.body1Bold())
                 
                 Spacer()
-
+                
                 Button(action: {
                     completion(stringContent)
                     showModal = false
@@ -46,7 +46,6 @@ struct ResultUpdateModalView: View {
                         .font(.body1Regular())
                         .foregroundStyle(Color.blue)
                 })
-
             }
             .padding(.horizontal, 16)
             .frame(height: 60)
@@ -58,7 +57,9 @@ struct ResultUpdateModalView: View {
                             .font(.body1Bold())
                             .foregroundStyle(Color.gray5)
                     }
+                    
                     Spacer()
+                    
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 40)
@@ -71,7 +72,6 @@ struct ResultUpdateModalView: View {
                         .stroke(Color.gray3, lineWidth: 1)
                 )
             }
-            
             Spacer()
         }
     }

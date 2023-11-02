@@ -62,7 +62,7 @@ extension CaptionResultView {
                     HStack {
                         Spacer()
                         Button(action: {
-                            //완료버튼을 누르면 저장되나요?
+                            //TODO: 수정된 CoreData 저장 필요
                             pathManager.path.removeAll()
                             viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                         }, label: {
@@ -92,7 +92,7 @@ extension CaptionResultView {
                             Spacer()
                             VStack {
                                 Spacer()
-                                // TODO: 좋아요/ 복사하기 button action 추가
+                                // TODO: 좋아요 button action 추가
                                 HistoryButton(buttonText: "수정하기", historyRightAction: {
                                     self.showModal = true
                                 }).sheet(isPresented: self.$showModal, content: {
@@ -105,18 +105,17 @@ extension CaptionResultView {
                                     }
                                 })
                             }
-                            }
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 20)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .frame(height: 400)
-                        .background(Color.gray1)
-                        .cornerRadius(radius2)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 20)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(height: 400)
+                    .background(Color.gray1)
+                    .cornerRadius(radius2)
                 }
             }
             Spacer()
-           
             
             // MARK: - 재생성 / 복사 버튼
             CustomDoubleeBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
@@ -129,7 +128,7 @@ extension CaptionResultView {
                     isPresented.toggle()
                 }
             } rightAction: {
-                // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함 + 토스트가 안 뜸!!!!
+                // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyToClipboard()
             }
             .toast(isShowing: $isShowingToast)
@@ -166,10 +165,10 @@ extension CaptionResultView {
             }else{
                 
                 self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)"))
-
-                  for _tone in storeModel.tone {
-                      self.messages.append(Message(id: UUID(), role: .system, content: "\(_tone == "기본" ? "평범한": _tone)"))
-                  }
+                
+                for _tone in storeModel.tone {
+                    self.messages.append(Message(id: UUID(), role: .system, content: "\(_tone == "기본" ? "평범한": _tone)"))
+                }
                 
                 self.messages.append(Message(id: UUID(), role: .system, content:"말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
             }
@@ -251,9 +250,8 @@ extension CaptionResultView : CaptionResultProtocol {
     }
     
     func initCaptionResult(Result: String) {
-//        Result = "생성된 텍스트가 들어가요."
+        //        Result = "생성된 텍스트가 들어가요."
     }
-    
 }
 
 //
