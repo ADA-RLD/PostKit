@@ -9,16 +9,16 @@ import Foundation
 
 extension MenuView {
     // MARK: - Chat Gpt API에 응답 요청
-    func sendMessage(){
+    func sendMessage(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String){
         Task{
-            createPrompt()
+            createPrompt(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
             self.messages.append(Message(id: UUID(), role: .user, content: self.currentInput))
             await createCaption()
         }
     }
     
     // MARK: - Prompt 생성
-    func createPrompt(){
+    func createPrompt(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String){
         var pointText = ""
         var toneInfo = ""
         
