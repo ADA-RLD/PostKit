@@ -17,7 +17,7 @@ protocol MainViewProtocol {
     
     func saveCaptionData(_uuid: UUID, _result: String, _like: Bool)
     
-    func saveHashtageData(_uuid: UUID, _result: String)
+    func saveHashtageData(_uuid: UUID, _result: String, _like: Bool)
     
     func convertDate(date: Date) -> String
 }
