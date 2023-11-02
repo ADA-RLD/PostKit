@@ -62,8 +62,8 @@ extension CaptionResultView {
                     HStack {
                         Spacer()
                         Button(action: {
+                            //완료버튼을 누르면 저장되나요?
                             pathManager.path.removeAll()
-                            //완료버튼을 누르면 저장되나요?????
                             viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                         }, label: {
                             Text("완료")
@@ -81,7 +81,7 @@ extension CaptionResultView {
                     
                     // MARK: - 생성된 카피 출력 + 복사하기 버튼
                     VStack(alignment: .trailing, spacing: 20) {
-                        VStack(alignment: .leading) {
+                        ZStack(alignment: .leading) {
                             ScrollView(showsIndicators: false){
                                 Text(viewModel.promptAnswer)
                                     .lineLimit(nil)
@@ -90,6 +90,22 @@ extension CaptionResultView {
                                     .foregroundStyle(Color.gray5)
                             }
                             Spacer()
+                            VStack {
+                                Spacer()
+                                // TODO: 좋아요/ 복사하기 button action 추가
+                                HistoryButton(buttonText: "수정하기", historyRightAction: {
+                                    self.showModal = true
+                                }).sheet(isPresented: self.$showModal, content: {
+                                    ResultUpdateModalView(
+                                        showModal: $showModal,
+                                        stringContent: viewModel.promptAnswer,
+                                        resultUpdateType: .captionResult
+                                    ) { updatedText in
+                                        viewModel.promptAnswer = updatedText
+                                    }
+                                })
+                            }
+                            }
                         }
                         .padding(.horizontal, 16)
                         .padding(.vertical, 20)
@@ -97,20 +113,12 @@ extension CaptionResultView {
                         .frame(height: 400)
                         .background(Color.gray1)
                         .cornerRadius(radius2)
-                        
-                        // TODO: 좋아요/ 복사하기button action 추가
-                        HistoryButton(buttonText: "수정하기", historyRightAction: {
-                            self.showModal = true
-                        }).sheet(isPresented: self.$showModal, content: {
-                            CaptionResultChangeView()
-                        })
-                    }
                 }
             }
             Spacer()
            
             
-            // MARK: - 완료 / 재생성 버튼
+            // MARK: - 재생성 / 복사 버튼
             CustomDoubleeBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
                 if coinManager.coin < 5 {
                     activeAlert = .first
@@ -121,10 +129,10 @@ extension CaptionResultView {
                     isPresented.toggle()
                 }
             } rightAction: {
-                print("이건 복사야")
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함 + 토스트가 안 뜸!!!!
                 copyToClipboard()
             }
+            .toast(isShowing: $isShowingToast)
             .alert(isPresented: $isPresented) {
                 switch activeAlert {
                 case .first:
@@ -248,6 +256,7 @@ extension CaptionResultView : CaptionResultProtocol {
     
 }
 
+//
 //#Preview {
-//    CaptionResultView()
+//    CaptionResultView
 //}
