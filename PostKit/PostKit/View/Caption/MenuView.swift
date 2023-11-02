@@ -27,7 +27,6 @@ struct MenuView: View {
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
     
-    // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
     @State var messages: [Message] = []
     @State var currentInput: String = ""
     
@@ -102,7 +101,7 @@ struct MenuView: View {
                 if isActive == true {
                     if coinManager.coin < 5 {
                         coinManager.coinUse()
-                        sendMessage()
+                        sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
                         pathManager.path.append(.CaptionResult)
                     }
                     else {
