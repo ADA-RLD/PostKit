@@ -70,9 +70,19 @@ extension KeywordModal {
             
             if !selectKeyWords.isEmpty {
                 WrappingHStack(alignment: .leading) {
-                    ForEach(selectKeyWords, id: \.self) { index in
-                        CustomHashtag(tagText: index) {
-                            selectKeyWords.removeAll(where: { $0 == index})
+                    ForEach(selectKeyWords, id: \.self) { i in
+                        CustomHashtag(tagText: i) {
+                            selectKeyWords.removeAll(where: { $0 == i})
+                            
+                            if let coffeeTmp = coffeeKeys.firstIndex(where: { $0.name == i }) {
+                                coffeePoint.insert(i, at: coffeeTmp)
+                            } else if let drinkTmp = drinkKeys.firstIndex(where: { $0.name == i}) {
+                                drinkPoint.insert(i, at: drinkTmp)
+                            } else if let dessertTmp = dessertKeys.firstIndex(where: { $0.name == i}) {
+                                dessertPoint.insert(i, at: dessertTmp)
+                            }
+                            
+                            
                         }
                     }
                 }
@@ -122,9 +132,19 @@ extension KeywordModal {
                
             }
             else if (pickerSelection == 1) {
+                WrappingHStack(alignment: .leading) {
+                    ForEach(drinkPoint, id: \.self) { i in
+                        segementationElement(point: i)
+                    }
+                }
                 
             }
             else {
+                WrappingHStack(alignment: .leading) {
+                    ForEach(dessertPoint, id: \.self) { i in
+                        segementationElement(point: i)
+                    }
+                }
                 
             }
          
