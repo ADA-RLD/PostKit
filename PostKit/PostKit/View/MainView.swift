@@ -420,7 +420,6 @@ extension MainView {
 
 extension MainView : MainViewProtocol {
     
-   
     func fetchStoreData() {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
         
