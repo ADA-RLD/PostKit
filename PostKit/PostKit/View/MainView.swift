@@ -8,6 +8,7 @@ import SwiftUI
 import CoreData
 
 struct MainView: View {
+    @AppStorage("_coin") var coin: Int = 0
     @AppStorage("_cafeName") var cafeName: String = ""
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager
@@ -15,6 +16,7 @@ struct MainView: View {
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var coinManager = CoinManager.shared
     @Namespace var nameSpace
     private let pasteBoard = UIPasteboard.general
     
@@ -142,6 +144,8 @@ extension MainView {
                 SettingBtn(action: {pathManager.path.append(.SettingHome)})
                 
                 VStack(alignment: .leading, spacing: 28) {
+                    
+                    Text("\(coinManager.coin)")
                     
                     Text("어떤 카피를 생성할까요?")
                         .font(.title1())
