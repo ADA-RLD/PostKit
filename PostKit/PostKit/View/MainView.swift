@@ -317,6 +317,10 @@ extension MainView {
                         .onChange(of: item.like){ _ in
                             saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
                         }
+                        .onTapGesture {
+                            deleteCaptionData(_uuid: item.id)
+                            fetchCaptionData()
+                        }
                 }
             }
             .refreshable{fetchCaptionData()}
@@ -415,6 +419,7 @@ extension MainView {
 }
 
 extension MainView : MainViewProtocol {
+    
    
     func fetchStoreData() {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
@@ -516,6 +521,30 @@ extension MainView : MainViewProtocol {
             
             print("Hashtag 새로 저장 완료!\n resultId : \(newCaption.id)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
         }
+    }
+    
+    func deleteCaptionData(_uuid: UUID) {
+        let fetchRequest = NSFetchRequest<CaptionResult>(entityName: "CaptionResult")
+        
+        // NSPredicate를 사용하여 조건을 설정
+        let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
+        fetchRequest.predicate = predicate
+        
+        do {
+            let captionArray = try coreDataManager.context.fetch(fetchRequest)
+            
+            for captionEntity in captionArray {
+                coreDataManager.context.delete(captionEntity)
+            }
+            
+            try coreDataManager.context.save()
+        } catch {
+            print("Error deleting data: \(error)")
+        }
+    }
+    
+    func deleteHashtagData(_uuid: UUID) {
+        
     }
     
     func convertDate(date: Date) -> String {
