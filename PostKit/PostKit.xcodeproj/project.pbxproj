@@ -41,6 +41,8 @@
 		13C2961A2AD8F26300A2DE7F /* SelectTone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296192AD8F26300A2DE7F /* SelectTone.swift */; };
 		13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C2961B2AD8F32000A2DE7F /* ToneModel.swift */; };
 		13C296242AD988FC00A2DE7F /* AppStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C296232AD988FC00A2DE7F /* AppStorageManager.swift */; };
+		13ECB5072AF28C1B0046E6BE /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 13ECB5062AF28C1B0046E6BE /* Mixpanel */; };
+		13ECB5092AF28C8B0046E6BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB5082AF28C8B0046E6BE /* AppDelegate.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
 		7E0605042AF08258003A87BC /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605032AF08258003A87BC /* ResponseError.swift */; };
 		7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605072AF108A5003A87BC /* HashtagService.swift */; };
@@ -114,6 +116,7 @@
 		13C2961B2AD8F32000A2DE7F /* ToneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToneModel.swift; sourceTree = "<group>"; };
 		13C2961D2AD9734800A2DE7F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		13C296232AD988FC00A2DE7F /* AppStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageManager.swift; sourceTree = "<group>"; };
+		13ECB5082AF28C8B0046E6BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
 		7E0605032AF08258003A87BC /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		7E0605072AF108A5003A87BC /* HashtagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagService.swift; sourceTree = "<group>"; };
@@ -155,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13ECB5072AF28C1B0046E6BE /* Mixpanel in Frameworks */,
 				6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,6 +206,7 @@
 				13C295B42AD55F2200A2DE7F /* Assets.xcassets */,
 				13C295B62AD55F2200A2DE7F /* Preview Content */,
 				A188C57D2AD7B822007473D3 /* CoreData.xcdatamodeld */,
+				13ECB5082AF28C8B0046E6BE /* AppDelegate.swift */,
 			);
 			path = PostKit;
 			sourceTree = "<group>";
@@ -402,6 +407,9 @@
 			dependencies = (
 			);
 			name = PostKit;
+			packageProductDependencies = (
+				13ECB5062AF28C1B0046E6BE /* Mixpanel */,
+			);
 			productName = PostKit;
 			productReference = 13C295AD2AD55F2100A2DE7F /* PostKit.app */;
 			productType = "com.apple.product-type.application";
@@ -430,6 +438,9 @@
 				Base,
 			);
 			mainGroup = 13C295A42AD55F2100A2DE7F;
+			packageReferences = (
+				13ECB5052AF28C1B0046E6BE /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
+			);
 			productRefGroup = 13C295AE2AD55F2100A2DE7F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -540,6 +551,7 @@
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
 				A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */,
 				B9872A3F2AF23D77000A795C /* HashtagPopover.swift in Sources */,
+				13ECB5092AF28C8B0046E6BE /* AppDelegate.swift in Sources */,
 				7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */,
 				13C296102AD8F16700A2DE7F /* OnboardingRouter.swift in Sources */,
 				7EF314D22AD96A69008E7338 /* ChatGptViewModel.swift in Sources */,
@@ -778,6 +790,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		13ECB5052AF28C1B0046E6BE /* XCRemoteSwiftPackageReference "mixpanel-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mixpanel/mixpanel-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		13ECB5062AF28C1B0046E6BE /* Mixpanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 13ECB5052AF28C1B0046E6BE /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
+			productName = Mixpanel;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		A188C57D2AD7B822007473D3 /* CoreData.xcdatamodeld */ = {
