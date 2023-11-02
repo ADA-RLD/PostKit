@@ -19,15 +19,20 @@ class ChatGptService {
     func sendMessage(messages: [Message]) async -> chatGptResponse? {
         let openAIMessages = messages.map({chatGptMessage(role: .user, content: $0.content)})
         let randomKey = getRandomKey()
-        let body = chatGptBody(model: "gpt-4-0613", messages: openAIMessages)
+        // TODO : - 개발을 진행하는 동안 3.5로 진행하고 이후 배포시 4.0으로 상향 조정할 예정
+        let body = chatGptBody(model: "gpt-3.5-turbo", messages: openAIMessages)
         let headers: HTTPHeaders =  [
             "Authorization" : "Bearer \(randomKey)"
         ]
         
         do {
+            // TODO : - Configuration을 설정하여 timeout 별도로 설정할 예정
             let response = try? await AF.request(baseUrl, method: .post, parameters: body, encoder: .json, headers: headers)
                 .serializingDecodable(chatGptResponse.self)
                 .value
+            
+            print("response: ")
+            print(response as Any)
             
             if response == nil {
                 throw ResponseError.noResponse
@@ -40,16 +45,15 @@ class ChatGptService {
             // MARK: - Chat Gpt 에러 처리
             if error._code == NSURLErrorTimedOut {
                 print("Time Out Error 발생")
-                return chatGptResponse(choices: [chatGptChoice(message: chatGptMessage(role: .system, content: "TIMEOUT"))])
+                return chatGptResponse(choices: [chatGptChoice(finish_reason: "", message: chatGptMessage(role: .system, content: "TIMEOUT"))])
             }
             else if error as! ResponseError == ResponseError.noResponse {
                 print("Nil Response Error 발생")
-                return chatGptResponse(choices: [chatGptChoice(message: chatGptMessage(role: .system, content: "NILError"))])
+                return chatGptResponse(choices: [chatGptChoice(finish_reason: "", message: chatGptMessage(role: .system, content: "NILError"))])
             }
             else {
-                print("error: \(error)")
-                print("Server Error 발생")
-                return chatGptResponse(choices: [chatGptChoice(message: chatGptMessage(role: .system, content: "ServerError"))])
+                print("error: \(error) Server Error 발생")
+                return chatGptResponse(choices: [chatGptChoice(finish_reason: "", message: chatGptMessage(role: .system, content: "ServerError"))])
             }
         }
     }
