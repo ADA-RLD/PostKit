@@ -78,6 +78,7 @@
 		B986327C2ADA5DC300DE9FF5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */; };
 		B9872A3D2AF23D15000A795C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A3C2AF23D15000A795C /* Constants.swift */; };
 		B9872A3F2AF23D77000A795C /* HashtagPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A3E2AF23D77000A795C /* HashtagPopover.swift */; };
+		B9872A432AF335C1000A795C /* HashtagPopoverExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A422AF335C1000A795C /* HashtagPopoverExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -155,6 +156,7 @@
 		B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B9872A3C2AF23D15000A795C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B9872A3E2AF23D77000A795C /* HashtagPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagPopover.swift; sourceTree = "<group>"; };
+		B9872A422AF335C1000A795C /* HashtagPopoverExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagPopoverExtension.swift; sourceTree = "<group>"; };
 		C674B8973F6DA180203B6836 /* Pods-PostKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.debug.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.debug.xcconfig"; sourceTree = "<group>"; };
 		DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -305,6 +307,7 @@
 				B98632652AD7D01500DE9FF5 /* WrappingHStack.swift */,
 				13C295DC2AD6B48400A2DE7F /* DesignSystem.swift */,
 				139B2C8E2AF0B6030036BD18 /* Ex+UINaivgationController.swift */,
+				B9872A422AF335C1000A795C /* HashtagPopoverExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				A1B75AD22AEFE24100DFD343 /* HashtagModel.swift in Sources */,
 				A188C58A2AD7CDD3007473D3 /* MenuProtocol.swift in Sources */,
 				7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */,
+				B9872A432AF335C1000A795C /* HashtagPopoverExtension.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
 				B9872A3D2AF23D15000A795C /* Constants.swift in Sources */,
 				B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */,
