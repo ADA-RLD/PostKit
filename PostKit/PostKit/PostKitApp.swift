@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct PostKitApp: App {
+    @UIApplicationDelegateAdaptor var delegate: AppDelegate
     // Naviagtion path Controll
     @StateObject var pathManager = PathManager()
     // AppStorage Controll
