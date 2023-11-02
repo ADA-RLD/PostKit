@@ -17,7 +17,7 @@ struct DailyView: View {
     @State private var isContentsOpened = [false, false, false]
     @State private var isPresented: Bool = false
     
-    @ObservedObject var coinManger = CoinManager.shared
+    @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
     //CoreData Manager
@@ -127,11 +127,11 @@ struct DailyView: View {
         }
         
         CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
-            if coinManger.coin < 5 {
+            if coinManager.coin < 5 {
                 sendMessage()
                 pathManager.path.append(.CaptionResult)
-                coinManger.coinUse()
-                print(coinManger.coin)
+                coinManager.coinUse()
+                print(coinManager.coin)
             }
             else {
                 isPresented.toggle()
