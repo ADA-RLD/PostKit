@@ -193,13 +193,6 @@ extension DailyView {
         .navigationBarBackButtonHidden()
     }
 }
-
-
-// MARK: View의 펑션들을 관리 하는 extension입니다. 추후 MVVM으로 변경이 필요합니다.
-extension DailyView {
-    
-}
-
 //#Preview {
 //    DailyView()
 //}
