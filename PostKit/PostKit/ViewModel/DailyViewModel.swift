@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 extension DailyView {
     // MARK: - Chat Gpt API에 응답 요청
@@ -72,13 +73,29 @@ extension DailyView {
     }
     
     // MARK: - Caption 생성
-    func createCaption() async {
+    func createCaption() async {        
         viewModel.prompt = self.currentInput
         self.currentInput = ""
-        let response = await chatGptService.sendMessage(messages: self.messages)
-        viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
-        viewModel.category = "일상"
         
-        print(response as Any)
+        chatGptService.sendMessage(messages: self.messages)
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .failure(let error):
+                        // TODO: - 오류 코드를 기반으로 오류 처리 진행 필요
+                        print("error 발생. error code: \(error._code)")
+                    case .finished:
+                        print("Caption 생성이 무사히 완료되었습니다.")
+                    }
+                },
+                receiveValue:  { res in
+                    print("res: \(res)")
+                    guard let textResponse = res.choices.first?.message.content else {return}
+                    
+                    viewModel.promptAnswer = textResponse
+                    viewModel.category = "메뉴"
+                }
+            )
+            .store(in: &cancellables)
     }
 }

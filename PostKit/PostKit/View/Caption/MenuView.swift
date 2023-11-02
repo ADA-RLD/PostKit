@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Combine
 
 struct MenuView: View {
     //@EnvironmentObject var appstorageManager: AppstorageManager
@@ -29,6 +30,7 @@ struct MenuView: View {
     
     @State var messages: [Message] = []
     @State var currentInput: String = ""
+    @State var cancellables = Set<AnyCancellable>()
     
     let chatGptService = ChatGptService()
     
