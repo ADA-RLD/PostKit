@@ -464,7 +464,8 @@ extension MainView : MainViewProtocol {
                     _date: hashtagCoreData.date ?? Date(),
                     _locationTag: hashtagCoreData.locationTag ?? [""],
                     _keyword: hashtagCoreData.keyword ?? [""],
-                    _hashtag: hashtagCoreData.hashtag ?? ""
+                    _hashtag: hashtagCoreData.hashtag ?? "", 
+                    _isLike: hashtagCoreData.like
                 )
             }
             hashtags.sort { $0.date > $1.date }
