@@ -167,7 +167,7 @@ struct HashtagView: View {
                 popoverView(popupState)
                     .frame(maxWidth: .infinity)
                     .frame(maxHeight: .infinity)
-                    .background(Color.gray5.opacity(0.3))
+                    .background(Color.gray5.opacity(0.4))
                     .zIndex(1)
             }
         }
