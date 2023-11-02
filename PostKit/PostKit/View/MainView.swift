@@ -16,7 +16,7 @@ struct MainView: View {
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
     @ObservedObject var viewModel = ChatGptViewModel.shared
-    @ObservedObject var coinManger = CoinManager.shared
+    @ObservedObject var coinManager = CoinManager.shared
     @Namespace var nameSpace
     private let pasteBoard = UIPasteboard.general
     
@@ -145,7 +145,7 @@ extension MainView {
                 
                 VStack(alignment: .leading, spacing: 28) {
                     
-                    Text("\(coinManger.coin)")
+                    Text("\(coinManager.coin)")
                     
                     Text("어떤 카피를 생성할까요?")
                         .font(.title1())
