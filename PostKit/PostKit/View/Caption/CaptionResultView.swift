@@ -245,4 +245,3 @@ extension CaptionResultView : CaptionResultProtocol {
 //#Preview {
 //    CaptionResultView()
 //}
-
