@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import UIKit
+import Combine
 
 enum ActiveAlert {
     case first, second
@@ -21,7 +22,11 @@ struct CaptionResultView: View {
     @State private var messages: [Message] = []
     @State private var isPresented: Bool = false
     @State private var activeAlert: ActiveAlert = .first
+<<<<<<< HEAD
     @State private var showModal = false
+=======
+    @State private var cancellables = Set<AnyCancellable>()
+>>>>>>> develop
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     
@@ -139,7 +144,7 @@ extension CaptionResultView {
                         
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
-                        if coinManager.coin < 5 {
+                        if coinManager.coin > CoinManager.minimalCoin {
                             coinManager.coinUse()
                             regenerateAnswer()
                         }
@@ -174,9 +179,26 @@ extension CaptionResultView {
             }
             let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
             self.messages.append(newMessage)
-            let response = await chatGptService.sendMessage(messages: self.messages)
-            print(response as Any)
-            viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
+
+            chatGptService.sendMessage(messages: self.messages)
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .failure(let error):
+                            // TODO: - 오류 코드를 기반으로 오류 처리 진행 필요
+                            print("error 발생. error code: \(error._code)")
+                        case .finished:
+                            print("Caption 생성이 무사히 완료되었습니다.")
+                        }
+                    },
+                    receiveValue:  { response in
+                        print("response: \(response)")
+                        guard let textResponse = response.choices.first?.message.content else {return}
+                        
+                        viewModel.promptAnswer = textResponse
+                    }
+                )
+                .store(in: &cancellables)
         }
     }
     

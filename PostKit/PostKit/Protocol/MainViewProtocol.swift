@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 protocol MainViewProtocol {
     
@@ -19,5 +20,10 @@ protocol MainViewProtocol {
     
     func saveHashtageData(_uuid: UUID, _result: String, _like: Bool)
     
+    func deleteCaptionData(_uuid: UUID)
+    
+    func deleteHashtagData(_uuid: UUID)
+
     func convertDate(date: Date) -> String
+    
 }
