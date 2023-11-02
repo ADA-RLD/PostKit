@@ -17,7 +17,7 @@ struct HashtagView: View {
     @State private var isActive = false
     @State private var isShowingDescription = false
     @State private var showingAlert = false
-    @State private var popupState: PopOverType = .keyword
+    @State private var popupState: PopoverType = .keyword
     @State private var headerHeight: CGFloat = 0
     @State private var titleHeight: CGFloat = 0
     @State private var regionAreaHeight: CGFloat = 0
@@ -178,7 +178,7 @@ struct HashtagView: View {
 
 //MARK: extension: HashtagView Functions
 extension HashtagView {
-    private func handlePopoverClick(clickType: PopOverType) {
+    private func handlePopoverClick(clickType: PopoverType) {
         popupState = clickType
         withAnimation(.easeInOut){
             isShowingDescription.toggle()
@@ -214,7 +214,7 @@ extension HashtagView {
 extension HashtagView {
     
     @ViewBuilder
-    func popoverView(_ type: PopOverType) -> some View {
+    func popoverView(_ type: PopoverType) -> some View {
         VStack {
             HStack {
                 Spacer()
@@ -305,31 +305,6 @@ extension HashtagView : HashtagProtocol {
         coreDataManager.save()
         
         print("Hashtag 저장 완료!\n resultId : \(newHashtag.resultId)\n Date : \(newHashtag.date)\n Hashtag : \(newHashtag.hashtag)\n")
-    }
-    
-}
-
-struct ScrollOffsetPreferenceKey: PreferenceKey {
-    static var defaultValue: CGPoint = .zero
-    static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {
-    }
-}
-
-struct SizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-    }
-}
-
-extension View{
-    func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
-        background(
-            GeometryReader { geometryProxy in
-                Color.clear
-                    .preference(key: SizePreferenceKey.self, value: geometryProxy.size)
-            }
-        )
-        .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
     }
 }
 

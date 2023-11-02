@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum PopOverType {
+enum PopoverType {
     case region
     case keyword
     
