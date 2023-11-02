@@ -66,6 +66,10 @@ struct ResultUpdateModalView: View {
                 .frame(height: 400)
                 .background(Color.gray1)
                 .cornerRadius(radius2)
+                .overlay(
+                    RoundedRectangle(cornerRadius: radius2)
+                        .stroke(Color.gray3, lineWidth: 1)
+                )
             }
             
             Spacer()
