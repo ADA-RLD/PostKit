@@ -109,7 +109,7 @@ extension CaptionResultView {
                 pathManager.path.removeAll()
                 viewModel.promptAnswer = "생성된 텍스트가 들어가요."
             } rightAction: {
-                if coinManager.coin < 5 {
+                if coinManager.coin > CoinManager.minimalCoin {
                     activeAlert = .first
                     isPresented.toggle()
                 }
@@ -126,7 +126,7 @@ extension CaptionResultView {
                         
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
-                        if coinManager.coin < 5 {
+                        if coinManager.coin > CoinManager.minimalCoin {
                             coinManager.coinUse()
                             regenerateAnswer()
                         }
