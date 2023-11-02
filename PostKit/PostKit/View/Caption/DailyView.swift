@@ -11,9 +11,9 @@ import CoreData
 struct DailyView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
-    @State var weatherSelected: [String] = []
-    @State var dailyCoffeeSelected: [String] = []
-    @State var dailyDessertSelected: [String] = []
+    @State private var weatherSelected: [String] = []
+    @State private var dailyCoffeeSelected: [String] = []
+    @State private var dailyDessertSelected: [String] = []
     @State private var isContentsOpened = [false, false, false]
     @State private var isPresented: Bool = false
     
@@ -26,7 +26,6 @@ struct DailyView: View {
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
     
-    // TODO: 온보딩 페이지가 완성되면 해당 부분 수정할 예정입니다~
     @State var messages: [Message] = []
     @State var currentInput: String = ""
     let chatGptService = ChatGptService()
@@ -127,16 +126,13 @@ struct DailyView: View {
         }
         
         CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
-            Task{
-                sendMessage()
-                pathManager.path.append(.CaptionResult)
-            }
-          
             if coinManager.coin < 5 {
-                sendMessage()
-                pathManager.path.append(.CaptionResult)
-                coinManager.coinUse()
-                print(coinManager.coin)
+                Task{
+                    sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected)
+                    pathManager.path.append(.CaptionResult)
+                    coinManager.coinUse()
+                    print(coinManager.coin)
+                }
             }
             else {
                 isPresented.toggle()
