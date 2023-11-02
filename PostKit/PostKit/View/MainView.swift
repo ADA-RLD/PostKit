@@ -317,6 +317,9 @@ extension MainView {
                         .onChange(of: item.like){ _ in
                             saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
                         }
+                        .onTapGesture {
+                            deleteCaptionData(_uuid: item.id)
+                        }
                 }
             }
             .refreshable{fetchCaptionData()}
@@ -415,6 +418,7 @@ extension MainView {
 }
 
 extension MainView : MainViewProtocol {
+    
    
     func fetchStoreData() {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
@@ -516,6 +520,42 @@ extension MainView : MainViewProtocol {
             
             print("Hashtag 새로 저장 완료!\n resultId : \(newCaption.id)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
         }
+    }
+    
+    func deleteCaptionData(_uuid: UUID) {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CaptionResult")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try coreDataManager.context.execute(deleteRequest)
+        } catch {
+            print("Error deleting existing data: \(error)")
+        }
+        
+        if let index = captions.firstIndex(where: { $0.id == _uuid }) {
+            captions.remove(at: index)
+            
+            for captionModel in captions {
+                let captionEntity = CaptionResult(context: coreDataManager.context)
+                captionEntity.resultId = captionModel.id
+                captionEntity.date = captionModel.date
+                captionEntity.category = captionModel.category
+                captionEntity.caption = captionModel.caption
+                captionEntity.like = captionModel.like
+                // 다른 속성 설정
+                
+                do {
+                    try coreDataManager.save()
+                } catch {
+                    print("Error saving data: \(error)")
+                }
+            }
+        }
+    }
+    
+    func deleteHashtagData(_uuid: UUID) {
+        //아직
     }
     
     func convertDate(date: Date) -> String {
