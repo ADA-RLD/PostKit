@@ -13,8 +13,10 @@ struct KeywordModal: View {
     @State private var inputText: String = ""
     @State private var isShowingAlert: Bool = false
     @State private var pickerSelection: Int = 0
-    
-    private let pickerList: [String] = ["커피","음료","디저트"]
+    @State private var coffeePoint = coffeeKeys.map { $0.name}
+    @State private var drinkPoint = drinkKeys.map { $0.name}
+    @State private var dessertPoint = dessertKeys.map { $0.name}
+    let pickerList: [String] = ["커피","음료","디저트"]
     var body: some View {
         VStack(alignment: .leading, spacing: 17) {
             headerArea()
@@ -36,7 +38,6 @@ extension KeywordModal {
         HStack {
             Button {
                 self.presentationMode.wrappedValue.dismiss()
-                selectKeyWords.removeAll()
             } label: {
                 Text("취소")
                     .font(.system(size: 17, weight: .semibold))
@@ -113,7 +114,12 @@ extension KeywordModal {
             }
             
             if (pickerSelection == 0) {
-                
+                WrappingHStack(alignment: .leading) {
+                    ForEach(coffeePoint, id: \.self) { i in
+                        segementationElement(point: i)
+                    }
+                }
+               
             }
             else if (pickerSelection == 1) {
                 
@@ -124,8 +130,36 @@ extension KeywordModal {
          
         }
     }
-}
+    
+    private func segementationElement(point: String) -> some View {
+        Button {
+            selectKeyWords.append(point)
+            if coffeePoint.contains(point) {
+                coffeePoint.removeAll(where: { $0 == point})
+            }
+            else if dessertPoint.contains(point) {
+                dessertPoint.removeAll(where: { $0 == point})
+            }
+            else if drinkPoint.contains(point) {
+                drinkPoint.removeAll(where: { $0 == point})
+            }
+        } label: {
+            Text(point)
+                .font(.body2Regular())
+                .foregroundColor(Color.gray4)
+                .padding(EdgeInsets(top: 8, leading: radius1, bottom: 8, trailing: radius1))
+                .clipShape(RoundedRectangle(cornerRadius: radius1))
+                .overlay() {
+                    RoundedRectangle(cornerRadius: radius1)
+                    .stroke(Color.gray3,lineWidth: 1)
+                    
+                }
+        }
 
-#Preview {
-    KeywordModal(selectKeyWords: .constant([]))
+      
+    }
 }
+//
+//#Preview {
+//    KeywordModal(selectKeyWords: .constant([]))
+//}
