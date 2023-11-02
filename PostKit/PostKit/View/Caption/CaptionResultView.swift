@@ -9,14 +9,22 @@ import SwiftUI
 import CoreData
 import UIKit
 
+enum ActiveAlert {
+    case first, second
+}
 struct CaptionResultView: View {
-    //@EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
+    @State private var copyId = UUID()
     @State private var copyResult = "생성된 텍스트가 들어가요."
+    @State private var likeCopy = false //좋아요 버튼 결과뷰에서 변경될 수 있으니까 여기 선언
     @State private var isShowingToast = false
-    private let pasteBoard = UIPasteboard.general
-    @State var messages: [Message] = []
+    @State private var messages: [Message] = []
+    @State private var isPresented: Bool = false
+    @State private var activeAlert: ActiveAlert = .first
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var coinManager = CoinManager.shared
+    
+    private let pasteBoard = UIPasteboard.general
     private let chatGptService = ChatGptService()
     private let hapticManger = HapticManager.instance
     
@@ -35,7 +43,8 @@ struct CaptionResultView: View {
                 captionResult
                     .onAppear{
                         //Caption이 생성되면 바로 CoreData에 저장
-                        saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), Result: viewModel.promptAnswer)
+                        //수정을 위해 UUID를 저장
+                        copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
                     }
             }
         }
@@ -100,13 +109,36 @@ extension CaptionResultView {
                 pathManager.path.removeAll()
                 viewModel.promptAnswer = "생성된 텍스트가 들어가요."
             } rightAction: {
-                regenerateAnswer()
+                if coinManager.coin < 5 {
+                    activeAlert = .first
+                    isPresented.toggle()
+                }
+                else {
+                    activeAlert = .second
+                    isPresented.toggle()
+                }
             }
-            
+        
+            .alert(isPresented: $isPresented) {
+                switch activeAlert {
+                case .first:
+                    let cancelBtn = Alert.Button.default(Text("취소")) {
+                        
+                    }
+                    let regenreateBtn = Alert.Button.default(Text("재생성")) {
+                        if coinManager.coin < 5 {
+                            coinManager.coinUse()
+                            regenerateAnswer()
+                        }
+                    }
+                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/5"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
+                    
+                case .second:
+                    return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
+                }
+            }
         }
-        .toast(isShowing: $isShowingToast)
     }
-
 }
 
 // MARK: 코드의 가독성을 위해 function들을 따로 모았습니다.
@@ -191,14 +223,17 @@ extension CaptionResultView : CaptionResultProtocol {
         return localizedDate
     }
     
-    func saveCaptionResult(category: String, date: Date, Result: String) {
+    func saveCaptionResult(category: String, date: Date, result: String, like: Bool) -> UUID {
         let newCaption = CaptionResult(context: coreDataManager.context)
         newCaption.resultId = UUID()
         newCaption.date = date
         newCaption.category = category
-        newCaption.caption = Result
+        newCaption.caption = result
+        newCaption.like = false
         coreDataManager.save()
         print("Caption 저장 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)")
+        
+        return newCaption.resultId ?? UUID()
     }
     
     func initCaptionResult(Result: String) {
