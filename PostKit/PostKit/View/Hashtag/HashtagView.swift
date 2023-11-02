@@ -197,6 +197,17 @@ extension HashtagView {
             isActive = false
         }
     }
+    
+    func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
+        background(
+            GeometryReader { geometryProxy in
+                Color.clear
+                    .preference(key: SizePreferenceKey.self, value: geometryProxy.size)
+            }
+        )
+        .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
+    }
+    
 }
 
 //MARK: extension: HashtagView Views
