@@ -57,21 +57,21 @@ struct CaptionResultView: View {
 extension CaptionResultView {
     private var captionResult: some View {
         VStack(alignment:.leading, spacing:0) {
-            //TODO: trailing 적용이 안됌
-            VStack(alignment: .trailing) {
-                Button(action: {
-                    pathManager.path.removeAll()
-                    //완료버튼을 누르면 저장되나요?????
-                    viewModel.promptAnswer = "생성된 텍스트가 들어가요."
-                }, label: {
-                    Text("완료")
-                        .font(.body1Bold())
-                        .foregroundColor(.gray5)
-                })
-            }
-            
             ContentArea {
                 VStack(alignment: .leading, spacing: 24) {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            pathManager.path.removeAll()
+                            //완료버튼을 누르면 저장되나요?????
+                            viewModel.promptAnswer = "생성된 텍스트가 들어가요."
+                        }, label: {
+                            Text("완료")
+                                .font(.body1Bold())
+                                .foregroundColor(.gray5)
+                        })
+                    }
+                    
                     // MARK: - 타이틀 + 설명
                     VStack(alignment: .leading, spacing: 12) {
                         Text("주문하신 글이 나왔어요!")
@@ -112,7 +112,6 @@ extension CaptionResultView {
             
             // MARK: - 완료 / 재생성 버튼
             CustomDoubleeBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
-                print("이건 재생성이야")
                 if coinManager.coin < 5 {
                     activeAlert = .first
                     isPresented.toggle()
