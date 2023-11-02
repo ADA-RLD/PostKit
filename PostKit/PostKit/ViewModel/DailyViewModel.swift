@@ -88,9 +88,9 @@ extension DailyView {
                         print("Caption 생성이 무사히 완료되었습니다.")
                     }
                 },
-                receiveValue:  { res in
-                    print("res: \(res)")
-                    guard let textResponse = res.choices.first?.message.content else {return}
+                receiveValue:  { response in
+                    print("response: \(response)")
+                    guard let textResponse = response.choices.first?.message.content else {return}
                     
                     viewModel.promptAnswer = textResponse
                     viewModel.category = "메뉴"
