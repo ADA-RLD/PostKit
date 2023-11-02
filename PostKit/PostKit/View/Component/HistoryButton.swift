@@ -38,7 +38,7 @@ struct HistoryButton: View {
                         .foregroundColor(.white)
                         .padding(EdgeInsets(top: 6, leading: radius1, bottom: 6, trailing: radius1))
                 }).background(RoundedRectangle(cornerRadius: radius1).fill(Color.main))
-            }.padding(.horizontal, 16)
+            }
         }
     }
 
