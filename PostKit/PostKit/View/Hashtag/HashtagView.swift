@@ -140,7 +140,8 @@ struct HashtagView: View {
                         viewModel.locationKey = locationTags
                         viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
                         
-                        SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, Result: viewModel.hashtag)
+                        //해쉬태드 생성시 기본 좋아요는 false로 가져갑니다.
+                        SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
                         
                         print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
                         
@@ -265,7 +266,8 @@ extension HashtagView : HashtagProtocol {
                     _date: hashtagCoreData.date ?? Date(),
                     _locationTag: hashtagCoreData.locationTag ?? [""],
                     _keyword: hashtagCoreData.keyword ?? [""],
-                    _hashtag: hashtagCoreData.hashtag ?? ""
+                    _hashtag: hashtagCoreData.hashtag ?? "",
+                    _isLike: false
                 )
             }
         } catch {
@@ -274,11 +276,12 @@ extension HashtagView : HashtagProtocol {
         }
     }
     
-    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, Result: String) {
+    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) {
         let newHashtag = HashtagData(context: coreDataManager.context)
         newHashtag.resultId = UUID()
         newHashtag.date = date
-        newHashtag.hashtag = Result
+        newHashtag.hashtag = result
+        newHashtag.like = isLike
         coreDataManager.save()
         
         print("Hashtag 저장 완료!\n resultId : \(newHashtag.resultId)\n Date : \(newHashtag.date)\n Hashtag : \(newHashtag.hashtag)\n")

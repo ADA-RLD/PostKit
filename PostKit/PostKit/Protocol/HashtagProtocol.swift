@@ -13,6 +13,6 @@ protocol HashtagProtocol {
         
     func FetchHashtag()
     
-    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, Result: String)
+    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool)
     
 }
