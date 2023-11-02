@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Combine
 
 struct DailyView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -28,6 +29,8 @@ struct DailyView: View {
     
     @State var messages: [Message] = []
     @State var currentInput: String = ""
+    @State var cancellables = Set<AnyCancellable>()
+    
     let chatGptService = ChatGptService()
     
     var body: some View {
@@ -40,15 +43,12 @@ struct DailyView: View {
                             .font(.body2Bold())
                             .foregroundStyle(Color.gray4)
                         
-                        
-                        
                         VStack(alignment:.leading, spacing: 24) {
-                            
-                            
                             VStack(alignment: .leading, spacing: 12) {
                                 Text("날씨 / 계절")
                                     .foregroundStyle(Color.gray5)
                                     .font(.body1Bold())
+                                
                                 Keywords(keyName: KeywordsModel().weatherKeys , selectedIndices: self.$weatherSelected)
                                     .frame(height: isContentsOpened[0] ? 180 : 80)
                                 
