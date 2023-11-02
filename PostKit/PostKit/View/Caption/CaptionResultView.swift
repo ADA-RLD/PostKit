@@ -22,7 +22,7 @@ struct CaptionResultView: View {
     @State private var isPresented: Bool = false
     @State private var activeAlert: ActiveAlert = .first
     @ObservedObject var viewModel = ChatGptViewModel.shared
-    @ObservedObject var coinManger = CoinManager.shared
+    @ObservedObject var coinManager = CoinManager.shared
     
     private let pasteBoard = UIPasteboard.general
     private let chatGptService = ChatGptService()
@@ -109,7 +109,7 @@ extension CaptionResultView {
                 pathManager.path.removeAll()
                 viewModel.promptAnswer = "생성된 텍스트가 들어가요."
             } rightAction: {
-                if coinManger.coin < 5 {
+                if coinManager.coin < 5 {
                     activeAlert = .first
                     isPresented.toggle()
                 }
@@ -121,19 +121,19 @@ extension CaptionResultView {
         
             .alert(isPresented: $isPresented) {
                 switch activeAlert {
-                case.first:
-                    let btn1 = Alert.Button.default(Text("취소")) {
+                case .first:
+                    let cancleBtn = Alert.Button.default(Text("취소")) {
                         
                     }
-                    let btn2 = Alert.Button.default(Text("재생성")) {
-                        if coinManger.coin < 5 {
-                            coinManger.coinUse()
+                    let regenreateBtn = Alert.Button.default(Text("재생성")) {
+                        if coinManager.coin < 5 {
+                            coinManager.coinUse()
                             regenerateAnswer()
                         }
                     }
-                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManger.coin)/5"), primaryButton: btn1, secondaryButton: btn2)
+                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/5"), primaryButton: cancleBtn, secondaryButton: regenreateBtn)
                     
-                case.second:
+                case .second:
                     return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
                 }
             }
