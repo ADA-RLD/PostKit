@@ -20,6 +20,7 @@ struct MenuView: View {
     @State private var drinkSelected: [String] = []
     @State private var dessertSelected: [String] = []
     @State private var isPresented: Bool = false
+    @State private var textLength: Int = 1
     
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
@@ -33,10 +34,83 @@ struct MenuView: View {
     let chatGptService = ChatGptService()
     
     var body: some View {
+        VStack(alignment:.leading, spacing: 0) {
+            headerArea()
+            contents()
+            Spacer()
+            bottomArea()
+            
+        }
+        .onTapGesture {
+            hideKeyboard()
+        }
+        .navigationBarBackButtonHidden()
+    }
+}
+
+extension MenuView {
+    private func headerArea() -> some View {
+        CustomHeader(action: {pathManager.path.removeLast()}, title: "메뉴 글")
+    }
+    
+    private func contents() -> some View {
+        ContentArea {
+            VStack(alignment: .leading, spacing: 16) {
+                menuInput()
+                KeywordAppend()
+                SelectTextLength(selected: $textLength)
+            }
+
+        }
+    }
+    
+    private func menuInput() -> some View {
+        RoundedRectangle(cornerRadius: radius1)
+            .stroke(Color.gray2)
+            .foregroundColor(Color.white)
+            .frame(maxWidth: .infinity)
+            .frame(height: 123)
+            .overlay(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("메뉴 이름*")
+                        .font(.body1Bold())
+                        .foregroundColor(Color.gray5)
+                    CustomTextfield(text: $menuName, placeHolder: "아이스 아메리카노")
+                        .onChange(of: menuName)  {
+                            _ in if menuName.count >= 1 {
+                                isActive = true
+                            } else {
+                                isActive = false
+                            }
+                        }
+                }
+                .padding(.all,20)
+            }
+    }
+    
+    private func bottomArea() -> some View {
+        CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
+            if isActive == true {
+                if coinManager.coin < 5 {
+                    coinManager.coinUse()
+                    sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
+                    pathManager.path.append(.CaptionResult)
+                }
+                else {
+                    isPresented.toggle()
+                }
+            }
+        })
+        .alert(isPresented: $isPresented, content: {
+            return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능 합니다."))
+        })
+    }
+    
+    
+    //TODO: 뺴먹을꺼 뺴먹고 지울 예정입니다.
+    private var beforeView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            CustomHeader(action: {pathManager.path.removeLast()}, title: "메뉴 카피 생성")
-            
-            
+           
             ScrollView {
                 ContentArea {
                     VStack(alignment:.leading, spacing: 28) {
@@ -116,7 +190,7 @@ struct MenuView: View {
                 hideKeyboard()
             }
         }
-        .navigationBarBackButtonHidden()
+        
     }
 }
 

@@ -16,6 +16,7 @@ struct DailyView: View {
     @State private var dailyDessertSelected: [String] = []
     @State private var isContentsOpened = [false, false, false]
     @State private var isPresented: Bool = false
+    // TODO: 글길이가 숫자로 들어오는데 나중에 숫자로 바꾸겠습니다.
     @State private var textLength: Int = 1
     
     @ObservedObject var coinManager = CoinManager.shared
@@ -38,7 +39,7 @@ struct DailyView: View {
             contents()
               
             Spacer()
-            
+            //TODO: 모듈화 필요 BottomView로 변경 예정
             CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
                 if coinManager.coin < 5 {
                     Task{
@@ -62,11 +63,11 @@ struct DailyView: View {
 
 // MARK: View의 모둘화를 한 extension 모음입니다.
 extension DailyView {
-    
+    //MARK: Header
     private func headerArea() -> some View {
         CustomHeader(action: {pathManager.path.removeLast()}, title: "일상글")
     }
-    
+    //MARK: ContentsView
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 16) {
@@ -77,7 +78,7 @@ extension DailyView {
             }
         }
     }
-    
+    // TODO: 빼먹을꺼 빼먹고 지울 예정
     private var beforeView: some View {
         VStack(alignment: .leading, spacing: 0) {
             CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 카피 생성")
