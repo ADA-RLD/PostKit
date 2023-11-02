@@ -12,7 +12,8 @@ struct DailyView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
     @State private var isSelected: [String] = []
-    @State private var isPresented: Bool = false
+    @State private var isModalPresented: Bool = false
+    @State private var isAlertPresented: Bool = false
     // TODO: 글길이가 숫자로 들어오는데 나중에 숫자로 바꾸겠습니다.
     @State private var textLength: Int = 1
     
@@ -39,8 +40,8 @@ struct DailyView: View {
             
             bottomArea()
         }
-        .sheet(isPresented: $isPresented) {
-            KeywordModal()
+        .sheet(isPresented: $isModalPresented) {
+            KeywordModal(selectKeyWords: $isSelected)
         }
         .navigationBarBackButtonHidden()
     }
@@ -56,8 +57,8 @@ extension DailyView {
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 16) {
-                KeywordAppend(isModalToggle: $isPresented, selectKeyWords: $isSelected)
-                
+                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
+
                 SelectTextLength(selected: $textLength)
                 
             }
@@ -75,10 +76,10 @@ extension DailyView {
                 }
             }
             else {
-                isPresented.toggle()
+                isAlertPresented.toggle()
             }
         })
-        .alert(isPresented: $isPresented, content: {
+        .alert(isPresented: $isAlertPresented, content: {
             return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
         })
         

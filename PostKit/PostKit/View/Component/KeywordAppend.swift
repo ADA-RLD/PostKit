@@ -12,41 +12,42 @@ struct KeywordAppend: View {
     @Binding var selectKeyWords: [String]
     
     var body: some View {
-        RoundedRectangle(cornerRadius:radius1)
-            .stroke(Color.gray2)
-            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-            .foregroundColor(Color.white)
-            .frame(height: 60)
-            .overlay {
-                VStack(alignment: .leading, spacing: 16) {
-                    HStack {
-    
-                        Text("키워드")
-                            .font(.body1Bold())
-                            .foregroundColor(Color.gray5)
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            isModalToggle.toggle()
-                            
-                        }, label: {
-                            Text("+ 추가")
-                                .font(.body1Bold())
-                                .foregroundColor(Color.gray5)
-                        })
-                    }
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                
+                Text("키워드")
+                    .font(.body1Bold())
+                    .foregroundColor(Color.gray5)
+                
+                Spacer()
+                
+                Button(action: {
+                    isModalToggle.toggle()
                     
-                    WrappingHStack(alignment: .leading) {
-                        ForEach(selectKeyWords, id: \.self) { index in
-                            CustomHashtag(tagText: index) {
-                                selectKeyWords.removeAll(where: { $0 == index})
-                            }
+                }, label: {
+                    Text("+ 추가")
+                        .font(.body1Bold())
+                        .foregroundColor(Color.gray5)
+                })
+            }
+    
+            if !selectKeyWords.isEmpty {
+                WrappingHStack(alignment: .leading) {
+                    ForEach(selectKeyWords, id: \.self) { index in
+                        CustomHashtag(tagText: index) {
+                            selectKeyWords.removeAll(where: { $0 == index})
                         }
                     }
-                    .padding(.all,20)
                 }
             }
+        }
+        .padding(.all,20)
+        .overlay() {
+            RoundedRectangle(cornerRadius:radius1)
+                .stroke(Color.gray2)
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                .foregroundColor(Color.clear)
+        }
     }
 }
 //#Preview {
