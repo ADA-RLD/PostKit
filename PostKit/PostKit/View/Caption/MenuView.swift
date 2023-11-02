@@ -12,14 +12,16 @@ struct MenuView: View {
     //@EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
-    @State var menuName = ""
-    @State var isCoffeeOpened = true
-    @State var isDrinkOpened = false
-    @State var isDessertOpened = false
-    @State var coffeeSelected: [String] = []
-    @State var drinkSelected: [String] = []
-    @State var dessertSelected: [String] = []
+    @State private var menuName = ""
+    @State private var isCoffeeOpened = true
+    @State private var isDrinkOpened = false
+    @State private var isDessertOpened = false
+    @State private var coffeeSelected: [String] = []
+    @State private var drinkSelected: [String] = []
+    @State private var dessertSelected: [String] = []
+    @State private var isPresented: Bool = false
     
+    @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
     //CoreData Data Class
@@ -98,9 +100,18 @@ struct MenuView: View {
             Spacer()
             CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
                 if isActive == true {
-                    sendMessage()
-                    pathManager.path.append(.CaptionResult)
+                    if coinManager.coin < 5 {
+                        coinManager.coinUse()
+                        sendMessage()
+                        pathManager.path.append(.CaptionResult)
+                    }
+                    else {
+                        isPresented.toggle()
+                    }
                 }
+            })
+            .alert(isPresented: $isPresented, content: {
+                return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능 합니다."))
             })
             .onTapGesture {
                 hideKeyboard()
