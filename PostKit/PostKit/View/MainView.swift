@@ -50,6 +50,10 @@ struct MainView: View {
                                 Text("히스토리")
                             }
                             .onTapGesture {hapticManger.notification(type: .success)}
+                            .onAppear{
+                                fetchCaptionData()
+                                fetchHashtagData()
+                            }
                     }
                     .navigationDestination(for: StackViewType.self) { stackViewType in
                         switch stackViewType {
