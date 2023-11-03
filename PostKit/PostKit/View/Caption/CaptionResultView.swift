@@ -68,7 +68,6 @@ extension CaptionResultView {
                             if isCaptionChange {
                                 saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
                             }
-                                
                             pathManager.path.removeAll()
                             viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                         }, label: {
