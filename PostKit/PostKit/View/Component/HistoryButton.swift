@@ -20,7 +20,6 @@ struct HistoryButton: View {
                 Text(resultText)
                     .font(.body1Bold())
                     .foregroundColor(Color.gray5)
-//                                .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
                 Spacer()
                 HStack(alignment: .bottom) {
                     Button(action: {
