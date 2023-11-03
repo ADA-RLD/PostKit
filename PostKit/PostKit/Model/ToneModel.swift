@@ -8,4 +8,11 @@
 
 import Foundation
 
-public var tones: [String] = ["친구같은","전문적인","친절한","재치있는","열정적인","감성적인","활발한","세련된"]
+struct Tone: Hashable {
+    let tone:String
+    let toneExample: String
+    let isBest: Bool
+}
+
+
+
