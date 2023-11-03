@@ -31,7 +31,6 @@ struct CaptionResultView: View {
     private let pasteBoard = UIPasteboard.general
     private let chatGptService = ChatGptService()
     private let hapticManger = HapticManager.instance
-    
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
@@ -110,6 +109,7 @@ extension CaptionResultView {
             
             // MARK: - 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
+                // TODO: - 상수 값으로의 변경 필요
                 if coinManager.coin < 5 {
                     activeAlert = .first
                     isPresented.toggle()
@@ -151,18 +151,8 @@ extension CaptionResultView {
     func regenerateAnswer() { /* Daily, Menu를 선택하지 않아도 이전 답변을 참고하여 재생성 합니다.*/
         Task{
             viewModel.promptAnswer = "생성된 텍스트가 들어가요."
-            if storeModel.tone.contains("기본") {
-                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)를 운영하고 있으며 평범한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
-            }else{
-                
-                self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)"))
-                
-                for _tone in storeModel.tone {
-                    self.messages.append(Message(id: UUID(), role: .system, content: "\(_tone == "기본" ? "평범한": _tone)"))
-                }
-                
-                self.messages.append(Message(id: UUID(), role: .system, content:"말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
-            }
+            
+            self.messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
             let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
             self.messages.append(newMessage)
 

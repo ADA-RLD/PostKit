@@ -19,21 +19,20 @@ struct DailyView: View {
     @State private var isPresented: Bool = false
     // TODO: 글길이가 숫자로 들어오는데 나중에 숫자로 바꾸겠습니다.
     @State private var textLength: Int = 1
-    
-    @ObservedObject var coinManager = CoinManager.shared
-    @ObservedObject var viewModel = ChatGptViewModel.shared
-    
-    //CoreData Manager
-    let storeDataManager = CoreDataManager.instance
-    
-    //CoreData Data Class
-    @StateObject var storeModel : StoreModel
-    
     @State var messages: [Message] = []
     @State var currentInput: String = ""
     @State var cancellables = Set<AnyCancellable>()
     
+    //CoreData Data Class
+    @StateObject var storeModel : StoreModel
+    
+    @ObservedObject var coinManager = CoinManager.shared
+    @ObservedObject var viewModel = ChatGptViewModel.shared
+
     let chatGptService = ChatGptService()
+    //CoreData Manager
+    let storeDataManager = CoreDataManager.instance
+    let textLengthArr: [Int] = [100, 200, 300]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -43,10 +42,10 @@ struct DailyView: View {
               
             Spacer()
             //TODO: 모듈화 필요 BottomView로 변경 예정
-            CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
+            CTABtn(btnLabel: "글 생성", isActive: .constant(true), action: {
                 if coinManager.coin > CoinManager.minimalCoin {
                     Task{
-                        sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected)
+                        sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
                         pathManager.path.append(.CaptionResult)
                         coinManager.coinUse()
                         print(coinManager.coin)
@@ -84,7 +83,7 @@ extension DailyView {
     // TODO: 빼먹을꺼 빼먹고 지울 예정
     private var beforeView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 카피 생성")
+            CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 글 생성")
             ScrollView {
                 ContentArea {
                     VStack(alignment: .leading, spacing: 28) {
@@ -174,10 +173,10 @@ extension DailyView {
             }
         }
         
-        return CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
+        return CTABtn(btnLabel: "글 생성", isActive: .constant(true), action: {
             if coinManager.coin > CoinManager.minimalCoin {
                 Task{
-                    sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected)
+                    sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
                     pathManager.path.append(.CaptionResult)
                     coinManager.coinUse()
                     print(coinManager.coin)
