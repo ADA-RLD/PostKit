@@ -31,10 +31,10 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-            if isFirstLaunching == true {
+            //이미 Bool 값이 True면 비교 불필요
+            if isFirstLaunching {
                 OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
-            }
-            else {
+            } else {
                 NavigationStack(path: $pathManager.path) {
                     TabView {
                         mainCaptionView
@@ -42,21 +42,15 @@ struct MainView: View {
                                 Image(systemName: "plus.app.fill")
                                 Text("생성")
                             }
-                            .onTapGesture {
-                                hapticManger.notification(type: .success)
-                            }
+                            .onTapGesture {hapticManger.notification(type: .success)}
                         
                         mainHistoryView
                             .tabItem {
                                 Image(systemName: "clock.fill")
                                 Text("히스토리")
                             }
-                            .onTapGesture {
-                                hapticManger.notification(type: .success)
-                            }
-                            
+                            .onTapGesture {hapticManger.notification(type: .success)}
                     }
-                    // TODO: 뷰 만들면 여기 스위치문에 넣어주세요
                     .navigationDestination(for: StackViewType.self) { stackViewType in
                         switch stackViewType {
                         case .Menu:
@@ -91,9 +85,7 @@ struct MainView: View {
                     fetchHashtagData()
                 }
             }
-            
         }
-        
     }
 }
 
@@ -155,11 +147,9 @@ extension MainView {
                         hashtagArea()
                     }
                 }
-                
                 Spacer()
             }
         }
-       
     }
     
     private func captionBtn(captionName: String, action: @escaping () -> Void) -> some View {
@@ -257,10 +247,8 @@ extension MainView {
                         hashtagHistory
                             .highPriorityGesture(DragGesture())
                             .tag("해시태그")
-                   
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
-                    
                 }
             }
         }
