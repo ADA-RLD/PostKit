@@ -57,11 +57,9 @@ extension HashtagResultView {
                     }
                     
                     VStack(alignment: .leading, spacing: 12) {
-                        
                         Text("주문하신 해시태그가 나왔어요!")
                             .font(.title1())
                             .foregroundColor(.black)
-                        
                     }
                     VStack {
                         ZStack(alignment: .leading) {
