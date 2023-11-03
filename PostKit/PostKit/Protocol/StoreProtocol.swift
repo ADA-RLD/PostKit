@@ -21,6 +21,4 @@ protocol StoreProtocol {
     ///   - tone: 선택한 글 톤
     func fetchStoreData()
     
-    /// 가게 정보를 초기화합니다.
-    func deletStoreData()
 }
