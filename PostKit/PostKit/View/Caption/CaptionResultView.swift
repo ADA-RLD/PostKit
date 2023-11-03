@@ -163,20 +163,6 @@ extension CaptionResultView {
         Task{
             viewModel.promptAnswer = "생성된 텍스트가 들어가요."
             
-            var toneInfo = ""
-            
-            for _tone in storeModel.tone {
-                if _tone == "" {
-                    break
-                }
-                
-                toneInfo += _tone + ","
-            }
-            
-            if toneInfo == "" {
-                toneInfo = "평범"
-            }
-            
             self.messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
             let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
             self.messages.append(newMessage)
