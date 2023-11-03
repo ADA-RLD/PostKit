@@ -64,7 +64,7 @@ extension HashtagResultView {
             Spacer()
             
             //MARK: 완료 / 재생성 버튼
-            CustomDoubleBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성", leftAction: {
+            CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성", leftAction: {
                 pathManager.path.removeAll()
             }, rightAction: {
                 viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)

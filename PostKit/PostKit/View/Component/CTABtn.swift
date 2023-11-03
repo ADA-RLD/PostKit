@@ -37,7 +37,7 @@ struct CTABtn: View {
 }
 
 // TODO: 색상 애셋 추가되면 색 바꿔야 합니다.
-struct CustomDoubleBtn: View {
+struct CustomDoubleeBtn: View {
     var leftBtnLabel: String
     var rightBtnLabel: String
     var leftAction: () -> Void
@@ -77,5 +77,5 @@ struct CustomDoubleBtn: View {
 }
 
 #Preview {
-    CustomDoubleBtn(leftBtnLabel: "d", rightBtnLabel: "d", leftAction: {print("hello")}, rightAction: {print("hello")})
+    CustomDoubleeBtn(leftBtnLabel: "d", rightBtnLabel: "d", leftAction: {print("hello")}, rightAction: {print("hello")})
 }

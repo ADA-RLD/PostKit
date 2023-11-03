@@ -22,7 +22,6 @@ struct CaptionResultView: View {
     @State private var messages: [Message] = []
     @State private var isPresented: Bool = false
     @State private var activeAlert: ActiveAlert = .first
-    @State private var showModal = false
     @State private var cancellables = Set<AnyCancellable>()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
@@ -61,29 +60,19 @@ extension CaptionResultView {
         VStack(alignment:.leading, spacing:0) {
             ContentArea {
                 VStack(alignment: .leading, spacing: 24) {
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            //TODO: 수정된 CoreData 저장 필요
-                            pathManager.path.removeAll()
-                            viewModel.promptAnswer = "생성된 텍스트가 들어가요."
-                        }, label: {
-                            Text("완료")
-                                .font(.body1Bold())
-                                .foregroundColor(.gray5)
-                        })
-                    }
-                    
                     // MARK: - 타이틀 + 설명
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("주문하신 글이 나왔어요!")
+                        Text("주문하신 카피가 나왔어요!")
                             .font(.title1())
                             .foregroundStyle(Color.gray6)
+                        Text("생성된 피드가 마음에 들지 않는다면\n다시 생성하기 버튼을 통해 새로운 피드를 생성해 보세요.")
+                            .font(.body2Bold())
+                            .foregroundStyle(Color.gray4)
                     }
                     
                     // MARK: - 생성된 카피 출력 + 복사하기 버튼
                     VStack(alignment: .trailing, spacing: 20) {
-                        ZStack(alignment: .leading) {
+                        VStack(alignment: .leading) {
                             ScrollView(showsIndicators: false){
                                 Text(viewModel.promptAnswer)
                                     .lineLimit(nil)
@@ -92,36 +81,37 @@ extension CaptionResultView {
                                     .foregroundStyle(Color.gray5)
                             }
                             Spacer()
-                            VStack {
-                                Spacer()
-                                // TODO: historyLeftAction 추가
-                                HistoryButton(buttonText: "수정하기", historyRightAction: {
-                                    self.showModal = true
-                                }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
-                                    ResultUpdateModalView(
-                                        showModal: $showModal,
-                                        stringContent: viewModel.promptAnswer,
-                                        resultUpdateType: .captionResult
-                                    ) { updatedText in
-                                        viewModel.promptAnswer = updatedText
-                                    }
-                                })
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 400)
+                        .background(Color.gray1)
+                        .cornerRadius(radius2)
+                        
+                        Button {
+                            copyToClipboard()
+                            // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
+                        } label: {
+                            HStack(spacing: 4.0) {
+                                Image(systemName: "doc.on.doc")
+                                Text("복사하기")
                             }
+                            .foregroundStyle(Color.main)
+                            .font(.body1Bold())
+                            .disabled(isShowingToast)
                         }
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 20)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .frame(height: 400)
-                    .background(Color.gray1)
-                    .cornerRadius(radius2)
                 }
             }
             Spacer()
             
-            // MARK: - 재생성 / 복사 버튼
-            CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
-                if coinManager.coin < 5 {
+            // MARK: - 완료 / 재생성 버튼
+            CustomDoubleeBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성") {
+                pathManager.path.removeAll()
+                viewModel.promptAnswer = "생성된 텍스트가 들어가요."
+            } rightAction: {
+                if coinManager.coin > CoinManager.minimalCoin {
                     activeAlert = .first
                     isPresented.toggle()
                 }
@@ -129,11 +119,8 @@ extension CaptionResultView {
                     activeAlert = .second
                     isPresented.toggle()
                 }
-            } rightAction: {
-                // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
-                copyToClipboard()
             }
-            .toast(isShowing: $isShowingToast)
+        
             .alert(isPresented: $isPresented) {
                 switch activeAlert {
                 case .first:
@@ -167,10 +154,10 @@ extension CaptionResultView {
             }else{
                 
                 self.messages.append(Message(id: UUID(), role: .system, content: "너는 \(storeModel.storeName == "" ? "카페": storeModel.storeName)"))
-                
-                for _tone in storeModel.tone {
-                    self.messages.append(Message(id: UUID(), role: .system, content: "\(_tone == "기본" ? "평범한": _tone)"))
-                }
+
+                  for _tone in storeModel.tone {
+                      self.messages.append(Message(id: UUID(), role: .system, content: "\(_tone == "기본" ? "평범한": _tone)"))
+                  }
                 
                 self.messages.append(Message(id: UUID(), role: .system, content:"말투를 가지고 있어. 글은 존댓말로 작성해줘. 꼭 글자수는 150자 정도로 작성해줘."))
             }
@@ -269,11 +256,11 @@ extension CaptionResultView : CaptionResultProtocol {
     }
     
     func initCaptionResult(Result: String) {
-        //        Result = "생성된 텍스트가 들어가요."
+//        Result = "생성된 텍스트가 들어가요."
     }
+    
 }
 
-//
 //#Preview {
-//    CaptionResultView
+//    CaptionResultView()
 //}
