@@ -155,7 +155,7 @@ struct HashtagView: View {
                         viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
                         
                         //해쉬태드 생성시 기본 좋아요는 false로 가져갑니다.
-                        SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
+                        saveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
                         
                         print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
                         
@@ -172,7 +172,7 @@ struct HashtagView: View {
                     .zIndex(1)
             }
         }
-        .onAppear{FetchHashtag()}
+        .onAppear{fetchHashtag()}
         .navigationBarBackButtonHidden()
     }
 }
@@ -278,7 +278,7 @@ extension HashtagView : HashtagProtocol {
         return localizedDate
     }
     
-    func FetchHashtag() {
+    func fetchHashtag() {
         let HashtagRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
         
         do {
@@ -299,7 +299,7 @@ extension HashtagView : HashtagProtocol {
         }
     }
     
-    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) {
+    func saveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) {
         let newHashtag = HashtagData(context: coreDataManager.context)
         newHashtag.resultId = UUID()
         newHashtag.date = date

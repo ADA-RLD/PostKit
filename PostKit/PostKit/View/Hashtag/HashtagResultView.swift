@@ -81,7 +81,7 @@ extension HashtagResultView {
                     .onChange(of: viewModel.hashtag){ _ in
                         // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
                         //isLike 변수는 좋아요 입니다.
-                        SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
+                        saveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
                     }
                 }
             }
@@ -133,11 +133,11 @@ extension HashtagResultView : HashtagProtocol {
         return localizedDate
     }
     
-    func FetchHashtag() {
+    func fetchHashtag() {
         //여기서는 fetch하지 않아요
     }
     
-    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) {
+    func saveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) {
         let newHashtag = HashtagData(context: coreDataManager.context)
         newHashtag.resultId = UUID()
         newHashtag.date = date
