@@ -14,6 +14,7 @@ struct HashtagResultView: View {
     @State private var isLike = false //좋아요 버튼은 결과뷰에서만 존재합니다
     @State private var isPresented: Bool = false
     @State private var showModal = false
+    @State private var isCaptionChange = false
     @State private var activeAlert: ActiveAlert = .first
     @ObservedObject var coinManager = CoinManager.shared
     @EnvironmentObject var pathManager: PathManager
@@ -46,7 +47,7 @@ extension HashtagResultView {
                     HStack {
                         Spacer()
                         Button(action: {
-                            //TODO: 수정된 CoreData 저장 필요
+                            //TODO: 수정된 해시태그 CoreData 저장 필요
                             pathManager.path.removeAll()
                             
                         }, label: {
@@ -68,7 +69,7 @@ extension HashtagResultView {
                                 self.showModal = true
                             }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                 ResultUpdateModalView(
-                                    showModal: $showModal,
+                                    showModal: $showModal, isChange: $isCaptionChange,
                                     stringContent: viewModel.hashtag,
                                     resultUpdateType: .hashtagResult
                                 ) { updatedText in

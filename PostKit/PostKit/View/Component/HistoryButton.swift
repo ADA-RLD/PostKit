@@ -15,8 +15,8 @@ struct HistoryButton: View {
     var historyLeftAction: () -> Void
     
     var body: some View {
-        ZStack (alignment: .leading) {
-            VStack {
+        ZStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 Text(resultText)
                     .font(.body1Bold())
                     .foregroundColor(Color.gray5)
@@ -54,7 +54,7 @@ struct HistoryButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 400)
             .background(Color.gray1)
-            .cornerRadius(radius2)
+            .cornerRadius(16)
         }
     }
 }
