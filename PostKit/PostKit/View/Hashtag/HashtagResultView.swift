@@ -12,6 +12,10 @@ struct HashtagResultView: View {
  
     @State private var isShowingToast = false
     @State private var isLike = false //좋아요 버튼은 결과뷰에서만 존재합니다
+    @State private var isPresented: Bool = false
+    @State private var showModal = false
+    @State private var activeAlert: ActiveAlert = .first
+    @ObservedObject var coinManager = CoinManager.shared
     @EnvironmentObject var pathManager: PathManager
     
     //Create Hashtag
@@ -61,7 +65,24 @@ extension HashtagResultView {
                     }
                     
                     VStack(alignment: .trailing, spacing: 20) {
-                        hashtagRectangle(hashTags: "\(viewModel.hashtag)")
+                        ZStack(alignment: .leading) {
+                            // TODO: historyLeftAction 추가
+                            HistoryButton(buttonText: "수정하기", historyRightAction: {
+                                self.showModal = true
+                            }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
+                                ResultUpdateModalView(
+                                    showModal: $showModal,
+                                    stringContent: viewModel.hashtag,
+                                    resultUpdateType: .hashtagResult
+                                ) { updatedText in
+                                    viewModel.hashtag = updatedText
+                                }
+                            })
+                            Text(viewModel.hashtag)
+                                .font(.body1Bold())
+                                .foregroundColor(Color.gray5)
+                                .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
+                        }
                     }
                     .onChange(of: viewModel.hashtag){ _ in
                         // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
@@ -72,15 +93,40 @@ extension HashtagResultView {
             }
             Spacer()
             
-            //MARK: 완료 / 재생성 버튼
-            CustomDoubleBtn(leftBtnLabel: "완료", rightBtnLabel: "재생성", leftAction: {
-                pathManager.path.removeAll()
-            }, rightAction: {
-                viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
-            })
-            
+            //MARK: 재생성 / 복사 버튼
+            CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
+                if coinManager.coin < 5 {
+                    activeAlert = .first
+                    isPresented.toggle()
+                }
+                else {
+                    activeAlert = .second
+                    isPresented.toggle()
+                }
+            } rightAction: {
+                // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
+                copyToClipboard()
+            }
+            .toast(isShowing: $isShowingToast)
+            .alert(isPresented: $isPresented) {
+                switch activeAlert {
+                case .first:
+                    let cancelBtn = Alert.Button.default(Text("취소")) {
+                        
+                    }
+                    let regenreateBtn = Alert.Button.default(Text("재생성")) {
+                        if coinManager.coin > CoinManager.minimalCoin {
+                            coinManager.coinUse()
+                            viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
+                        }
+                    }
+                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/5"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
+                    
+                case .second:
+                    return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
+                }
+            }
         }
-        .toast(isShowing: $isShowingToast)
     }
     
     private func hashtagRectangle(hashTags: String) -> some View {
@@ -93,7 +139,6 @@ extension HashtagResultView {
                     .foregroundColor(Color.gray5)
                     .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
             }
-          
     }
 }
 
@@ -120,8 +165,6 @@ extension HashtagResultView : HashtagProtocol {
         
         print("Hashtag 저장 완료!\n resultId : \(newHashtag.resultId)\n Date : \(newHashtag.date)\n Hashtag : \(newHashtag.hashtag)\n")
     }
-    
-    
 }
 
 //MARK: Function
