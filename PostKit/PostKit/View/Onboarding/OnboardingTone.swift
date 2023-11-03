@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct OnboardingTone: View {
-    @ObservedObject var onboardingRouter = OnboardingRouter.shared
-    @State var isActive: Bool = false
     
+    @State var isActive: Bool = false
     //Core Data 저장을 위해 가지고 나가기
     @Binding var cafeTone : [String]
+    
+    @ObservedObject var onboardingRouter = OnboardingRouter.shared
     
     var body: some View {
         VStack(alignment:.leading,spacing: 0) {
@@ -37,7 +38,6 @@ struct OnboardingTone: View {
                         .onChange(of: cafeTone) { _ in
                             isActiveCheck()
                         }
-                    
                 }
             }
             
@@ -49,7 +49,6 @@ struct OnboardingTone: View {
 }
 
 extension OnboardingTone {
-    
     private func isActiveCheck() {
         if cafeTone .isEmpty {
             isActive = false
