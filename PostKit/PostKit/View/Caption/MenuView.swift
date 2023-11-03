@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Combine
 
 struct MenuView: View {
     //@EnvironmentObject var appstorageManager: AppstorageManager
@@ -32,23 +33,20 @@ struct MenuView: View {
     
     @State var messages: [Message] = []
     @State var currentInput: String = ""
+    @State var cancellables = Set<AnyCancellable>()
     
     let chatGptService = ChatGptService()
+    let textLengthArr: [Int] = [100, 200, 300]
     
     var body: some View {
         VStack(alignment:.leading, spacing: 0) {
-            
             headerArea()
-            
             contents()
-            
             Spacer()
-            
             bottomArea()
-            
         }
         .sheet(isPresented: $isModalPresented, content: {
-            KeywordModal(selectKeyWords: $isSelected, modalType: .menu ,pickerList: ["커피","음료","디저트"])
+            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, modalType: .menu ,pickerList: ["커피","음료","디저트"])
         })
         .onTapGesture {
             hideKeyboard()
@@ -98,11 +96,11 @@ extension MenuView {
     }
     
     private func bottomArea() -> some View {
-        CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
+        CTABtn(btnLabel: "글 생성", isActive: self.$isActive, action: {
             if isActive == true {
                 if coinManager.coin > CoinManager.minimalCoin {
                     coinManager.coinUse()
-                    sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
+                    sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
                     pathManager.path.append(.CaptionResult)
                 }
                 else {

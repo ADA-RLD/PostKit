@@ -9,18 +9,19 @@ import Foundation
 
 extension MenuView {
     // MARK: - Chat Gpt API에 응답 요청
-    func sendMessage(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String){
+    func sendMessage(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String, textLenth: Int){
         Task{
-            createPrompt(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
+            createPrompt(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLength: textLenth)
             self.messages.append(Message(id: UUID(), role: .user, content: self.currentInput))
-            await createCaption()
+            createCaption()
         }
     }
     
     // MARK: - Prompt 생성
-    func createPrompt(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String){
+    func createPrompt(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String, textLength: Int){
         var pointText = ""
         var toneInfo = ""
+        var basicPrompt = ""
         
         for _tone in storeModel.tone {
             if _tone == "" {
@@ -34,10 +35,11 @@ extension MenuView {
             toneInfo = "평범"
         }
         
-        self.messages.append(Message(id: UUID(), role: .system, content:"너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo)한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 150자 정도로 작성해줘."))
+        basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo)한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자 정도로 작성해줘."
+        self.messages.append(Message(id: UUID(), role: .system, content: basicPrompt))
+        print(basicPrompt)
+        viewModel.basicPrompt = basicPrompt
         
-        print("[생성 정보]\n너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo)한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 150자 정도로 작성해줘.")
-
         if !coffeeSelected.isEmpty {
             pointText = pointText + "이 메뉴의 특징으로는 "
             
@@ -70,13 +72,28 @@ extension MenuView {
     }
     
     // MARK: - Caption 생성
-    func createCaption() async{
+    func createCaption() {
         viewModel.prompt = self.currentInput
         self.currentInput = ""
-        let response = await chatGptService.sendMessage(messages: self.messages)
-        viewModel.promptAnswer = response?.choices.first?.message.content == nil ? "" : response!.choices.first!.message.content
-        viewModel.category = "메뉴"
-        
-        print(response as Any)
+        chatGptService.sendMessage(messages: self.messages)
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .failure(let error):
+                        // TODO: - 오류 코드를 기반으로 오류 처리 진행 필요
+                        print("error 발생. error code: \(error._code)")
+                    case .finished:
+                        print("Caption 생성이 무사히 완료되었습니다.")
+                    }
+                },
+                receiveValue:  { response in
+                    print("response: \(response)")
+                    guard let textResponse = response.choices.first?.message.content else {return}
+                    
+                    viewModel.promptAnswer = textResponse
+                    viewModel.category = "메뉴"
+                }
+            )
+            .store(in: &cancellables)
     }
 }

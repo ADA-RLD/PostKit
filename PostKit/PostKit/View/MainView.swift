@@ -336,6 +336,10 @@ extension MainView {
                         .onChange(of: item.hashtag){ _ in
                             saveHashtageData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                         }
+                        .onTapGesture {
+                            deleteHashtagData(_uuid: item.id)
+                            fetchHashtagData()
+                        }
                 }
             }
             .refreshable {fetchHashtagData()}
@@ -420,7 +424,6 @@ extension MainView {
 
 extension MainView : MainViewProtocol {
     
-   
     func fetchStoreData() {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
         
@@ -526,17 +529,19 @@ extension MainView : MainViewProtocol {
     func deleteCaptionData(_uuid: UUID) {
         let fetchRequest = NSFetchRequest<CaptionResult>(entityName: "CaptionResult")
         
-        // NSPredicate를 사용하여 조건을 설정
+        // NSPredicate를 사용하여 UUID가 같을 경우 삭제
         let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
         fetchRequest.predicate = predicate
         
         do {
             let captionArray = try coreDataManager.context.fetch(fetchRequest)
             
+            //이곳에서 삭제 합니다.
             for captionEntity in captionArray {
                 coreDataManager.context.delete(captionEntity)
             }
             
+            //코어데이터에 삭제 후 결과를 저장
             try coreDataManager.context.save()
         } catch {
             print("Error deleting data: \(error)")
@@ -544,7 +549,23 @@ extension MainView : MainViewProtocol {
     }
     
     func deleteHashtagData(_uuid: UUID) {
+        let fetchRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
         
+        // NSPredicate를 사용하여 UUID가 같을 경우 삭제
+        let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
+        fetchRequest.predicate = predicate
+        
+        do {
+            let hashtagArray = try coreDataManager.context.fetch(fetchRequest)
+            
+            for hashtagEntity in hashtagArray {
+                coreDataManager.context.delete(hashtagEntity)
+            }
+            
+            try coreDataManager.context.save()
+        } catch {
+            print("Error deleting data: \(error)")
+        }
     }
     
     func convertDate(date: Date) -> String {
