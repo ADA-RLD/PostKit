@@ -21,6 +21,7 @@ extension MenuView {
     func createPrompt(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String){
         var pointText = ""
         var toneInfo = ""
+        var basicPrompt = ""
         
         for _tone in storeModel.tone {
             if _tone == "" {
@@ -34,9 +35,10 @@ extension MenuView {
             toneInfo = "평범"
         }
         
-        self.messages.append(Message(id: UUID(), role: .system, content:"너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo)한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 150자 정도로 작성해줘."))
-        
-        print("[생성 정보]\n너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo)한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 150자 정도로 작성해줘.")
+        basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo)한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자 정도로 작성해줘."
+        self.messages.append(Message(id: UUID(), role: .system, content: basicPrompt))
+        print(basicPrompt)
+        viewModel.basicPrompt = basicPrompt
         
         if !coffeeSelected.isEmpty {
             pointText = pointText + "이 메뉴의 특징으로는 "
