@@ -28,7 +28,6 @@ struct CustomHeader: View {
         .padding(.leading,16)
         .padding(.trailing, 40.0)
         .frame(height: 60)
-        
     }
 }
 
@@ -45,9 +44,6 @@ struct OnboardingCustomHeader: View {
                     .frame(width: 24, height: 24)
             })
             Spacer()
-           
-            
-            
         }
         .padding(.trailing, 40.0)
         .padding(.leading,16)

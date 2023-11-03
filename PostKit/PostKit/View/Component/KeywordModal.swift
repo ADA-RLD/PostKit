@@ -13,7 +13,11 @@ enum KeywordModalType {
 }
 
 struct KeywordModal: View {
+    private let maxCount: Int = 5
     @Binding var selectKeyWords: [String]
+    @Binding var firstSegementSelected: [String]
+    @Binding var secondSegementSelected: [String]
+    @Binding var thirdSegementSelected: [String]
     @Environment(\.presentationMode) var presentationMode
     @State private var inputText: String = ""
     @State private var isShowingAlert: Bool = false
@@ -77,10 +81,10 @@ extension KeywordModal {
     private func keywordinputArea() -> some View {
         VStack(alignment: .leading, spacing: 16) {
             CustomTextfield(text: $inputText, placeHolder: "키워드를 추가해보세요",customTextfieldState: .reuse) {
-                if !inputText.isEmpty && selectKeyWords.count <= 5 {
+                if !inputText.isEmpty && selectKeyWords.count < maxCount {
                     selectKeyWords.append(inputText)
                 }
-                else if selectKeyWords.count > 5 {
+                else if selectKeyWords.count > maxCount {
                     isShowingAlert = true
                 }
             }
@@ -90,6 +94,17 @@ extension KeywordModal {
                     ForEach(selectKeyWords, id: \.self) { i in
                         CustomHashtag(tagText: i) {
                             selectKeyWords.removeAll(where: { $0 == i})
+                            
+                            if firstSegementSelected.contains(i) {
+                                firstSegementSelected.removeAll(where: { $0 == i})
+                            }
+                            else if secondSegementSelected.contains(i) {
+                                secondSegementSelected.removeAll(where: {$0 == i})
+                            }
+                            else if thirdSegementSelected.contains(i) {
+                                thirdSegementSelected.removeAll(where: {$0 == i})
+                            }
+                            
                             if modalType == .menu {
                                 if let coffeeTmp = coffeeKeys.firstIndex(where: { $0.name == i }) {
                                     firstSegmentPoint.insert(i, at: coffeeTmp)
@@ -178,15 +193,18 @@ extension KeywordModal {
     
     private func segementationElement(point: String) -> some View {
         Button {
-            if selectKeyWords.count < 5 {
+            if selectKeyWords.count < maxCount {
                 if modalType == .menu {
                     if firstSegmentPoint.contains(point) {
+                        firstSegementSelected.append(point)
                         firstSegmentPoint.removeAll(where: { $0 == point})
                     }
                     else if thirdSegmentPoint.contains(point) {
+                        thirdSegementSelected.append(point)
                         thirdSegmentPoint.removeAll(where: { $0 == point})
                     }
                     else if secondSegmentPoint.contains(point) {
+                        secondSegementSelected.append(point)
                         secondSegmentPoint.removeAll(where: { $0 == point})
                     }
                 }
