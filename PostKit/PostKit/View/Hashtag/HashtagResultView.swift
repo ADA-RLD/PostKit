@@ -39,15 +39,24 @@ extension HashtagResultView {
             ContentArea {
                 VStack(alignment: .leading, spacing: 24) {
                     
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            //TODO: 수정된 CoreData 저장 필요
+                            pathManager.path.removeAll()
+                            
+                        }, label: {
+                            Text("완료")
+                                .font(.body1Bold())
+                                .foregroundColor(.gray5)
+                        })
+                    }
+                    
                     VStack(alignment: .leading, spacing: 12) {
                         
-                        Text("주문하신 해시태그가 나왔어요")
+                        Text("주문하신 해시태그가 나왔어요!")
                             .font(.title1())
                             .foregroundColor(.black)
-                        
-                        Text("생성된 해시태그가 마음에 들지 않는다면\n재생성 버튼을 통해 새로운 해시태그를 생성해 보세요.")
-                            .font(.body2Bold())
-                            .foregroundColor(Color.gray4)
                         
                     }
                     
