@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HistoryButton: View {
+    
+    @Binding var resultText: String
     var buttonText: String
     var historyRightAction: () -> Void
     var historyLeftAction: () -> Void
@@ -15,6 +17,10 @@ struct HistoryButton: View {
     var body: some View {
         ZStack (alignment: .leading) {
             VStack {
+                Text(resultText)
+                    .font(.body1Bold())
+                    .foregroundColor(Color.gray5)
+//                                .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
                 Spacer()
                 HStack(alignment: .bottom) {
                     Button(action: {
@@ -54,6 +60,3 @@ struct HistoryButton: View {
     }
 }
 
-#Preview {
-    HistoryButton(buttonText: "저장하기", historyRightAction: {}, historyLeftAction: {})
-}

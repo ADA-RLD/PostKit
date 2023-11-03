@@ -63,11 +63,10 @@ extension HashtagResultView {
                             .foregroundColor(.black)
                         
                     }
-                    
-                    VStack(alignment: .trailing, spacing: 20) {
+                    VStack {
                         ZStack(alignment: .leading) {
                             // TODO: historyLeftAction 추가
-                            HistoryButton(buttonText: "수정하기", historyRightAction: {
+                            HistoryButton(resultText: $viewModel.hashtag, buttonText: "수정하기", historyRightAction: {
                                 self.showModal = true
                             }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                 ResultUpdateModalView(
@@ -78,10 +77,6 @@ extension HashtagResultView {
                                     viewModel.hashtag = updatedText
                                 }
                             })
-                            Text(viewModel.hashtag)
-                                .font(.body1Bold())
-                                .foregroundColor(Color.gray5)
-                                .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
                         }
                     }
                     .onChange(of: viewModel.hashtag){ _ in

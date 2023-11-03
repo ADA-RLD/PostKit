@@ -95,7 +95,7 @@ extension CaptionResultView {
                             VStack {
                                 Spacer()
                                 // TODO: historyLeftAction 추가
-                                HistoryButton(buttonText: "수정하기", historyRightAction: {
+                                HistoryButton(resultText: $viewModel.promptAnswer, buttonText: "수정하기", historyRightAction: {
                                     self.showModal = true
                                 }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                     ResultUpdateModalView(
