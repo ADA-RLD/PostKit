@@ -19,6 +19,7 @@ struct CaptionResultView: View {
     @State private var copyResult = "생성된 텍스트가 들어가요."
     @State private var likeCopy = false //좋아요 버튼 결과뷰에서 변경될 수 있으니까 여기 선언
     @State private var isShowingToast = false
+    @State private var isCaptionChange = false
     @State private var messages: [Message] = []
     @State private var isPresented: Bool = false
     @State private var activeAlert: ActiveAlert = .first
@@ -64,7 +65,10 @@ extension CaptionResultView {
                     HStack {
                         Spacer()
                         Button(action: {
-                            //TODO: 수정된 CoreData 저장 필요
+                            if isCaptionChange {
+                                saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
+                            }
+                                
                             pathManager.path.removeAll()
                             viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                         }, label: {
@@ -99,7 +103,7 @@ extension CaptionResultView {
                                     self.showModal = true
                                 }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                     ResultUpdateModalView(
-                                        showModal: $showModal,
+                                        showModal: $showModal, isChange: $isCaptionChange,
                                         stringContent: viewModel.promptAnswer,
                                         resultUpdateType: .captionResult
                                     ) { updatedText in
@@ -247,6 +251,7 @@ extension View {
 }
 
 extension CaptionResultView : CaptionResultProtocol {
+    
     func convertDayTime(time: Date) -> Date {
         let today = Date()
         let timezone = TimeZone.autoupdatingCurrent
@@ -268,8 +273,32 @@ extension CaptionResultView : CaptionResultProtocol {
         return newCaption.resultId ?? UUID()
     }
     
-    func initCaptionResult(Result: String) {
-        //        Result = "생성된 텍스트가 들어가요."
+    func saveEditCaptionResult(_uuid: UUID, _result: String, _like: Bool) {
+        let fetchRequest = NSFetchRequest<CaptionResult>(entityName: "CaptionResult")
+        
+        // captionModel의 UUID가 같을 경우
+        let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
+        fetchRequest.predicate = predicate
+        
+        if let existingCaptionResult = try? coreDataManager.context.fetch(fetchRequest).first {
+            // UUID에 해당하는 데이터를 찾았을 경우 업데이트
+            existingCaptionResult.caption = _result
+            existingCaptionResult.like = _like
+            
+            coreDataManager.save() // 변경사항 저장
+            
+            print("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\n")
+        } else {
+            // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
+            let newCaption = CaptionResult(context: coreDataManager.context)
+            newCaption.resultId = _uuid
+            newCaption.caption = _result
+            newCaption.like = _like
+            
+            coreDataManager.save() // 변경사항 저장
+            
+            print("Caption 새로 저장 완료!\n resultId : \(_uuid)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
+        }
     }
 }
 
