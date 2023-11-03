@@ -94,10 +94,10 @@ extension CaptionResultView {
                             Spacer()
                             VStack {
                                 Spacer()
-                                // TODO: 좋아요 button action 추가
+                                // TODO: historyLeftAction 추가
                                 HistoryButton(buttonText: "수정하기", historyRightAction: {
                                     self.showModal = true
-                                }).sheet(isPresented: self.$showModal, content: {
+                                }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                     ResultUpdateModalView(
                                         showModal: $showModal,
                                         stringContent: viewModel.promptAnswer,
@@ -120,7 +120,7 @@ extension CaptionResultView {
             Spacer()
             
             // MARK: - 재생성 / 복사 버튼
-            CustomDoubleeBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
+            CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
                 if coinManager.coin < 5 {
                     activeAlert = .first
                     isPresented.toggle()

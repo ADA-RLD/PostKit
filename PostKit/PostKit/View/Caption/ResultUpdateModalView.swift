@@ -26,7 +26,7 @@ struct ResultUpdateModalView: View {
                 }, label: {
                     Text("취소")
                         .font(.body1Regular())
-                        .foregroundStyle(Color.blue)
+                        .foregroundColor(Color.blue)
                 })
                 
                 Spacer()
@@ -42,7 +42,7 @@ struct ResultUpdateModalView: View {
                 }, label: {
                     Text("저장")
                         .font(.body1Regular())
-                        .foregroundStyle(Color.blue)
+                        .foregroundColor(Color.blue)
                 })
             }
             .padding(.horizontal, 16)
@@ -53,7 +53,7 @@ struct ResultUpdateModalView: View {
                     ScrollView(showsIndicators: false){
                         TextField("기본 텍스트", text: $stringContent, axis: .vertical)
                             .font(.body1Bold())
-                            .foregroundStyle(Color.gray5)
+                            .foregroundColor(Color.gray5)
                     }
                     
                     Spacer()
