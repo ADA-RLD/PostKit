@@ -30,7 +30,6 @@ struct CaptionResultView: View {
     private let pasteBoard = UIPasteboard.general
     private let chatGptService = ChatGptService()
     private let hapticManger = HapticManager.instance
-    
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
@@ -121,6 +120,7 @@ extension CaptionResultView {
             
             // MARK: - 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
+                // TODO: - 상수 값으로의 변경 필요
                 if coinManager.coin < 5 {
                     activeAlert = .first
                     isPresented.toggle()
