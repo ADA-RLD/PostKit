@@ -20,6 +20,7 @@ struct ResultUpdateModalView: View {
     var completion: (_ caption: String) -> Void
     
     var body: some View {
+        //TODO: modal 스크롤 막아야함
         VStack {
             HStack {
                 Button(action: {
