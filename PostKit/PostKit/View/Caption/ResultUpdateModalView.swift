@@ -14,6 +14,7 @@ struct ResultUpdateModalView: View {
     }
     
     @Binding var showModal: Bool
+    @Binding var isChange: Bool
     @State var stringContent = ""
     var resultUpdateType: ResultUpdateType = .captionResult
     var completion: (_ caption: String) -> Void
@@ -54,6 +55,9 @@ struct ResultUpdateModalView: View {
                         TextField("기본 텍스트", text: $stringContent, axis: .vertical)
                             .font(.body1Bold())
                             .foregroundColor(Color.gray5)
+                            .onChange(of: stringContent){ _ in
+                                isChange = true
+                            }
                     }
                     
                     Spacer()
