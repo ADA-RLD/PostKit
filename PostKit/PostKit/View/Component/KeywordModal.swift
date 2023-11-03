@@ -90,14 +90,25 @@ extension KeywordModal {
                     ForEach(selectKeyWords, id: \.self) { i in
                         CustomHashtag(tagText: i) {
                             selectKeyWords.removeAll(where: { $0 == i})
-                    
-                            if let coffeeTmp = coffeeKeys.firstIndex(where: { $0.name == i }) {
-                                firstSegmentPoint.insert(i, at: coffeeTmp)
-                            } else if let drinkTmp = drinkKeys.firstIndex(where: { $0.name == i}) {
-                                secondSegmentPoint.insert(i, at: drinkTmp)
-                            } else if let dessertTmp = dessertKeys.firstIndex(where: { $0.name == i}) {
-                                thirdSegmentPoint.insert(i, at: dessertTmp)
+                            if modalType == .menu {
+                                if let coffeeTmp = coffeeKeys.firstIndex(where: { $0.name == i }) {
+                                    firstSegmentPoint.insert(i, at: coffeeTmp)
+                                } else if let drinkTmp = drinkKeys.firstIndex(where: { $0.name == i}) {
+                                    secondSegmentPoint.insert(i, at: drinkTmp)
+                                } else if let dessertTmp = dessertKeys.firstIndex(where: { $0.name == i}) {
+                                    thirdSegmentPoint.insert(i, at: dessertTmp)
+                                }
+                            } else {
+                                if let coffeeTmp = weatherKeys.firstIndex(where: { $0.name == i }) {
+                                    firstSegmentPoint.insert(i, at: coffeeTmp)
+                                } else if let drinkTmp = dailyCoffeeKeys.firstIndex(where: { $0.name == i}) {
+                                    secondSegmentPoint.insert(i, at: drinkTmp)
+                                } else if let dessertTmp = dailyDessertKeys.firstIndex(where: { $0.name == i}) {
+                                    thirdSegmentPoint.insert(i, at: dessertTmp)
+                                }
+                                
                             }
+                            
                         }
                     }
                 }
@@ -168,7 +179,7 @@ extension KeywordModal {
     private func segementationElement(point: String) -> some View {
         Button {
             if selectKeyWords.count < 5 {
-                if modalType == .daily {
+                if modalType == .menu {
                     if firstSegmentPoint.contains(point) {
                         firstSegmentPoint.removeAll(where: { $0 == point})
                     }
@@ -177,17 +188,6 @@ extension KeywordModal {
                     }
                     else if secondSegmentPoint.contains(point) {
                         secondSegmentPoint.removeAll(where: { $0 == point})
-                    }
-                }
-                else {
-                    if weatherPoint.contains(point) {
-                        weatherPoint.removeAll(where: { $0 == point})
-                    }
-                    else if coffeeDrinkPoint.contains(point) {
-                        coffeeDrinkPoint.removeAll(where: { $0 == point})
-                    }
-                    else if dailyDessertPoint.contains(point) {
-                        dailyDessertPoint.removeAll(where: { $0 == point})
                     }
                 }
                 selectKeyWords.append(point)
