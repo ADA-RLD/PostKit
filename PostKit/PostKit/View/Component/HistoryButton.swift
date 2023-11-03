@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HistoryButton: View {
     var buttonText: String
-    var historyRightAction: () -> Void\
+    var historyRightAction: () -> Void
     var historyLeftAction: () -> Void
     
     var body: some View {
@@ -18,7 +18,7 @@ struct HistoryButton: View {
                 // TODO: 좋아요 button action 추가
                 historyLeftAction()
             }, label: {
-                HStack {()
+                HStack {
                     Image(systemName: "heart.fill")
                     Text("좋아요")
                 }
