@@ -65,7 +65,6 @@ extension CaptionResultView {
                     HStack {
                         Spacer()
                         Button(action: {
-                            //TODO: 수정된 CoreData 저장 필요
                             if isCaptionChange {
                                 saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
                             }
