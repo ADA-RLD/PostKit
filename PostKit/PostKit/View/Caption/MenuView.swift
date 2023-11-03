@@ -34,6 +34,7 @@ struct MenuView: View {
     @State var cancellables = Set<AnyCancellable>()
     
     let chatGptService = ChatGptService()
+    let textLengthArr: [Int] = [100, 200, 300]
     
     var body: some View {
         VStack(alignment:.leading, spacing: 0) {
@@ -97,7 +98,7 @@ extension MenuView {
             if isActive == true {
                 if coinManager.coin > CoinManager.minimalCoin {
                     coinManager.coinUse()
-                    sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
+                    sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
                     pathManager.path.append(.CaptionResult)
                 }
                 else {
@@ -179,7 +180,7 @@ extension MenuView {
                 if isActive == true {
                     if coinManager.coin > CoinManager.minimalCoin {
                         coinManager.coinUse()
-                        sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
+                        sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
                         pathManager.path.append(.CaptionResult)
                     }
                     else {

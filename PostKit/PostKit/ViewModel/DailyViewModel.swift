@@ -10,16 +10,16 @@ import Combine
 
 extension DailyView {
     // MARK: - Chat Gpt API에 응답 요청
-    func sendMessage(weatherSelected: Array<String>, dailyCoffeeSelected: Array<String>, dailyDessertSelected: Array<String>) {
+    func sendMessage(weatherSelected: Array<String>, dailyCoffeeSelected: Array<String>, dailyDessertSelected: Array<String>, textLength: Int) {
         Task{
-            createPrompt(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected)
+            createPrompt(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLength)
             self.messages.append(Message(id: UUID(), role: .user, content: self.currentInput))
             await createCaption()
         }
     }
     
     // MARK: - Prompt 생성
-    func createPrompt(weatherSelected: Array<String>, dailyCoffeeSelected: Array<String>, dailyDessertSelected: Array<String>){
+    func createPrompt(weatherSelected: Array<String>, dailyCoffeeSelected: Array<String>, dailyDessertSelected: Array<String>, textLength: Int){
         var pointText = ""
         var toneInfo = ""
         var basicPrompt = ""
