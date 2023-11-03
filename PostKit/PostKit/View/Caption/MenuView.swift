@@ -48,7 +48,7 @@ struct MenuView: View {
             
         }
         .sheet(isPresented: $isModalPresented, content: {
-            KeywordModal(selectKeyWords: $isSelected)
+            KeywordModal(selectKeyWords: $isSelected, modalType: .menu ,pickerList: ["커피","음료","디저트"])
         })
         .onTapGesture {
             hideKeyboard()
@@ -114,93 +114,6 @@ extension MenuView {
             return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
         })
     }
-    
-    
-    //TODO: 뺴먹을꺼 뺴먹고 지울 예정입니다.
-//    private var beforeView: some View {
-//        VStack(alignment: .leading, spacing: 0) {
-//           
-//            ScrollView {
-//                ContentArea {
-//                    VStack(alignment:.leading, spacing: 28) {
-//                        Text("선택한 키워드를 기반으로 카피가 생성됩니다. \n키워드를 선택하지 않을 시 랜덤으로 생성됩니다.")
-//                            .font(.body2Bold())
-//                            .foregroundStyle(Color.gray4)
-//                        VStack(alignment: .leading, spacing: 28) {
-//                            VStack(alignment: .leading, spacing: 12) {
-//                                Text("메뉴 이름 *")
-//                                    .foregroundStyle(Color.gray5)
-//                                    .font(.body1Bold())
-//                                
-//                                CustomTextfield(text: $menuName, placeHolder: "아메리카노")
-//                                    .onChange(of: menuName)  {
-//                                        _ in if menuName.count >= 1 {
-//                                            isActive = true
-//                                        } else {
-//                                            isActive = false
-//                                        }
-//                                    }
-//                            }
-//                            VStack(alignment: .leading, spacing: 12) {
-//                                Text("특징")
-//                                    .foregroundStyle(Color.gray5)
-//                                    .font(.body1Bold())
-//                                
-//                                VStack(alignment: .leading, spacing: 18) {
-//                                    DisclosureGroup("커피", isExpanded: $isCoffeeOpened) {
-//                                        Keywords(keyName: KeywordsModel().coffeeKeys, selectedIndices: self.$coffeeSelected)
-//                                    }
-//                                    .foregroundStyle(Color.gray5)
-//                                    .font(.body2Bold())
-//                                    
-//                                    
-//                                    Divider()
-//                                    
-//                                    
-//                                    DisclosureGroup("음료") {
-//                                        Keywords(keyName: KeywordsModel().drinkKeys, selectedIndices: self.$drinkSelected)
-//                                    }
-//                                    .foregroundStyle(Color.gray5)
-//                                    .font(.body2Bold())
-//                                    
-//                                    Divider()
-//                                    
-//                                    
-//                                    DisclosureGroup("디저트") {
-//                                        Keywords(keyName: KeywordsModel().dessertKeys, selectedIndices: self.$dessertSelected)
-//                                    }
-//                                    .foregroundStyle(Color.gray5)
-//                                    .font(.body2Bold())
-//                                    
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//                .scrollIndicators(.hidden)
-//            }
-//            Spacer()
-//            CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
-//                if isActive == true {
-//                    if coinManager.coin > CoinManager.minimalCoin {
-//                        coinManager.coinUse()
-//                        sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName)
-//                        pathManager.path.append(.CaptionResult)
-//                    }
-//                    else {
-//                        isAlertPresented.toggle()
-//                    }
-//                }
-//            })
-//            .alert(isPresented: $isAlertPresented, content: {
-//                return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
-//            })
-//            .onTapGesture {
-//                hideKeyboard()
-//            }
-//        }
-//        
-//    }
 }
 
 extension View {
