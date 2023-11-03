@@ -31,6 +31,7 @@ struct OnboardingView: View {
             switch onboardingRouter.currentPage {
                 case 0:
                     OnboardingIntro()
+                    .onAppear{fetchStoreData()}
                 case 1:
                     OnboardingStore(cafeName: $storeModel.storeName)
                 case 2:
@@ -40,9 +41,6 @@ struct OnboardingView: View {
             default:
                 OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
             }
-        }
-        .onAppear{
-            fetchStoreData()
         }
         .onChange(of: onboardingRouter.currentPage == 3) { _ in
             saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
