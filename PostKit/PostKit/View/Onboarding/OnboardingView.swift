@@ -20,6 +20,7 @@ struct OnboardingView: View {
 
 
     //CoreData 초기화
+    //혹시 모르는 잘못된 값을 위해 초기화
     init(isFirstLaunching: Binding<Bool>, storeModel: StoreModel) {
            self._isFirstLaunching = isFirstLaunching
            self._storeModel = StateObject(wrappedValue: storeModel)
@@ -28,6 +29,8 @@ struct OnboardingView: View {
     
     var body: some View {
         VStack {
+            //onBoarding의 순서를 관리합니다.
+            //데이터 관리는 해당 위치에서 하기때문에 Binding으로 접근합니다.
             switch onboardingRouter.currentPage {
                 case 0:
                     OnboardingIntro()
@@ -42,6 +45,7 @@ struct OnboardingView: View {
                 OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
             }
         }
+        //마지막 뷰에 도착하면 CoreData에 가게 정보를 저장합니다.
         .onChange(of: onboardingRouter.currentPage == 3) { _ in
             saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
         }
