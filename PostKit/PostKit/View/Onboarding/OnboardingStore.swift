@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct OnboardingStore: View {
-    //@EnvironmentObject var appstorageManager: AppstorageManager
-    
     //Core Data 저장을 위해 가지고 나가기
     @Binding var cafeName : String
+    @State private var isActive: Bool = false
     
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
-    @State private var isActive: Bool = false
+    
     var body: some View {
         VStack(spacing: 0) {
             OnboardingCustomHeader(action: {onboardingRouter.previousPage()})
@@ -48,7 +47,3 @@ struct OnboardingStore: View {
         }
     }
 }
-
-//#Preview {
-//    OnboardingStore(onboardingRouter: OnboardingRouter.shared)
-//}
