@@ -67,7 +67,6 @@ extension CaptionResultView {
                             if isCaptionChange {
                                 saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
                             }
-                                
                             pathManager.path.removeAll()
                             viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                         }, label: {
@@ -86,19 +85,11 @@ extension CaptionResultView {
                     
                     // MARK: - 생성된 카피 출력 + 복사하기 버튼
                     VStack(alignment: .trailing, spacing: 20) {
-                        ZStack(alignment: .leading) {
-                            ScrollView(showsIndicators: false){
-                                Text(viewModel.promptAnswer)
-                                    .lineLimit(nil)
-                                    .multilineTextAlignment(.leading)
-                                    .font(.body1Bold())
-                                    .foregroundStyle(Color.gray5)
-                            }
-                            Spacer()
-                            VStack {
-                                Spacer()
+                        
+                        VStack {
+                            ZStack(alignment: .leading) {
                                 // TODO: historyLeftAction 추가
-                                HistoryButton(buttonText: "수정하기", historyRightAction: {
+                                HistoryButton(resultText: $viewModel.promptAnswer, buttonText: "수정하기", historyRightAction: {
                                     self.showModal = true
                                 }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                     ResultUpdateModalView(
@@ -112,12 +103,6 @@ extension CaptionResultView {
                             }
                         }
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 20)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .frame(height: 400)
-                    .background(Color.gray1)
-                    .cornerRadius(radius2)
                 }
             }
             Spacer()

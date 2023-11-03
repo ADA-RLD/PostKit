@@ -25,6 +25,8 @@ protocol MenuProtocol {
     ///   - menuPoint: 이전에 저장된 메뉴 강점
     func fetchMenuData(menuName: String, menuPoint: String)
     
-    /// 저장된 메뉴와 강점을 삭제 합니다.
+    /// - Parameters: 저장된 메뉴와 강점을 삭제 합니다.
+    ///   - menuName: 메뉴 이름
+    ///   - menuPoint:  메뉴 강점
     func deletStoreData(menuName: String, menuPoint: String)
 }

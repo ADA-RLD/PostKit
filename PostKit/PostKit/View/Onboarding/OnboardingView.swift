@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 
 struct OnboardingView: View {
-    @EnvironmentObject var appstorageManager: AppstorageManager
     @StateObject var onboardingRouter = OnboardingRouter.shared
     @Binding var isFirstLaunching: Bool
 
@@ -29,21 +28,21 @@ struct OnboardingView: View {
     
     var body: some View {
         VStack {
-            if onboardingRouter.currentPage == 0 {
-                OnboardingIntro()
-            } else if onboardingRouter.currentPage == 1 {
-            OnboardingStore(cafeName: $storeModel.storeName)
-            } else if onboardingRouter.currentPage == 2 {
-                OnboardingTone(cafeTone: $storeModel.tone)
-            } else if onboardingRouter.currentPage == 3 {
+            switch onboardingRouter.currentPage {
+                case 0:
+                    OnboardingIntro()
+                    .onAppear{fetchStoreData()}
+                case 1:
+                    OnboardingStore(cafeName: $storeModel.storeName)
+                case 2:
+                    OnboardingTone(cafeTone: $storeModel.tone)
+                case 3:
+                    OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
+            default:
                 OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
             }
         }
-        .onAppear{
-            fetchStoreData()
-        }
         .onChange(of: onboardingRouter.currentPage == 3) { _ in
-            //TODO: 코어데이터 함수 변경 필요
             saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
         }
     }
@@ -79,9 +78,4 @@ extension OnboardingView : StoreProtocol {
             print(error.localizedDescription)
         }
     }
-    
-    func deletStoreData() {
-        print("delet")
-    }
-
 }
