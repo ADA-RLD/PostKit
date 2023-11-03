@@ -7,16 +7,27 @@
 
 import SwiftUI
 
+enum KeywordModalType {
+    case daily
+    case menu
+}
+
 struct KeywordModal: View {
     @Binding var selectKeyWords: [String]
     @Environment(\.presentationMode) var presentationMode
     @State private var inputText: String = ""
     @State private var isShowingAlert: Bool = false
     @State private var pickerSelection: Int = 0
-    @State private var coffeePoint = coffeeKeys.map { $0.name}
-    @State private var drinkPoint = drinkKeys.map { $0.name}
-    @State private var dessertPoint = dessertKeys.map { $0.name}
-    let pickerList: [String] = ["커피","음료","디저트"]
+    @State private var firstSegmentPoint = coffeeKeys.map{$0.name}
+    @State private var secondSegmentPoint = drinkKeys.map{$0.name}
+    @State private var thirdSegmentPoint = dessertKeys.map{$0.name}
+    @State private var weatherPoint = weatherKeys.map {$0.name}
+    @State private var coffeeDrinkPoint = dailyCoffeeKeys.map{$0.name}
+    @State private var dailyDessertPoint = dailyDessertKeys.map{$0.name}
+    
+    var modalType: KeywordModalType = .daily
+    
+    var pickerList: [String]
     var body: some View {
         VStack(alignment: .leading, spacing: 17) {
             headerArea()
@@ -29,6 +40,12 @@ struct KeywordModal: View {
                 }
             }
             Spacer()
+        }.onAppear {
+            if modalType == .daily {
+                firstSegmentPoint = weatherKeys.map { $0.name}
+                secondSegmentPoint = dailyCoffeeKeys.map { $0.name}
+                thirdSegmentPoint = dailyDessertKeys.map { $0.name}
+            }
         }
     }
 }
@@ -73,16 +90,14 @@ extension KeywordModal {
                     ForEach(selectKeyWords, id: \.self) { i in
                         CustomHashtag(tagText: i) {
                             selectKeyWords.removeAll(where: { $0 == i})
-                            
+                    
                             if let coffeeTmp = coffeeKeys.firstIndex(where: { $0.name == i }) {
-                                coffeePoint.insert(i, at: coffeeTmp)
+                                firstSegmentPoint.insert(i, at: coffeeTmp)
                             } else if let drinkTmp = drinkKeys.firstIndex(where: { $0.name == i}) {
-                                drinkPoint.insert(i, at: drinkTmp)
+                                secondSegmentPoint.insert(i, at: drinkTmp)
                             } else if let dessertTmp = dessertKeys.firstIndex(where: { $0.name == i}) {
-                                dessertPoint.insert(i, at: dessertTmp)
+                                thirdSegmentPoint.insert(i, at: dessertTmp)
                             }
-                            
-                            
                         }
                     }
                 }
@@ -91,7 +106,6 @@ extension KeywordModal {
         .alert(isPresented: $isShowingAlert) {
             Alert(title: Text(""), message: Text("최대 5개까지만 입력할 수 있습니다."),
                   dismissButton: .default(Text("확인")))
-            
         }
     }
     
@@ -125,7 +139,7 @@ extension KeywordModal {
             
             if (pickerSelection == 0) {
                 WrappingHStack(alignment: .leading) {
-                    ForEach(coffeePoint, id: \.self) { i in
+                    ForEach(firstSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
                 }
@@ -133,7 +147,7 @@ extension KeywordModal {
             }
             else if (pickerSelection == 1) {
                 WrappingHStack(alignment: .leading) {
-                    ForEach(drinkPoint, id: \.self) { i in
+                    ForEach(secondSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
                 }
@@ -141,7 +155,7 @@ extension KeywordModal {
             }
             else {
                 WrappingHStack(alignment: .leading) {
-                    ForEach(dessertPoint, id: \.self) { i in
+                    ForEach(thirdSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
                 }
@@ -154,16 +168,29 @@ extension KeywordModal {
     private func segementationElement(point: String) -> some View {
         Button {
             if selectKeyWords.count < 5 {
+                if modalType == .daily {
+                    if firstSegmentPoint.contains(point) {
+                        firstSegmentPoint.removeAll(where: { $0 == point})
+                    }
+                    else if thirdSegmentPoint.contains(point) {
+                        thirdSegmentPoint.removeAll(where: { $0 == point})
+                    }
+                    else if secondSegmentPoint.contains(point) {
+                        secondSegmentPoint.removeAll(where: { $0 == point})
+                    }
+                }
+                else {
+                    if weatherPoint.contains(point) {
+                        weatherPoint.removeAll(where: { $0 == point})
+                    }
+                    else if coffeeDrinkPoint.contains(point) {
+                        coffeeDrinkPoint.removeAll(where: { $0 == point})
+                    }
+                    else if dailyDessertPoint.contains(point) {
+                        dailyDessertPoint.removeAll(where: { $0 == point})
+                    }
+                }
                 selectKeyWords.append(point)
-                if coffeePoint.contains(point) {
-                    coffeePoint.removeAll(where: { $0 == point})
-                }
-                else if dessertPoint.contains(point) {
-                    dessertPoint.removeAll(where: { $0 == point})
-                }
-                else if drinkPoint.contains(point) {
-                    drinkPoint.removeAll(where: { $0 == point})
-                }
             }
             else {
                 isShowingAlert.toggle()
