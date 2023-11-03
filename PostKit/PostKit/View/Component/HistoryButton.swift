@@ -45,8 +45,8 @@ struct HistoryButton: View {
                         Text(buttonText)
                             .font(.body2Bold())
                             .foregroundColor(.white)
-                            .padding(EdgeInsets(top: 6, leading: radius1, bottom: 6, trailing: radius1))
-                    }).background(RoundedRectangle(cornerRadius: radius1).fill(Color.main))
+                            .padding(EdgeInsets(top: 6, leading: 18, bottom: 6, trailing: 18))
+                    }).background(RoundedRectangle(cornerRadius: 20).fill(Color.main))
                 }
             }
             .padding(.horizontal, 16)
@@ -54,7 +54,7 @@ struct HistoryButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 400)
             .background(Color.gray1)
-            .cornerRadius(16)
+            .cornerRadius(20)
         }
     }
 }
