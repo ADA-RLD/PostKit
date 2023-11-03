@@ -15,7 +15,7 @@ protocol HashtagProtocol {
     func convertDayTime(time: Date) -> Date
     
     /// Description 해시태그 정보를 CoreData에서 가져옵니다.
-    func FetchHashtag()
+    func fetchHashtag()
     
     /// 생성된 해시태그를 긴 문자열 형태로 저장합니다.
     /// - Parameters:
@@ -24,6 +24,7 @@ protocol HashtagProtocol {
     ///   - keyword: 해시태그 생성에 필요한 핵심 키워드
     ///   - result: 알고리즘에 의해 생성된 해시태그 결과
     ///   - isLike: 해시태그 좋아요 상태
-    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool)
+    func saveHashtagResult(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool)
     
+    func saveEditHashtagResult(_uuid: UUID, _result: String, _like: Bool)
 }
