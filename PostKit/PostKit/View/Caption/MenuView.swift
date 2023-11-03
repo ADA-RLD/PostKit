@@ -94,7 +94,7 @@ extension MenuView {
     }
     
     private func bottomArea() -> some View {
-        CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
+        CTABtn(btnLabel: "글 생성", isActive: self.$isActive, action: {
             if isActive == true {
                 if coinManager.coin > CoinManager.minimalCoin {
                     coinManager.coinUse()
@@ -176,7 +176,7 @@ extension MenuView {
                 .scrollIndicators(.hidden)
             }
             Spacer()
-            CTABtn(btnLabel: "카피 생성", isActive: self.$isActive, action: {
+            CTABtn(btnLabel: "글 생성", isActive: self.$isActive, action: {
                 if isActive == true {
                     if coinManager.coin > CoinManager.minimalCoin {
                         coinManager.coinUse()

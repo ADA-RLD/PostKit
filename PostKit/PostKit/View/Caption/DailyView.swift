@@ -42,7 +42,7 @@ struct DailyView: View {
               
             Spacer()
             //TODO: 모듈화 필요 BottomView로 변경 예정
-            CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
+            CTABtn(btnLabel: "글 생성", isActive: .constant(true), action: {
                 if coinManager.coin > CoinManager.minimalCoin {
                     Task{
                         sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
@@ -83,7 +83,7 @@ extension DailyView {
     // TODO: 빼먹을꺼 빼먹고 지울 예정
     private var beforeView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 카피 생성")
+            CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 글 생성")
             ScrollView {
                 ContentArea {
                     VStack(alignment: .leading, spacing: 28) {
@@ -173,7 +173,7 @@ extension DailyView {
             }
         }
         
-        return CTABtn(btnLabel: "카피 생성", isActive: .constant(true), action: {
+        return CTABtn(btnLabel: "글 생성", isActive: .constant(true), action: {
             if coinManager.coin > CoinManager.minimalCoin {
                 Task{
                     sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
