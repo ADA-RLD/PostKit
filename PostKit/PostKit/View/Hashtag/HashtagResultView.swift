@@ -35,7 +35,6 @@ struct HashtagResultView: View {
     }
 }
 
-
 // MARK: View
 extension HashtagResultView {
     private func resultView() -> some View {
@@ -43,7 +42,7 @@ extension HashtagResultView {
             
             ContentArea {
                 VStack(alignment: .leading, spacing: 24) {
-                    
+
                     HStack {
                         Spacer()
                         Button(action: {
@@ -62,6 +61,7 @@ extension HashtagResultView {
                             .font(.title1())
                             .foregroundColor(.black)
                     }
+                    
                     VStack {
                         ZStack(alignment: .leading) {
                             // TODO: historyLeftAction 추가
@@ -121,18 +121,6 @@ extension HashtagResultView {
                 }
             }
         }
-    }
-    
-    private func hashtagRectangle(hashTags: String) -> some View {
-        RoundedRectangle(cornerRadius: radius1)
-            .foregroundColor(Color.gray1)
-            .frame(height: 161)
-            .overlay {
-                Text(hashTags)
-                    .font(.body1Bold())
-                    .foregroundColor(Color.gray5)
-                    .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16))
-            }
     }
 }
 
