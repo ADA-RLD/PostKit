@@ -155,7 +155,7 @@ struct HashtagView: View {
                         viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
                         
                         //해쉬태드 생성시 기본 좋아요는 false로 가져갑니다.
-                        saveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
+                        saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
                         
                         print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
                         
@@ -299,7 +299,7 @@ extension HashtagView : HashtagProtocol {
         }
     }
     
-    func saveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) {
+    func saveHashtagResult(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) -> UUID{
         let newHashtag = HashtagData(context: coreDataManager.context)
         newHashtag.resultId = UUID()
         newHashtag.date = date
@@ -307,7 +307,13 @@ extension HashtagView : HashtagProtocol {
         newHashtag.like = isLike
         coreDataManager.save()
         
+        return newHashtag.resultId ?? UUID()
+        
         print("Hashtag 저장 완료!\n resultId : \(newHashtag.resultId)\n Date : \(newHashtag.date)\n Hashtag : \(newHashtag.hashtag)\n")
+    }
+    
+    func saveEditHashtagResult(_uuid: UUID, _result: String, _like: Bool) {
+        //여기서는 수정이 필요하지 않아요.
     }
 }
 
