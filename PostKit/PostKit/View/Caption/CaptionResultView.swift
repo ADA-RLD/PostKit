@@ -301,11 +301,6 @@ extension CaptionResultView : CaptionResultProtocol {
             print("Caption 새로 저장 완료!\n resultId : \(_uuid)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
         }
     }
-
-    
-    func initCaptionResult(Result: String) {
-        //        Result = "생성된 텍스트가 들어가요."
-    }
 }
 
 //

@@ -22,8 +22,4 @@ protocol CaptionResultProtocol {
     
     func saveEditCaptionResult(_uuid: UUID, _result: String, _like: Bool)
     
-    /// 가지고 있는 정보를 초기화합니다.
-    /// - Parameter Result: 초기화 대상
-    func initCaptionResult(Result: String)
-    
 }
