@@ -15,6 +15,8 @@ struct MainView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
+    //iCloud가 연동 확인 모델
+    @StateObject private var mainViewModel = CloudKitUserModel()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @Namespace var nameSpace

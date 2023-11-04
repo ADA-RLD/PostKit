@@ -65,7 +65,7 @@
 		A188C5942ADE22FC007473D3 /* SettingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5932ADE22FC007473D3 /* SettingProtocol.swift */; };
 		A1956B6C2AEA774500B20472 /* CaptionResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1956B6B2AEA774500B20472 /* CaptionResultProtocol.swift */; };
 		A1A4FAF92AF6245400514053 /* iCloudProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A4FAF82AF6245400514053 /* iCloudProtocol.swift */; };
-		A1A4FAFB2AF6295700514053 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A4FAFA2AF6295700514053 /* MainViewModel.swift */; };
+		A1A4FAFB2AF6295700514053 /* CloudKitUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A4FAFA2AF6295700514053 /* CloudKitUserModel.swift */; };
 		A1B75ACE2AEFB3EF00DFD343 /* CaptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */; };
 		A1B75AD02AEFDF9200DFD343 /* HashtagProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B75ACF2AEFDF9200DFD343 /* HashtagProtocol.swift */; };
 		A1B75AD22AEFE24100DFD343 /* HashtagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */; };
@@ -150,7 +150,7 @@
 		A1956B6B2AEA774500B20472 /* CaptionResultProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionResultProtocol.swift; sourceTree = "<group>"; };
 		A1A4FAF72AF5FB3100514053 /* PostKitDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PostKitDebug.entitlements; sourceTree = "<group>"; };
 		A1A4FAF82AF6245400514053 /* iCloudProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudProtocol.swift; sourceTree = "<group>"; };
-		A1A4FAFA2AF6295700514053 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		A1A4FAFA2AF6295700514053 /* CloudKitUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitUserModel.swift; sourceTree = "<group>"; };
 		A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionModel.swift; sourceTree = "<group>"; };
 		A1B75ACF2AEFDF9200DFD343 /* HashtagProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagProtocol.swift; sourceTree = "<group>"; };
 		A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagModel.swift; sourceTree = "<group>"; };
@@ -287,7 +287,7 @@
 				7E06050B2AF22826003A87BC /* MenuViewModel.swift */,
 				7E06050D2AF22834003A87BC /* DailyViewModel.swift */,
 				139B2C922AF23D680036BD18 /* CoinManager.swift */,
-				A1A4FAFA2AF6295700514053 /* MainViewModel.swift */,
+				A1A4FAFA2AF6295700514053 /* CloudKitUserModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -556,7 +556,7 @@
 				13C2961A2AD8F26300A2DE7F /* SelectTone.swift in Sources */,
 				7E06050C2AF22826003A87BC /* MenuViewModel.swift in Sources */,
 				13C296242AD988FC00A2DE7F /* AppStorageManager.swift in Sources */,
-				A1A4FAFB2AF6295700514053 /* MainViewModel.swift in Sources */,
+				A1A4FAFB2AF6295700514053 /* CloudKitUserModel.swift in Sources */,
 				A188C58C2AD7CFD1007473D3 /* DailyProtocol.swift in Sources */,
 				13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */,
 				B986326C2AD7E76200DE9FF5 /* CaptionResultView.swift in Sources */,
