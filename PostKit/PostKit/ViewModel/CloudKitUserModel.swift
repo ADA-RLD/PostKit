@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  CloudKitUserModel.swift
 //  PostKit
 //
 //  Created by Kim Andrew on 11/4/23.
