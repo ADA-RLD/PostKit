@@ -328,7 +328,7 @@ extension MainView {
                         .onChange(of: item.hashtag){ _ in
                             saveHashtageData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                         }
-                    //TODO: 누르면 왜 삭제가 되나여,,?(조이스)
+                    //TODO: 누르면 왜 삭제가 돼나여,,?(조이스)
 //                        .onTapGesture {
 //                            deleteHashtagData(_uuid: item.id)
 //                            fetchHashtagData()
@@ -350,9 +350,8 @@ extension MainView {
             .foregroundColor(Color.gray1)
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
-                    
+                
                     HStack(spacing: 0) {
-                        
                         Text(tag)
                             .font(.body2Bold())
                             .foregroundColor(Color.white)
@@ -363,15 +362,11 @@ extension MainView {
                                 RoundedRectangle(cornerRadius: 8)
                                     .foregroundColor(.clear)
                             }
-                        
                         Spacer()
-                        
                         Text(date)
                             .font(.body2Bold())
                             .foregroundColor(Color.gray4)
-                        
                         Spacer()
-                        
                         Menu {
                             //TODO: 왜 모달이 안뜨지? (조이스)
                             Button(action: {
