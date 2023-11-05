@@ -26,6 +26,8 @@ struct MainView: View {
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
     private let hapticManger = HapticManager.instance
+    //AppStorage iCloud버전
+    var keyStore = NSUbiquitousKeyValueStore()
     
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
