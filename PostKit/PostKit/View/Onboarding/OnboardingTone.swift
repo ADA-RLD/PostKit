@@ -17,30 +17,28 @@ struct OnboardingTone: View {
     
     var body: some View {
         VStack(alignment:.leading,spacing: 0) {
-            
             OnboardingCustomHeader(action: onboardingRouter.previousPage)
-            
-            ContentArea {
-                VStack(alignment: .leading,spacing: 40) {
-                    
-                    VStack(alignment: .leading,spacing: 12) {
+            ScrollView {
+                ContentArea {
+                    VStack(alignment: .leading,spacing: 40) {
                         
-                        Text("원하는 톤을 선택하세요")
-                            .font(.title1())
-                            .foregroundStyle(Color.gray6)
-                        
-                        Text("선택한 톤을 바탕으로 카피가 생성됩니다.")
-                            .font(.body2Bold())
-                            .foregroundStyle(Color.gray4)
-                    }
-                    
-                    SelectTone(selectedTones: $cafeTone)
-                        .onChange(of: cafeTone) { _ in
-                            isActiveCheck()
+                        VStack(alignment: .leading,spacing: 12) {
+                            
+                            Text("원하는 톤을 선택하세요")
+                                .font(.title1())
+                                .foregroundStyle(Color.gray6)
+                            
+                            Text("선택한 톤을 바탕으로 카피가 생성됩니다.")
+                                .font(.body2Bold())
+                                .foregroundStyle(Color.gray4)
                         }
+                        SelectTone(selectedTones: $cafeTone)
+                            .onChange(of: cafeTone) { _ in
+                                isActiveCheck()
+                            }
+                    }
                 }
             }
-            
             Spacer()
 
             CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
