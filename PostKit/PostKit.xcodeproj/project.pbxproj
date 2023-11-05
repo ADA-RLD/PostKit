@@ -46,6 +46,7 @@
 		13ECB5092AF28C8B0046E6BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB5082AF28C8B0046E6BE /* AppDelegate.swift */; };
 		13ECB50B2AF372D60046E6BE /* KeywordAppend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB50A2AF372D60046E6BE /* KeywordAppend.swift */; };
 		13ECB50D2AF377530046E6BE /* SelectTextLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB50C2AF377530046E6BE /* SelectTextLength.swift */; };
+		13ECB50F2AF39D740046E6BE /* KeywordModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB50E2AF39D740046E6BE /* KeywordModal.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
 		7E0605042AF08258003A87BC /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605032AF08258003A87BC /* ResponseError.swift */; };
 		7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605072AF108A5003A87BC /* HashtagService.swift */; };
@@ -130,6 +131,7 @@
 		13ECB5082AF28C8B0046E6BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13ECB50A2AF372D60046E6BE /* KeywordAppend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordAppend.swift; sourceTree = "<group>"; };
 		13ECB50C2AF377530046E6BE /* SelectTextLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTextLength.swift; sourceTree = "<group>"; };
+		13ECB50E2AF39D740046E6BE /* KeywordModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordModal.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
 		7E0605032AF08258003A87BC /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		7E0605072AF108A5003A87BC /* HashtagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagService.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				B9872A462AF394DA000A795C /* HistoryButton.swift */,
 				13ECB50A2AF372D60046E6BE /* KeywordAppend.swift */,
 				13ECB50C2AF377530046E6BE /* SelectTextLength.swift */,
+				13ECB50E2AF39D740046E6BE /* KeywordModal.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				7E0605042AF08258003A87BC /* ResponseError.swift in Sources */,
 				A188C5852AD7BA89007473D3 /* CoreDataManager.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
+				13ECB50F2AF39D740046E6BE /* KeywordModal.swift in Sources */,
 				A188C5942ADE22FC007473D3 /* SettingProtocol.swift in Sources */,
 				139B2C8F2AF0B6030036BD18 /* Ex+UINaivgationController.swift in Sources */,
 				13C2960E2AD8F15E00A2DE7F /* OnboardingIntro.swift in Sources */,

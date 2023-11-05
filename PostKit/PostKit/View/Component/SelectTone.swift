@@ -3,11 +3,25 @@
 //  PostKit
 //
 //  Created by 김다빈 on 10/13/23.
-//
+
 
 import SwiftUI
 
 struct SelectTone: View {
+    //TODO: 임시데이터라 데이터 변경이 필요합니다
+    let tones: [Tone] = [
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: true),
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
+        Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false)
+    ]
+    
     @Binding var selectedTones: [String]
     var body: some View {
         toggleBtns
@@ -19,37 +33,50 @@ extension SelectTone {
     private var toggleBtns: some View {
         VStack(alignment:.leading, spacing: 12) {
             // 배열에 추가되면 자동으로 생성하게 해주는 기능을 만들었어요!
-            ForEach(0..<tones.count / 2 + 1, id: \.self) { rowIndex in
-                HStack(spacing: 12) {
-                    ForEach(0..<2) { columIndex in
-                        let item = rowIndex * 2 + columIndex
-                        //마지막 행에 추가가 안된 데이터의 값을 나타날때 생기는 오류 방지
-                        if item < tones.count {
-                            Button {
-                                addTone(tone: tones[item])
-                            } label: {
-                                RoundedRectangle(cornerRadius: radius2)
-                                    .stroke(selectedTones.contains(tones[item]) ? Color.main: Color.gray1, lineWidth: 2)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: radius2)
-                                            .fill(selectedTones.contains(tones[item]) ? Color.sub: Color.gray1)
-                                        )
-                                    .frame(width:UIScreen.main.bounds.width/2 - paddingHorizontal - 6,height: 60)
-                                    .overlay(alignment: .leading) {
-                                        Text(tones[item])
-                                            .font(.body1Bold())
-                                            .padding(.leading, 20)
-                                            .foregroundStyle(selectedTones.contains(tones[item]) ? Color.main: Color.gray4)
-                                    }
-                            }
-                        }
-                    }
+            ForEach(tones, id: \.self) { rowIndex in
+                toggleBtn(concept: rowIndex.tone, conceptExample: rowIndex.toneExample, isBest: rowIndex.isBest) {
+                    addTone(tone: rowIndex.tone)
                 }
             }
         }
     }
+    
+    private func toggleBtn(concept: String, conceptExample: String, isBest: Bool, action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            RoundedRectangle(cornerRadius: radius1)
+                .stroke(selectedTones.contains(concept) ? Color.main: Color.gray1, lineWidth: 2)
+                .background(
+                    RoundedRectangle(cornerRadius: radius2)
+                        .fill(selectedTones.contains(concept) ? Color.main: Color.gray1)
+                )
+                .frame(height: 84)
+                .foregroundColor(Color.gray1)
+                .overlay(alignment: .leading) {
+                    VStack(alignment:.leading,spacing: 8) {
+                        HStack(spacing:8) {
+                            Text(concept)
+                                .font(.body1Bold())
+                                .foregroundColor(Color.gray4)
+                            
+                            if isBest {
+                                Text("BEST")
+                                    .font(.body2Bold())
+                                    .foregroundColor(Color.main)
+                                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                                    .background(Color.main.opacity(0.5))
+                            }
+                        }
+                        Text(conceptExample)
+                            .foregroundColor(Color.gray4)
+                            .font(.body2Regular())
+                    }
+                    .padding(.all,20)
+                }
+        }
+    }
 }
-
 
 // MARK: Extension: Function
 extension SelectTone {
