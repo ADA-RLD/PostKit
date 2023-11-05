@@ -151,6 +151,7 @@
 		A1A4FAF72AF5FB3100514053 /* PostKitDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PostKitDebug.entitlements; sourceTree = "<group>"; };
 		A1A4FAF82AF6245400514053 /* iCloudProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudProtocol.swift; sourceTree = "<group>"; };
 		A1A4FAFA2AF6295700514053 /* CloudKitUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitUserModel.swift; sourceTree = "<group>"; };
+		A1A4FAFC2AF62EFA00514053 /* PostKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PostKit.entitlements; sourceTree = "<group>"; };
 		A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionModel.swift; sourceTree = "<group>"; };
 		A1B75ACF2AEFDF9200DFD343 /* HashtagProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagProtocol.swift; sourceTree = "<group>"; };
 		A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagModel.swift; sourceTree = "<group>"; };
@@ -217,6 +218,7 @@
 		13C295AF2AD55F2100A2DE7F /* PostKit */ = {
 			isa = PBXGroup;
 			children = (
+				A1A4FAFC2AF62EFA00514053 /* PostKit.entitlements */,
 				A1A4FAF72AF5FB3100514053 /* PostKitDebug.entitlements */,
 				A188C5862AD7C878007473D3 /* Protocol */,
 				13C295F62AD714A700A2DE7F /* Info.plist */,
@@ -783,6 +785,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PostKit/PostKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"PostKit/Preview Content\"";

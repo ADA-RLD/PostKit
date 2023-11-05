@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import CoreData
+import CloudKit
 
 struct MainView: View {
     @AppStorage("_coin") var coin: Int = 0
@@ -16,7 +17,7 @@ struct MainView: View {
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
     //iCloud가 연동 확인 모델
-    @StateObject private var mainViewModel = CloudKitUserModel()
+    @StateObject private var iCloudData = CloudKitUserModel()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @Namespace var nameSpace
@@ -89,6 +90,12 @@ struct MainView: View {
                     
                     fetchCaptionData()
                     fetchHashtagData()
+                    
+                    //Cloud 디버깅
+                    print("IS SIGNED IN: \(iCloudData._isSignedInCloud.description.uppercased())\nPermission Status: \(iCloudData._permissionStatus.description)\nUser Name: \(iCloudData._userName)")
+                    print("\(iCloudData._error)")
+                    
+                    saveToCloud()
                 }
             }
         }
@@ -570,5 +577,45 @@ extension MainView : MainViewProtocol {
         var convertDate = formatter.string(from: date)
         
         return convertDate
+    }
+}
+
+extension MainView : iCloudProtocol {
+    func fetchAllFromCloud() {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: "Store",predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        operation.database =  CKContainer(identifier: "iCloud.com.PostKit")
+            .publicCloudDatabase
+        
+        operation.recordMatchedBlock = { recordID, result in
+            print("💿", recordID)
+            switch result {
+            case .success(let record):
+                print("📀", record)
+            case .failure(let error):
+                print(error)
+            }
+        }
+
+        operation.start()
+    }
+    
+    func saveToCloud() {
+        let record = CKRecord(recordType: "Store")
+        record.setValuesForKeys(["StoreName": "TestStoreName", "StoreTone": "저장톤"])
+        
+        let container = CKContainer(identifier: "iCloud.com.PostKit")
+        container.publicCloudDatabase.save(record) { record, error in
+            print("저장완료! \(record)")
+        }
+    }
+    
+    func updateCloud() {
+        //아직
+    }
+    
+    func deleteCloud() {
+        //개발중
     }
 }

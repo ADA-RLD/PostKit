@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import CloudKit
 
 class CloudKitUserModel: ObservableObject {
@@ -19,42 +20,44 @@ class CloudKitUserModel: ObservableObject {
         requestPermission()
         fetchiCloudUserRecordID()
     }
-}
-
-enum CloudKitError: String, LocalizedError {
-    case iCloudAccountUnavailable
-    case iCloudAccountNotFound
-    case iCloudAccountNotDetermined
-    case iCloudAccountRestricted
-    case iCloudAccountUnknown
-}
-
-extension CloudKitUserModel {
+    
+    enum CloudKitError: String, LocalizedError {
+        case iCloudAccountUnavailable
+        case iCloudAccountNotFound
+        case iCloudAccountNotDetermined
+        case iCloudAccountRestricted
+        case iCloudAccountUnknown
+    }
+    
     private func getCloudStatus() {
-        CKContainer.default().accountStatus { [weak self] status, error in
-            guard let self = self else { return }
+        CKContainer.default().accountStatus { [unowned self] status, error in
             DispatchQueue.main.async {
                 switch status {
                 case .couldNotDetermine:
                     self._error = CloudKitError.iCloudAccountNotDetermined.rawValue
+                    break
                 case .available:
                     self._isSignedInCloud = true
+                    break
                 case .restricted:
                     self._error = CloudKitError.iCloudAccountRestricted.rawValue
+                    break
                 case .noAccount:
                     self._error = CloudKitError.iCloudAccountNotFound.rawValue
+                    break
                 case .temporarilyUnavailable:
                     self._error = CloudKitError.iCloudAccountUnavailable.rawValue
+                    break
                 @unknown default:
                     self._error = CloudKitError.iCloudAccountUnknown.rawValue
+                    break
                 }
             }
         }
     }
-
-    private func requestPermission() {
-        CKContainer.default().requestApplicationPermission([.userDiscoverability]) { [weak self] returnedStatus, returnedError in
-            guard let self = self else { return }
+    
+    func requestPermission() {
+        CKContainer.default().requestApplicationPermission([.userDiscoverability]) { [unowned self] returnedStatus, returnedError in
             DispatchQueue.main.async {
                 if returnedStatus == .granted {
                     self._permissionStatus = true
@@ -62,19 +65,17 @@ extension CloudKitUserModel {
             }
         }
     }
-
-    private func fetchiCloudUserRecordID() {
-        CKContainer.default().fetchUserRecordID { [weak self] returnedId, returnedError in
-            guard let self = self else { return }
+    
+     func fetchiCloudUserRecordID() {
+        CKContainer.default().fetchUserRecordID { [unowned self] returnedId, returnedError in
             if let id = returnedId {
                 self.discoveriCloudUser(id: id)
             }
         }
     }
-
-    private func discoveriCloudUser(id: CKRecord.ID) {
-        CKContainer.default().discoverUserIdentity(withUserRecordID: id) { [weak self] returnedIdentity, returnedError in
-            guard let self = self else { return }
+    
+    func discoveriCloudUser(id: CKRecord.ID) {
+        CKContainer.default().discoverUserIdentity(withUserRecordID: id) { [unowned self] returnedIdentity, returnedError in
             DispatchQueue.main.async {
                 if let name = returnedIdentity?.nameComponents?.givenName {
                     self._userName = name
