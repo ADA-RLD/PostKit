@@ -99,6 +99,7 @@ extension CaptionResultView {
                                     ) { updatedText in
                                         viewModel.promptAnswer = updatedText
                                     }
+                                    .interactiveDismissDisabled()
                                 })
                             }
                         }
