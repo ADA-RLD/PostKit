@@ -13,6 +13,3 @@ struct Tone: Hashable {
     let toneExample: String
     let isBest: Bool
 }
-
-
-

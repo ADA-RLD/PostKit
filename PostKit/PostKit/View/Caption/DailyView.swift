@@ -69,7 +69,6 @@ extension DailyView {
         }
     }
     
-    
     private func bottomArea() -> some View {
         //TODO: 모듈화 필요 BottomView로 변경 예정
         CTABtn(btnLabel: "글 생성", isActive: .constant(true), action: {

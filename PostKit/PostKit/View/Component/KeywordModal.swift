@@ -143,58 +143,59 @@ extension KeywordModal {
             
             HStack(spacing: 0) {
                 Picker("",selection: $pickerSelection) {
-                    ForEach(pickerList.indices, id: \.self ) { i in
+                    ForEach(pickerList.indices, id: \.self ) { selected in
                         Button {
-                            pickerSelection = i
+                            pickerSelection = selected
                         } label: {
                             RoundedRectangle(cornerRadius: 7)
-                                .foregroundColor(pickerSelection == i ? Color.white : Color.clear)
+                                .foregroundColor(pickerSelection == selected ? Color.white : Color.clear)
                                 .frame(height: 36)
                                 .overlay(alignment: .center) {
-                                    Text(pickerList[i])
-                                        .font(pickerSelection == i ? .system(size: 17,weight: .semibold) : .system(size: 17,weight: .regular))
+                                    Text(pickerList[selected])
+                                        .font(pickerSelection == selected ? .system(size: 17,weight: .semibold) : .system(size: 17,weight: .regular))
                                 }
                         }
-                        .tag(i)
-                        
+                        .tag(selected)
                     }
                 }
                 .frame(height: 40)
                 .pickerStyle(.segmented)
             }
-            
-            if (pickerSelection == 0) {
+            switch pickerSelection {
+            case 0:
                 WrappingHStack(alignment: .leading) {
                     ForEach(firstSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
                 }
-               
-            }
-            else if (pickerSelection == 1) {
+                
+            case 1:
                 WrappingHStack(alignment: .leading) {
                     ForEach(secondSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
                 }
                 
-            }
-            else {
+            case 2:
                 WrappingHStack(alignment: .leading) {
                     ForEach(thirdSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
                 }
-                
+            
+            default:
+                WrappingHStack(alignment: .leading) {
+                    ForEach(firstSegmentPoint, id: \.self) { i in
+                        segementationElement(point: i)
+                    }
+                }
             }
-         
         }
     }
     
     private func segementationElement(point: String) -> some View {
         Button {
             if selectKeyWords.count < maxCount {
-                if modalType == .menu {
                     if firstSegmentPoint.contains(point) {
                         firstSegementSelected.append(point)
                         firstSegmentPoint.removeAll(where: { $0 == point})
@@ -207,7 +208,6 @@ extension KeywordModal {
                         secondSegementSelected.append(point)
                         secondSegmentPoint.removeAll(where: { $0 == point})
                     }
-                }
                 selectKeyWords.append(point)
             }
             else {
@@ -221,12 +221,9 @@ extension KeywordModal {
                 .clipShape(RoundedRectangle(cornerRadius: radius1))
                 .overlay() {
                     RoundedRectangle(cornerRadius: radius1)
-                    .stroke(Color.gray3,lineWidth: 1)
-                    
+                        .stroke(Color.gray3,lineWidth: 1)
                 }
         }
-
-      
     }
 }
 //
