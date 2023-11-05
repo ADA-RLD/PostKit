@@ -179,7 +179,7 @@ extension MainView {
                 .foregroundColor(Color.sub)
                 .overlay(alignment: .leading) {
                     VStack(alignment: .leading, spacing: 8) {
-
+                        
                         Text("해시태그")
                             .font(.title2())
                             .foregroundColor(Color.gray6)
@@ -308,11 +308,6 @@ extension MainView {
                         .onChange(of: item.like){ _ in
                             saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
                         }
-                    //TODO: 누르면 삭제되는데요..?(조이스)
-//                        .onTapGesture {
-//                            deleteCaptionData(_uuid: item.id)
-//                            fetchCaptionData()
-//                        }
                 }
             }
             .refreshable{fetchCaptionData()}
@@ -328,11 +323,6 @@ extension MainView {
                         .onChange(of: item.hashtag){ _ in
                             saveHashtageData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                         }
-                    //TODO: 누르면 왜 삭제가 돼나여,,?(조이스)
-//                        .onTapGesture {
-//                            deleteHashtagData(_uuid: item.id)
-//                            fetchHashtagData()
-//                        }
                 }
             }
             .refreshable {fetchHashtagData()}
@@ -343,15 +333,15 @@ extension MainView {
     private func feedHisoryDetail(tag: String, date: String, content: String, like: Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
-        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리 (조이스)
-//            .onTapGesture {
-//                copyToClipboard()
-//            }
             .foregroundColor(Color.gray1)
+        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리 (조이스)
+        //            .onTapGesture {
+        //                copyToClipboard()
+        //            }
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
-                
-                    HStack(spacing: 0) {
+                    
+                    HStack {
                         Text(tag)
                             .font(.body2Bold())
                             .foregroundColor(Color.white)
@@ -368,10 +358,8 @@ extension MainView {
                             .foregroundColor(Color.gray4)
                         Spacer()
                         Menu {
-                            //TODO: 왜 모달이 안뜨지? (조이스)
                             Button(action: {
                                 self.showModal = true
-                                print("모달이 안떠요")
                             }) {
                                 HStack {
                                     Text("수정하기")
@@ -379,18 +367,11 @@ extension MainView {
                                     Image(systemName: "square.and.pencil")
                                 }
                             }
-                            //TODO: isChange 수정, update 안됌 (조이스)
-                            .sheet(isPresented: self.$showModal) {
-                                ResultUpdateModalView(
-                                    showModal: $showModal, isChange: $isCaptionChange,
-                                    stringContent: content,
-                                    resultUpdateType: .captionResult
-                                ) { updatedText in
-                                    _ = updatedText
-                                }
-                            }
-                            Button(action: {
-                                //TODO: 삭제하기 action 추가, 색 변경 (조이스)
+                            Button(role: .destructive, action: {
+                                //TODO: 삭제하기 action 추가 해야함
+                                //                                deleteCaptionData(_uuid: item.id)
+                                //                                fetchCaptionData()
+                                //MARK: item.id 값 필요
                             }) {
                                 HStack {
                                     Text("삭제하기")
@@ -406,55 +387,86 @@ extension MainView {
                     Text(content)
                         .font(.body2Bold())
                         .foregroundColor(Color.gray5)
-                 }
                 }
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
+            .sheet(isPresented: self.$showModal) {
+                ResultUpdateModalView(
+                    showModal: $showModal, isChange: $isCaptionChange,
+                    stringContent: content,
+                    resultUpdateType: .captionResult
+                ) { updatedText in
+                    _ = updatedText
+                    //MARK: 피드에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함, isChange 수정 필요함
+                }
+                .interactiveDismissDisabled()
+            }
+    }
     
     private func hashtagHistoryDetail(date : Date, hashtagContent : String, hashtageLike : Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
         //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리 (조이스)
-//            .onTapGesture {
-//                copyToClipboard()
-//            }
+        //            .onTapGesture {
+        //                copyToClipboard()
+        //            }
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
                     
                     HStack {
+                        
                         Text(date, style: .date)
                             .font(.body2Bold())
                             .foregroundColor(Color.gray4)
                         
                         Spacer()
                         
-                        Button(action: {
-                            self.showModal = true
-                        }) {
-                            Image(systemName: "ellipsis")
-                                .font(.body2Bold())
-                                .foregroundColor(Color.gray3)
-                        }
-                        //TODO: isChange 수정, update 안됌 (조이스)
-                        .sheet(isPresented: self.$showModal) {
-                            ResultUpdateModalView(
-                                showModal: $showModal, isChange: $isCaptionChange,
-                                stringContent: hashtagContent,
-                                resultUpdateType: .hashtagResult
-                            ) { updatedText in
-                                var hastagContent = updatedText
+                        Menu {
+                            Button(action: {
+                                self.showModal = true
+                            }) {
+                                HStack {
+                                    Text("수정하기")
+                                    Spacer()
+                                    Image(systemName: "square.and.pencil")
+                                }
                             }
+                            Button(role: .destructive, action: {
+                                //TODO: 삭제하기 action 추가 해야함
+//                                deleteHashtagData(_uuid: item.id)
+//                                fetchHashtagData()
+                                //MARK: item.id 값 필요
+                            }) {
+                                HStack {
+                                    Text("삭제하기")
+                                    Spacer()
+                                    Image(systemName: "trash")
+                                }
+                            }
+                        } label: {
+                            Label("", systemImage: "ellipsis")
                         }
                     }
+                    
                     Text(hashtagContent)
                         .font(.body2Bold())
                         .foregroundColor(Color.gray5)
                 }
-                .padding(.horizontal,16)
-                .padding(.vertical,24)
+                .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
-      }
+            .sheet(isPresented: self.$showModal) {
+                ResultUpdateModalView(
+                    showModal: $showModal, isChange: $isCaptionChange,
+                    stringContent: hashtagContent,
+                    resultUpdateType: .hashtagResult
+                ) { updatedText in
+                    _ = updatedText
+                    //MARK: hashtag에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함, isChange 수정 필요함
+                }
+                .interactiveDismissDisabled()
+            }
+    }
 }
 
 
