@@ -26,12 +26,14 @@ struct SettingToneView: View {
             CustomHeader(action: {
                 pathManager.path.removeLast()
             }, title: "말투")
-            ContentArea {
-                VStack(spacing: 0) {
-                    SelectTone(selectedTones: $storeTone)
-                        .onChange(of: storeTone) { _ in
-                            isActiveCheck()
-                        }
+            ScrollView {
+                ContentArea {
+                    VStack(spacing: 0) {
+                        SelectTone(selectedTones: $storeTone)
+                            .onChange(of: storeTone) { _ in
+                                isActiveCheck()
+                            }
+                    }
                 }
             }
             Spacer()
