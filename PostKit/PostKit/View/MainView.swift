@@ -92,8 +92,9 @@ struct MainView: View {
                     fetchHashtagData()
                     
                     //Cloud 디버깅
-                    print("IS SIGNED IN: \(iCloudData._isSignedInCloud.description.uppercased())\nPermission Status: \(iCloudData._permissionStatus.description)\nUser Name: \(iCloudData._userName)")
-                    print("\(iCloudData._error)")
+                    print("iCloud Status")
+                    print("IS SIGNED IN: \(iCloudData.isSignedIntoiCloud.description.uppercased())\nPermission Status: \(iCloudData.permissionStatus.description)\nUser Name: \(iCloudData.userName)")
+                    print("\(iCloudData.error)")
                     
                     saveToCloud()
                 }
