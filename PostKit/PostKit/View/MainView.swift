@@ -15,7 +15,6 @@ struct MainView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
-    //TODO: isCaptionChange는 임시
     @State private var showModal = false
     @State private var isCaptionChange = false
     @ObservedObject var viewModel = ChatGptViewModel.shared
@@ -397,7 +396,7 @@ extension MainView {
                     resultUpdateType: .captionResult
                 ) { updatedText in
                     _ = updatedText
-                    //MARK: 피드에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함, isChange 수정 필요함
+                    //MARK: 피드에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함
                 }
                 .interactiveDismissDisabled()
             }
@@ -462,7 +461,7 @@ extension MainView {
                     resultUpdateType: .hashtagResult
                 ) { updatedText in
                     _ = updatedText
-                    //MARK: hashtag에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함, isChange 수정 필요함
+                    //MARK: hashtag에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함
                 }
                 .interactiveDismissDisabled()
             }
