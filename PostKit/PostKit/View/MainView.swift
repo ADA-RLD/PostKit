@@ -15,7 +15,7 @@ struct MainView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
-    //TODO: isCaptionChange는 빼야함 (조이스)
+    //TODO: isCaptionChange는 임시
     @State private var showModal = false
     @State private var isCaptionChange = false
     @ObservedObject var viewModel = ChatGptViewModel.shared
@@ -334,7 +334,7 @@ extension MainView {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
-        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리 (조이스)
+        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리
         //            .onTapGesture {
         //                copyToClipboard()
         //            }
@@ -407,7 +407,7 @@ extension MainView {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
-        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리 (조이스)
+        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리
         //            .onTapGesture {
         //                copyToClipboard()
         //            }
@@ -434,8 +434,8 @@ extension MainView {
                             }
                             Button(role: .destructive, action: {
                                 //TODO: 삭제하기 action 추가 해야함
-//                                deleteHashtagData(_uuid: item.id)
-//                                fetchHashtagData()
+                                //                                deleteHashtagData(_uuid: item.id)
+                                //                                fetchHashtagData()
                                 //MARK: item.id 값 필요
                             }) {
                                 HStack {
