@@ -38,7 +38,7 @@ struct KeywordModal: View {
             
             ContentArea {
                 VStack(alignment: .leading, spacing: 28) {
-                    keywordinputArea()
+                    keywordInputArea()
                     
                     segementaionArea()
                 }
@@ -78,7 +78,7 @@ extension KeywordModal {
         .padding(.top,25)
     }
     
-    private func keywordinputArea() -> some View {
+    private func keywordInputArea() -> some View {
         VStack(alignment: .leading, spacing: 16) {
             CustomTextfield(text: $inputText, placeHolder: "키워드를 추가해보세요",customTextfieldState: .reuse) {
                 if !inputText.isEmpty && selectKeyWords.count < maxCount {
@@ -161,30 +161,21 @@ extension KeywordModal {
                 .frame(height: 40)
                 .pickerStyle(.segmented)
             }
-            switch pickerSelection {
-            case 0:
-                WrappingHStack(alignment: .leading) {
+            WrappingHStack(alignment: .leading){
+                switch pickerSelection {
+                case 0:
                     ForEach(firstSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
-                }
-                
-            case 1:
-                WrappingHStack(alignment: .leading) {
+                case 1:
                     ForEach(secondSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
-                }
-                
-            case 2:
-                WrappingHStack(alignment: .leading) {
+                case 2:
                     ForEach(thirdSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
-                }
-            
-            default:
-                WrappingHStack(alignment: .leading) {
+                default:
                     ForEach(firstSegmentPoint, id: \.self) { i in
                         segementationElement(point: i)
                     }
@@ -196,18 +187,18 @@ extension KeywordModal {
     private func segementationElement(point: String) -> some View {
         Button {
             if selectKeyWords.count < maxCount {
-                    if firstSegmentPoint.contains(point) {
-                        firstSegementSelected.append(point)
-                        firstSegmentPoint.removeAll(where: { $0 == point})
-                    }
-                    else if thirdSegmentPoint.contains(point) {
-                        thirdSegementSelected.append(point)
-                        thirdSegmentPoint.removeAll(where: { $0 == point})
-                    }
-                    else if secondSegmentPoint.contains(point) {
-                        secondSegementSelected.append(point)
-                        secondSegmentPoint.removeAll(where: { $0 == point})
-                    }
+                if firstSegmentPoint.contains(point) {
+                    firstSegementSelected.append(point)
+                    firstSegmentPoint.removeAll(where: { $0 == point})
+                }
+                else if thirdSegmentPoint.contains(point) {
+                    thirdSegementSelected.append(point)
+                    thirdSegmentPoint.removeAll(where: { $0 == point})
+                }
+                else if secondSegmentPoint.contains(point) {
+                    secondSegementSelected.append(point)
+                    secondSegmentPoint.removeAll(where: { $0 == point})
+                }
                 selectKeyWords.append(point)
             }
             else {
