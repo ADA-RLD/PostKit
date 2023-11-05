@@ -35,7 +35,6 @@ struct SettingToneView: View {
                             }
                     }
                 }
-                
             }
             Spacer()
             CTABtn(btnLabel: "저장", isActive: $isActive) {

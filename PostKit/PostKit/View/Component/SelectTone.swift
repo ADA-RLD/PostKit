@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectTone: View {
-    
+    //TODO: 임시데이터라 데이터 변경이 필요합니다
     let tones: [Tone] = [
         Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
         Tone(tone: "친절한", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
@@ -43,6 +43,7 @@ extension SelectTone {
     
     private func toggleBtn(concept: String, conceptExample: String, isBest: Bool, action: @escaping () -> Void) -> some View {
         Button {
+            action()
         } label: {
             RoundedRectangle(cornerRadius: radius1)
                 .stroke(selectedTones.contains(concept) ? Color.main: Color.gray1, lineWidth: 2)
