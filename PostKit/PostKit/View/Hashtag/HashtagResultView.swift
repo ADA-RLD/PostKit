@@ -35,7 +35,7 @@ struct HashtagResultView: View {
             resultView()
                 .navigationBarBackButtonHidden()
         }
-        .toast(toastText: "클립보드에 복사했어요", toastImageResource: "copy", isShowing: $isShowingToast)
+        .toast(toastText: "클립보드에 복사했어요", toastImageResource: Image(.copy), isShowing: $isShowingToast)
     }
 }
 

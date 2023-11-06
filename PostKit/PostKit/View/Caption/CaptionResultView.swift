@@ -46,7 +46,6 @@ struct CaptionResultView: View {
                     copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
                 }
         }
-        .toast(toastText: "클립보드에 복사했어요", toastImageResource: "copy", isShowing: $isShowingToast)
         .navigationBarBackButtonHidden()
     }
 }
@@ -115,7 +114,7 @@ extension CaptionResultView {
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyToClipboard()
             }
-          
+            .toast(toastText: "클립보드에 복사했어요", toastImageResource: Image(.copy), isShowing: $isShowingToast)
             .alert(isPresented: $isPresented) {
                 switch activeAlert {
                 case .first:
@@ -189,8 +188,8 @@ extension CaptionResultView {
 // MARK: - 기존 뷰 위에 토스트를 위로 올려줌
 struct ToastModifier: ViewModifier {
     @Binding var isShowing: Bool
-    @State var toastImageResource: String
-    @State var toastText: String
+    var toastImageResource: Image
+    var toastText: String
     let duration: TimeInterval
     func body(content: Content) -> some View {
         ZStack{
@@ -199,7 +198,7 @@ struct ToastModifier: ViewModifier {
                 VStack{
                     Spacer()
                     HStack(spacing: 8) {
-                        Image(toastImageResource)
+                        toastImageResource
                         Text(toastText)
                             .body1Bold(textColor: .white)
                         Spacer()
@@ -226,7 +225,7 @@ struct ToastModifier: ViewModifier {
 
 // MARK: - 토스트를 띄워주는 모디파이어 적용
 extension View {
-    func toast(toastText: String, toastImageResource: String, isShowing: Binding<Bool>, duration: TimeInterval = 1.5) -> some View {
+    func toast(toastText: String, toastImageResource: Image, isShowing: Binding<Bool>, duration: TimeInterval = 1.5) -> some View {
         modifier(ToastModifier(isShowing: isShowing, toastImageResource: toastImageResource, toastText: toastText, duration: duration))
     }
 }
