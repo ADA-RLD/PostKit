@@ -35,7 +35,7 @@ extension MenuView {
             toneInfo = "평범"
         }
         
-        basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo)한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자 정도로 작성해줘."
+        basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo)한 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
         self.messages.append(Message(id: UUID(), role: .system, content: basicPrompt))
         print(basicPrompt)
         viewModel.basicPrompt = basicPrompt
@@ -68,7 +68,7 @@ extension MenuView {
             pointText = pointText + "이 있어."
         }
         
-        self.currentInput = "메뉴의 이름은 \(menuName)인 메뉴에 대해서 인스타그램 피드를 작성해줘. \(pointText)"
+        self.currentInput = "메뉴의 이름은 \(menuName)인 메뉴에 대해서 인스타그램 피드를 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘. \(pointText)"
     }
     
     // MARK: - Caption 생성
