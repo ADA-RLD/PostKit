@@ -303,7 +303,7 @@ extension MainView {
             ScrollView{
                 ForEach(captions) { item in
                     //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
-                    feedHisoryDetail(tag: item.category, date: convertDate(date: item.date), content: item.caption, like: item.like)
+                    feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: item.caption, like: item.like)
                         .onChange(of: item.like){ _ in
                             saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
                         }
@@ -318,7 +318,7 @@ extension MainView {
         VStack {
             ScrollView{
                 ForEach(hashtags) { item in
-                    hashtagHistoryDetail(date: item.date, hashtagContent: item.hashtag, hashtageLike: item.isLike)
+                    hashtagHistoryDetail(uid: item.id, date: item.date, hashtagContent: item.hashtag, hashtageLike: item.isLike)
                         .onChange(of: item.hashtag){ _ in
                             saveHashtageData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                         }
@@ -329,7 +329,7 @@ extension MainView {
         .toast(isShowing: $isShowingToast)
     }
     
-    private func feedHisoryDetail(tag: String, date: String, content: String, like: Bool) -> some View {
+    private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: String, like: Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
@@ -395,14 +395,14 @@ extension MainView {
                     stringContent: content,
                     resultUpdateType: .captionResult
                 ) { updatedText in
-                    _ = updatedText
+                     //= updatedText
                     //MARK: 피드에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함
                 }
                 .interactiveDismissDisabled()
             }
     }
     
-    private func hashtagHistoryDetail(date : Date, hashtagContent : String, hashtageLike : Bool) -> some View {
+    private func hashtagHistoryDetail(uid: UUID,date : Date, hashtagContent : String, hashtageLike : Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
@@ -433,8 +433,8 @@ extension MainView {
                             }
                             Button(role: .destructive, action: {
                                 //TODO: 삭제하기 action 추가 해야함
-                                //                                deleteHashtagData(_uuid: item.id)
-                                //                                fetchHashtagData()
+                                deleteHashtagData(_uuid: uid)
+                                fetchHashtagData()
                                 //MARK: item.id 값 필요
                             }) {
                                 HStack {
