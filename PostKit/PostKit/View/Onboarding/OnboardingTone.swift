@@ -25,12 +25,10 @@ struct OnboardingTone: View {
                         VStack(alignment: .leading,spacing: 12) {
                             
                             Text("원하는 톤을 선택하세요")
-                                .font(.title1())
-                                .foregroundStyle(Color.gray6)
-                            
+                                .title1(textColor: .gray6)
+
                             Text("선택한 톤을 바탕으로 카피가 생성됩니다.")
-                                .font(.body2Bold())
-                                .foregroundStyle(Color.gray4)
+                                .body2Bold(textColor: .gray4)
                         }
                         SelectTone(selectedTones: $cafeTone)
                             .onChange(of: cafeTone) { _ in
