@@ -12,6 +12,7 @@ struct HashtagResultView: View {
  
     @State private var isShowingToast = false
     @State private var isLike = false //좋아요 버튼은 결과뷰에서만 존재합니다
+    @State private var copyId = UUID()
     @State private var isPresented: Bool = false
     @State private var showModal = false
     @State private var isCaptionChange = false
@@ -47,8 +48,10 @@ extension HashtagResultView {
                         Spacer()
                         Button(action: {
                             //TODO: 수정된 해시태그 CoreData 저장 필요
+                            if isCaptionChange {
+                                saveEditHashtagResult(_uuid: copyId, _result: viewModel.hashtag, _like: isLike)
+                            }
                             pathManager.path.removeAll()
-                            
                         }, label: {
                             Text("완료")
                                 .font(.body1Bold())
@@ -75,13 +78,14 @@ extension HashtagResultView {
                                 ) { updatedText in
                                     viewModel.hashtag = updatedText
                                 }
+                                .interactiveDismissDisabled()
                             })
                         }
                     }
                     .onChange(of: viewModel.hashtag){ _ in
                         // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
                         //isLike 변수는 좋아요 입니다.
-                        SaveHashtag(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
+                        copyId = saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
                     }
                 }
             }
@@ -89,7 +93,7 @@ extension HashtagResultView {
             
             //MARK: 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
-                if coinManager.coin < 5 {
+                if coinManager.coin > 0 {
                     activeAlert = .first
                     isPresented.toggle()
                 }
@@ -125,6 +129,7 @@ extension HashtagResultView {
 }
 
 extension HashtagResultView : HashtagProtocol {
+   
     func convertDayTime(time: Date) -> Date {
         let today = Date()
         let timezone = TimeZone.autoupdatingCurrent
@@ -133,11 +138,11 @@ extension HashtagResultView : HashtagProtocol {
         return localizedDate
     }
     
-    func FetchHashtag() {
+    func fetchHashtag() {
         //여기서는 fetch하지 않아요
     }
     
-    func SaveHashtag(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) {
+    func saveHashtagResult(date: Date, locationTag: Array<String>, keyword: Array<String>, result: String, isLike: Bool) -> UUID{
         let newHashtag = HashtagData(context: coreDataManager.context)
         newHashtag.resultId = UUID()
         newHashtag.date = date
@@ -145,7 +150,13 @@ extension HashtagResultView : HashtagProtocol {
         newHashtag.like = isLike
         coreDataManager.save()
         
+        return newHashtag.resultId ?? UUID()
+        
         print("Hashtag 저장 완료!\n resultId : \(newHashtag.resultId)\n Date : \(newHashtag.date)\n Hashtag : \(newHashtag.hashtag)\n")
+    }
+    
+    func saveEditHashtagResult(_uuid: UUID, _result: String, _like: Bool) {
+        //생성중
     }
 }
 
