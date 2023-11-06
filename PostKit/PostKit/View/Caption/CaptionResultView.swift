@@ -39,17 +39,12 @@ struct CaptionResultView: View {
     
     var body: some View {
         ZStack{
-            if viewModel.promptAnswer == "생성된 텍스트가 들어가요." {
-                LoadingView()
-            }
-            else{
-                captionResult
-                    .onAppear{
-                        //Caption이 생성되면 바로 CoreData에 저장
-                        //수정을 위해 UUID를 저장
-                        copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
-                    }
-            }
+            captionResult
+                .onAppear{
+                    //Caption이 생성되면 바로 CoreData에 저장
+                    //수정을 위해 UUID를 저장
+                    copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
+                }
         }
         .navigationBarBackButtonHidden()
     }
@@ -68,7 +63,6 @@ extension CaptionResultView {
                                 saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
                             }
                             pathManager.path.removeAll()
-                            viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                         }, label: {
                             Text("완료")
                                 .font(.body1Bold())
@@ -85,7 +79,6 @@ extension CaptionResultView {
                     
                     // MARK: - 생성된 카피 출력 + 복사하기 버튼
                     VStack(alignment: .trailing, spacing: 20) {
-                        
                         VStack {
                             ZStack(alignment: .leading) {
                                 // TODO: historyLeftAction 추가
@@ -132,7 +125,6 @@ extension CaptionResultView {
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
                         if coinManager.coin > CoinManager.minimalCoin {
-                            coinManager.coinUse()
                             regenerateAnswer()
                         }
                     }
@@ -150,22 +142,30 @@ extension CaptionResultView {
 extension CaptionResultView {
     // MARK: - Chat GPT API에 재생성 요청
     func regenerateAnswer() { /* Daily, Menu를 선택하지 않아도 이전 답변을 참고하여 재생성 합니다.*/
+        pathManager.path.append(.Loading)
+
         Task{
-            viewModel.promptAnswer = "생성된 텍스트가 들어가요."
-            
             self.messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
             let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
             self.messages.append(newMessage)
-
+            
             chatGptService.sendMessage(messages: self.messages)
                 .sink(
                     receiveCompletion: { completion in
                         switch completion {
                         case .failure(let error):
-                            // TODO: - 오류 코드를 기반으로 오류 처리 진행 필요
                             print("error 발생. error code: \(error._code)")
+                            if error._code == 10 {
+                                pathManager.path.append(.ErrorResultFailed)
+                            }
+                            else if error._code == 13 {
+                                pathManager.path.append(.ErrorNetwork)
+                            }
                         case .finished:
                             print("Caption 생성이 무사히 완료되었습니다.")
+                            
+                            coinManager.coinUse()
+                            pathManager.path.append(.CaptionResult)
                         }
                     },
                     receiveValue:  { response in
