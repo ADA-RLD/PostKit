@@ -84,7 +84,6 @@ extension DailyView {
                 receiveCompletion: { completion in
                     switch completion {
                     case .failure(let error):
-                        // TODO: - 오류 코드를 기반으로 오류 처리 진행 필요
                         print("error 발생. error code: \(error._code)")
                         if error._code == 10 {
                             pathManager.path.append(.ErrorResultFailed)
