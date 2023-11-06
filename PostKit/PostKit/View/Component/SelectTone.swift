@@ -4,7 +4,6 @@
 //
 //  Created by 김다빈 on 10/13/23.
 
-
 import SwiftUI
 
 struct SelectTone: View {
@@ -61,13 +60,11 @@ extension SelectTone {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 8) {
                             Text(concept)
-                                .font(.body1Bold())
-                                .foregroundColor(selectedTones.contains(concept) ? Color.gray5 : Color.gray4)
+                                .body1Bold(textColor: selectedTones.contains(concept) ? Color.gray5 : Color.gray4)
                             
                             if isBest {
                                 Text("BEST")
-                                    .font(.body2Bold())
-                                    .foregroundColor(Color.main)
+                                    .body2Bold(textColor: .main)
                                     .clipShape(RoundedRectangle(cornerRadius: 4))
                                     .background(Color.main.opacity(0.5))
                             }
@@ -84,19 +81,11 @@ extension SelectTone {
 // MARK: Extension: Function => view model로 빼주세요...
 extension SelectTone {
     private func addTone(tone: String) {
-        if !selectedTones.contains(tone) {
-            if selectedTones.count >= 3 {
-                selectedTones.removeFirst()
+        if !selectedTones.contains(tone) && selectedTones.count < 3 {
                 selectedTones.append(tone)
-            }
-            else {
-                selectedTones.append(tone)
-            }
         }
         else {
-            if let firstIndex = selectedTones.firstIndex(of: tone) {
-                selectedTones.remove(at: firstIndex)
-            }
+            //TODO: Toast추가예정
         }
     }
 }

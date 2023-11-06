@@ -20,9 +20,9 @@ struct CTABtn: View {
                 RoundedRectangle(cornerRadius: radius1)
                     .foregroundColor(isActive ? Color.main : Color.gray3)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 56)
                     .overlay {
                         Text(btnLabel)
+                            .padding()
                             .font(.body1Bold())
                             .foregroundStyle(Color.white)
                     }
