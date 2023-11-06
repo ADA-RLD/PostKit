@@ -63,6 +63,8 @@ struct MainView: View {
                             SettingStoreView(storeName: $storeModel.storeName)
                         case .SettingTone:
                             SettingToneView(storeTone: $storeModel.tone)
+                        case .Loading:
+                            LoadingView()
                         case .CaptionResult:
                             CaptionResultView(storeModel: storeModel)
                         case .HashtagResult:
