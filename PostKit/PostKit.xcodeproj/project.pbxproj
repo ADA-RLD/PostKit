@@ -51,7 +51,6 @@
 		13ECB50D2AF377530046E6BE /* SelectTextLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB50C2AF377530046E6BE /* SelectTextLength.swift */; };
 		13ECB50F2AF39D740046E6BE /* KeywordModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB50E2AF39D740046E6BE /* KeywordModal.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
-		7E0605042AF08258003A87BC /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605032AF08258003A87BC /* ResponseError.swift */; };
 		7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605072AF108A5003A87BC /* HashtagService.swift */; };
 		7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605092AF13965003A87BC /* HashtagViewModel.swift */; };
 		7E06050C2AF22826003A87BC /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E06050B2AF22826003A87BC /* MenuViewModel.swift */; };
@@ -138,7 +137,6 @@
 		13ECB50C2AF377530046E6BE /* SelectTextLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTextLength.swift; sourceTree = "<group>"; };
 		13ECB50E2AF39D740046E6BE /* KeywordModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordModal.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
-		7E0605032AF08258003A87BC /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		7E0605072AF108A5003A87BC /* HashtagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagService.swift; sourceTree = "<group>"; };
 		7E0605092AF13965003A87BC /* HashtagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagViewModel.swift; sourceTree = "<group>"; };
 		7E06050B2AF22826003A87BC /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 				7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */,
 				7E0605092AF13965003A87BC /* HashtagViewModel.swift */,
 				139B2C8C2AEF42390036BD18 /* HapticManger.swift */,
-				7E0605032AF08258003A87BC /* ResponseError.swift */,
 				7E06050B2AF22826003A87BC /* MenuViewModel.swift */,
 				7E06050D2AF22834003A87BC /* DailyViewModel.swift */,
 				139B2C922AF23D680036BD18 /* CoinManager.swift */,
@@ -622,7 +619,6 @@
 				13C2960C2AD8F15300A2DE7F /* OnboardingFinal.swift in Sources */,
 				B96211E92AED16CC0074CBE1 /* HashtagView.swift in Sources */,
 				13C296122AD8F17100A2DE7F /* OnboardingStore.swift in Sources */,
-				7E0605042AF08258003A87BC /* ResponseError.swift in Sources */,
 				A188C5852AD7BA89007473D3 /* CoreDataManager.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
 				13ECB50F2AF39D740046E6BE /* KeywordModal.swift in Sources */,

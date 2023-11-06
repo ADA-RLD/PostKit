@@ -18,7 +18,8 @@ struct OnboardingStore: View {
         VStack(spacing: 0) {
             OnboardingCustomHeader(action: {onboardingRouter.previousPage()})
             ContentArea {
-                VStack(alignment:.leading,spacing: 40){
+                VStack(alignment:.leading, spacing: 40){
+
                     VStack(alignment:.leading, spacing: 12) {
                         Text("매장의 이름을 알려주세요")
                             .title1(textColor: .gray6)
