@@ -32,8 +32,7 @@ struct LoadingView: View {
                     .padding(16)
                 
                 Spacer()
-            }
-            .background(Color.red)
+            }       
             
             ContentArea {
                 
