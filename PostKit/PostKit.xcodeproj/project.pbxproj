@@ -194,6 +194,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1336DE5E2AF8EA27000A6D9A /* MainViews */ = {
+			isa = PBXGroup;
+			children = (
+				1336DE5C2AF8DF81000A6D9A /* MainCaptionView.swift */,
+				13C295C72AD620EC00A2DE7F /* MainView.swift */,
+				1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */,
+			);
+			path = MainViews;
+			sourceTree = "<group>";
+		};
 		139B2C872AECF0BF0036BD18 /* Error */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,17 +262,15 @@
 		13C295C42AD620C700A2DE7F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */,
+				1336DE5E2AF8EA27000A6D9A /* MainViews */,
 				139B2C872AECF0BF0036BD18 /* Error */,
 				B96211E72AED16A90074CBE1 /* Hashtag */,
 				13C296292ADF875100A2DE7F /* Caption */,
 				13C2960A2AD8F14000A2DE7F /* Onboarding */,
 				13C295DB2AD6B46F00A2DE7F /* Extension */,
 				13C295D62AD68BD600A2DE7F /* Setting */,
-				13C295C72AD620EC00A2DE7F /* MainView.swift */,
 				B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */,
 				13C295CD2AD6211700A2DE7F /* Component */,
-				1336DE5C2AF8DF81000A6D9A /* MainCaptionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
