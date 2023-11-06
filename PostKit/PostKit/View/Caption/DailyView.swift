@@ -73,10 +73,9 @@ extension DailyView {
         //TODO: 모듈화 필요 BottomView로 변경 예정
         CTABtn(btnLabel: "글 생성", isActive: .constant(true), action: {
             if coinManager.coin > CoinManager.minimalCoin {
+                pathManager.path.append(.Loading)
                 Task{
                     sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
-                    pathManager.path.append(.CaptionResult)
-                    coinManager.coinUse()
                     print(coinManager.coin)
                 }
             }
