@@ -26,6 +26,7 @@ struct MenuView: View {
     
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
@@ -100,6 +101,7 @@ extension MenuView {
                     pathManager.path.append(.Loading)
 
                     Task{
+                        loadingModel.isCaptionGenerate = false
                         sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
                     }
                 }

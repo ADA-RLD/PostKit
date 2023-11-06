@@ -12,6 +12,8 @@ struct LoadingView: View {
     @State var count: Int = 0
     @State var timeStap: Int = 0
     
+    @ObservedObject var loadingModel = LoadingViewModel.shared
+    
     var body: some View {
         
         let Tips: [TipStruck] = [
@@ -53,10 +55,10 @@ struct LoadingView: View {
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
                 self.count = count + 1
                 timeStap = count % 5
-                print("\(timeStap)")
                 
-                if self.count >= 60 { // 예를 들어, count가 10 이상이면 타이머 중지
+                if loadingModel.isCaptionGenerate {
                     timer.invalidate()
+                    print("\nCaption 생성시간 : \(count)초\n")
                 }
             }
         }
@@ -73,7 +75,7 @@ private func LoadingTipView(_timeStep: Int, tips: [TipStruck]) -> some View {
     
     return ZStack {
         Rectangle()
-            .frame(width: .infinity, height: 147)
+            .frame(width: 335, height: 147)
             .foregroundColor(.sub)
             .cornerRadius(12)
 

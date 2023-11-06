@@ -30,6 +30,7 @@ struct DailyView: View {
     
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     
     let chatGptService = ChatGptService()
     //CoreData Manager
@@ -75,6 +76,7 @@ extension DailyView {
             if coinManager.coin > CoinManager.minimalCoin {
                 pathManager.path.append(.Loading)
                 Task{
+                    loadingModel.isCaptionGenerate = false
                     sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
                     print(coinManager.coin)
                 }

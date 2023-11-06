@@ -13,6 +13,7 @@ struct ErrorView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     
     @State private var cancellables = Set<AnyCancellable>()
     @State private var messages: [Message] = []
@@ -55,6 +56,7 @@ struct ErrorView: View {
                                 receiveCompletion: { completion in
                                     switch completion {
                                     case .failure(let error):
+                                        loadingModel.isCaptionGenerate = true
                                         print("error 발생. error code: \(error._code)")
                                         if error._code == 10 {
                                             pathManager.path.append(.ErrorResultFailed)
@@ -63,6 +65,7 @@ struct ErrorView: View {
                                             pathManager.path.append(.ErrorNetwork)
                                         }
                                     case .finished:
+                                        loadingModel.isCaptionGenerate = false
                                         print("Caption 생성이 무사히 완료되었습니다.")
                                         coinManager.coinUse()
                                         pathManager.path.append(.CaptionResult)
