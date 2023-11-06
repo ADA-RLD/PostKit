@@ -16,6 +16,10 @@ struct OnboardingIntro: View {
         VStack(alignment: .leading,spacing: 0) {
             ContentArea {
                 VStack(alignment: .leading,spacing: 30) {
+                    Image(.onboardingStart)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 113)
                     Text("포스트킷과 함께\n우리 매장을 알려봐요")
                         .font(.title1())
                         .foregroundStyle(Color.gray6)
@@ -26,7 +30,7 @@ struct OnboardingIntro: View {
             }
             .padding(.top,100)
             Spacer()
-            CTABtn(btnLabel: "시작하기", isActive: .constant(true), action: {onboardingRouter.nextPage();print(onboardingRouter.currentPage)})
+            CTABtn(btnLabel: "시작", isActive: .constant(true), action: {onboardingRouter.nextPage();print(onboardingRouter.currentPage)})
         }
         .onAppear {
             appstorageManager.$cafeName.wrappedValue = ""
