@@ -114,7 +114,7 @@ extension MainHistoryView {
         .onAppear {
             fetchCaptionData()
         }
-        .toast(toastText: "클립보드에 복사했어요", toastImageResource: "copy", isShowing: $isShowingToast)
+        .toast(toastText: "클립보드에 복사했어요", toastImageResource: Image(.copy), isShowing: $isShowingToast)
     }
     
     private var hashtagHistory: some View {
@@ -132,7 +132,7 @@ extension MainHistoryView {
         .onAppear {
             fetchHashtagData()
         }
-        .toast(toastText: "클립보드에 복사했어요", toastImageResource: "copy", isShowing: $isShowingToast)
+        .toast(toastText: "클립보드에 복사했어요", toastImageResource: Image(.copy), isShowing: $isShowingToast)
     }
     
     private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: Binding<String>, like: Bool) -> some View {
