@@ -21,8 +21,6 @@ struct MainHistoryView: View {
     private let hapticManger = HapticManager.instance
     private let pasteBoard = UIPasteboard.general
     
-
-    
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
     
@@ -60,9 +58,7 @@ struct MainHistoryView: View {
     }
 }
 
-
 extension MainHistoryView {
-    
     private var historyIndicator: some View {
         HStack(spacing: 16) {
             
@@ -103,7 +99,6 @@ extension MainHistoryView {
     }
     
     private var feedHistory: some View {
-        
         VStack {
             ScrollView{
                 ForEach($captions) { $item in
@@ -117,7 +112,6 @@ extension MainHistoryView {
             .refreshable{fetchCaptionData()}
         }
         .onAppear {
-            
             fetchCaptionData()
         }
         .toast(isShowing: $isShowingToast)
