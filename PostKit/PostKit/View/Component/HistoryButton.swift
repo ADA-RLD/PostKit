@@ -18,8 +18,8 @@ struct HistoryButton: View {
         ZStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 Text(resultText)
-                    .font(.body1Bold())
-                    .foregroundColor(Color.gray5)
+                    .body1Bold(textColor: .gray5)
+
                 Spacer()
                 HStack(alignment: .bottom) {
                     Button(action: {
@@ -43,8 +43,7 @@ struct HistoryButton: View {
                         historyRightAction()
                     }, label: {
                         Text(buttonText)
-                            .font(.body2Bold())
-                            .foregroundColor(.white)
+                            .body2Bold(textColor: .white)
                             .padding(EdgeInsets(top: 6, leading: 18, bottom: 6, trailing: 18))
                     }).background(RoundedRectangle(cornerRadius: 20).fill(Color.main))
                 }

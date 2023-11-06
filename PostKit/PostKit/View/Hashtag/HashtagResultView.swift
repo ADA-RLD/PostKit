@@ -54,15 +54,13 @@ extension HashtagResultView {
                             pathManager.path.removeAll()
                         }, label: {
                             Text("완료")
-                                .font(.body1Bold())
-                                .foregroundColor(.gray5)
+                                .body1Bold(textColor: .gray5)
                         })
                     }
                     
                     VStack(alignment: .leading, spacing: 12) {
                         Text("주문하신 해시태그가 나왔어요!")
-                            .font(.title1())
-                            .foregroundColor(.black)
+                            .title1(textColor: .gray6)
                     }
                     
                     VStack {

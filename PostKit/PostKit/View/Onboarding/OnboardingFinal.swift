@@ -26,12 +26,11 @@ struct OnboardingFinal: View {
                         .frame(height: 125)
                     
                     Text("\(storeName) 사장님,\n반가워요👋")
-                        .font(.title1())
-                        .foregroundStyle(Color.gray6)
+                        .title1(textColor: .gray6)
+
                     
                     Text("포스트킷과 함께\n카페 이야기를 적어내려가 봐요")
-                        .font(.body1Bold())
-                        .foregroundStyle(Color.gray4)
+                        .body1Bold(textColor: .gray4)
                 }
             }
             .padding(.top,40)
