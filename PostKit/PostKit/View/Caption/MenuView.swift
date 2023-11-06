@@ -99,9 +99,11 @@ extension MenuView {
         CTABtn(btnLabel: "글 생성", isActive: self.$isActive, action: {
             if isActive == true {
                 if coinManager.coin > CoinManager.minimalCoin {
-                    coinManager.coinUse()
-                    sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
-                    pathManager.path.append(.CaptionResult)
+                    pathManager.path.append(.Loading)
+
+                    Task{
+                        sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
+                    }
                 }
                 else {
                     isAlertPresented.toggle()
