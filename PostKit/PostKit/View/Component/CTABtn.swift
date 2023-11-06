@@ -32,7 +32,6 @@ struct CTABtn: View {
         }
         .padding(.horizontal,paddingHorizontal)
         .padding(.vertical,12)
-
     }
 }
 
