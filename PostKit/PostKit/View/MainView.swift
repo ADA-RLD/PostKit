@@ -120,11 +120,9 @@ private func NavigationBtn(header: String, description: String,action: @escaping
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading,spacing: 8) {
                     Text(header)
-                        .font(.title2())
-                        .foregroundStyle(Color.gray6)
+                        .title2(textColor: .gray6)
                     Text(description)
-                        .font(.body2Bold())
-                        .foregroundStyle(Color.gray4)
+                        .body2Bold(textColor: .gray4)
                 }
                 .padding(.horizontal,16)
             }
@@ -160,7 +158,7 @@ extension MainView {
                     Text("\(coinManager.coin)")
                     
                     Text("어떤 카피를 생성할까요?")
-                        .font(.title1())
+                        .title1(textColor: .gray6)
                     
                     VStack(alignment: .leading, spacing: 20) {
                         captionArea()
@@ -181,8 +179,7 @@ extension MainView {
                 .frame(height: 60)
                 .overlay(alignment: .center) {
                     Text(captionName)
-                        .font(.body1Bold())
-                        .foregroundColor(Color.gray5)
+                        .body1Bold(textColor: .gray5)
                 }
         }
     }
@@ -198,12 +195,10 @@ extension MainView {
                     VStack(alignment: .leading, spacing: 8) {
                         
                         Text("해시태그")
-                            .font(.title2())
-                            .foregroundColor(Color.gray6)
+                            .title2(textColor: .gray6)
                         
                         Text("우리 카페에는 어떤 해시태그가 어울릴까?")
-                            .font(.body2Bold())
-                            .foregroundColor(Color.gray4)
+                            .body2Bold(textColor: .gray4)
                     }
                     .padding(.vertical,28)
                     .padding(.horizontal,16)
@@ -221,11 +216,10 @@ extension MainView {
                     VStack(alignment: .leading, spacing: 8) {
                         
                         Text("캡션")
-                            .font(.title2())
-                            .foregroundColor(Color.gray6)
+                            .title2(textColor: .gray6)
+
                         Text("카페의 메뉴에 대한 글을 써요")
-                            .font(.body2Bold())
-                            .foregroundColor(Color.gray4)
+                            .body2Bold(textColor: .gray4)
                     }
                     
                     HStack(spacing: 8) {
@@ -246,12 +240,10 @@ extension MainView {
                 VStack(alignment: .leading, spacing: 8) {
                     
                     Text("히스토리")
-                        .font(.title1())
-                        .foregroundColor(Color.gray6)
+                        .title1(textColor: .gray6)
                     
                     Text("히스토리를 탭하면 내용이 복사됩니다.")
-                        .font(.body2Bold())
-                        .foregroundColor(Color.gray4)
+                        .body2Bold(textColor: .gray4)
                 }
                 
                 VStack(alignment: .leading, spacing: 20) {
@@ -283,8 +275,7 @@ extension MainView {
                 }
             }, label: {
                 Text("피드 글")
-                    .font(.title2())
-                    .foregroundColor(Color.black)
+                    .title2(textColor: .gray6)
                     .overlay(alignment: .bottom) {
                         if historySelected == "피드 글" {
                             Rectangle()
@@ -301,8 +292,7 @@ extension MainView {
                 }
             }, label: {
                 Text("해시태그")
-                    .font(.title2())
-                    .foregroundColor(Color.black)
+                    .title2(textColor: .gray6)
                     .overlay(alignment: .bottom) {
                         if historySelected == "해시태그" {
                             Rectangle()
@@ -360,8 +350,7 @@ extension MainView {
                     
                     HStack {
                         Text(tag)
-                            .font(.body2Bold())
-                            .foregroundColor(Color.white)
+                            .body2Bold(textColor: .white)
                             .padding(.horizontal, 9.5)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .background(Color.main)
@@ -371,8 +360,7 @@ extension MainView {
                             }
                         Spacer()
                         Text(date)
-                            .font(.body2Bold())
-                            .foregroundColor(Color.gray4)
+                            .body2Bold(textColor: .gray4)
                         Spacer()
                         Menu {
                             Button(action: {
@@ -402,8 +390,7 @@ extension MainView {
                     }
                     
                     Text(content.wrappedValue)
-                        .font(.body2Bold())
-                        .foregroundColor(Color.gray5)
+                        .body2Bold(textColor: .gray5)
                 }
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
@@ -433,8 +420,7 @@ extension MainView {
                     HStack {
                         
                         Text(date, style: .date)
-                            .font(.body2Bold())
-                            .foregroundColor(Color.gray4)
+                            .body2Bold(textColor: .gray4)
                         
                         Spacer()
                         
@@ -464,10 +450,9 @@ extension MainView {
                             Label("", systemImage: "ellipsis")
                         }
                     }
-                    
                     Text(hashtagContent.wrappedValue)
-                        .font(.body2Bold())
-                        .foregroundColor(Color.gray5)
+                        .body2Bold(textColor: .gray5)
+
                 }
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }

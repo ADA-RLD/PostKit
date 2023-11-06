@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1336DE562AF8BF21000A6D9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE552AF8BF21000A6D9A /* Constants.swift */; };
 		139B2C7E2ADFF8690036BD18 /* ContentArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C7D2ADFF8690036BD18 /* ContentArea.swift */; };
 		139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C882AECF0CD0036BD18 /* ErrorView.swift */; };
 		139B2C8B2AEF34890036BD18 /* HashtagResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */; };
@@ -81,7 +82,6 @@
 		B986326C2AD7E76200DE9FF5 /* CaptionResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986326B2AD7E76200DE9FF5 /* CaptionResultView.swift */; };
 		B98632782AD9735000DE9FF5 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632772AD9735000DE9FF5 /* DailyView.swift */; };
 		B986327C2ADA5DC300DE9FF5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */; };
-		B9872A3D2AF23D15000A795C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A3C2AF23D15000A795C /* Constants.swift */; };
 		B9872A3F2AF23D77000A795C /* HashtagPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A3E2AF23D77000A795C /* HashtagPopover.swift */; };
 		B9872A432AF335C1000A795C /* HashtagPopoverExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A422AF335C1000A795C /* HashtagPopoverExtension.swift */; };
 		B9872A472AF394DA000A795C /* HistoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A462AF394DA000A795C /* HistoryButton.swift */; };
@@ -90,6 +90,7 @@
 
 /* Begin PBXFileReference section */
 		0A14ED0B2AD96D9A00357A79 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1336DE552AF8BF21000A6D9A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		139B2C7D2ADFF8690036BD18 /* ContentArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentArea.swift; sourceTree = "<group>"; };
 		139B2C882AECF0CD0036BD18 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagResultView.swift; sourceTree = "<group>"; };
@@ -168,7 +169,6 @@
 		B986326B2AD7E76200DE9FF5 /* CaptionResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionResultView.swift; sourceTree = "<group>"; };
 		B98632772AD9735000DE9FF5 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		B986327B2ADA5DC300DE9FF5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		B9872A3C2AF23D15000A795C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B9872A3E2AF23D77000A795C /* HashtagPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagPopover.swift; sourceTree = "<group>"; };
 		B9872A422AF335C1000A795C /* HashtagPopoverExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagPopoverExtension.swift; sourceTree = "<group>"; };
 		B9872A462AF394DA000A795C /* HistoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryButton.swift; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 				13C296232AD988FC00A2DE7F /* AppStorageManager.swift */,
 				A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */,
 				A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */,
-				B9872A3C2AF23D15000A795C /* Constants.swift */,
+				1336DE552AF8BF21000A6D9A /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -579,6 +579,7 @@
 				13C295DF2AD6C01300A2DE7F /* CTABtn.swift in Sources */,
 				B9872A492AF3C02D000A795C /* ResultUpdateModalView.swift in Sources */,
 				139B2C932AF23D690036BD18 /* CoinManager.swift in Sources */,
+				1336DE562AF8BF21000A6D9A /* Constants.swift in Sources */,
 				A1B75AD02AEFDF9200DFD343 /* HashtagProtocol.swift in Sources */,
 				B98632682AD7D03800DE9FF5 /* MenuView.swift in Sources */,
 				13C296142AD8F17D00A2DE7F /* OnboardingTone.swift in Sources */,
@@ -619,7 +620,6 @@
 				B9872A432AF335C1000A795C /* HashtagPopoverExtension.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
 				13ECB50B2AF372D60046E6BE /* KeywordAppend.swift in Sources */,
-				B9872A3D2AF23D15000A795C /* Constants.swift in Sources */,
 				B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */,
 				A188C5922AD968A7007473D3 /* MainViewProtocol.swift in Sources */,
 			);
