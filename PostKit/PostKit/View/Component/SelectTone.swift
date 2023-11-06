@@ -41,6 +41,7 @@ extension SelectTone {
         }
     }
     
+    // TODO: isbest가 true일때 색변경이 안되는 오류 수정해야합니다.
     private func toggleBtn(concept: String, conceptExample: String, isBest: Bool, action: @escaping () -> Void) -> some View {
         Button {
             action()
@@ -49,7 +50,7 @@ extension SelectTone {
                 .stroke(selectedTones.contains(concept) ? Color.main: Color.gray1, lineWidth: 2)
                 .background(
                     RoundedRectangle(cornerRadius: radius2)
-                        .fill(selectedTones.contains(concept) ? Color.main: Color.gray1)
+                        .fill(selectedTones.contains(concept) ? Color.sub: Color.gray1)
                 )
                 .frame(height: 84)
                 .foregroundColor(Color.gray1)
@@ -58,7 +59,7 @@ extension SelectTone {
                         HStack(spacing:8) {
                             Text(concept)
                                 .font(.body1Bold())
-                                .foregroundColor(Color.gray4)
+                                .foregroundColor(selectedTones.contains(concept) ? Color.gray5 : Color.gray4)
                             
                             if isBest {
                                 Text("BEST")

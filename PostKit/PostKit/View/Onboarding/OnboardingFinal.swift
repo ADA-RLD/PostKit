@@ -19,7 +19,12 @@ struct OnboardingFinal: View {
         VStack(alignment:.leading,spacing: 0) {
             OnboardingCustomHeader(action: onboardingRouter.previousPage)
             ContentArea {
-                VStack(alignment:.leading,spacing: 40) {
+                VStack(alignment:.leading,spacing: 30) {
+                    Image(.onboardingFinal)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 125)
+                    
                     Text("\(storeName) 사장님,\n반가워요👋")
                         .font(.title1())
                         .foregroundStyle(Color.gray6)
