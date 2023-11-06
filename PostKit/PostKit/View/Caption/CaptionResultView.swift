@@ -27,6 +27,7 @@ struct CaptionResultView: View {
     @State private var cancellables = Set<AnyCancellable>()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     
     private let pasteBoard = UIPasteboard.general
     private let chatGptService = ChatGptService()
@@ -44,6 +45,7 @@ struct CaptionResultView: View {
                     //Caption이 생성되면 바로 CoreData에 저장
                     //수정을 위해 UUID를 저장
                     copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
+                    loadingModel.isCaptionGenerate = true
                 }
         }
         .navigationBarBackButtonHidden()
@@ -123,6 +125,7 @@ extension CaptionResultView {
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
                         if coinManager.coin > CoinManager.minimalCoin {
+                            loadingModel.isCaptionGenerate = false
                             regenerateAnswer()
                         }
                     }
@@ -152,6 +155,7 @@ extension CaptionResultView {
                     receiveCompletion: { completion in
                         switch completion {
                         case .failure(let error):
+                            loadingModel.isCaptionGenerate = true
                             print("error 발생. error code: \(error._code)")
                             if error._code == 10 {
                                 pathManager.path.append(.ErrorResultFailed)
@@ -160,8 +164,8 @@ extension CaptionResultView {
                                 pathManager.path.append(.ErrorNetwork)
                             }
                         case .finished:
+                            loadingModel.isCaptionGenerate = false
                             print("Caption 생성이 무사히 완료되었습니다.")
-                            
                             coinManager.coinUse()
                             pathManager.path.append(.CaptionResult)
                         }

@@ -80,6 +80,7 @@ extension MenuView {
                 receiveCompletion: { completion in
                     switch completion {
                     case .failure(let error):
+                        loadingModel.isCaptionGenerate = true
                         if error._code == 10 {
                             pathManager.path.append(.ErrorResultFailed)
                         }
@@ -90,6 +91,7 @@ extension MenuView {
                     case .finished:
                         pathManager.path.append(.CaptionResult)
                         coinManager.coinUse()
+                        loadingModel.isCaptionGenerate = false
                         print("Caption 생성이 무사히 완료되었습니다.")
                     }
                 },

@@ -17,7 +17,7 @@ class CoinManager: ObservableObject {
     
     init() {
         // TODO: 출시할때는 24시간으로 바꿔야 할듯여
-        cancellable = Timer.publish(every: 170, on: .main, in: .default)
+        cancellable = Timer.publish(every: 5, on: .main, in: .default)
             .autoconnect()
             .sink { [weak self] _ in
                 
