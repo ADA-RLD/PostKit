@@ -11,8 +11,8 @@ import SwiftUI
 enum Pretendard {
     case black
     case bold
-    case extrabold
-    case extralight
+    case extraBold
+    case extraLight
     case light
     case medium
     case regular
@@ -25,9 +25,9 @@ enum Pretendard {
             return "Pretendard-Black"
         case .bold:
             return "Pretendard-Bold"
-        case .extrabold:
+        case .extraBold:
             return "Pretendard-ExtraBold"
-        case .extralight:
+        case .extraLight:
             return "Pretendard-ExtraLight"
         case .light:
             return "Pretendard-Light"
