@@ -31,8 +31,11 @@ struct HashtagResultView: View {
     let coreDataManager = CoreDataManager.instance
     
     var body: some View {
-        resultView()
-            .navigationBarBackButtonHidden()
+        ZStack {
+            resultView()
+                .navigationBarBackButtonHidden()
+        }
+        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
 }
 
@@ -103,7 +106,6 @@ extension HashtagResultView {
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyToClipboard()
             }
-            .toast(isShowing: $isShowingToast)
             .alert(isPresented: $isPresented) {
                 switch activeAlert {
                 case .first:
