@@ -71,7 +71,7 @@ extension HashtagResultView {
                             }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                 ResultUpdateModalView(
                                     showModal: $showModal, isChange: $isCaptionChange,
-                                    stringContent: viewModel.hashtag,
+                                    stringContent: $viewModel.hashtag,
                                     resultUpdateType: .hashtagResult
                                 ) { updatedText in
                                     viewModel.hashtag = updatedText
