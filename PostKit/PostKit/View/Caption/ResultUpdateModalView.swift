@@ -15,7 +15,7 @@ struct ResultUpdateModalView: View {
     
     @Binding var showModal: Bool
     @Binding var isChange: Bool
-    @State var stringContent = ""
+    @Binding var stringContent: String
     var resultUpdateType: ResultUpdateType = .captionResult
     var completion: (_ caption: String) -> Void
     
