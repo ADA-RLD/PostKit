@@ -114,7 +114,7 @@ extension CaptionResultView {
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyToClipboard()
             }
-            .toast(isShowing: $isShowingToast)
+            .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
             .alert(isPresented: $isPresented) {
                 switch activeAlert {
                 case .first:
@@ -188,6 +188,8 @@ extension CaptionResultView {
 // MARK: - 기존 뷰 위에 토스트를 위로 올려줌
 struct ToastModifier: ViewModifier {
     @Binding var isShowing: Bool
+    var toastImgRes: Image
+    var toastText: String
     let duration: TimeInterval
     func body(content: Content) -> some View {
         ZStack{
@@ -195,14 +197,19 @@ struct ToastModifier: ViewModifier {
             if isShowing{
                 VStack{
                     Spacer()
-                    Text("클립보드에 복사되었습니다!")
-                        .body1Bold(textColor: .white)
+                    HStack(spacing: 8) {
+                        toastImgRes
+                        Text(toastText)
+                            .body1Bold(textColor: .white)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 20)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 100)
-                        .background(.black.opacity(0.6))
+                        .background(.gray5)
                         .cornerRadius(radius1)
                         .padding(.horizontal, paddingHorizontal)
-                        .padding(.bottom, 20)
+                        .padding(.bottom, paddingBottom)
                 }
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()+duration){
@@ -218,8 +225,8 @@ struct ToastModifier: ViewModifier {
 
 // MARK: - 토스트를 띄워주는 모디파이어 적용
 extension View {
-    func toast(isShowing: Binding<Bool>, duration: TimeInterval = 1.5) -> some View {
-        modifier(ToastModifier(isShowing: isShowing, duration: duration))
+    func toast(toastText: String, toastImgRes: Image, isShowing: Binding<Bool>, duration: TimeInterval = 1.5) -> some View {
+        modifier(ToastModifier(isShowing: isShowing, toastImgRes: toastImgRes, toastText: toastText, duration: duration))
     }
 }
 
