@@ -9,14 +9,19 @@ import SwiftUI
 import CoreData
 
 struct MainHistoryView: View {
+    @ObservedObject var viewModel = ChatGptViewModel.shared
     @State var historySelected = "피드 글"
     @State private var captions: [CaptionModel] = []
     @State private var isShowingToast = false
     @State private var isCaptionChange = false
     @State private var showModal = false
     @State private var hashtags: [HashtagModel] = []
-    
     @Namespace var nameSpace
+    
+    private let hapticManger = HapticManager.instance
+    private let pasteBoard = UIPasteboard.general
+    
+
     
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
@@ -265,6 +270,12 @@ extension MainHistoryView {
                 }
                 .interactiveDismissDisabled()
             }
+    }
+    
+    private func copyToClipboard() {
+        hapticManger.notification(type: .success)
+        pasteBoard.string = viewModel.promptAnswer
+        isShowingToast = true
     }
 }
 
