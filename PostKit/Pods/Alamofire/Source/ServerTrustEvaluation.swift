@@ -553,11 +553,11 @@ extension AlamofireExtension where ExtendedType == SecTrust {
     ///           the underlying evaluation.
     @available(iOS 12, macOS 10.14, tvOS 12, watchOS 5, *)
     public func evaluate() throws {
-        var error: CFError?
-        let evaluationSucceeded = SecTrustEvaluateWithError(type, &error)
+        var _error: CFError?
+        let evaluationSucceeded = SecTrustEvaluateWithError(type, &_error)
 
         if !evaluationSucceeded {
-            throw AFError.serverTrustEvaluationFailed(reason: .trustEvaluationFailed(error: error))
+            throw AFError.serverTrustEvaluationFailed(reason: .trustEvaluationFailed(_error: _error))
         }
     }
 
