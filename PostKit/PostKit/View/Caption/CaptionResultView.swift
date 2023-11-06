@@ -154,6 +154,12 @@ extension CaptionResultView {
                         switch completion {
                         case .failure(let error):
                             print("error 발생. error code: \(error._code)")
+                            if error._code == 10 {
+                                pathManager.path.append(.ErrorResultFailed)
+                            }
+                            else if error._code == 13 {
+                                pathManager.path.append(.ErrorNetwork)
+                            }
                         case .finished:
                             print("Caption 생성이 무사히 완료되었습니다.")
                             

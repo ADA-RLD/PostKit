@@ -86,8 +86,15 @@ extension DailyView {
                     case .failure(let error):
                         // TODO: - 오류 코드를 기반으로 오류 처리 진행 필요
                         print("error 발생. error code: \(error._code)")
+                        if error._code == 10 {
+                            pathManager.path.append(.ErrorResultFailed)
+                        }
+                        else if error._code == 13 {
+                            pathManager.path.append(.ErrorNetwork)
+                        }
                     case .finished:
                         print("Caption 생성이 무사히 완료되었습니다.")
+                        pathManager.path.append(.CaptionResult)
                         coinManager.coinUse()
                     }
                 },

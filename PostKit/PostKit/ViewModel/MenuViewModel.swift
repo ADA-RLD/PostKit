@@ -80,9 +80,16 @@ extension MenuView {
                 receiveCompletion: { completion in
                     switch completion {
                     case .failure(let error):
-                        // TODO: - 오류 코드를 기반으로 오류 처리 진행 필요
+                        if error._code == 10 {
+                            pathManager.path.append(.ErrorResultFailed)
+                        }
+                        else if error._code == 13 {
+                            pathManager.path.append(.ErrorNetwork)
+                        }
                         print("error 발생. error code: \(error._code)")
                     case .finished:
+                        pathManager.path.append(.CaptionResult)
+                        coinManager.coinUse()
                         print("Caption 생성이 무사히 완료되었습니다.")
                     }
                 },
