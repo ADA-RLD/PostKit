@@ -75,6 +75,7 @@ extension HashtagResultView {
                                 ) { updatedText in
                                     viewModel.hashtag = updatedText
                                 }
+                                .interactiveDismissDisabled()
                             })
                         }
                     }

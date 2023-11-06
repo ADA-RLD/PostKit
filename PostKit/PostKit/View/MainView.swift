@@ -15,6 +15,8 @@ struct MainView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var isShowingToast = false
     @State var historySelected = "피드 글"
+    @State private var showModal = false
+    @State private var isCaptionChange = false
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @Namespace var nameSpace
@@ -176,7 +178,7 @@ extension MainView {
                 .foregroundColor(Color.sub)
                 .overlay(alignment: .leading) {
                     VStack(alignment: .leading, spacing: 8) {
-
+                        
                         Text("해시태그")
                             .font(.title2())
                             .foregroundColor(Color.gray6)
@@ -301,13 +303,9 @@ extension MainView {
             ScrollView{
                 ForEach(captions) { item in
                     //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
-                    feedHisoryDetail(tag: item.category, date: convertDate(date: item.date), content: item.caption, like: item.like)
+                    feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: item.caption, like: item.like)
                         .onChange(of: item.like){ _ in
                             saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
-                        }
-                        .onTapGesture {
-                            deleteCaptionData(_uuid: item.id)
-                            fetchCaptionData()
                         }
                 }
             }
@@ -320,13 +318,9 @@ extension MainView {
         VStack {
             ScrollView{
                 ForEach(hashtags) { item in
-                    hashtagHistoryDetail(date: item.date, hashtagContent: item.hashtag, hashtageLike: item.isLike)
+                    hashtagHistoryDetail(uid: item.id, date: item.date, hashtagContent: item.hashtag, hashtageLike: item.isLike)
                         .onChange(of: item.hashtag){ _ in
                             saveHashtageData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
-                        }
-                        .onTapGesture {
-                            deleteHashtagData(_uuid: item.id)
-                            fetchHashtagData()
                         }
                 }
             }
@@ -335,18 +329,18 @@ extension MainView {
         .toast(isShowing: $isShowingToast)
     }
     
-    private func feedHisoryDetail(tag: String, date: String, content: String, like: Bool) -> some View {
+    private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: String, like: Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
-            .onTapGesture {
-                copyToClipboard()
-            }
             .foregroundColor(Color.gray1)
+        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리
+        //            .onTapGesture {
+        //                copyToClipboard()
+        //            }
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
                     
-                    HStack(spacing: 0) {
-                        
+                    HStack {
                         Text(tag)
                             .font(.body2Bold())
                             .foregroundColor(Color.white)
@@ -357,45 +351,121 @@ extension MainView {
                                 RoundedRectangle(cornerRadius: 8)
                                     .foregroundColor(.clear)
                             }
-            
                         Spacer()
-                        
                         Text(date)
                             .font(.body2Bold())
                             .foregroundColor(Color.gray4)
+                        Spacer()
+                        Menu {
+                            Button(action: {
+                                self.showModal = true
+                            }) {
+                                HStack {
+                                    Text("수정하기")
+                                    Spacer()
+                                    Image(systemName: "square.and.pencil")
+                                }
+                            }
+                            Button(role: .destructive, action: {
+                                //TODO: 삭제하기 action 추가 해야함
+                                //                                deleteCaptionData(_uuid: item.id)
+                                //                                fetchCaptionData()
+                                //MARK: item.id 값 필요
+                            }) {
+                                HStack {
+                                    Text("삭제하기")
+                                    Spacer()
+                                    Image(systemName: "trash")
+                                }
+                            }
+                        } label: {
+                            Label("", systemImage: "ellipsis")
+                        }
                     }
                     
                     Text(content)
                         .font(.body2Bold())
                         .foregroundColor(Color.gray5)
-                    
                 }
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
+            .sheet(isPresented: self.$showModal) {
+                ResultUpdateModalView(
+                    showModal: $showModal, isChange: $isCaptionChange,
+                    stringContent: content,
+                    resultUpdateType: .captionResult
+                ) { updatedText in
+                     //= updatedText
+                    //MARK: 피드에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함
+                }
+                .interactiveDismissDisabled()
+            }
     }
     
-    private func hashtagHistoryDetail(date : Date, hashtagContent : String, hashtageLike : Bool) -> some View {
+    private func hashtagHistoryDetail(uid: UUID,date : Date, hashtagContent : String, hashtageLike : Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
-            .onTapGesture {
-                copyToClipboard()
-            }
+        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리
+        //            .onTapGesture {
+        //                copyToClipboard()
+        //            }
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
                     
-                    Text(date, style: .date)
-                        .font(.body2Bold())
-                        .foregroundColor(Color.gray4)
+                    HStack {
+                        
+                        Text(date, style: .date)
+                            .font(.body2Bold())
+                            .foregroundColor(Color.gray4)
+                        
+                        Spacer()
+                        
+                        Menu {
+                            Button(action: {
+                                self.showModal = true
+                            }) {
+                                HStack {
+                                    Text("수정하기")
+                                    Spacer()
+                                    Image(systemName: "square.and.pencil")
+                                }
+                            }
+                            Button(role: .destructive, action: {
+                                //TODO: 삭제하기 action 추가 해야함
+                                deleteHashtagData(_uuid: uid)
+                                fetchHashtagData()
+                                //MARK: item.id 값 필요
+                            }) {
+                                HStack {
+                                    Text("삭제하기")
+                                    Spacer()
+                                    Image(systemName: "trash")
+                                }
+                            }
+                        } label: {
+                            Label("", systemImage: "ellipsis")
+                        }
+                    }
                     
                     Text(hashtagContent)
                         .font(.body2Bold())
                         .foregroundColor(Color.gray5)
                 }
-                .padding(.horizontal,16)
-                .padding(.vertical,24)
+                .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
-      }
+            .sheet(isPresented: self.$showModal) {
+                ResultUpdateModalView(
+                    showModal: $showModal, isChange: $isCaptionChange,
+                    stringContent: hashtagContent,
+                    resultUpdateType: .hashtagResult
+                ) { updatedText in
+                    _ = updatedText
+                    //MARK: hashtag에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함
+                }
+                .interactiveDismissDisabled()
+            }
+    }
 }
 
 
