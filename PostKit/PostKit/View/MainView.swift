@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import CoreData
+import CloudKit
 
 struct MainView: View {
     @AppStorage("_coin") var coin: Int = 0
@@ -17,6 +18,8 @@ struct MainView: View {
     @State var historySelected = "피드 글"
     @State private var showModal = false
     @State private var isCaptionChange = false
+    //iCloud가 연동 확인 모델
+    @StateObject private var iCloudData = CloudKitUserModel()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @Namespace var nameSpace
@@ -25,6 +28,8 @@ struct MainView: View {
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
     private let hapticManger = HapticManager.instance
+    //AppStorage iCloud버전
+    var keyStore = NSUbiquitousKeyValueStore()
     
     //CoreData 임시 Class
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
@@ -52,6 +57,10 @@ struct MainView: View {
                                 Text("히스토리")
                             }
                             .onTapGesture {hapticManger.notification(type: .success)}
+                            .onAppear{
+                                fetchCaptionData()
+                                fetchHashtagData()
+                            }
                     }
                     .navigationDestination(for: StackViewType.self) { stackViewType in
                         switch stackViewType {
@@ -87,6 +96,13 @@ struct MainView: View {
                     
                     fetchCaptionData()
                     fetchHashtagData()
+                    
+                    //Cloud 디버깅
+                    print("iCloud Status")
+                    print("IS SIGNED IN: \(iCloudData.isSignedIntoiCloud.description.uppercased())\nPermission Status: \(iCloudData.permissionStatus.description)\nUser Name: \(iCloudData.userName)")
+                    print("\(iCloudData.error)")
+                    
+                    saveToCloud()
                 }
             }
         }
@@ -370,8 +386,8 @@ extension MainView {
                             }
                             Button(role: .destructive, action: {
                                 //TODO: 삭제하기 action 추가 해야함
-                                //                                deleteCaptionData(_uuid: item.id)
-                                //                                fetchCaptionData()
+                                deleteCaptionData(_uuid: uid)
+                                fetchCaptionData()
                                 //MARK: item.id 값 필요
                             }) {
                                 HStack {
@@ -636,5 +652,45 @@ extension MainView : MainViewProtocol {
         var convertDate = formatter.string(from: date)
         
         return convertDate
+    }
+}
+
+extension MainView : iCloudProtocol {
+    func fetchAllFromCloud() {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: "Store",predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        operation.database =  CKContainer(identifier: "iCloud.com.PostKit")
+            .publicCloudDatabase
+        
+        operation.recordMatchedBlock = { recordID, result in
+            print("💿", recordID)
+            switch result {
+            case .success(let record):
+                print("📀", record)
+            case .failure(let error):
+                print(error)
+            }
+        }
+
+        operation.start()
+    }
+    
+    func saveToCloud() {
+        let record = CKRecord(recordType: "Store")
+        record.setValuesForKeys(["StoreName": "TestStoreName", "StoreTone": "저장톤"])
+        
+        let container = CKContainer(identifier: "iCloud.com.PostKit")
+        container.publicCloudDatabase.save(record) { record, error in
+            print("저장완료! \(record)")
+        }
+    }
+    
+    func updateCloud() {
+        //아직
+    }
+    
+    func deleteCloud() {
+        //개발중
     }
 }

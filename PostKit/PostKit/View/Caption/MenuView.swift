@@ -10,7 +10,6 @@ import CoreData
 import Combine
 
 struct MenuView: View {
-    //@EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
     @State private var menuName = ""
