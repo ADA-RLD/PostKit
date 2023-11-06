@@ -80,8 +80,7 @@ extension MenuView {
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("메뉴 이름*")
-                        .font(.body1Bold())
-                        .foregroundColor(Color.gray5)
+                        .body1Bold(textColor: .gray5)
                     CustomTextfield(text: $menuName, placeHolder: "아이스 아메리카노")
                         .onChange(of: menuName)  { _ in if menuName.count >= 1 {
                                 isActive = true

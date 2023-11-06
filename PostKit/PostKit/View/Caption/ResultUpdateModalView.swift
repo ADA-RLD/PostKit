@@ -27,14 +27,13 @@ struct ResultUpdateModalView: View {
                         showModal = false
                     }, label: {
                         Text("취소")
-                            .font(.body1Regular())
-                            .foregroundColor(Color.blue)
+                            .body1Regular(textColor: .blue)
                     })
                     
                     Spacer()
                     
                     Text(resultUpdateType == .captionResult ? "글 수정" : "해시태그 수정")
-                        .font(.body1Bold())
+                        .body1Bold(textColor: .gray6)
                     
                     Spacer()
                     
@@ -43,8 +42,7 @@ struct ResultUpdateModalView: View {
                         showModal = false
                     }, label: {
                         Text("저장")
-                            .font(.body1Regular())
-                            .foregroundColor(Color.blue)
+                            .body1Regular(textColor: .blue)
                     })
                 }
                 .padding(.horizontal, 16)
