@@ -386,8 +386,8 @@ extension MainView {
                             }
                             Button(role: .destructive, action: {
                                 //TODO: 삭제하기 action 추가 해야함
-                                //                                deleteCaptionData(_uuid: item.id)
-                                //                                fetchCaptionData()
+                                deleteCaptionData(_uuid: uid)
+                                fetchCaptionData()
                                 //MARK: item.id 값 필요
                             }) {
                                 HStack {
