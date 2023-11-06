@@ -18,7 +18,6 @@ struct MainCaptionView: View {
     
     var body: some View {
         ContentArea {
-            
             VStack(alignment:.leading ,spacing: 28) {
                 SettingBtn(action: {pathManager.path.append(.SettingHome)})
                 
@@ -50,7 +49,6 @@ extension MainCaptionView {
             .overlay(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 16) {
                     VStack(alignment: .leading, spacing: 8) {
-                        
                         Text("캡션")
                             .title2(textColor: .gray6)
 
@@ -124,7 +122,7 @@ extension MainCaptionView : MainViewProtocol {
     
     func fetchStoreData() {
         let storeRequest = NSFetchRequest<StoreData>(entityName: "StoreData")
-        
+
         do {
             let storeDataArray = try coreDataManager.context.fetch(storeRequest)
             if let storeCoreData = storeDataArray.last {
@@ -148,7 +146,6 @@ extension MainCaptionView : MainViewProtocol {
     
     func saveCaptionData(_uuid: UUID, _result: String, _like: Bool) {
         let fetchRequest = NSFetchRequest<CaptionResult>(entityName: "CaptionResult")
-        
         // captionModel의 UUID가 같을 경우
         let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
         fetchRequest.predicate = predicate
@@ -245,10 +242,8 @@ extension MainCaptionView : MainViewProtocol {
     }
     
     func convertDate(date: Date) -> String {
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
-      
         var convertDate = formatter.string(from: date)
         
         return convertDate
