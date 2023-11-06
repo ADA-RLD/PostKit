@@ -46,8 +46,7 @@ struct HashtagView: View {
                     ContentArea {
                         VStack(alignment: .leading, spacing: 28) {
                             Text("입력한 지역명을 기반으로 해시태그가 생성됩니다. \n강조 키워드 미입력 시 기본 키워드만의 조합으로 생성됩니다.")
-                                .font(.body2Bold())
-                                .foregroundColor(.gray4)
+                                .body2Bold(textColor: .gray4)
                                 .readSize { size in
                                     titleHeight = size.height
                                 }
@@ -59,8 +58,7 @@ struct HashtagView: View {
                                 VStack(alignment: .leading, spacing: 12) {
                                     HStack {
                                         Text("지역명 *")
-                                            .font(.body1Bold())
-                                            .foregroundColor(.gray5)
+                                            .body1Bold(textColor: .gray5)
                                         Spacer()
                                         Image(systemName: "info.circle")
                                             .foregroundColor(.gray3)
@@ -85,8 +83,7 @@ struct HashtagView: View {
                                     }
                                     
                                     Text("최대 5개까지 작성가능합니다.")
-                                        .font(.body2Regular())
-                                        .foregroundColor(.gray3)
+                                        .body2Regular(textColor: .gray3)
                                     
                                     WrappingHStack(alignment: .leading) {
                                         ForEach(locationTags, id: \.self) { tag in
@@ -104,8 +101,7 @@ struct HashtagView: View {
                                 VStack(alignment: .leading, spacing: 12) {
                                     HStack {
                                         Text("강조 키워드")
-                                            .font(.body1Bold())
-                                            .foregroundColor(.gray5)
+                                            .body1Bold(textColor: .gray5)
                                         
                                         Spacer()
                                         
@@ -131,8 +127,7 @@ struct HashtagView: View {
                                     }
                                     
                                     Text("최대 5개까지 작성가능합니다.")
-                                        .font(.body2Regular())
-                                        .foregroundColor(.gray3)
+                                        .body2Regular(textColor: .gray3)
                                     
                                     WrappingHStack(alignment: .leading) {
                                         ForEach(emphasizeTags, id: \.self) { tag in

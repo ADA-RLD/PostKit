@@ -65,16 +65,14 @@ extension CaptionResultView {
                             pathManager.path.removeAll()
                         }, label: {
                             Text("완료")
-                                .font(.body1Bold())
-                                .foregroundColor(.gray5)
+                                .body1Bold(textColor: .gray5)
                         })
                     }
                     
                     // MARK: - 타이틀 + 설명
                     VStack(alignment: .leading, spacing: 12) {
                         Text("주문하신 글이 나왔어요!")
-                            .font(.title1())
-                            .foregroundStyle(Color.gray6)
+                            .title1(textColor: .gray6)
                     }
                     
                     // MARK: - 생성된 카피 출력 + 복사하기 버튼
@@ -198,8 +196,7 @@ struct ToastModifier: ViewModifier {
                 VStack{
                     Spacer()
                     Text("클립보드에 복사되었습니다!")
-                        .font(.body1Bold())
-                        .foregroundStyle(Color.white)
+                        .body1Bold(textColor: .white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 100)
                         .background(.black.opacity(0.6))
