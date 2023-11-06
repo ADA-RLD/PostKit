@@ -88,6 +88,7 @@ extension DailyView {
                         print("error 발생. error code: \(error._code)")
                     case .finished:
                         print("Caption 생성이 무사히 완료되었습니다.")
+                        coinManager.coinUse()
                     }
                 },
                 receiveValue:  { response in
