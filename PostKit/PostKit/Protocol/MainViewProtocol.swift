@@ -31,7 +31,7 @@ protocol MainViewProtocol {
     ///   - _uuid: 선택한 해시태그 고유 ID
     ///   - _result: 수정된 해시태그 정보
     ///   - _like: 수정된 좋아요 상태
-    func saveHashtageData(_uuid: UUID, _result: String, _like: Bool)
+    func saveHashtagData(_uuid: UUID, _result: String, _like: Bool)
     
     /// 선택한 피드글을 CoreData에서 영구삭제합니다.
     /// 삭제된 글은 저장되지 않습니다. 사용에 유의하세요
