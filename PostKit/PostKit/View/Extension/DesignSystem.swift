@@ -21,7 +21,7 @@ enum Pretendard {
     
     var value: String {
         switch self {
-        case.black:
+        case .black:
             return "Pretendard-Black"
         case .bold:
             return "Pretendard-Bold"
@@ -108,11 +108,7 @@ extension Text {
             .foregroundColor(textColor)
             .lineSpacing(2)
     }
-    
 }
-
-
-
 // MARK: 패딩 값 모음
 public let paddingHorizontal: CGFloat = 20
 public let paddingTop: CGFloat = 20
@@ -121,6 +117,3 @@ public let paddingBottom: CGFloat = 80
 // MARK: 곡률 값 모음
 public let radius1: CGFloat = 16
 public let radius2: CGFloat = 12
-
-
-

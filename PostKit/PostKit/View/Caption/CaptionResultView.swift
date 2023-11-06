@@ -85,7 +85,7 @@ extension CaptionResultView {
                                 }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                     ResultUpdateModalView(
                                         showModal: $showModal, isChange: $isCaptionChange,
-                                        stringContent: viewModel.promptAnswer,
+                                        stringContent: $viewModel.promptAnswer,
                                         resultUpdateType: .captionResult
                                     ) { updatedText in
                                         viewModel.promptAnswer = updatedText

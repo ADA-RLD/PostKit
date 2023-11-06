@@ -309,9 +309,9 @@ extension MainView {
         
         VStack {
             ScrollView{
-                ForEach(captions) { item in
+                ForEach($captions) { $item in
                     //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
-                    feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: item.caption, like: item.like)
+                    feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: item.like)
                         .onChange(of: item.like){ _ in
                             saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
                         }
@@ -325,10 +325,10 @@ extension MainView {
     private var hashtagHistory: some View {
         VStack {
             ScrollView{
-                ForEach(hashtags) { item in
-                    hashtagHistoryDetail(uid: item.id, date: item.date, hashtagContent: item.hashtag, hashtageLike: item.isLike)
-                        .onChange(of: item.hashtag){ _ in
-                            saveHashtageData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
+                ForEach($hashtags) { $item in
+                    hashtagHistoryDetail(uid: item.id, date: item.date, hashtagContent: $item.hashtag, hashtageLike: item.isLike)
+                        .onChange(of: item.isLike){ _ in
+                            saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                         }
                 }
             }
@@ -337,7 +337,7 @@ extension MainView {
         .toast(isShowing: $isShowingToast)
     }
     
-    private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: String, like: Bool) -> some View {
+    private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: Binding<String>, like: Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
@@ -389,7 +389,7 @@ extension MainView {
                         }
                     }
                     
-                    Text(content)
+                    Text(content.wrappedValue)
                         .body2Bold(textColor: .gray5)
                 }
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
@@ -400,14 +400,13 @@ extension MainView {
                     stringContent: content,
                     resultUpdateType: .captionResult
                 ) { updatedText in
-                     //= updatedText
-                    //MARK: 피드에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함
+                    saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like)
                 }
                 .interactiveDismissDisabled()
             }
     }
     
-    private func hashtagHistoryDetail(uid: UUID,date : Date, hashtagContent : String, hashtageLike : Bool) -> some View {
+    private func hashtagHistoryDetail(uid: UUID,date : Date, hashtagContent: Binding<String>, hashtageLike : Bool) -> some View {
         RoundedRectangle(cornerRadius: radius1)
             .frame(height: 160)
             .foregroundColor(Color.gray1)
@@ -451,9 +450,9 @@ extension MainView {
                             Label("", systemImage: "ellipsis")
                         }
                     }
-                    
-                    Text(hashtagContent)
+                    Text(hashtagContent.wrappedValue)
                         .body2Bold(textColor: .gray5)
+
                 }
                 .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
             }
@@ -463,8 +462,7 @@ extension MainView {
                     stringContent: hashtagContent,
                     resultUpdateType: .hashtagResult
                 ) { updatedText in
-                    _ = updatedText
-                    //MARK: hashtag에 특정 id값을 업데이트해야 하는데 id값을 받아오고 있지 않아서 수정이 필요함
+                    saveHashtagData(_uuid: uid, _result: hashtagContent.wrappedValue, _like: hashtageLike)
                 }
                 .interactiveDismissDisabled()
             }
@@ -545,45 +543,58 @@ extension MainView : MainViewProtocol {
     }
     
     func saveCaptionData(_uuid: UUID, _result: String, _like: Bool) {
-        //captionModel의 UUID가 같을 경우
-        if let isExisting = captions.first(where:{ $0.id == _uuid }){
-            isExisting.caption = _result
-            isExisting.like = _like
-            coreDataManager.save()
+        let fetchRequest = NSFetchRequest<CaptionResult>(entityName: "CaptionResult")
+        
+        // captionModel의 UUID가 같을 경우
+        let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
+        fetchRequest.predicate = predicate
+        
+        if let existingCaptionResult = try? coreDataManager.context.fetch(fetchRequest).first {
+            // UUID에 해당하는 데이터를 찾았을 경우 업데이트
+            existingCaptionResult.caption = _result
+            existingCaptionResult.like = _like
             
-            print("Caption 수정 완료!\n resultId : \(isExisting.id)\n Date : \(isExisting.date)\n Category : \(isExisting.category)\n Caption : \(isExisting.caption)\n")
+            coreDataManager.save() // 변경사항 저장
             
+            print("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\n")
         } else {
-            //혹시나 없을 경우에는 저장합니다.
+            // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
             let newCaption = CaptionResult(context: coreDataManager.context)
-            newCaption.resultId = UUID()
-            newCaption.like = false
+            newCaption.resultId = _uuid
+            newCaption.caption = _result
+            newCaption.like = _like
             
-            coreDataManager.save()
+            coreDataManager.save() // 변경사항 저장
             
-            print("Caption 새로 저장 완료!\n resultId : \(newCaption.id)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
+            print("Caption 새로 저장 완료!\n resultId : \(_uuid)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
         }
     }
     
-    func saveHashtageData(_uuid: UUID, _result: String, _like: Bool) {
-        //hashtageModel의 UUID가 같을 경우
-        if let isExisting = hashtags.first(where: {$0.id == _uuid}) {
-            isExisting.hashtag = _result
-            isExisting.isLike = _like
+    func saveHashtagData(_uuid: UUID, _result: String, _like: Bool) {
+        let fetchRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
+        
+        // captionModel의 UUID가 같을 경우
+        let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
+        fetchRequest.predicate = predicate
+        
+        if let existingCaptionResult = try? coreDataManager.context.fetch(fetchRequest).first {
+            // UUID에 해당하는 데이터를 찾았을 경우 업데이트
+            existingCaptionResult.hashtag = _result
+            existingCaptionResult.like = _like
             
-            coreDataManager.save()
+            coreDataManager.save() // 변경사항 저장
             
-            print("Hashtage 수정 완료!\n resultId : \(isExisting.id)\n Date : \(isExisting.date)\n Hashtag : \(isExisting.hashtag)\n")
-            
+            print("Hashtag 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\nHashtag : \(existingCaptionResult.hashtag)\n")
         } else {
-            //혹시나 없을 경우에는 저장합니다.
-            let newCaption = CaptionResult(context: coreDataManager.context)
-            newCaption.resultId = UUID()
+            // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
+            let newCaption = HashtagData(context: coreDataManager.context)
+            newCaption.resultId = _uuid
+            newCaption.hashtag = _result
             newCaption.like = _like
             
-            coreDataManager.save()
+            coreDataManager.save() // 변경사항 저장
             
-            print("Hashtag 새로 저장 완료!\n resultId : \(newCaption.id)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
+            print("Hashtag 수정 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\nHashtag : \(newCaption.hashtag)\n")
         }
     }
     
