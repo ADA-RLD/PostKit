@@ -11,7 +11,8 @@ struct LoadingView: View {
     
     @State var count: Int = 0
     @State var timeStap: Int = 0
-    
+
+    private var SampleData: [String] = ["1번 친구","2번 친구","3번 친구","4번 친구","5번 친구"]
     @ObservedObject var loadingModel = LoadingViewModel.shared
     
     var body: some View {
@@ -51,24 +52,31 @@ struct LoadingView: View {
                 Image("loading_image")
                     .frame(maxWidth: .infinity)
                 
+                HStack{
+                    ForEach(SampleData, id: \.self) { selectedString in
+                        CustomHashtag(tagText: selectedString){print("Hello")}
+                    }
+                }
             }
             
             Spacer()
+                .frame(height: 54)
             
             LoadingTipView(_timeStep: timeStap, tips: Tips)
                 .frame(height: 150)
+                .padding(.bottom,12)
         }
         .padding(.horizontal,20)
         .padding(.top,20)
         .navigationBarBackButtonHidden()
         .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            Timer.scheduledTimer(withTimeInterval: 6.0, repeats: true) { timer in
                 self.count = count + 1
                 timeStap = count % 5
                 
                 if loadingModel.isCaptionGenerate {
                     timer.invalidate()
-                    print("\nCaption 생성시간 : \(count)초\n")
+                    print("\nCaption 생성시간 : \(count*6)초\n")
                 }
             }
         }
@@ -106,7 +114,7 @@ private func LoadingTipView(_timeStep: Int, tips: [TipStruck]) -> some View {
     }
 }
 
-
 #Preview {
     LoadingView()
 }
+
