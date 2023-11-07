@@ -22,7 +22,7 @@ struct SelectTone: View {
         Tone(tone: "9", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
         Tone(tone: "10", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false)
     ]
-    
+
     var body: some View {
         toggleBtns
     }
@@ -41,39 +41,34 @@ extension SelectTone {
             }
         }
     }
-    
-    // TODO: isbest가 true일때 색변경이 안되는 오류 수정해야합니다.
+
     private func toggleBtn(concept: String, conceptExample: String, isBest: Bool, action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
-            RoundedRectangle(cornerRadius: radius1)
-                .stroke(selectedTones.contains(concept) ? Color.main: Color.gray1, lineWidth: 2)
-                .background(
-                    RoundedRectangle(cornerRadius: radius2)
-                        .fill(selectedTones.contains(concept) ? Color.sub : Color.gray1)
-                )
-                // TODO: padding이 개념인 듯..?
-                .frame(height: 84)
-                .foregroundColor(Color.gray1)
-                .overlay(alignment: .leading) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack(spacing: 8) {
-                            Text(concept)
-                                .body1Bold(textColor: selectedTones.contains(concept) ? Color.gray5 : Color.gray4)
-                            
-                            if isBest {
-                                Text("BEST")
-                                    .body2Bold(textColor: .main)
-                                    .clipShape(RoundedRectangle(cornerRadius: 4))
-                                    .background(Color.main.opacity(0.5))
-                            }
+            HStack{
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack(spacing: 8) {
+                        Text(concept)
+                            .body1Bold(textColor: selectedTones.contains(concept) ? Color.gray5 : Color.gray4)
+                        
+                        if isBest {
+                            Text("BEST")
+                                .body2Bold(textColor: .main)
+                                .clipShape(RoundedRectangle(cornerRadius: 4))
+                                .background(Color.main.opacity(0.5))
                         }
-                        Text(conceptExample)
-                            .body2Regular(textColor: .gray4)
                     }
-                    .padding(.all, 20)
+                    Text(conceptExample)
+                        .body2Regular(textColor: .gray4)
                 }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.all, 20)
+            .background(selectedTones.contains(concept) ? Color.sub : Color.gray1)
+            .cornerRadius(radius1)
+            .background(RoundedRectangle(cornerRadius: radius1).stroke(selectedTones.contains(concept) ? Color.main: Color.gray1,lineWidth: 2))
         }
     }
 }
