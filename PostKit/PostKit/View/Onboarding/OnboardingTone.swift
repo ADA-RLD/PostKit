@@ -44,7 +44,7 @@ struct OnboardingTone: View {
                 .background(Color.white)
             }.frame(maxHeight: .infinity, alignment: .bottom)
         }
-        .onAppear{isActiveCheck()}
+        .onAppear{cafeTone.removeAll()}
     }
 }
 
