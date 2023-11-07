@@ -54,7 +54,7 @@ struct CustomDoubleBtn: View {
             Button(action: {
                 rightAction()
             }, label: {
-                Text(leftBtnLabel)
+                Text(rightBtnLabel)
                     .body1Bold(textColor: .white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 18.5)

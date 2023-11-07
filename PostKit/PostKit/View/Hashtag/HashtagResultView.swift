@@ -13,10 +13,10 @@ struct HashtagResultView: View {
     @State private var isShowingToast = false
     @State private var isLike = false //좋아요 버튼은 결과뷰에서만 존재합니다
     @State private var copyId = UUID()
-    @State private var isPresented: Bool = false
+    @State private var showAlert: Bool = false
     @State private var showModal = false
     @State private var isCaptionChange = false
-    @State private var activeAlert: ActiveAlert = .first
+    @State private var activeAlert: ActiveAlert = .second
     @ObservedObject var coinManager = CoinManager.shared
     @EnvironmentObject var pathManager: PathManager
     
@@ -37,8 +37,28 @@ struct HashtagResultView: View {
                 .onAppear{
                     checkDate()
                 }
-                .navigationBarBackButtonHidden()
+            if showAlert == true {
+                switch activeAlert {
+                case .first:
+                    CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "1 크레딧이 사용돼요 남은 크레딧 : \(coinManager.coin)", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: {if coinManager.coin > CoinManager.minimalCoin {
+                        loadingModel.isCaptionGenerate = false
+                        pathManager.path.append(.Loading)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                            coinManager.coinHashtagUse()
+                            pathManager.path.append(.HashtagResult)
+                        }
+                        viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
+                    }
+                        showAlert = false
+    }, bottomAction: {showAlert = false}, showAlert: $showAlert)
+                case .second:
+                    CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 재생성할 수 있어요", topBtnLabel: "확인", topAction: {showAlert = false})
+                }
+            }
+               
+
         }
+        .navigationBarBackButtonHidden()
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
 }
@@ -111,6 +131,7 @@ extension HashtagResultView {
                                 .body1Regular(textColor: .gray5)
                             HStack {
                                 Spacer()
+                                //TODO: 좋아요 기능 추가
                                 Image(.heart)
                                     .resizable()
                                     .frame(width: 20, height: 20)
@@ -130,40 +151,22 @@ extension HashtagResultView {
             Spacer()
             
             //MARK: 재생성 / 복사 버튼
-            CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사") {
+            CustomDoubleBtn(leftBtnLabel: "재생성", rightBtnLabel: "복사") {
+                showAlert = true
+                if showAlert == true {
+                    
+                }
+                print(showAlert)
                 if coinManager.coin > 0 {
                     activeAlert = .first
-                    isPresented.toggle()
+                    isActiveAlert()
                 }
                 else {
                     activeAlert = .second
-                    isPresented.toggle()
+                    isActiveAlert()
                 }
             } rightAction: {
-                // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyToClipboard()
-            }
-            .alert(isPresented: $isPresented) {
-                switch activeAlert {
-                case .first:
-                    let cancelBtn = Alert.Button.default(Text("취소")) {
-                        
-                    }
-                    let regenreateBtn = Alert.Button.default(Text("재생성")) {
-                        if coinManager.coin > CoinManager.minimalCoin {
-                            loadingModel.isCaptionGenerate = false
-                            pathManager.path.append(.Loading)
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                                coinManager.coinHashtagUse()
-                                pathManager.path.append(.HashtagResult)
-                            }
-                            viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
-                        }
-                    }
-                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/\(CoinManager.maximalCoin)"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
-                case .second:
-                    return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
-                }
             }
         }
     }
@@ -207,6 +210,25 @@ extension HashtagResultView {
     private func copyToClipboard() {
         pasteBoard.string = viewModel.hashtag
         isShowingToast = true
+    }
+    
+    private func isActiveAlert() {
+        switch activeAlert {
+        case .first:
+            CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "1 크레딧이 사용돼요 남은 크레딧 : 3", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: {if coinManager.coin > CoinManager.minimalCoin {
+                loadingModel.isCaptionGenerate = false
+                pathManager.path.append(.Loading)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                    coinManager.coinHashtagUse()
+                    pathManager.path.append(.HashtagResult)
+                }
+                viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
+            }
+                showAlert = false
+}, bottomAction: {showAlert = false}, showAlert: $showAlert)
+        case .second:
+            CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 재생성할 수 있어요", topBtnLabel: "확인", topAction: {showAlert = false})
+        }
     }
 }
 
