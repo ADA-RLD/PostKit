@@ -16,15 +16,14 @@ struct CTABtn: View {
             Button(action: {
                 action()
             }, label: {
-                RoundedRectangle(cornerRadius: radius1)
-                    .foregroundColor(isActive ? Color.main : Color.gray3)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .overlay {
-                        Text(btnLabel)
-                            .font(.body1Bold())
-                            .foregroundStyle(Color.white)
-                    }
+                VStack(alignment: .center) {
+                    Text(btnLabel)
+                        .body1Bold(textColor: .white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 18.5)
+                        .background(isActive ? Color.main : Color.gray3)
+                        .background(in: RoundedRectangle(cornerRadius: radius1))
+                }
             })
             .disabled(!isActive)
         }
@@ -43,29 +42,27 @@ struct CustomDoubleBtn: View {
             Button(action: {
                 leftAction()
             }, label: {
-                RoundedRectangle(cornerRadius: radius1)
-                    .foregroundColor(Color.gray2)
-                    .overlay {
-                        Text(leftBtnLabel)
-                            .font(.body1Bold())
-                            .foregroundStyle(Color.gray5)
-                    }
+                Text(leftBtnLabel)
+                    .body1Bold(textColor: .gray5)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical,18.5)
+                    .background(Color.gray2)
+                    .background(in: RoundedRectangle(cornerRadius: radius1))
+ 
             })
             
             Button(action: {
                 rightAction()
             }, label: {
-                RoundedRectangle(cornerRadius: radius1)
-                    .foregroundStyle(Color.main)
-                    .overlay {
-                        Text(rightBtnLabel)
-                            .font(.body1Bold())
-                            .foregroundStyle(.white)
-                    }
+                Text(leftBtnLabel)
+                    .body1Bold(textColor: .white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical,18.5)
+                    .background(Color.main)
+                    .background(in: RoundedRectangle(cornerRadius: radius1))
+
             })
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: 56)
         .padding(.horizontal,paddingHorizontal)
         .padding(.vertical,12)
     }
