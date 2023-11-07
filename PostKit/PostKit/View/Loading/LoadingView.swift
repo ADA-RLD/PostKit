@@ -115,25 +115,25 @@ private func LoadingTipView(_timeStep: Int, tips: [TipStruck]) -> some View {
     }
 }
 
-private func LoadingImageFunc(inputArr: Array<String>, timeStap: Int) -> some View {
+private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some View {
     
     ZStack{
         VStack (alignment: .center){
             HStack (alignment: .bottom){
-                if timeStap == 0 {
+                if timeStep == 0 {
                         Spacer()
                 }
-                if timeStap > 0 {
+                if timeStep > 0 {
                     CustomTagFeild(tagText: inputArr[0]) {
                         print("Hello")
                     }
                 }
-                if timeStap > 2 {
+                if timeStep > 2 {
                     CustomTagFeild(tagText: inputArr[2]) {
                         print("Hello")
                     }
                 }
-                if timeStap > 4 {
+                if timeStep > 4 {
                     CustomTagFeild(tagText: inputArr[4]) {
                         print("Hello")
                     }
@@ -146,7 +146,7 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStap: Int) -> some Vi
             .offset(x: 200, y: -20)
             
             HStack{
-                if timeStap > 1 {
+                if timeStep > 1 {
                     CustomTagFeild(tagText: inputArr[1]) {
                         print("Hello")
                     }
@@ -157,7 +157,7 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStap: Int) -> some Vi
             .frame(maxHeight: .infinity)
             
             HStack{
-                if timeStap > 3 {
+                if timeStep > 3 {
                     CustomTagFeild(tagText: inputArr[3]) {
                         print("Hello")
                     }
