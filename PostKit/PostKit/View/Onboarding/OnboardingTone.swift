@@ -16,30 +16,33 @@ struct OnboardingTone: View {
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     
     var body: some View {
-        VStack(alignment:.leading,spacing: 0) {
-            OnboardingCustomHeader(action: onboardingRouter.previousPage)
-            ScrollView {
-                ContentArea {
-                    VStack(alignment: .leading,spacing: 40) {
-                        
-                        VStack(alignment: .leading,spacing: 12) {
-                            
-                            Text("원하는 톤을 선택하세요")
-                                .title1(textColor: .gray6)
+        ZStack{
+            VStack(alignment:.leading,spacing: 0) {
+                OnboardingCustomHeader(action: onboardingRouter.previousPage)
+                ScrollView {
+                    ContentArea {
+                        VStack(alignment: .leading,spacing: 40) {
+                            VStack(alignment: .leading,spacing: 12) {
+                                Text("어떤 말투로 글을 쓸까요?")
+                                    .title1(textColor: .gray6)
 
-                            Text("선택한 톤을 바탕으로 카피가 생성됩니다.")
-                                .body2Bold(textColor: .gray4)
-                        }
-                        SelectTone(selectedTones: $cafeTone)
-                            .onChange(of: cafeTone) { _ in
-                                isActiveCheck()
+                                Text("최대 3개까지 선택할 수 있어요")
+                                    .body2Bold(textColor: .gray4)
                             }
+                            
+                            SelectTone(selectedTones: $cafeTone)
+                                .onChange(of: cafeTone) { _ in
+                                    isActiveCheck()
+                                }
+                        }
                     }
                 }
             }
-            Spacer()
-
-            CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
+            
+            Group{
+                CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
+                .background(Color.white)
+            }.frame(maxHeight: .infinity, alignment: .bottom)
         }
     }
 }

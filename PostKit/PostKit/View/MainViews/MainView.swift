@@ -17,6 +17,7 @@ struct MainView: View {
     //iCloud가 연동 확인 모델
     @StateObject private var iCloudData = CloudKitUserModel()
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     private let pasteBoard = UIPasteboard.general
     
     //CoreData Manager
@@ -26,7 +27,7 @@ struct MainView: View {
     var keyStore = NSUbiquitousKeyValueStore()
     
     //CoreData 임시 Class
-    @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
+    @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     @State private var captions: [CaptionModel] = []
     @State private var hashtags: [HashtagModel] = []
     
@@ -103,7 +104,7 @@ struct MainView: View {
                     
                     fetchCaptionData()
                     fetchHashtagData()
-                    
+                    loadingModel.inputArray.removeAll()
                     //Cloud 디버깅
                     print("iCloud Status")
                     print("IS SIGNED IN: \(iCloudData.isSignedIntoiCloud.description.uppercased())\nPermission Status: \(iCloudData.permissionStatus.description)\nUser Name: \(iCloudData.userName)")
@@ -136,7 +137,7 @@ extension MainView : MainViewProtocol {
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 // TODO: 코어데이터 함수 변경 필요
-                self.storeModel.tone = storeCoreData.tones ?? ["기본"]
+                self.storeModel.tone = storeCoreData.tones ?? []
             }
         } catch {
             print("ERROR STORE CORE DATA")
