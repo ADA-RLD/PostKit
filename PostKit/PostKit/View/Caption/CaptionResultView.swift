@@ -114,7 +114,7 @@ extension CaptionResultView {
             // MARK: - 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
                 // TODO: - 상수 값으로의 변경 필요
-                if coinManager.coin < 5 {
+                if coinManager.coin > CoinManager.minmalCaptionCost {
                     activeAlert = .first
                     isPresented.toggle()
                 }

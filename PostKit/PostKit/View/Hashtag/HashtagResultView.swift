@@ -113,7 +113,7 @@ extension HashtagResultView {
             
             //MARK: 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
-                if coinManager.coin > 0 {
+                if coinManager.coin > CoinManager.minimalCoin {
                     activeAlert = .first
                     isPresented.toggle()
                 }
@@ -142,6 +142,7 @@ extension HashtagResultView {
                             viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
                         }
                     }
+
                     return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/\(CoinManager.maximalCoin)"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
                 case .second:
                     return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
