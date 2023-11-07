@@ -40,7 +40,7 @@ struct HashtagResultView: View {
             if showAlert == true {
                 switch activeAlert {
                 case .first:
-                    CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "1 크레딧이 사용돼요 남은 크레딧 : \(coinManager.coin)", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: {if coinManager.coin > CoinManager.minimalCoin {
+                    CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "1 크레딧이 사용돼요 \n남은 크레딧 : \(coinManager.coin)", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: {if coinManager.coin > CoinManager.minimalCoin {
                         loadingModel.isCaptionGenerate = false
                         pathManager.path.append(.Loading)
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
@@ -153,17 +153,11 @@ extension HashtagResultView {
             //MARK: 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성", rightBtnLabel: "복사") {
                 showAlert = true
-                if showAlert == true {
-                    
-                }
-                print(showAlert)
                 if coinManager.coin > 0 {
                     activeAlert = .first
-                    isActiveAlert()
                 }
                 else {
                     activeAlert = .second
-                    isActiveAlert()
                 }
             } rightAction: {
                 copyToClipboard()
@@ -210,25 +204,6 @@ extension HashtagResultView {
     private func copyToClipboard() {
         pasteBoard.string = viewModel.hashtag
         isShowingToast = true
-    }
-    
-    private func isActiveAlert() {
-        switch activeAlert {
-        case .first:
-            CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "1 크레딧이 사용돼요 남은 크레딧 : 3", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: {if coinManager.coin > CoinManager.minimalCoin {
-                loadingModel.isCaptionGenerate = false
-                pathManager.path.append(.Loading)
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                    coinManager.coinHashtagUse()
-                    pathManager.path.append(.HashtagResult)
-                }
-                viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
-            }
-                showAlert = false
-}, bottomAction: {showAlert = false}, showAlert: $showAlert)
-        case .second:
-            CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 재생성할 수 있어요", topBtnLabel: "확인", topAction: {showAlert = false})
-        }
     }
 }
 
