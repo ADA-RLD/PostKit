@@ -21,7 +21,7 @@ struct CTABtn: View {
                     Text(btnLabel)
                         .body1Bold(textColor: .white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical,18.5)
+                        .padding(.vertical, 18.5)
                         .background(isActive ? Color.main : Color.gray3)
                         .background(in: RoundedRectangle(cornerRadius: radius1))
                 }
