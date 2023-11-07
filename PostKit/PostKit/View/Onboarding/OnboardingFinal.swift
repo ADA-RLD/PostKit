@@ -38,8 +38,6 @@ struct OnboardingFinal: View {
             Spacer()
             CTABtn(btnLabel:"확인", isActive: .constant(true), action: {isFirstLaunching.toggle()
                 Mixpanel.mainInstance().setGroup(groupKey: "RealUser", groupID: "AfterOnboardingGroup")
-
-                
             })
         }
 

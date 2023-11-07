@@ -63,7 +63,11 @@ extension MenuView {
                 menuInput()
                 
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
-                
+                    .onChange(of: isActive) { _ in if menuName.count >= 1 && !isSelected.isEmpty {
+                        isActive = true
+                       
+                        }
+                    }
                 SelectTextLength(selected: $textLength)
             }
         }
@@ -74,7 +78,7 @@ extension MenuView {
             Text("메뉴 이름*")
                 .body1Bold(textColor: .gray5)
             CustomTextfield(text: $menuName, placeHolder: "아이스 아메리카노")
-                .onChange(of: menuName)  { _ in if menuName.count >= 1 {
+                .onChange(of: menuName)  { _ in if menuName.count >= 1 && !isSelected.isEmpty {
                     isActive = true
                 } else {
                     isActive = false
