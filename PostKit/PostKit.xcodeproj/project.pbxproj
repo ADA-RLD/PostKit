@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1336DE562AF8BF21000A6D9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE552AF8BF21000A6D9A /* Constants.swift */; };
 		1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */; };
 		1336DE5D2AF8DF81000A6D9A /* MainCaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5C2AF8DF81000A6D9A /* MainCaptionView.swift */; };
+		1336DE602AF8FCDF000A6D9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5F2AF8FCDF000A6D9A /* Constants.swift */; };
 		139B2C7E2ADFF8690036BD18 /* ContentArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C7D2ADFF8690036BD18 /* ContentArea.swift */; };
 		139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C882AECF0CD0036BD18 /* ErrorView.swift */; };
 		139B2C8B2AEF34890036BD18 /* HashtagResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */; };
@@ -51,7 +51,6 @@
 		13ECB50D2AF377530046E6BE /* SelectTextLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB50C2AF377530046E6BE /* SelectTextLength.swift */; };
 		13ECB50F2AF39D740046E6BE /* KeywordModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ECB50E2AF39D740046E6BE /* KeywordModal.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
-		7E0605042AF08258003A87BC /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605032AF08258003A87BC /* ResponseError.swift */; };
 		7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605072AF108A5003A87BC /* HashtagService.swift */; };
 		7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605092AF13965003A87BC /* HashtagViewModel.swift */; };
 		7E06050C2AF22826003A87BC /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E06050B2AF22826003A87BC /* MenuViewModel.swift */; };
@@ -92,9 +91,9 @@
 
 /* Begin PBXFileReference section */
 		0A14ED0B2AD96D9A00357A79 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		1336DE552AF8BF21000A6D9A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHistoryView.swift; sourceTree = "<group>"; };
 		1336DE5C2AF8DF81000A6D9A /* MainCaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCaptionView.swift; sourceTree = "<group>"; };
+		1336DE5F2AF8FCDF000A6D9A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		139B2C7D2ADFF8690036BD18 /* ContentArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentArea.swift; sourceTree = "<group>"; };
 		139B2C882AECF0CD0036BD18 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagResultView.swift; sourceTree = "<group>"; };
@@ -138,7 +137,6 @@
 		13ECB50C2AF377530046E6BE /* SelectTextLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTextLength.swift; sourceTree = "<group>"; };
 		13ECB50E2AF39D740046E6BE /* KeywordModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordModal.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
-		7E0605032AF08258003A87BC /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		7E0605072AF108A5003A87BC /* HashtagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagService.swift; sourceTree = "<group>"; };
 		7E0605092AF13965003A87BC /* HashtagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagViewModel.swift; sourceTree = "<group>"; };
 		7E06050B2AF22826003A87BC /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
@@ -286,7 +284,7 @@
 				13C296232AD988FC00A2DE7F /* AppStorageManager.swift */,
 				A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */,
 				A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */,
-				1336DE552AF8BF21000A6D9A /* Constants.swift */,
+				1336DE5F2AF8FCDF000A6D9A /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -301,7 +299,6 @@
 				7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */,
 				7E0605092AF13965003A87BC /* HashtagViewModel.swift */,
 				139B2C8C2AEF42390036BD18 /* HapticManger.swift */,
-				7E0605032AF08258003A87BC /* ResponseError.swift */,
 				7E06050B2AF22826003A87BC /* MenuViewModel.swift */,
 				7E06050D2AF22834003A87BC /* DailyViewModel.swift */,
 				139B2C922AF23D680036BD18 /* CoinManager.swift */,
@@ -593,7 +590,6 @@
 				13C295DF2AD6C01300A2DE7F /* CTABtn.swift in Sources */,
 				B9872A492AF3C02D000A795C /* ResultUpdateModalView.swift in Sources */,
 				139B2C932AF23D690036BD18 /* CoinManager.swift in Sources */,
-				1336DE562AF8BF21000A6D9A /* Constants.swift in Sources */,
 				A1B75AD02AEFDF9200DFD343 /* HashtagProtocol.swift in Sources */,
 				B98632682AD7D03800DE9FF5 /* MenuView.swift in Sources */,
 				13C296142AD8F17D00A2DE7F /* OnboardingTone.swift in Sources */,
@@ -606,6 +602,7 @@
 				13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */,
 				13C296182AD8F1F000A2DE7F /* CustomHeader.swift in Sources */,
 				A1A4FAF92AF6245400514053 /* iCloudProtocol.swift in Sources */,
+				1336DE602AF8FCDF000A6D9A /* Constants.swift in Sources */,
 				1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */,
 				B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */,
 				139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */,
@@ -622,7 +619,6 @@
 				13C2960C2AD8F15300A2DE7F /* OnboardingFinal.swift in Sources */,
 				B96211E92AED16CC0074CBE1 /* HashtagView.swift in Sources */,
 				13C296122AD8F17100A2DE7F /* OnboardingStore.swift in Sources */,
-				7E0605042AF08258003A87BC /* ResponseError.swift in Sources */,
 				A188C5852AD7BA89007473D3 /* CoreDataManager.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
 				13ECB50F2AF39D740046E6BE /* KeywordModal.swift in Sources */,

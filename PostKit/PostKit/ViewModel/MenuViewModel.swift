@@ -13,6 +13,7 @@ extension MenuView {
         Task{
             createPrompt(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLength: textLenth)
             self.messages.append(Message(id: UUID(), role: .user, content: self.currentInput))
+            self.currentInput = ""
             createCaption()
         }
     }
@@ -69,12 +70,11 @@ extension MenuView {
         }
         
         self.currentInput = "메뉴의 이름은 \(menuName)인 메뉴에 대해서 인스타그램 피드를 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘. \(pointText)"
+        viewModel.prompt = self.currentInput
     }
     
     // MARK: - Caption 생성
     func createCaption() {
-        viewModel.prompt = self.currentInput
-        self.currentInput = ""
         chatGptService.sendMessage(messages: self.messages)
             .sink(
                 receiveCompletion: { completion in

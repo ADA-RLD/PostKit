@@ -46,7 +46,7 @@ struct OnboardingTone: View {
 
 extension OnboardingTone {
     private func isActiveCheck() {
-        if cafeTone .isEmpty {
+        if cafeTone.isEmpty {
             isActive = false
         }
         else {

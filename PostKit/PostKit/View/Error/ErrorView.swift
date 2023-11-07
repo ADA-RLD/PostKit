@@ -9,7 +9,6 @@ import SwiftUI
 import Combine
 
 struct ErrorView: View {
-    
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
@@ -21,35 +20,33 @@ struct ErrorView: View {
     
     var errorCasue: String
     var errorDescription: String
+    var errorImage: ImageResource
     
     var body: some View {
-        VStack(alignment: .center, spacing: 80) {
+        VStack(alignment: .center, spacing: 32) {
+            Image(errorImage)
             
-            VStack(alignment: .center, spacing: 24) {
-                
+            VStack(alignment: .center, spacing: 12) {
                 Text(errorCasue)
-                    .font(.title1())
-                    .foregroundColor(.gray6)
+                    .title1(textColor: .gray6)
+                    .multilineTextAlignment(.center)
                 
                 Text(errorDescription)
-                    .font(.body2Bold())
-                    .foregroundColor(.gray4)
-                
+                    .body2Bold(textColor: .gray4)
+                    .multilineTextAlignment(.center)
             }
             
-            VStack(alignment: .center, spacing: 16) {
-                errorBtn(action: {
-                    pathManager.path.removeAll()
-                }, btnAction: "홈으로", btnColor: Color.gray2, btnTextColor: Color.gray5)
+            AlertCustomDoubleBtn(topBtnLabel: "재생성",
+                                 bottomBtnLabel: "홈으로",
+                                 topAction: {// TODO: extension으로 추후 리팩토링 진행하기
+                pathManager.path.append(.Loading)
                 
-                errorBtn(action: {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                     Task{
                         self.messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
                         let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
                         self.messages.append(newMessage)
-                        
-                        pathManager.path.append(.Loading)
-
+                                            
                         chatGptService.sendMessage(messages: self.messages)
                             .sink(
                                 receiveCompletion: { completion in
@@ -77,11 +74,12 @@ struct ErrorView: View {
                             )
                             .store(in: &cancellables)
                     }
-                }, btnAction: "재생성", btnColor: .main, btnTextColor: .white)
-                
-            }
+                }
+            },
+                                 bottomAction: {pathManager.path.removeAll()})
+            
+            
         }
-        .padding(.horizontal,106)
         .navigationBarBackButtonHidden()
     }
 }
@@ -100,10 +98,9 @@ private func errorBtn(action: @escaping () -> Void, btnAction: String, btnColor:
             }
             .foregroundColor(btnColor)
     }
-
-    
 }
 
 #Preview {
-    ErrorView(errorCasue: "결과 생성 실패", errorDescription: "결과 생성에 실패했어요 ㅠ-ㅠ")
+//    ErrorView(errorCasue: "네트워크 연결이\n원활하지 않아요", errorDescription: "네트워크 연결을 확인해주세요", imageResource: .errorNetwork)
+    ErrorView(errorCasue: "생성을\n실패했어요", errorDescription: "예기치 못한 이유로 생성에 실패했어요\n 다시 시도해주세요", errorImage: .errorFailed)
 }

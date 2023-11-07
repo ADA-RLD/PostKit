@@ -123,7 +123,11 @@ extension CaptionResultView {
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
                         if coinManager.coin > CoinManager.minimalCoin {
-                            regenerateAnswer()
+                            pathManager.path.append(.Loading)
+                            
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                                regenerateAnswer()
+                            }
                         }
                     }
                     return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/5"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
@@ -140,8 +144,6 @@ extension CaptionResultView {
 extension CaptionResultView {
     // MARK: - Chat GPT API에 재생성 요청
     func regenerateAnswer() { /* Daily, Menu를 선택하지 않아도 이전 답변을 참고하여 재생성 합니다.*/
-        pathManager.path.append(.Loading)
-
         Task{
             self.messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
             let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
@@ -231,7 +233,6 @@ extension View {
 }
 
 extension CaptionResultView : CaptionResultProtocol {
-    
     func convertDayTime(time: Date) -> Date {
         let today = Date()
         let timezone = TimeZone.autoupdatingCurrent
