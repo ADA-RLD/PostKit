@@ -106,7 +106,7 @@ extension CaptionResultView {
             // MARK: - 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
                 // TODO: - 상수 값으로의 변경 필요
-                if coinManager.coin < 5 {
+                if coinManager.coin > CoinManager.minmalCaptionCost {
                     activeAlert = .first
                     isPresented.toggle()
                 }
@@ -135,7 +135,7 @@ extension CaptionResultView {
                             }
                         }
                     }
-                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/5"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
+                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/10"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
                     
                 case .second:
                     return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
