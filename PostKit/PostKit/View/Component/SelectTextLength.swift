@@ -15,12 +15,11 @@ struct SelectTextLength: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("글 길이")
-                .font(.body1Bold())
-                .foregroundColor(.gray5)
+                .body1Bold(textColor: .gray5)
             
             HStack(spacing: 32) {
                 ForEach(Array(textLength.enumerated()), id: \.offset) { idx, item in
-                    RaidioBtn(title: item, id: idx,selectedId: self.$selected)
+                    RaidioBtn(title: item, id: idx, selectedId: self.$selected)
                 }
             }
         }
@@ -35,7 +34,6 @@ extension SelectTextLength {
     }
 }
 struct RaidioBtn: View {
-    
     let id: Int
     let title: String
     @Binding var selectedId: Int

@@ -14,6 +14,6 @@ extension ATTrackingManager {
         case notDetermined = 0
         case restricted = 1
         case denied = 2
-        case authorizaed = 3
+        case authorized = 3
       }
 }
