@@ -60,7 +60,9 @@ extension DailyView {
         ContentArea {
             VStack(alignment: .leading, spacing: 16) {
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
-                
+                    .onChange(of: isSelected) { _ in
+                        isActive = true
+                    }
                 SelectTextLength(selected: $textLength)
             }
         }
@@ -68,10 +70,9 @@ extension DailyView {
     
     private func bottomArea() -> some View {
         //TODO: 모듈화 필요 BottomView로 변경 예정
-        CTABtn(btnLabel: "글 생성", isActive: .constant(true), action: {
+        CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
             if coinManager.coin > CoinManager.minimalCoin {
                 pathManager.path.append(.Loading)
-                
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                     sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
                     print(coinManager.coin)
