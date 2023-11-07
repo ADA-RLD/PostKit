@@ -7,11 +7,13 @@
 
 import SwiftUI
 import CoreData
+import Mixpanel
 
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var coinManager = CoinManager.shared
-    @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
+    
+    @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     var remainingTime = "04:32" // TODO: 24시까지 남은 시간으로 변경
     
     private let coreDataManager = CoreDataManager.instance
@@ -72,8 +74,10 @@ extension MainCaptionView {
             }
             
             VStack(spacing: 12.0) {
-                categoryBtn(categoryName: "일상", categoryDescription: "보편적인 일상 피드 글", categoryImage: Image(.daily), action: {pathManager.path.append(.Daily)})
-                categoryBtn(categoryName: "메뉴", categoryDescription: "메뉴를 소개하는 피드 글", categoryImage: Image(.menu), action: {pathManager.path.append(.Menu)})
+                categoryBtn(categoryName: "일상", categoryDescription: "보편적인 일상 피드 글", categoryImage: Image(.daily), action: {pathManager.path.append(.Daily)
+                    Mixpanel.mainInstance().track(event: "일상 카테고리 선택")})
+                categoryBtn(categoryName: "메뉴", categoryDescription: "메뉴를 소개하는 피드 글", categoryImage: Image(.menu), action: {pathManager.path.append(.Menu)
+                    Mixpanel.mainInstance().track(event: "메뉴 카테고리 선택")})
             }
         }
     }
@@ -89,8 +93,8 @@ extension MainCaptionView {
                         .body2Bold(textColor: .gray4)
                 }
             }
-            
-            categoryBtn(categoryName: "해시태그", categoryDescription: "우리 매장에 딱 맞는 해시태그", categoryImage: Image(.hashtag), action: {pathManager.path.append(.Hashtag)})
+                    categoryBtn(categoryName: "해시태그", categoryDescription: "우리 매장에 딱 맞는 해시태그", categoryImage: Image(.hashtag), action: {pathManager.path.append(.Hashtag)
+                        Mixpanel.mainInstance().track(event: "해시태그 카테고리 선택")})
         }
     }
 
@@ -138,7 +142,7 @@ extension MainCaptionView : MainViewProtocol {
             let storeDataArray = try coreDataManager.context.fetch(storeRequest)
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
-                self.storeModel.tone = storeCoreData.tones ?? ["기본"]
+                self.storeModel.tone = storeCoreData.tones ?? []
             }
         } catch {
             print("ERROR STORE CORE DATA")
