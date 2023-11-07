@@ -73,7 +73,7 @@ extension OnboardingView : StoreProtocol {
             print("StoreData: \(storeDataArray)")
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
-                self.storeModel.tone = ["기본"]
+                self.storeModel.tone = []
                 
                 print("Onboarding Fetch 완료!\nStoreName: \(storeModel.storeName ?? "지정 안됨")\nStoreTone: \(storeModel.tone)\n")
             }

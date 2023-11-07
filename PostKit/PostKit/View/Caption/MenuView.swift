@@ -31,10 +31,8 @@ struct MenuView: View {
     @StateObject var storeModel : StoreModel
     
     @State var messages: [Message] = []
-    @State var currentInput: String = ""
     @State var cancellables = Set<AnyCancellable>()
     
-    let chatGptService = ChatGptService()
     let textLengthArr: [Int] = [100, 200, 300]
     
     var body: some View {

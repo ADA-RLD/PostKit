@@ -45,7 +45,7 @@ struct CustomDoubleBtn: View {
                 Text(leftBtnLabel)
                     .body1Bold(textColor: .gray5)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical,18.5)
+                    .padding(.vertical, 18.5)
                     .background(Color.gray2)
                     .background(in: RoundedRectangle(cornerRadius: radius1))
  
@@ -57,7 +57,7 @@ struct CustomDoubleBtn: View {
                 Text(leftBtnLabel)
                     .body1Bold(textColor: .white)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical,18.5)
+                    .padding(.vertical, 18.5)
                     .background(Color.main)
                     .background(in: RoundedRectangle(cornerRadius: radius1))
 

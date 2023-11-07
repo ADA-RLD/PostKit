@@ -50,9 +50,6 @@ struct HashtagView: View {
                                 .readSize { size in
                                     titleHeight = size.height
                                 }
-                                .onTapGesture {
-                                    isShowingDescription = true
-                                }
                             
                             VStack(alignment: .leading, spacing: 28) {
                                 VStack(alignment: .leading, spacing: 12) {
@@ -154,7 +151,10 @@ struct HashtagView: View {
                         
                         print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
                         
-                        pathManager.path.append(.HashtagResult)
+                        pathManager.path.append(.Loading)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                            pathManager.path.append(.HashtagResult)
+                        }
                     }
                 })
             }
