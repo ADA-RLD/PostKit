@@ -7,6 +7,7 @@
 import SwiftUI
 import CoreData
 import CloudKit
+import AppTrackingTransparency
 
 struct MainView: View {
     @AppStorage("_coin") var coin: Int = 0
@@ -73,9 +74,9 @@ struct MainView: View {
                         case .HashtagResult:
                             HashtagResultView()
                         case .ErrorNetwork:
-                            ErrorView(errorCasue: "네트워크 연결이\n원활하지 않아요", errorDescription: "네트워크 연결을 확인해주세요", errorImage: .errorNetwork)
+                            ErrorView(errorReasonState: .networkError, errorCasue: "네트워크 연결이\n원활하지 않아요", errorDescription: "네트워크 연결을 확인해주세요", errorImage: .errorNetwork)
                         case .ErrorResultFailed:
-                            ErrorView(errorCasue: "생성을\n실패했어요", errorDescription: "예기치 못한 이유로 생성에 실패했어요\n다시 시도해주세요", errorImage: .errorFailed)
+                            ErrorView(errorReasonState: .apiError, errorCasue: "생성을\n실패했어요", errorDescription: "예기치 못한 이유로 생성에 실패했어요\n다시 시도해주세요", errorImage: .errorFailed)
                         case .Hashtag:
                             HashtagView()
                         }
@@ -98,6 +99,10 @@ struct MainView: View {
                 }
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+              ATTrackingManager.requestTrackingAuthorization(completionHandler: { _ in
+              })
+            }
     }
 }
 
