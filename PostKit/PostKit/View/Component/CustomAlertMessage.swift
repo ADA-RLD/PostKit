@@ -12,16 +12,14 @@ enum AlertType {
     case historyHashtag
     case loading
     case regenerate
-    case credit
 }
 
-struct CustomAlertMessage: View {
+struct CustomAlertMessageDouble: View {
     var alertTopTitle: String
     var alertContent: String
     var topBtnLabel: String
     var bottomBtnLabel: String
     var topAction: () -> Void
-    var asdf: Bool
     var bottomAction: () -> Void
     @Binding var showAlert: Bool
     var body: some View {
@@ -34,16 +32,35 @@ struct CustomAlertMessage: View {
                     Text(alertContent)
                         .body2Bold(textColor: .gray4)
                 }
-                if asdf {
-                    AlertCustomDoubleBtn(topBtnLabel: topBtnLabel, bottomBtnLabel: bottomBtnLabel, topAction: {
-                        topAction()
-                    }, bottomAction: {
-                        bottomAction()
-                    })
+                AlertCustomDoubleBtn(topBtnLabel: topBtnLabel, bottomBtnLabel: bottomBtnLabel, topAction: topAction, bottomAction: bottomAction)
+            }
+            .padding(.vertical, 48)
+            .background(
+                RoundedRectangle(cornerRadius: radius1)
+                    .frame(width: 280)
+                    .foregroundColor(.gray1)
+            )
+        }.edgesIgnoringSafeArea(.all)
+    }
+}
+
+
+struct CustomAlertMessage: View {
+    var alertTopTitle: String
+    var alertContent: String
+    var topBtnLabel: String
+    var topAction: () -> Void
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.4)
+            VStack(spacing: 36) {
+                VStack(spacing: 8) {
+                    Text(alertTopTitle)
+                        .body1Bold(textColor: .gray6)
+                    Text(alertContent)
+                        .body2Bold(textColor: .gray4)
                 }
-                else {
-                    AlertCustomBtn(topBtnLabel: topBtnLabel, topAction: topAction)
-                }
+                AlertCustomBtn(topBtnLabel: topBtnLabel, topAction: topAction)
             }
             .padding(.vertical, 48)
             .background(

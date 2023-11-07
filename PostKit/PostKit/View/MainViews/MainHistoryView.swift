@@ -15,13 +15,13 @@ struct MainHistoryView: View {
     @State private var isShowingToast = false
     @State private var isCaptionChange = false
     @State private var isLiked = false
+    @State private var targetUid = UUID()
     @State private var showModal = false
     @State private var showAlert = false
     @State private var hashtags: [HashtagModel] = []
-    @State private var alertType: AlertType = .credit
+    @State private var alertType: AlertType = .historyCaption
     @Namespace var nameSpace
     
-  
     private let hapticManger = HapticManager.instance
     private let pasteBoard = UIPasteboard.general
     
@@ -32,19 +32,15 @@ struct MainHistoryView: View {
         ZStack {
             ContentArea {
                 VStack(alignment: .leading, spacing: 20) {
-                    
                     VStack(alignment: .leading, spacing: 8) {
-                        
                         Text("히스토리")
                             .title1(textColor: .gray6)
                     }
                     
                     VStack(alignment: .leading, spacing: 20) {
-                        
                         historyIndicator
                         
                         TabView(selection: $historySelected) {
-                            
                             feedHistory
                                 .highPriorityGesture(DragGesture())
                                 .tag("피드 글")
@@ -57,18 +53,19 @@ struct MainHistoryView: View {
                     }
                 }
             }
-            .blur(radius: showAlert ? 100 : 0)
-            if showAlert == true {
-                CustomAlertMessage(alertTopTitle: "히스토리가 삭제됩니다.", alertContent: "영원히", topBtnLabel: "삭제", bottomBtnLabel: "취소", topAction: {
-//                    if alertType == .historyCaption {
-//                        //이게 맞나??
-//                        deleteCaptionData(_uuid: )
-//                    }
-//                    else if alertType == .historyHashtag {
-//                        deleteHashtagData(_uuid: UUID)
-//                    }
-                    showAlert.toggle()}
-                                   , bottomAction: {showAlert.toggle()}, showAlert: $showAlert)
+            if showAlert {
+                CustomAlertMessageDouble(alertTopTitle: "히스토리를 삭제할까요?", alertContent: "삭제된 글은 복구할 수 없어요", topBtnLabel: "삭제",
+                    bottomBtnLabel: "취소", topAction: {
+                    if alertType == .historyCaption {
+                        deleteCaptionData(_uuid: targetUid)
+                        fetchCaptionData()
+                    }
+                    else if alertType == .historyHashtag {
+                        deleteHashtagData(_uuid: targetUid)
+                        fetchHashtagData()
+                    }
+                    showAlert = false
+                }, bottomAction: { showAlert = false }, showAlert: $showAlert)
             }
         }
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
@@ -78,7 +75,6 @@ struct MainHistoryView: View {
 extension MainHistoryView {
     private var historyIndicator: some View {
         HStack(spacing: 16) {
-            
             Button(action: {
                 withAnimation(.spring(response: 0.5,dampingFraction: 0.8)) {
                     historySelected = "피드 글"
@@ -118,20 +114,23 @@ extension MainHistoryView {
     }
     
     private var feedHistory: some View {
-        VStack {
-            ScrollView{
-                ForEach($captions) { $item in
-                    //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
-                    feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: item.like)
-                        .onChange(of: item.like){ _ in
-                            saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
-                        }
+        ZStack {
+            VStack {
+                ScrollView{
+                    ForEach($captions) { $item in
+                        //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
+                        feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: item.like)
+                            .onChange(of: item.like){ _ in
+                                saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
+                            }
+                        
+                    }
                 }
+                .refreshable{fetchCaptionData()}
             }
-            .refreshable{fetchCaptionData()}
-        }
-        .onAppear {
-            fetchCaptionData()
+            .onAppear {
+                fetchCaptionData()
+            }
         }
     }
     
@@ -155,7 +154,6 @@ extension MainHistoryView {
     private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: Binding<String>, like: Bool) -> some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
-                
                 HStack(spacing:8) {
                     Text(date)
                         .body2Bold(textColor: .gray4)
@@ -181,6 +179,7 @@ extension MainHistoryView {
                 //                    }
                 Image(.heart)
                     .foregroundColor(.gray3)
+                
                 Spacer()
                 
                 Image(.pen)
@@ -194,6 +193,7 @@ extension MainHistoryView {
                 Image(.trash)
                     .onTapGesture {
                         showAlert.toggle()
+                        targetUid = uid
                     }
                 
                 Spacer()
@@ -276,6 +276,7 @@ extension MainHistoryView {
                 Image(.trash)
                     .onTapGesture {
                         showAlert.toggle()
+                        targetUid = uid
                     }
                 
                 Spacer()
@@ -322,7 +323,6 @@ extension MainHistoryView {
 }
 
 extension MainHistoryView : MainViewProtocol {
-    
     func fetchStoreData() {
         // 해쉬태그에서는 쓰지 않습니다.
     }
