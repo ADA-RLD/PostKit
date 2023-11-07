@@ -29,7 +29,7 @@ extension ErrorView {
                                 pathManager.path.append(.ErrorNetwork)
                             }
                         case .finished:
-                            coinManager.coinUse()
+                            coinManager.coinCaptionUse()
                             pathManager.path.append(.CaptionResult)
                         }
                     },
