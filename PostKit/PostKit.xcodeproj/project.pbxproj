@@ -625,7 +625,6 @@
 				B9872A492AF3C02D000A795C /* ResultUpdateModalView.swift in Sources */,
 				139B2C932AF23D690036BD18 /* CoinManager.swift in Sources */,
 				A1A4FAFE2AF8FC2300514053 /* LoadingViewModel.swift in Sources */,
-				1336DE562AF8BF21000A6D9A /* Constants.swift in Sources */,
 				A1B75AD02AEFDF9200DFD343 /* HashtagProtocol.swift in Sources */,
 				B98632682AD7D03800DE9FF5 /* MenuView.swift in Sources */,
 				13C296142AD8F17D00A2DE7F /* OnboardingTone.swift in Sources */,
@@ -807,7 +806,6 @@
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"PostKit/Preview Content\"";
 				DEVELOPMENT_TEAM = F5LF3NUCU2;
-				DEVELOPMENT_TEAM = U65UYKH3S3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PostKit/Info.plist;
@@ -845,7 +843,6 @@
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"PostKit/Preview Content\"";
 				DEVELOPMENT_TEAM = F5LF3NUCU2;
-				DEVELOPMENT_TEAM = U65UYKH3S3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PostKit/Info.plist;

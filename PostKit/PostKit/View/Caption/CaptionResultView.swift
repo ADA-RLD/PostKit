@@ -144,56 +144,6 @@ extension CaptionResultView {
     }
 }
 
-// MARK: 코드의 가독성을 위해 function들을 따로 모았습니다.
-extension CaptionResultView {
-    // MARK: - Chat GPT API에 재생성 요청
-    func regenerateAnswer() { /* Daily, Menu를 선택하지 않아도 이전 답변을 참고하여 재생성 합니다.*/
-        pathManager.path.append(.Loading)
-
-        Task{
-            self.messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
-            let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
-            self.messages.append(newMessage)
-            
-            chatGptService.sendMessage(messages: self.messages)
-                .sink(
-                    receiveCompletion: { completion in
-                        switch completion {
-                        case .failure(let error):
-                            loadingModel.isCaptionGenerate = true
-                            print("error 발생. error code: \(error._code)")
-                            if error._code == 10 {
-                                pathManager.path.append(.ErrorResultFailed)
-                            }
-                            else if error._code == 13 {
-                                pathManager.path.append(.ErrorNetwork)
-                            }
-                        case .finished:
-                            loadingModel.isCaptionGenerate = false
-                            print("Caption 생성이 무사히 완료되었습니다.")
-                            coinManager.coinUse()
-                            pathManager.path.append(.CaptionResult)
-                        }
-                    },
-                    receiveValue:  { response in
-                        print("response: \(response)")
-                        guard let textResponse = response.choices.first?.message.content else {return}
-                        
-                        viewModel.promptAnswer = textResponse
-                    }
-                )
-                .store(in: &cancellables)
-        }
-    }
-    
-    // MARK: - 카피 복사
-    func copyToClipboard() {
-        hapticManger.notification(type: .success)
-        pasteBoard.string = viewModel.promptAnswer
-        isShowingToast = true
-    }
-}
-
 // MARK: - 기존 뷰 위에 토스트를 위로 올려줌
 struct ToastModifier: ViewModifier {
     @Binding var isShowing: Bool
