@@ -97,15 +97,16 @@ extension MenuView {
             if isActive == true {
                 if coinManager.coin > CoinManager.minimalCoin {
                     pathManager.path.append(.Loading)
-
+                    
                     Task{
                         loadingModel.isCaptionGenerate = false
                         //선택된 옵션들을 가져갑니다.
                         loadingModel.inputArray += coffeeSelected + dessertSelected + drinkSelected
                         
-                    
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                        sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                            sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
+                        }
                     }
                 }
                 else {

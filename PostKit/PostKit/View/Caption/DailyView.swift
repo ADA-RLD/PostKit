@@ -56,6 +56,7 @@ extension DailyView {
     private func headerArea() -> some View {
         CustomHeader(action: {pathManager.path.removeLast()}, title: "일상글")
     }
+    
     //MARK: ContentsView
     private func contents() -> some View {
         ContentArea {
@@ -77,14 +78,14 @@ extension DailyView {
                     loadingModel.isCaptionGenerate = false
                     //배열에 추가해서 가져갑니다.
                     loadingModel.inputArray += weatherSelected + dailyCoffeeSelected + dailyDessertSelected
-
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                    sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
-                    print(coinManager.coin)
+                    
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                        sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
+                        print(coinManager.coin)
+                    }
                 }
-            }
-            else {
+            } else {
                 isPresented.toggle()
             }
         })
