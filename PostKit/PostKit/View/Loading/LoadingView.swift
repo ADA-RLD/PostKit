@@ -11,8 +11,8 @@ import Mixpanel
 struct LoadingView: View {
     
     @State var count: Int = 0
-    @State var tagTimeStap: Int = 0
-    @State var timeStap: Int = 0
+    @State var tagTimeStep: Int = 0
+    @State var timeStep: Int = 0
 
     //디버깅용 데이터 삭제하지는 말아주세요.
     //private var SampleData: [String] = ["1번 친구","2번 친구","3번 친구","4번 친구","5번 친구"]
@@ -54,9 +54,9 @@ struct LoadingView: View {
             }
             Spacer()
             
-            LoadingImageFunc(inputArr: loadingModel.inputArray, timeStap: tagTimeStap)
+            LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStep)
             
-            LoadingTipView(_timeStep: timeStap, tips: Tips)
+            LoadingTipView(_timeStep: timeStep, tips: Tips)
                 .frame(height: 150)
                 .padding(.bottom,12)
         }
@@ -66,14 +66,14 @@ struct LoadingView: View {
         .onAppear {
             Timer.scheduledTimer(withTimeInterval: 6.0, repeats: true) { timer in
                 self.count = count + 1
-                timeStap = count % 5
+                timeStep = count % 5
             }
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { hashTagTimer in
                 self.count = count + 1
                 if loadingModel.inputArray.count != 0{
-                    tagTimeStap = count % (loadingModel.inputArray.count + 1)
+                    tagTimeStep = count % (loadingModel.inputArray.count + 1)
                 }else {
-                    tagTimeStap = 0
+                    tagTimeStep = 0
                 }
                 
                 
