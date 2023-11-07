@@ -55,7 +55,6 @@ extension HashtagResultView {
                             if isCaptionChange {
                                 saveEditHashtagResult(_uuid: copyId, _result: viewModel.hashtag, _like: isLike)
                             }
-                            pathManager.path.removeAll()
                             loadingModel.inputArray.removeAll()
                         }, label: {
                             Text("완료")
