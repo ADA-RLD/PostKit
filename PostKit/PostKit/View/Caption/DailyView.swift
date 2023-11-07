@@ -22,7 +22,6 @@ struct DailyView: View {
     @State private var dailyCoffeeSelected: [String] = []
     @State private var dailyDessertSelected: [String] = []
     @State var messages: [Message] = []
-    @State var currentInput: String = ""
     @State var cancellables = Set<AnyCancellable>()
     
     //CoreData Data Class
@@ -32,7 +31,6 @@ struct DailyView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
     
-    let chatGptService = ChatGptService()
     //CoreData Manager
     let storeDataManager = CoreDataManager.instance
     let textLengthArr: [Int] = [100, 200, 300]
@@ -80,6 +78,8 @@ extension DailyView {
                     //배열에 추가해서 가져갑니다.
                     loadingModel.inputArray += weatherSelected + dailyCoffeeSelected + dailyDessertSelected
 
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                     sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
                     print(coinManager.coin)
                 }

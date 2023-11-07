@@ -26,7 +26,7 @@ struct MainView: View {
     var keyStore = NSUbiquitousKeyValueStore()
     
     //CoreData 임시 Class
-    @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
+    @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     @State private var captions: [CaptionModel] = []
     @State private var hashtags: [HashtagModel] = []
     
@@ -73,9 +73,9 @@ struct MainView: View {
                         case .HashtagResult:
                             HashtagResultView()
                         case .ErrorNetwork:
-                            ErrorView(errorCasue: "네트워크 문제", errorDescription: "네트워크 연결을 확인해주세요")
+                            ErrorView(errorCasue: "네트워크 연결이\n원활하지 않아요", errorDescription: "네트워크 연결을 확인해주세요", errorImage: .errorNetwork)
                         case .ErrorResultFailed:
-                            ErrorView(errorCasue: "결과 생성 실패", errorDescription: "결과 생성에 실패했어요 ㅠ-ㅠ")
+                            ErrorView(errorCasue: "생성을\n실패했어요", errorDescription: "예기치 못한 이유로 생성에 실패했어요\n다시 시도해주세요", errorImage: .errorFailed)
                         case .Hashtag:
                             HashtagView()
                         }
@@ -121,7 +121,7 @@ extension MainView : MainViewProtocol {
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 // TODO: 코어데이터 함수 변경 필요
-                self.storeModel.tone = storeCoreData.tones ?? ["기본"]
+                self.storeModel.tone = storeCoreData.tones ?? []
             }
         } catch {
             print("ERROR STORE CORE DATA")
