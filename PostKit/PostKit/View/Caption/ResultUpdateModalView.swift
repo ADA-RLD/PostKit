@@ -16,6 +16,7 @@ struct ResultUpdateModalView: View {
     @Binding var showModal: Bool
     @Binding var isChange: Bool
     @Binding var stringContent: String
+    @FocusState private var isTextFieldFocused: Bool
     var resultUpdateType: ResultUpdateType = .captionResult
     var completion: (_ caption: String) -> Void
     
@@ -32,7 +33,7 @@ struct ResultUpdateModalView: View {
                     
                     Spacer()
                     
-                    Text(resultUpdateType == .captionResult ? "글 수정" : "해시태그 수정")
+                    Text(resultUpdateType == .captionResult ? "글 수정하기" : "해시태그 수정하기")
                         .body1Bold(textColor: .gray6)
                     
                     Spacer()
@@ -55,6 +56,10 @@ struct ResultUpdateModalView: View {
                             .foregroundColor(Color.gray5)
                             .onChange(of: stringContent) { _ in
                                 isChange = true
+                            }
+                            .focused($isTextFieldFocused)
+                            .onAppear {
+                                isTextFieldFocused = true
                             }
                         
                         Spacer()
