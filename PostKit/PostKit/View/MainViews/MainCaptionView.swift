@@ -11,7 +11,7 @@ import CoreData
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var coinManager = CoinManager.shared
-    @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
+    @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     
     private let coreDataManager = CoreDataManager.instance
     private let hapticManger = HapticManager.instance
@@ -125,7 +125,7 @@ extension MainCaptionView : MainViewProtocol {
             let storeDataArray = try coreDataManager.context.fetch(storeRequest)
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
-                self.storeModel.tone = storeCoreData.tones ?? ["기본"]
+                self.storeModel.tone = storeCoreData.tones ?? []
             }
         } catch {
             print("ERROR STORE CORE DATA")
