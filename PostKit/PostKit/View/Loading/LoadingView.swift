@@ -10,9 +10,11 @@ import SwiftUI
 struct LoadingView: View {
     
     @State var count: Int = 0
+    @State var tagTimeStap: Int = 0
     @State var timeStap: Int = 0
 
-    private var SampleData: [String] = ["1번 친구","2번 친구","3번 친구","4번 친구","5번 친구"]
+    //디버깅용 데이터 삭제하지는 말아주세요.
+    //private var SampleData: [String] = ["1번 친구","2번 친구","3번 친구","4번 친구","5번 친구"]
     @ObservedObject var loadingModel = LoadingViewModel.shared
     
     var body: some View {
@@ -24,8 +26,8 @@ struct LoadingView: View {
              TipStruck(tipNum: 3, tipTitle: "유입을 높이는 프로필 이름 만들기", tips: "강조하고 싶은 유입 키워드와 매장 이름의 조합으로 프로필 이름을 만들어보세요!\n계정태그와 해시태그를 적절히 활용하세요"),
              TipStruck(tipNum: 4, tipTitle: "스토리 하이라이트 기능", tips: "업로드한 스토리를 24시간 후에도 고정시켜 노출할 수 있는 방법이 있어요! 하이라이트를 활용해 스토리를 카테고리화하여 어필하세요")
          ]
+        
         VStack {
-            
             VStack(alignment: .leading, spacing: 12){
                 //top back button
                 HStack (alignment: .top){
@@ -45,22 +47,12 @@ struct LoadingView: View {
                     .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
                 
-            }
-            Spacer()
-            
-            ZStack{
-                Image("loading_image")
-                    .frame(maxWidth: .infinity)
+                Spacer()
                 
-                HStack{
-                    ForEach(SampleData, id: \.self) { selectedString in
-                        CustomHashtag(tagText: selectedString){print("Hello")}
-                    }
-                }
             }
-            
             Spacer()
-                .frame(height: 54)
+            
+            LoadingImageFunc(inputArr: loadingModel.inputArray, timeStap: tagTimeStap)
             
             LoadingTipView(_timeStep: timeStap, tips: Tips)
                 .frame(height: 150)
@@ -73,10 +65,14 @@ struct LoadingView: View {
             Timer.scheduledTimer(withTimeInterval: 6.0, repeats: true) { timer in
                 self.count = count + 1
                 timeStap = count % 5
+            }
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { hashTagTimer in
+                self.count = count + 1
+                tagTimeStap = count % 6
                 
                 if loadingModel.isCaptionGenerate {
-                    timer.invalidate()
-                    print("\nCaption 생성시간 : \(count*6)초\n")
+                    hashTagTimer.invalidate()
+                    print("\nCaption 생성시간 : \(count)초\n")
                 }
             }
         }
@@ -113,6 +109,83 @@ private func LoadingTipView(_timeStep: Int, tips: [TipStruck]) -> some View {
         .padding(24)
     }
 }
+
+private func LoadingImageFunc(inputArr: Array<String>, timeStap: Int) -> some View {
+    
+    ZStack{
+        VStack (alignment: .center){
+            HStack (alignment: .bottom){
+                if timeStap > 0 {
+                    CustomTagFeild(tagText: inputArr[0]) {
+                        print("Hello")
+                    }
+                }
+                if timeStap > 2 {
+                    CustomTagFeild(tagText: inputArr[2]) {
+                        print("Hello")
+                    }
+                }
+                if timeStap > 4 {
+                    CustomTagFeild(tagText: inputArr[4]) {
+                        print("Hello")
+                    }
+                    
+                }
+                Spacer()
+            }
+            .frame(width: 500)
+            .frame(maxHeight: .infinity)
+            .offset(x: 200, y: -20)
+            
+            HStack{
+                if timeStap > 1 {
+                    CustomTagFeild(tagText: inputArr[1]) {
+                        print("Hello")
+                    }
+                    .offset(x: 110, y: -20)
+                    .rotationEffect(.degrees(5))
+                }
+            }
+            .frame(maxHeight: .infinity)
+            
+            HStack{
+                if timeStap > 3 {
+                    CustomTagFeild(tagText: inputArr[3]) {
+                        print("Hello")
+                    }
+                    .offset(x: 110, y: -110)
+                    .rotationEffect(.degrees(-8))
+                }else {
+                   Spacer()
+                        .frame(height: 32)
+                }
+            }
+        }
+        Image("loading_image")
+            .frame(maxHeight: .infinity)
+    }
+}
+
+struct CustomTagFeild: View {
+    let tagText: String
+    let deleteAction: () -> Void
+    
+    var body: some View {
+            HStack {
+                Text(tagText)
+                    .font(.body2Regular())
+                    .foregroundColor(.main)
+            }
+            .padding(EdgeInsets(top: 8, leading: radius1, bottom: 8, trailing: radius1))
+            .background(Color.sub)
+            .clipShape(RoundedRectangle(cornerRadius: radius1))
+            .overlay {
+                RoundedRectangle(cornerRadius: radius1)
+                    .stroke(Color.main,lineWidth: 2)
+            }
+        }
+    }
+
 
 #Preview {
     LoadingView()
