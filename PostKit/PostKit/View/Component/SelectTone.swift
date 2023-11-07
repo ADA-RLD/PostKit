@@ -78,8 +78,11 @@ extension SelectTone {
         if !selectedTones.contains(tone) && selectedTones.count < 3 {
                 selectedTones.append(tone)
         }
+        else if selectedTones.contains(tone) {
+            selectedTones.removeAll(where: {$0 == tone})
+        }
         else {
-            //TODO: Toast추가예정
+            //TODO: ALERT창 완성되면 ALERT창 적용예정입니다.
         }
     }
 }
