@@ -33,7 +33,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 ])
             case .denied, .restricted, .notDetermined:
                 // 추적 권한이 거부되거나 제한된 경우, 또는 아직 결정되지 않은 경우
-                Mixpanel.initialize(token: Constants.MixpanelToken, trackAutomaticEvents: false, optOutTrackingByDefault: true)
+                Mixpanel.initialize(token: Constants.MixpanelToken, trackAutomaticEvents: false, optOutTrackingByDefault: false)
             @unknown default:
                 break
             }
