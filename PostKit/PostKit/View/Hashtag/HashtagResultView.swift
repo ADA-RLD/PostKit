@@ -113,7 +113,7 @@ extension HashtagResultView {
             
             //MARK: 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
-                if coinManager.coin > CoinManager.minimalCoin {
+                if coinManager.coin > CoinManager.hashtagCost {
                     activeAlert = .first
                     isPresented.toggle()
                 }
@@ -132,7 +132,7 @@ extension HashtagResultView {
                         
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
-                        if coinManager.coin > CoinManager.minimalCoin {
+                        if coinManager.coin > CoinManager.hashtagCost {
                             loadingModel.isCaptionGenerate = false
                             pathManager.path.append(.Loading)
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
