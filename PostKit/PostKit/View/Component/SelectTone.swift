@@ -73,7 +73,6 @@ extension SelectTone {
     }
 }
 
-// MARK: Extension: Function => view model로 빼주세요...
 extension SelectTone {
     private func addTone(tone: String) {
         if !selectedTones.contains(tone) && selectedTones.count < 3 {
