@@ -44,7 +44,7 @@ struct LoadingView: View {
                     .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
                 
-                Image("onboarding_start_image")
+                Image("loading_image")
             
                 LoadingTipView(_timeStep: timeStap, tips: Tips)
             }
