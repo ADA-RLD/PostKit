@@ -87,6 +87,8 @@ extension DailyView {
                 receiveCompletion: { completion in
                     switch completion {
                     case .failure(let error):
+                        loadingModel.isCaptionGenerate = true
+                        print("error 발생. error code: \(error._code)")
                         if error._code == 10 {
                             pathManager.path.append(.ErrorResultFailed)
                         }
@@ -94,8 +96,10 @@ extension DailyView {
                             pathManager.path.append(.ErrorNetwork)
                         }
                     case .finished:
+                        loadingModel.isCaptionGenerate = false
+                        print("Caption 생성이 무사히 완료되었습니다.")
                         pathManager.path.append(.CaptionResult)
-                        coinManager.coinUse()
+                        coinManager.coinCaptionUse()
                     }
                 },
                 receiveValue:  { response in

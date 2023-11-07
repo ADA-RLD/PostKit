@@ -36,9 +36,6 @@ struct OnboardingIntro: View {
                 print(onboardingRouter.currentPage)
             })
         }
-        .onAppear {
-            appstorageManager.$cafeName.wrappedValue = ""
-        }
     }
 }
 

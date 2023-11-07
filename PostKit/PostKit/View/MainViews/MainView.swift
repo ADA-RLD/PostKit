@@ -18,6 +18,7 @@ struct MainView: View {
     //iCloud가 연동 확인 모델
     @StateObject private var iCloudData = CloudKitUserModel()
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     private let pasteBoard = UIPasteboard.general
     
     //CoreData Manager
@@ -31,6 +32,9 @@ struct MainView: View {
     @State private var captions: [CaptionModel] = []
     @State private var hashtags: [HashtagModel] = []
     
+    //TabView의 선택된 View
+    @State var selection = 0
+    
     var body: some View {
         ZStack {
             //이미 Bool 값이 True면 비교 불필요
@@ -38,19 +42,31 @@ struct MainView: View {
                 OnboardingView( isFirstLaunching: $isFirstLaunching, storeModel: storeModel)
             } else {
                 NavigationStack(path: $pathManager.path) {
-                    TabView {
+                    TabView(selection: $selection) {
                         MainCaptionView()
                             .tabItem {
-                                Image(systemName: "plus.app.fill")
-                                Text("생성")
+                                if selection == 0 {
+                                    VStack{
+                                        Image(.captionFocus)
+                                    }
+                                } else {
+                                    Image(.caption)
+                                }
+                                Text("글 쓰기")
                             }
+                            .tag(0)
                             .onTapGesture {hapticManger.notification(type: .success)}
                         
                         MainHistoryView()
                             .tabItem {
-                                Image(systemName: "clock.fill")
-                                Text("히스토리")
+                                if selection == 1 {
+                                    Image(.historyFocus)
+                                } else {
+                                    Image(.history)
+                                }
+                                Text("글 보기")
                             }
+                            .tag(1)
                             .onTapGesture {hapticManger.notification(type: .success)}
                          
                     }
@@ -89,7 +105,7 @@ struct MainView: View {
                     
                     fetchCaptionData()
                     fetchHashtagData()
-                    
+                    loadingModel.inputArray.removeAll()
                     //Cloud 디버깅
                     print("iCloud Status")
                     print("IS SIGNED IN: \(iCloudData.isSignedIntoiCloud.description.uppercased())\nPermission Status: \(iCloudData.permissionStatus.description)\nUser Name: \(iCloudData.userName)")
