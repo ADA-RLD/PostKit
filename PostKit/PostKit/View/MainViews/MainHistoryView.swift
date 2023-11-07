@@ -14,6 +14,7 @@ struct MainHistoryView: View {
     @State private var captions: [CaptionModel] = []
     @State private var isShowingToast = false
     @State private var isCaptionChange = false
+    @State private var isSelected = false
     @State private var showModal = false
     @State private var hashtags: [HashtagModel] = []
     @Namespace var nameSpace
@@ -153,30 +154,50 @@ extension MainHistoryView {
                     .body2Bold(textColor: .gray5)
             }
             
-                Divider()
-                    .foregroundColor(.gray2)
+            Divider()
+                .foregroundColor(.gray2)
+            
+            HStack {
+                //                    Button {
+                //                        //TODO: 좋아요 action 추가
+                //                        isSelected.toggle()
+                //                    } label: {
+                //                        Image(.heart)
+                //                        foregroundColor(isSelected ? .main : .gray3)
+                //                    }
+                Image(.heart)
+                    .foregroundColor(.gray3)
+                Spacer()
                 
-                HStack {
-                    Image(.pen)
-                        .foregroundColor(.gray3)
-                    Spacer()
-                    Image(.trash)
-                    
-                    Spacer()
-                    HStack(spacing: 4) {
-                        Image(.copy)
-                        Text("복사")
-                            .body2Bold(textColor: .white)
-                            .onTapGesture {
-                                copyToClipboard()
-                            }
-                    }.padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                        .background(
+                Image(.pen)
+                    .foregroundColor(.gray3)
+                    .onTapGesture {
+                        self.showModal = true
+                    }
+                
+                Spacer()
+                
+                Image(.trash)
+                    .onTapGesture {
+                        deleteCaptionData(_uuid: uid)
+                        fetchCaptionData()
+                    }
+                
+                Spacer()
+                
+                HStack(spacing: 4) {
+                    Image(.copy)
+                    Text("복사")
+                        .body2Bold(textColor: .white)
+                        .onTapGesture {
+                            copyToClipboard()
+                        }
+                }.padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    .background(
                         RoundedRectangle(cornerRadius: radius2)
                             .fill(Color.gray5)
-                        )
+                    )
             }
-        
         }
         .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
         .clipShape(RoundedRectangle(cornerRadius: radius2))
@@ -185,17 +206,17 @@ extension MainHistoryView {
             RoundedRectangle(cornerRadius: radius2)
                 .stroke(Color.gray2, lineWidth: 1)
         }
-            
-//            .sheet(isPresented: self.$showModal) {
-//                ResultUpdateModalView(
-//                    showModal: $showModal, isChange: $isCaptionChange,
-//                    stringContent: content,
-//                    resultUpdateType: .captionResult
-//                ) { updatedText in
-//                    saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like)
-//                }
-//                .interactiveDismissDisabled()
-//            }
+        .sheet(isPresented: self.$showModal) {
+            ResultUpdateModalView(
+                showModal: $showModal, isChange: $isCaptionChange,
+                stringContent: content,
+                resultUpdateType: .captionResult
+            ) { updatedText in
+                saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like)
+            }
+            .interactiveDismissDisabled()
+        }
+        
     }
     
     private func hashtagHistoryDetail(uid: UUID,date : Date, hashtagContent: Binding<String>, hashtageLike : Bool) -> some View {
