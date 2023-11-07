@@ -39,6 +39,7 @@ struct CaptionResultView: View {
     private let hapticManger = HapticManager.instance
 
     var captionMode: CaptionMode = .daily
+
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
