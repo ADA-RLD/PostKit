@@ -52,7 +52,7 @@ struct LoadingView: View {
             }
             Spacer()
             
-            LoadingImageFunc(inputArr: loadingModel.inputArray, timeStap: tagTimeStap)
+            LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStap)
             
             LoadingTipView(_timeStep: timeStap, tips: Tips)
                 .frame(height: 150)

@@ -34,7 +34,6 @@ struct OnboardingView: View {
             switch onboardingRouter.currentPage {
                 case 0:
                     OnboardingIntro()
-                    .onAppear{fetchStoreData()}
                 case 1:
                     OnboardingStore(cafeName: $storeModel.storeName)
                 case 2:
@@ -45,6 +44,7 @@ struct OnboardingView: View {
                 OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
             }
         }
+        .onAppear{fetchStoreData()}
         //마지막 뷰에 도착하면 CoreData에 가게 정보를 저장합니다.
         .onChange(of: onboardingRouter.currentPage == 3) { _ in
             saveStoreData(storeName: storeModel.storeName, storeTone: storeModel.tone)
