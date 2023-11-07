@@ -11,22 +11,22 @@ import SwiftUI
 
 class CoinManager: ObservableObject {
     @AppStorage("coin") var coin: Int = 10
+    @AppStorage("date") var date: String = "0000.00.00"
+    
     static let minimalCoin: Int = 0
     static let maximalCoin: Int = 10
     private var cancellable: AnyCancellable?
     static let shared = CoinManager()
     
     init() {
-        // TODO: 출시할때는 24시간으로 바꿔야 할듯여
-        cancellable = Timer.publish(every: 5, on: .main, in: .default)
-            .autoconnect()
-            .sink { [weak self] _ in
-                
-                self?.coin = 10
-            }
+        coin = 10
     }
     
-    func coinUse() {
+    func coinCaptionUse() {
+        coin -= 2
+    }
+    
+    func coinHashtagUse() {
         coin -= 1
     }
 }

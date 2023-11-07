@@ -10,6 +10,19 @@ import UIKit
 
 // MARK: 코드의 가독성을 위해 function들을 따로 모았습니다.
 extension CaptionResultView {
+    // MARK: - 자정 지났을 때 토큰 초기화
+    func checkDate() {
+        let formatterDate = DateFormatter()
+        formatterDate.dateFormat = "yyyy.MM.dd"
+        let currentDay = formatterDate.string(from: Date())
+        
+        if currentDay != coinManager.date {
+            coinManager.date = currentDay
+            coinManager.coin = CoinManager.maximalCoin
+            print("코인이 초기화 되었습니다.")
+        }
+    }
+    
     // MARK: - Chat GPT API에 재생성 요청
     func regenerateAnswer() { /* Daily, Menu를 선택하지 않아도 이전 답변을 참고하여 재생성 합니다.*/
         let chatGptService = ChatGptService()
@@ -30,7 +43,7 @@ extension CaptionResultView {
                                 pathManager.path.append(.ErrorNetwork)
                             }
                         case .finished:
-                            coinManager.coinUse()
+                            coinManager.coinCaptionUse()
                             pathManager.path.append(.CaptionResult)
                         }
                     },
