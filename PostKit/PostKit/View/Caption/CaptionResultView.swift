@@ -32,8 +32,14 @@ struct CaptionResultView: View {
     @State var cancellables = Set<AnyCancellable>()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
+    
+    private let pasteBoard = UIPasteboard.general
+    private let chatGptService = ChatGptService()
+    private let hapticManger = HapticManager.instance
 
     var captionMode: CaptionMode = .daily
+
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
@@ -44,9 +50,11 @@ struct CaptionResultView: View {
         ZStack{
             captionResult
                 .onAppear{
+                    checkDate()
                     //Caption이 생성되면 바로 CoreData에 저장
                     //수정을 위해 UUID를 저장
                     copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
+                    loadingModel.isCaptionGenerate = true
                 }
         }
         .navigationBarBackButtonHidden()
@@ -128,6 +136,8 @@ extension CaptionResultView {
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
                         if coinManager.coin > CoinManager.minimalCoin {
+                            loadingModel.isCaptionGenerate = false
+                            regenerateAnswer()
                             pathManager.path.append(.Loading)
                             Mixpanel.mainInstance().track(event: "결과 재생성")
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
@@ -135,8 +145,7 @@ extension CaptionResultView {
                             }
                         }
                     }
-                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/10"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
-                    
+                    return Alert(title: Text("2크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/\(CoinManager.maximalCoin)"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
                 case .second:
                     return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
                 }

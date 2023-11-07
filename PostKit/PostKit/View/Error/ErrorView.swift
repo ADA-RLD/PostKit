@@ -18,6 +18,7 @@ struct ErrorView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     
     @State var cancellables = Set<AnyCancellable>()
     

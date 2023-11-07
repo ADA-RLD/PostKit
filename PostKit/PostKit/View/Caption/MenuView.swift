@@ -26,6 +26,7 @@ struct MenuView: View {
     
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
@@ -94,8 +95,14 @@ extension MenuView {
                 if coinManager.coin > CoinManager.minimalCoin {
                     pathManager.path.append(.Loading)
                     
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                        sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
+                    Task{
+                        loadingModel.isCaptionGenerate = false
+                        //선택된 옵션들을 가져갑니다.
+                        loadingModel.inputArray += coffeeSelected + dessertSelected + drinkSelected
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                            sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
+                        }
                     }
                 }
                 else {

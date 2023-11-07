@@ -14,8 +14,12 @@ struct MainHistoryView: View {
     @State private var captions: [CaptionModel] = []
     @State private var isShowingToast = false
     @State private var isCaptionChange = false
+    @State private var isLiked = false
+    @State private var targetUid = UUID()
     @State private var showModal = false
+    @State private var showAlert = false
     @State private var hashtags: [HashtagModel] = []
+    @State private var alertType: AlertType = .historyCaption
     @Namespace var nameSpace
     
     private let hapticManger = HapticManager.instance
@@ -25,54 +29,72 @@ struct MainHistoryView: View {
     private let coreDataManager = CoreDataManager.instance
     
     var body: some View {
-        ContentArea {
-            VStack(alignment: .leading, spacing: 20) {
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    
-                    Text("히스토리")
-                        .title1(textColor: .gray6)
-                    
-                    Text("히스토리를 탭하면 내용이 복사됩니다.")
-                        .body2Bold(textColor: .gray4)
-                }
-                
+        ZStack {
+            ContentArea {
                 VStack(alignment: .leading, spacing: 20) {
-                    
-                    historyIndicator
-                    
-                    TabView(selection: $historySelected) {
-                        
-                        feedHistory
-                            .highPriorityGesture(DragGesture())
-                            .tag("피드 글")
-                        
-                        hashtagHistory
-                            .highPriorityGesture(DragGesture())
-                            .tag("해시태그")
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("히스토리")
+                            .title1(textColor: .gray6)
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    
+                    VStack(alignment: .leading, spacing: 20) {
+                        HStack {
+                            historyIndicator
+                            Spacer()
+                            //TODO: 좋아요 정렬이 필요함
+                            Image(.heart)
+                                .resizable()
+                                .frame(width: 28, height: 28)
+                                .foregroundColor(.gray3)
+                        }
+                        
+                        TabView(selection: $historySelected) {
+                            feedHistory
+                                .highPriorityGesture(DragGesture())
+                                .tag("피드 글")
+                            
+                            hashtagHistory
+                                .highPriorityGesture(DragGesture())
+                                .tag("해시태그")
+                        }
+                        .tabViewStyle(.page(indexDisplayMode: .never))
+                    }
                 }
             }
+            if showAlert {
+                CustomAlertMessageDouble(alertTopTitle: "히스토리를 삭제할까요?", alertContent: "삭제된 글은 복구할 수 없어요", topBtnLabel: "삭제",
+                                         bottomBtnLabel: "취소", topAction: {
+                    if alertType == .historyCaption {
+                        deleteCaptionData(_uuid: targetUid)
+                        fetchCaptionData()
+                    }
+                    else if alertType == .historyHashtag {
+                        deleteHashtagData(_uuid: targetUid)
+                        fetchHashtagData()
+                    }
+                    showAlert = false
+                }, bottomAction: { showAlert = false }, showAlert: $showAlert)
+            }
         }
+        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
 }
 
 extension MainHistoryView {
     private var historyIndicator: some View {
         HStack(spacing: 16) {
-            
             Button(action: {
                 withAnimation(.spring(response: 0.5,dampingFraction: 0.8)) {
                     historySelected = "피드 글"
+                    alertType = .historyCaption
                 }
             }, label: {
                 Text("피드 글")
-                    .title2(textColor: .gray6)
+                    .title2(textColor: historySelected == "피드 글" ? .gray6 : .gray3)
                     .overlay(alignment: .bottom) {
                         if historySelected == "피드 글" {
                             Rectangle()
-                                .foregroundColor(Color.black)
+                                .foregroundColor(.gray6)
                                 .frame(height: 2)
                                 .matchedGeometryEffect(id: "activeStroke", in: nameSpace)
                         }
@@ -82,14 +104,15 @@ extension MainHistoryView {
             Button(action: {
                 withAnimation(.spring(response: 0.5,dampingFraction: 0.8)) {
                     historySelected = "해시태그"
+                    alertType = .historyHashtag
                 }
             }, label: {
                 Text("해시태그")
-                    .title2(textColor: .gray6)
+                    .title2(textColor: historySelected == "해시태그" ? .gray6 : .gray3)
                     .overlay(alignment: .bottom) {
                         if historySelected == "해시태그" {
                             Rectangle()
-                                .foregroundColor(Color.black)
+                                .foregroundColor(.gray6)
                                 .frame(height: 2)
                                 .matchedGeometryEffect(id: "activeStroke", in: nameSpace)
                         }
@@ -99,29 +122,30 @@ extension MainHistoryView {
     }
     
     private var feedHistory: some View {
-        VStack {
-            ScrollView{
-                ForEach($captions) { $item in
-                    //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
-                    feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: item.like)
-                        .onChange(of: item.like){ _ in
-                            saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
-                        }
+        ZStack {
+            VStack {
+                ScrollView{
+                    ForEach($captions) { $item in
+                        //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
+                        feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: item.like)
+                            .onChange(of: item.like){ _ in
+                                saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
+                            }
+                    }
                 }
+                .refreshable{fetchCaptionData()}
             }
-            .refreshable{fetchCaptionData()}
+            .onAppear {
+                fetchCaptionData()
+            }
         }
-        .onAppear {
-            fetchCaptionData()
-        }
-        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
     
     private var hashtagHistory: some View {
         VStack {
             ScrollView{
                 ForEach($hashtags) { $item in
-                    hashtagHistoryDetail(uid: item.id, date: item.date, hashtagContent: $item.hashtag, hashtageLike: item.isLike)
+                    hashtagHistoryDetail(uid: item.id, date: convertDate(date: item.date), hashtagContent: $item.hashtag, hashtageLike: item.isLike)
                         .onChange(of: item.isLike){ _ in
                             saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                         }
@@ -132,138 +156,159 @@ extension MainHistoryView {
         .onAppear {
             fetchHashtagData()
         }
-        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
     
     private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: Binding<String>, like: Bool) -> some View {
-        RoundedRectangle(cornerRadius: radius1)
-            .frame(height: 160)
-            .foregroundColor(Color.gray1)
-        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리
-        //            .onTapGesture {
-        //                copyToClipboard()
-        //            }
-            .overlay(alignment: .leading) {
-                VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(spacing:8) {
+                    Text(date)
+                        .body2Bold(textColor: .gray4)
                     
-                    HStack {
-                        Text(tag)
-                            .body2Bold(textColor: .white)
-                            .padding(.horizontal, 9.5)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .background(Color.main)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundColor(.clear)
-                            }
-                        Spacer()
-                        Text(date)
-                            .body2Bold(textColor: .gray4)
-                        Spacer()
-                        Menu {
-                            Button(action: {
-                                self.showModal = true
-                            }) {
-                                HStack {
-                                    Text("수정하기")
-                                    Spacer()
-                                    Image(systemName: "square.and.pencil")
-                                }
-                            }
-                            Button(role: .destructive, action: {
-                                //TODO: 삭제하기 action 추가 해야함
-                                deleteCaptionData(_uuid: uid)
-                                fetchCaptionData()
-                                //MARK: item.id 값 필요
-                            }) {
-                                HStack {
-                                    Text("삭제하기")
-                                    Spacer()
-                                    Image(systemName: "trash")
-                                }
-                            }
-                        } label: {
-                            Label("", systemImage: "ellipsis")
+                    Text(tag)
+                        .body2Bold(textColor: .gray4)
+                }
+                
+                Text(content.wrappedValue)
+                    .body2Bold(textColor: .gray5)
+            }
+            
+            Divider()
+                .foregroundColor(.gray2)
+            
+            HStack {
+                //TODO: 히스토리 좋아요 기능 추가
+                Image(.heart)
+                    .foregroundColor(isLiked ? .main : .gray3)
+                    .onTapGesture {
+                        withAnimation(.easeIn(duration: 0.3)) {
+                            isLiked.toggle()
                         }
                     }
-                    
-                    Text(content.wrappedValue)
-                        .body2Bold(textColor: .gray5)
+                
+                Spacer()
+                
+                Image(.pen)
+                    .foregroundColor(.gray3)
+                    .onTapGesture {
+                        self.showModal = true
+                    }
+                
+                Spacer()
+                
+                Image(.trash)
+                    .onTapGesture {
+                        showAlert.toggle()
+                        targetUid = uid
+                    }
+                
+                Spacer()
+                
+                HStack(spacing: 4) {
+                    Image(.copy)
+                    Text("복사")
+                        .body2Bold(textColor: .white)
                 }
-                .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
-            }
-            .sheet(isPresented: self.$showModal) {
-                ResultUpdateModalView(
-                    showModal: $showModal, isChange: $isCaptionChange,
-                    stringContent: content,
-                    resultUpdateType: .captionResult
-                ) { updatedText in
-                    saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like)
+                .onTapGesture {
+                    copyToClipboard()
                 }
-                .interactiveDismissDisabled()
+                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                .background(
+                    RoundedRectangle(cornerRadius: radius1)
+                        .fill(Color.gray5)
+                )
             }
+        }
+        .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
+        .clipShape(RoundedRectangle(cornerRadius: radius1))
+        .foregroundColor(.clear)
+        .overlay {
+            RoundedRectangle(cornerRadius: radius1)
+                .stroke(Color.gray2, lineWidth: 1)
+        }
+        .sheet(isPresented: self.$showModal) {
+            ResultUpdateModalView(
+                showModal: $showModal, isChange: $isCaptionChange,
+                stringContent: content,
+                resultUpdateType: .captionResult
+            ) { updatedText in
+                saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like)
+            }
+            .interactiveDismissDisabled()
+        }
     }
     
-    private func hashtagHistoryDetail(uid: UUID,date : Date, hashtagContent: Binding<String>, hashtageLike : Bool) -> some View {
-        RoundedRectangle(cornerRadius: radius1)
-            .frame(height: 160)
-            .foregroundColor(Color.gray1)
-        //TODO: 수정 버튼이 적용이 안돼서 일단 임시 주석처리
-        //            .onTapGesture {
-        //                copyToClipboard()
-        //            }
-            .overlay(alignment: .leading) {
-                VStack(alignment: .leading, spacing: 8) {
-                    
-                    HStack {
-                        
-                        Text(date, style: .date)
-                            .body2Bold(textColor: .gray4)
-                        
-                        Spacer()
-                        
-                        Menu {
-                            Button(action: {
-                                self.showModal = true
-                            }) {
-                                HStack {
-                                    Text("수정하기")
-                                    Spacer()
-                                    Image(systemName: "square.and.pencil")
-                                }
-                            }
-                            Button(role: .destructive, action: {
-                                //TODO: 삭제하기 action 추가 해야함
-                                deleteHashtagData(_uuid: uid)
-                                fetchHashtagData()
-                                //MARK: item.id 값 필요
-                            }) {
-                                HStack {
-                                    Text("삭제하기")
-                                    Spacer()
-                                    Image(systemName: "trash")
-                                }
-                            }
-                        } label: {
-                            Label("", systemImage: "ellipsis")
+    private func hashtagHistoryDetail(uid: UUID, date: String, hashtagContent: Binding<String>, hashtageLike : Bool) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(date)
+                    .body2Bold(textColor: .gray4)
+                
+                Text(hashtagContent.wrappedValue)
+                    .body2Bold(textColor: .gray5)
+            }
+            
+            Divider()
+                .foregroundColor(.gray2)
+            
+            HStack {
+                //TODO: 히스토리 좋아요 기능 추가
+                Image(.heart)
+                    .foregroundColor(isLiked ? .main : .gray3)
+                    .onTapGesture {
+                        withAnimation(.easeIn(duration: 0.3)) {
+                            isLiked.toggle()
                         }
                     }
-                    Text(hashtagContent.wrappedValue)
-                        .body2Bold(textColor: .gray5)
-                    
+                Spacer()
+                
+                Image(.pen)
+                    .foregroundColor(.gray3)
+                    .onTapGesture {
+                        self.showModal = true
+                    }
+                
+                Spacer()
+                
+                Image(.trash)
+                    .onTapGesture {
+                        showAlert.toggle()
+                        targetUid = uid
+                    }
+                
+                Spacer()
+                HStack(spacing: 4) {
+                    Image(.copy)
+                    Text("복사")
+                        .body2Bold(textColor: .white)
                 }
-                .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
-            }
-            .sheet(isPresented: self.$showModal) {
-                ResultUpdateModalView(
-                    showModal: $showModal, isChange: $isCaptionChange,
-                    stringContent: hashtagContent,
-                    resultUpdateType: .hashtagResult
-                ) { updatedText in
-                    saveHashtagData(_uuid: uid, _result: hashtagContent.wrappedValue, _like: hashtageLike)
+                .onTapGesture {
+                    copyToClipboard()
                 }
-                .interactiveDismissDisabled()
+                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                .background(
+                    RoundedRectangle(cornerRadius: radius1)
+                        .fill(Color.gray5)
+                )
             }
+        }
+        .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
+        .clipShape(RoundedRectangle(cornerRadius: radius1))
+        .foregroundColor(.clear)
+        .overlay {
+            RoundedRectangle(cornerRadius: radius1)
+                .stroke(Color.gray2, lineWidth: 1)
+        }
+        .sheet(isPresented: self.$showModal) {
+            ResultUpdateModalView(
+                showModal: $showModal, isChange: $isCaptionChange,
+                stringContent: hashtagContent,
+                resultUpdateType: .hashtagResult
+            ) { updatedText in
+                saveHashtagData(_uuid: uid, _result: hashtagContent.wrappedValue, _like: hashtageLike)
+            }
+            .interactiveDismissDisabled()
+        }
     }
     
     private func copyToClipboard() {
@@ -274,7 +319,6 @@ extension MainHistoryView {
 }
 
 extension MainHistoryView : MainViewProtocol {
-    
     func fetchStoreData() {
         // 해쉬태그에서는 쓰지 않습니다.
     }

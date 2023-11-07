@@ -16,6 +16,7 @@ struct ResultUpdateModalView: View {
     @Binding var showModal: Bool
     @Binding var isChange: Bool
     @Binding var stringContent: String
+    @FocusState private var isTextFieldFocused: Bool
     var resultUpdateType: ResultUpdateType = .captionResult
     var completion: (_ caption: String) -> Void
     
@@ -27,12 +28,12 @@ struct ResultUpdateModalView: View {
                         showModal = false
                     }, label: {
                         Text("취소")
-                            .body1Regular(textColor: .blue)
+                            .body1Bold(textColor: .main)
                     })
                     
                     Spacer()
                     
-                    Text(resultUpdateType == .captionResult ? "글 수정" : "해시태그 수정")
+                    Text(resultUpdateType == .captionResult ? "글 수정하기" : "해시태그 수정하기")
                         .body1Bold(textColor: .gray6)
                     
                     Spacer()
@@ -42,7 +43,7 @@ struct ResultUpdateModalView: View {
                         showModal = false
                     }, label: {
                         Text("저장")
-                            .body1Regular(textColor: .blue)
+                            .body1Bold(textColor: .main)
                     })
                 }
                 .padding(.horizontal, 16)
@@ -56,6 +57,10 @@ struct ResultUpdateModalView: View {
                             .onChange(of: stringContent) { _ in
                                 isChange = true
                             }
+                            .focused($isTextFieldFocused)
+                            .onAppear {
+                                isTextFieldFocused = true
+                            }
                         
                         Spacer()
                         
@@ -65,9 +70,9 @@ struct ResultUpdateModalView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .frame(height: 400)
                     .background(Color.gray1)
-                    .cornerRadius(radius2)
+                    .cornerRadius(radius1)
                     .overlay(
-                        RoundedRectangle(cornerRadius: radius2)
+                        RoundedRectangle(cornerRadius: radius1)
                             .stroke(Color.gray3, lineWidth: 1)
                     )
                 }

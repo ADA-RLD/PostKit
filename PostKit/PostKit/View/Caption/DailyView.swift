@@ -29,6 +29,7 @@ struct DailyView: View {
     
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     
     //CoreData Manager
     let storeDataManager = CoreDataManager.instance
@@ -55,6 +56,7 @@ extension DailyView {
     private func headerArea() -> some View {
         CustomHeader(action: {pathManager.path.removeLast()}, title: "일상글")
     }
+    
     //MARK: ContentsView
     private func contents() -> some View {
         ContentArea {
@@ -73,12 +75,18 @@ extension DailyView {
         CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
             if coinManager.coin > CoinManager.minimalCoin {
                 pathManager.path.append(.Loading)
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                    sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
-                    print(coinManager.coin)
+              
+                Task{
+                    loadingModel.isCaptionGenerate = false
+                    //배열에 추가해서 가져갑니다.
+                    loadingModel.inputArray += weatherSelected + dailyCoffeeSelected + dailyDessertSelected
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                        sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
+                        print(coinManager.coin)
+                    }
                 }
-            }
-            else {
+            } else {
                 isPresented.toggle()
             }
         })
