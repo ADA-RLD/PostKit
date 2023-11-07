@@ -33,7 +33,7 @@ struct ResultUpdateModalView: View {
                     
                     Spacer()
                     
-                    Text(resultUpdateType == .captionResult ? "글 수정" : "해시태그 수정")
+                    Text(resultUpdateType == .captionResult ? "글 수정하기" : "해시태그 수정하기")
                         .body1Bold(textColor: .gray6)
                     
                     Spacer()
