@@ -98,8 +98,8 @@ extension MenuView {
             if isActive == true {
                 if coinManager.coin > CoinManager.minimalCoin {
                     pathManager.path.append(.Loading)
-
-                    Task{
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                         sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
                     }
                 }
