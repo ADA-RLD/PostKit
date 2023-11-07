@@ -7,6 +7,12 @@
 
 import SwiftUI
 import Combine
+import Mixpanel
+
+enum ErrorReason {
+    case network
+    case apiError
+}
 
 struct ErrorView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -15,6 +21,7 @@ struct ErrorView: View {
     
     @State var cancellables = Set<AnyCancellable>()
     
+    var errorReasonState: ErrorReason = .apiError
     var errorCasue: String
     var errorDescription: String
     var errorImage: ImageResource
@@ -37,6 +44,12 @@ struct ErrorView: View {
                 topBtnLabel: "재생성",
                 bottomBtnLabel: "홈으로",
                 topAction: {
+                    if errorReasonState == .apiError {
+                        Mixpanel.mainInstance().track(event: "재생성 -API")
+                    }
+                    else if errorReasonState == .network {
+                        Mixpanel.mainInstance().track(event: "재생성 - 네트워크")
+                    }
                     pathManager.path.append(.Loading)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                         regenerateAnswer()

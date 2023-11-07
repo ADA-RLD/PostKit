@@ -151,7 +151,11 @@ struct HashtagView: View {
                         
                         print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
                         
-                        pathManager.path.append(.HashtagResult)
+                        pathManager.path.append(.Loading)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                            pathManager.path.append(.HashtagResult)
+                        }
+                        
                     }
                 })
             }
