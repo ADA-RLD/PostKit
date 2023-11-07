@@ -38,7 +38,7 @@ struct LoadingCancelView: View {
                         .body2Bold(textColor: .gray5)
                     
                 }
-                .frame(width: 280,height: 280)
+                .frame(width: 280, height: 280)
                 .padding(.vertical, 48)
             }
         }
