@@ -28,6 +28,7 @@ struct KeywordModal: View {
     @State private var weatherPoint = weatherKeys.map {$0.name}
     @State private var coffeeDrinkPoint = dailyCoffeeKeys.map{$0.name}
     @State private var dailyDessertPoint = dailyDessertKeys.map{$0.name}
+    @Namespace var nameSpace
     
     var modalType: KeywordModalType = .daily
     
@@ -144,30 +145,42 @@ extension KeywordModal {
     }
     
     private func segementaionArea() -> some View {
+        
         VStack(alignment: .leading, spacing: 16) {
             Text("추천 키워드")
                 .font(.body2Bold())
                 .foregroundColor(Color.gray5)
             
             HStack(spacing: 0) {
-                Picker("",selection: $pickerSelection) {
-                    ForEach(pickerList.indices, id: \.self ) { selected in
-                        Button {
+                ForEach(pickerList.indices, id: \.self ) { selected in
+                    Button {
+                        withAnimation(.spring(response: 0.01,dampingFraction: 0.8)) {
                             pickerSelection = selected
-                        } label: {
-                            RoundedRectangle(cornerRadius: 7)
-                                .foregroundColor(pickerSelection == selected ? Color.white : Color.clear)
-                                .frame(height: 36)
-                                .overlay(alignment: .center) {
-                                    Text(pickerList[selected])
-                                        .font(pickerSelection == selected ? .system(size: 17,weight: .semibold) : .system(size: 17,weight: .regular))
-                                }
                         }
-                        .tag(selected)
+                    } label: {
+                        Text(pickerList[selected])
+                            .font(pickerSelection == selected ? .system(size: 13,weight: .semibold) : .system(size: 13,weight: .regular))
+                            .foregroundColor(.gray5)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical,12)
+                            .background {
+                                if pickerSelection == selected {
+                                    RoundedRectangle(cornerRadius: radius2)
+                                        .matchedGeometryEffect(id: "activeBackGround", in: nameSpace)
+                                        .foregroundColor(pickerSelection == selected ? .white: .gray2)
+                                }
+                            }
                     }
+                    .tag(pickerSelection)
                 }
-                .frame(height: 40)
-                .pickerStyle(.segmented)
+                
+            }
+            .padding(.vertical,4)
+            .padding(.horizontal,4)
+            .frame(maxWidth: .infinity)
+            .background {
+                RoundedRectangle(cornerRadius: radius2)
+                    .foregroundColor(Color.gray2)
             }
             WrappingHStack(alignment: .leading){
                 switch pickerSelection {

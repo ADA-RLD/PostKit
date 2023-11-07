@@ -13,27 +13,17 @@ struct SelectTextLength: View {
     let textLength: [String] = ["짧음","중간","긺"]
     
     var body: some View {
-        RoundedRectangle(cornerRadius: radius1)
-            .stroke(Color.gray2)
-            .foregroundColor(Color.white)
-            .frame(maxWidth: .infinity)
-            .frame(height: 94)
-            .overlay(alignment: .leading) {
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("글 길이")
-                        .font(.body1Bold())
-                        .foregroundColor(.gray5)
-                    
-                    HStack(spacing: 0) {
-                        ForEach(Array(textLength.enumerated()), id: \.offset) { idx, item in
-                            RaidioBtn(title: item, id: idx,selectedId: self.$selected)
-                            Spacer()
-                            
-                        }
-                    }
+        VStack(alignment: .leading, spacing: 16) {
+            Text("글 길이")
+                .font(.body1Bold())
+                .foregroundColor(.gray5)
+            
+            HStack(spacing: 32) {
+                ForEach(Array(textLength.enumerated()), id: \.offset) { idx, item in
+                    RaidioBtn(title: item, id: idx,selectedId: self.$selected)
                 }
-                .padding(.all,20)
             }
+        }
     }
 }
 
@@ -45,7 +35,7 @@ extension SelectTextLength {
     }
 }
 struct RaidioBtn: View {
- 
+    
     let id: Int
     let title: String
     @Binding var selectedId: Int
@@ -73,7 +63,7 @@ struct RaidioBtn: View {
                     .frame(width: 14,height: 14)
                     .background(self.selectedId != self.id ? Color.white : Color.main )
                     .cornerRadius(radius2)
-                    
+                
             })
             
             Text(title)
