@@ -14,7 +14,6 @@ struct ErrorView: View {
     @ObservedObject var coinManager = CoinManager.shared
     
     @State var cancellables = Set<AnyCancellable>()
-//    @State var messages: [Message] = []
     
     var errorCasue: String
     var errorDescription: String
