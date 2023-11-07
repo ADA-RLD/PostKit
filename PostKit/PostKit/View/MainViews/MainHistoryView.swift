@@ -179,20 +179,38 @@ extension MainHistoryView {
                 
                 Image(.trash)
                     .onTapGesture {
-                        deleteCaptionData(_uuid: uid)
-                        fetchCaptionData()
+                        VStack {
+                            VStack(spacing: 8) {
+                                Text("히스토리가 삭제됩니다.")
+                                    .body1Bold(textColor: .gray6)
+                                Text("영원히...")
+                                    .body2Bold(textColor: .gray4)
+                            }
+                            AlertCustomDoubleBtn(topBtnLabel: "삭제", bottomBtnLabel: "취소", topAction: {
+                                deleteCaptionData(_uuid: uid)
+                                fetchCaptionData()
+                            }, bottomAction: {
+                                
+                            })
+                        }
+                        .padding(.vertical, 48)
+                        .background(
+                        RoundedRectangle(cornerRadius: radius1)
+                            .foregroundColor(.white)
+                        )
                     }
                 
                 Spacer()
-                
+                //TODO: 토스트 위치가 달라짐
                 HStack(spacing: 4) {
                     Image(.copy)
                     Text("복사")
                         .body2Bold(textColor: .white)
-                        .onTapGesture {
-                            copyToClipboard()
-                        }
-                }.padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                }
+                .onTapGesture {
+                    copyToClipboard()
+                }
+                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                     .background(
                         RoundedRectangle(cornerRadius: radius2)
                             .fill(Color.gray5)
