@@ -16,7 +16,7 @@ struct OnboardingStore: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            OnboardingCustomHeader(action: onboardingRouter.previousPage)
+            OnboardingCustomHeader(action: {onboardingRouter.previousPage()})
             ContentArea {
                 VStack(alignment:.leading, spacing: 40) {
                     Text("매장의 이름을 알려주세요")
