@@ -18,6 +18,7 @@ struct SettingStoreView: View {
     //CoreData Data Class
     @Binding var storeName: String
     @State var storeTone: Array = ["","",""]
+    @State var isActive: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -28,10 +29,17 @@ struct SettingStoreView: View {
                         .font(.body1Bold())
                         .foregroundStyle(Color.gray5)
                     CustomTextfield(text: $storeName, placeHolder: storeName)
+                        .onChange(of: $storeName.wrappedValue) { lengthCount in
+                            if !lengthCount.isEmpty {
+                                isActive = true
+                            } else {
+                                isActive = false
+                            }
+                        }
                 }
             }
             Spacer()
-            CTABtn(btnLabel: "저장", isActive: .constant(true), action: {
+            CTABtn(btnLabel: "저장", isActive: $isActive, action: {
                 saveStoreData(storeName: storeName, storeTone: storeTone)
                 pathManager.path.removeLast()
             })
