@@ -16,6 +16,7 @@ struct ResultUpdateModalView: View {
     @Binding var showModal: Bool
     @Binding var isChange: Bool
     @Binding var stringContent: String
+    @FocusState private var isTextFieldFocused: Bool
     var resultUpdateType: ResultUpdateType = .captionResult
     var completion: (_ caption: String) -> Void
     
@@ -55,6 +56,10 @@ struct ResultUpdateModalView: View {
                             .foregroundColor(Color.gray5)
                             .onChange(of: stringContent) { _ in
                                 isChange = true
+                            }
+                            .focused($isTextFieldFocused)
+                            .onAppear {
+                                isTextFieldFocused = true
                             }
                         
                         Spacer()
