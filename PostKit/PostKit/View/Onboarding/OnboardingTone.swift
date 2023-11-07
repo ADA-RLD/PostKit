@@ -40,11 +40,10 @@ struct OnboardingTone: View {
             }
             
             Group{
-                CTABtn(btnLabel: "다음", isActive: $isActive, action: onboardingRouter.nextPage)
+                CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
                 .background(Color.white)
             }.frame(maxHeight: .infinity, alignment: .bottom)
         }
-        .onAppear{cafeTone.removeAll()}
     }
 }
 
