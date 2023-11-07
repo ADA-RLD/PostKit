@@ -64,11 +64,10 @@ extension HashtagResultView {
             
             ContentArea {
                 VStack(alignment: .leading, spacing: 24) {
-
+                    
                     HStack {
                         Spacer()
                         Button(action: {
-                            //TODO: 수정된 해시태그 CoreData 저장 필요
                             if isCaptionChange {
                                 saveEditHashtagResult(_uuid: copyId, _result: viewModel.hashtag, _like: isLike)
                             }
@@ -80,39 +79,58 @@ extension HashtagResultView {
                         })
                     }
                     
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("주문하신 해시태그가 나왔어요!")
-                            .title1(textColor: .gray6)
-                    }
-                    
-                    VStack {
-                        ZStack(alignment: .leading) {
-                            // TODO: historyLeftAction 추가
-                            HistoryButton(resultText: $viewModel.hashtag, buttonText: "수정하기", historyRightAction: {
-                                self.showModal = true
-                            }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
-                                ResultUpdateModalView(
-                                    showModal: $showModal, isChange: $isCaptionChange,
-                                    stringContent: $viewModel.hashtag,
-                                    resultUpdateType: .hashtagResult
-                                ) { updatedText in
-                                    viewModel.hashtag = updatedText
+                    VStack(alignment: .leading, spacing: 24) {
+                        HStack {
+                            Text("주문하신 해시태그가 나왔어요!")
+                                .title1(textColor: .gray6)
+                            Spacer()
+                            Image(.pen)
+                                .resizable()
+                                .frame(width: 18, height: 18)
+                                .foregroundColor(.gray4)
+                                .onTapGesture {
+                                    self.showModal = true
                                 }
-                                .interactiveDismissDisabled()
-                            })
+                        }.sheet(isPresented: self.$showModal, content: {
+                            ResultUpdateModalView(
+                                showModal: $showModal, isChange: $isCaptionChange,
+                                stringContent: $viewModel.hashtag,
+                                resultUpdateType: .hashtagResult
+                            ) { updatedText in
+                                viewModel.hashtag = updatedText
+                            }
+                            .interactiveDismissDisabled()
+                        })
+                        .onChange(of: viewModel.hashtag){ _ in
+                            // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
+                            //isLike 변수는 좋아요 입니다.
+                            copyId = saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
                         }
-                    }
-                    .onChange(of: viewModel.hashtag){ _ in
-                        // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
-                        //isLike 변수는 좋아요 입니다.
-                        copyId = saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
+                        VStack(spacing: 4) {
+                            Text(viewModel.hashtag)
+                                .body1Regular(textColor: .gray5)
+                            HStack {
+                                Spacer()
+                                Image(.heart)
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.gray3)
+                            }
+                        }
+                        .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
+                        .clipShape(RoundedRectangle(cornerRadius: radius1))
+                        .foregroundColor(.clear)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: radius1)
+                                .stroke(Color.gray2, lineWidth: 1)
+                        }
                     }
                 }
             }
             Spacer()
             
             //MARK: 재생성 / 복사 버튼
-            CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
+            CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사") {
                 if coinManager.coin > 0 {
                     activeAlert = .first
                     isPresented.toggle()
