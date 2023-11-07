@@ -87,7 +87,7 @@ extension SettingView: SettingProtocol {
             print("StoreData: \(storeDataArray)")
             self.storeModel.storeName = storeDataArray.last?.storeName ?? ""
             //TODO: CoreData 함수 변경 필요
-            self.storeModel.tone = storeDataArray.last?.tones ?? ["기본"]
+            self.storeModel.tone = storeDataArray.last?.tones ?? []
             print("데이터 Fetch완료\nStoreData: \(storeModel.storeName)\nStoreTone: \(storeModel.tone)\n")
             
         } catch {

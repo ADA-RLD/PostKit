@@ -32,10 +32,8 @@ struct MenuView: View {
     @StateObject var storeModel : StoreModel
     
     @State var messages: [Message] = []
-    @State var currentInput: String = ""
     @State var cancellables = Set<AnyCancellable>()
     
-    let chatGptService = ChatGptService()
     let textLengthArr: [Int] = [100, 200, 300]
     
     var body: some View {
@@ -105,6 +103,8 @@ extension MenuView {
                         //선택된 옵션들을 가져갑니다.
                         loadingModel.inputArray += coffeeSelected + dessertSelected + drinkSelected
                         
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                         sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
                     }
                 }

@@ -9,5 +9,5 @@ import SwiftUI
 
 class AppstorageManager: ObservableObject {
     @AppStorage("_cafeName") var cafeName: String = ""
-    @AppStorage("_cafeTone") var cafeTone: String = "기본"
+    @AppStorage("_cafeTone") var cafeTone: String = ""
 }

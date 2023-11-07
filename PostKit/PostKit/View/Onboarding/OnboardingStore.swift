@@ -18,16 +18,12 @@ struct OnboardingStore: View {
         VStack(spacing: 0) {
             OnboardingCustomHeader(action: {onboardingRouter.previousPage()})
             ContentArea {
-                VStack(alignment:.leading,spacing: 40){
-                    VStack(alignment:.leading, spacing: 12) {
-                        Text("매장의 이름을 알려주세요")
-                            .title1(textColor: .gray6)
-
-                        Text("매장에 더 잘 맞는 카피가 생성됩니다.")
-                            .body2Bold(textColor: .gray4)
-                    }
+                VStack(alignment:.leading, spacing: 40) {
+                    Text("매장의 이름을 알려주세요")
+                        .title1(textColor: .gray6)
+                    
                     VStack(alignment: .leading) {
-                        CustomTextfield(text: $cafeName, placeHolder: "동글이 카페")
+                        CustomTextfield(text: $cafeName, placeHolder: "카페 포스트킷")
                             .onChange(of: $cafeName.wrappedValue) { lengthCount in
                                 if !lengthCount.isEmpty {
                                     isActive = true
@@ -43,6 +39,11 @@ struct OnboardingStore: View {
                    action: {hideKeyboard()
                 onboardingRouter.nextPage()
             })
+        }
+        .onAppear {
+            if !cafeName.isEmpty {
+                isActive = true
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ import CoreData
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var coinManager = CoinManager.shared
-    @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
+    @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     
     private let coreDataManager = CoreDataManager.instance
     private let hapticManger = HapticManager.instance
@@ -20,11 +20,9 @@ struct MainCaptionView: View {
         ContentArea {
             VStack(alignment:.leading ,spacing: 28) {
                 SettingBtn(action: {pathManager.path.append(.SettingHome)})
-                
                 VStack(alignment: .leading, spacing: 28) {
                     
                     Text("\(coinManager.coin)")
-                    
                     Text("어떤 카피를 생성할까요?")
                         .title1(textColor: .gray6)
                     
@@ -127,8 +125,7 @@ extension MainCaptionView : MainViewProtocol {
             let storeDataArray = try coreDataManager.context.fetch(storeRequest)
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
-                // TODO: 코어데이터 함수 변경 필요
-                self.storeModel.tone = storeCoreData.tones ?? ["기본"]
+                self.storeModel.tone = storeCoreData.tones ?? []
             }
         } catch {
             print("ERROR STORE CORE DATA")
