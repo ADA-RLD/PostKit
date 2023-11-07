@@ -159,10 +159,10 @@ extension KeywordModal {
                         }
                     } label: {
                         Text(pickerList[selected])
-                            .font(pickerSelection == selected ? .system(size: 13,weight: .semibold) : .system(size: 13,weight: .regular))
+                            .font(pickerSelection == selected ? .system(size: 13, weight: .semibold) : .system(size: 13, weight: .regular))
                             .foregroundColor(.gray5)
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical,12)
+                            .padding(.vertical, 12)
                             .background {
                                 if pickerSelection == selected {
                                     RoundedRectangle(cornerRadius: radius2)
@@ -175,8 +175,8 @@ extension KeywordModal {
                 }
                 
             }
-            .padding(.vertical,4)
-            .padding(.horizontal,4)
+            .padding(.vertical, 4)
+            .padding(.horizontal, 4)
             .frame(maxWidth: .infinity)
             .background {
                 RoundedRectangle(cornerRadius: radius2)
