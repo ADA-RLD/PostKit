@@ -66,8 +66,7 @@ extension MenuView {
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
                     .onChange(of: isActive) { _ in if menuName.count >= 1 && !isSelected.isEmpty {
                         isActive = true
-                       
-                        }
+                    }
                     }
                 SelectTextLength(selected: $textLength)
             }
@@ -76,17 +75,17 @@ extension MenuView {
     
     private func menuInput() -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("메뉴 이름*")
+            Text("메뉴 이름")
                 .body1Bold(textColor: .gray5)
             CustomTextfield(text: $menuName, placeHolder: "아이스 아메리카노")
-                .onChange(of: menuName)  { _ in if menuName.count >= 1 && !isSelected.isEmpty {
-                    isActive = true
-                } else {
-                    isActive = false
-                }
+                .onChange(of: menuName)  { _ in
+                    if menuName.count >= 1 && !isSelected.isEmpty {
+                        isActive = true
+                    } else {
+                        isActive = false
+                    }
                 }
         }
-        
     }
     
     private func bottomArea() -> some View {
