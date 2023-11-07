@@ -25,13 +25,11 @@ struct CTABtn: View {
                             .font(.body1Bold())
                             .foregroundStyle(Color.white)
                     }
-                
             })
             .disabled(!isActive)
         }
         .padding(.horizontal,paddingHorizontal)
         .padding(.vertical,12)
-        
     }
 }
 
@@ -100,7 +98,6 @@ struct AlertCustomDoubleBtn: View {
         }
     }
 }
-
 
 #Preview {
     VStack{
