@@ -114,7 +114,7 @@ extension CaptionResultView {
             // MARK: - 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
                 // TODO: - 상수 값으로의 변경 필요
-                if coinManager.coin > CoinManager.minmalCaptionCost {
+                if coinManager.coin >= CoinManager.captionCost {
                     activeAlert = .first
                     isPresented.toggle()
                 }
@@ -135,7 +135,7 @@ extension CaptionResultView {
                         
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
-                        if coinManager.coin > CoinManager.minimalCoin {
+                        if coinManager.coin > CoinManager.captionCost {
                             loadingModel.isCaptionGenerate = false
                             regenerateAnswer()
                             pathManager.path.append(.Loading)
