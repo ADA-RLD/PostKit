@@ -74,7 +74,8 @@ extension DailyView {
         CTABtn(btnLabel: "글 생성", isActive: .constant(true), action: {
             if coinManager.coin > CoinManager.minimalCoin {
                 pathManager.path.append(.Loading)
-                Task{
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                     sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
                     print(coinManager.coin)
                 }

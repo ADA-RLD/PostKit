@@ -421,7 +421,6 @@ extension MainHistoryView : MainViewProtocol {
     }
     
     func convertDate(date: Date) -> String {
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         
@@ -430,5 +429,3 @@ extension MainHistoryView : MainViewProtocol {
         return convertDate
     }
 }
-
-
