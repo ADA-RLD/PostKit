@@ -114,7 +114,7 @@ extension MainHistoryView {
         .onAppear {
             fetchCaptionData()
         }
-        .toast(isShowing: $isShowingToast)
+        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
     
     private var hashtagHistory: some View {
@@ -132,7 +132,7 @@ extension MainHistoryView {
         .onAppear {
             fetchHashtagData()
         }
-        .toast(isShowing: $isShowingToast)
+        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
     
     private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: Binding<String>, like: Bool) -> some View {
@@ -421,7 +421,6 @@ extension MainHistoryView : MainViewProtocol {
     }
     
     func convertDate(date: Date) -> String {
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         
@@ -430,5 +429,3 @@ extension MainHistoryView : MainViewProtocol {
         return convertDate
     }
 }
-
-

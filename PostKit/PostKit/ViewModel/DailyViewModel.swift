@@ -14,6 +14,7 @@ extension DailyView {
         Task{
             createPrompt(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLength)
             self.messages.append(Message(id: UUID(), role: .user, content: self.currentInput))
+            self.currentInput = ""
             await createCaption()
         }
     }
@@ -72,19 +73,16 @@ extension DailyView {
         }
         
         self.currentInput = "카페 일상과 관련된 인스타그램 피드를 해시태그 없이 작성해줘. \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘."
+        viewModel.prompt = self.currentInput
     }
     
     // MARK: - Caption 생성
-    func createCaption() async {        
-        viewModel.prompt = self.currentInput
-        self.currentInput = ""
-        
+    func createCaption() async {
         chatGptService.sendMessage(messages: self.messages)
             .sink(
                 receiveCompletion: { completion in
                     switch completion {
                     case .failure(let error):
-                        print("error 발생. error code: \(error._code)")
                         if error._code == 10 {
                             pathManager.path.append(.ErrorResultFailed)
                         }
@@ -92,9 +90,9 @@ extension DailyView {
                             pathManager.path.append(.ErrorNetwork)
                         }
                     case .finished:
-                        print("Caption 생성이 무사히 완료되었습니다.")
                         pathManager.path.append(.CaptionResult)
                         coinManager.coinUse()
+                        print("Caption 생성이 무사히 완료되었습니다.")
                     }
                 },
                 receiveValue:  { response in
