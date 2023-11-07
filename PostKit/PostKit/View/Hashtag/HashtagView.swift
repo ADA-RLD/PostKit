@@ -50,9 +50,6 @@ struct HashtagView: View {
                                 .readSize { size in
                                     titleHeight = size.height
                                 }
-                                .onTapGesture {
-                                    isShowingDescription = true
-                                }
                             
                             VStack(alignment: .leading, spacing: 28) {
                                 VStack(alignment: .leading, spacing: 12) {
