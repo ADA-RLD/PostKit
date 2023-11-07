@@ -56,6 +56,7 @@ extension HashtagResultView {
                                 saveEditHashtagResult(_uuid: copyId, _result: viewModel.hashtag, _like: isLike)
                             }
                             loadingModel.inputArray.removeAll()
+                            pathManager.path.removeAll()
                         }, label: {
                             Text("완료")
                                 .body1Bold(textColor: .gray5)

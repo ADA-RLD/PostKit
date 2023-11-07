@@ -96,9 +96,27 @@ struct AlertCustomDoubleBtn: View {
     }
 }
 
+struct AlertCustomBtn: View {
+    var topBtnLabel: String
+    var topAction: () -> Void
+    var body: some View {
+        Button(action: {
+            topAction()
+        }, label: {
+            Text(topBtnLabel)
+                .body2Bold(textColor: Color.white)
+                .padding(.horizontal, 28)
+                .padding(.vertical, 16)
+                .background(.gray5)
+                .cornerRadius(radius1)
+        })
+    }
+}
+
 #Preview {
     VStack{
         CustomDoubleBtn(leftBtnLabel: "d", rightBtnLabel: "d", leftAction: {print("hello")}, rightAction: {print("hello")})
         AlertCustomDoubleBtn(topBtnLabel: "취소", bottomBtnLabel: "계속 생성", topAction: {print("hello")}, bottomAction: {print("hello")})
+        AlertCustomBtn(topBtnLabel: "확인", topAction: {print("hello")})
     }
 }
