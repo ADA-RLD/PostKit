@@ -24,7 +24,8 @@ struct HashtagResultView: View {
     private let hashtagService = HashtagService()
     
     @ObservedObject var viewModel = HashtagViewModel.shared
-
+    @ObservedObject var loadingModel = LoadingViewModel.shared
+    
     private let pasteBoard = UIPasteboard.general
     
     //CoreData Manager
@@ -54,7 +55,7 @@ extension HashtagResultView {
                             if isCaptionChange {
                                 saveEditHashtagResult(_uuid: copyId, _result: viewModel.hashtag, _like: isLike)
                             }
-                            pathManager.path.removeAll()
+                            loadingModel.inputArray.removeAll()
                         }, label: {
                             Text("완료")
                                 .body1Bold(textColor: .gray5)
@@ -114,6 +115,7 @@ extension HashtagResultView {
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
                         if coinManager.coin > CoinManager.minimalCoin {
+                            loadingModel.isCaptionGenerate = false
                             coinManager.coinUse()
                             viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
                         }

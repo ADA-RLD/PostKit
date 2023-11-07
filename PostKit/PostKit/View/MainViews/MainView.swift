@@ -17,6 +17,7 @@ struct MainView: View {
     //iCloud가 연동 확인 모델
     @StateObject private var iCloudData = CloudKitUserModel()
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
     private let pasteBoard = UIPasteboard.general
     
     //CoreData Manager
@@ -88,7 +89,7 @@ struct MainView: View {
                     
                     fetchCaptionData()
                     fetchHashtagData()
-                    
+                    loadingModel.inputArray.removeAll()
                     //Cloud 디버깅
                     print("iCloud Status")
                     print("IS SIGNED IN: \(iCloudData.isSignedIntoiCloud.description.uppercased())\nPermission Status: \(iCloudData.permissionStatus.description)\nUser Name: \(iCloudData.userName)")
