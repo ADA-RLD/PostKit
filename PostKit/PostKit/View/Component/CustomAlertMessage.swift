@@ -7,25 +7,49 @@
 
 import SwiftUI
 
+enum AlertType {
+    case historyCaption
+    case historyHashtag
+    case loading
+    case regenerate
+    case credit
+}
+
 struct CustomAlertMessage: View {
+    var alertTopTitle: String
+    var alertContent: String
+    var topBtnLabel: String
+    var bottomBtnLabel: String
+    var topAction: () -> Void
+    var bottomAction: () -> Void
+    @Binding var showAlert: Bool
+    @Binding var isDeleted: Bool
     var body: some View {
-        VStack {
-            VStack(spacing: 8) {
-                Text("히스토리가 삭제됩니다.")
-                    .body1Bold(textColor: .gray6)
-                Text("영원히...")
-                    .body2Bold(textColor: .gray4)
+        ZStack {
+            Color.black.opacity(0.4)
+            VStack(spacing: 36) {
+                VStack(spacing: 8) {
+                    Text(alertTopTitle)
+                        .body1Bold(textColor: .gray6)
+                    Text(alertContent)
+                        .body2Bold(textColor: .gray4)
+                }
+                AlertCustomDoubleBtn(topBtnLabel: topBtnLabel, bottomBtnLabel: bottomBtnLabel, topAction: {
+                    topAction()
+                }, bottomAction: {
+                    bottomAction()
+                })
             }
-            AlertCustomDoubleBtn(topBtnLabel: "삭제", bottomBtnLabel: "취소", topAction: {}, bottomAction: {})
-        }
-        .padding(.vertical, 48)
-        .background(
-        RoundedRectangle(cornerRadius: radius1)
-            .foregroundColor(.white)
-        )
+            .padding(.vertical, 48)
+            .background(
+                RoundedRectangle(cornerRadius: radius1)
+                    .frame(width: 280)
+                    .foregroundColor(.gray1)
+            )
+        }.edgesIgnoringSafeArea(.all)
     }
 }
-//48, 88.5
-#Preview {
-    CustomAlertMessage()
-}
+
+//#Preview {
+//    CustomAlertMessage(alertTopTitle: "히스토리가 삭제됩니다.", alertContent: "영원히...", topBtnLabel: "삭제", bottomBtnLabel: "취소", topAction: {}, bottomAction: {}, showAlert: .constant(false))
+//}
