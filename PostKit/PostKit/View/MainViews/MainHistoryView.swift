@@ -38,7 +38,15 @@ struct MainHistoryView: View {
                     }
                     
                     VStack(alignment: .leading, spacing: 20) {
-                        historyIndicator
+                        HStack {
+                            historyIndicator
+                            Spacer()
+                            //TODO: 좋아요 정렬이 필요함
+                            Image(.heart)
+                                .resizable()
+                                .frame(width: 28, height: 28)
+                                .foregroundColor(.gray3)
+                        }
                         
                         TabView(selection: $historySelected) {
                             feedHistory
@@ -55,7 +63,7 @@ struct MainHistoryView: View {
             }
             if showAlert {
                 CustomAlertMessageDouble(alertTopTitle: "히스토리를 삭제할까요?", alertContent: "삭제된 글은 복구할 수 없어요", topBtnLabel: "삭제",
-                    bottomBtnLabel: "취소", topAction: {
+                                         bottomBtnLabel: "취소", topAction: {
                     if alertType == .historyCaption {
                         deleteCaptionData(_uuid: targetUid)
                         fetchCaptionData()
@@ -82,7 +90,7 @@ extension MainHistoryView {
                 }
             }, label: {
                 Text("피드 글")
-                    .title2(textColor: .gray6)
+                    .title2(textColor: historySelected == "피드 글" ? .gray6 : .gray3)
                     .overlay(alignment: .bottom) {
                         if historySelected == "피드 글" {
                             Rectangle()
@@ -100,7 +108,7 @@ extension MainHistoryView {
                 }
             }, label: {
                 Text("해시태그")
-                    .title2(textColor: .gray6)
+                    .title2(textColor: historySelected == "해시태그" ? .gray6 : .gray3)
                     .overlay(alignment: .bottom) {
                         if historySelected == "해시태그" {
                             Rectangle()
@@ -169,6 +177,7 @@ extension MainHistoryView {
                 .foregroundColor(.gray2)
             
             HStack {
+                //TODO: 히스토리 좋아요 기능 추가
                 Image(.heart)
                     .foregroundColor(isLiked ? .main : .gray3)
                     .onTapGesture {
@@ -194,7 +203,7 @@ extension MainHistoryView {
                     }
                 
                 Spacer()
-                //TODO: 토스트 위치가 달라짐
+                
                 HStack(spacing: 4) {
                     Image(.copy)
                     Text("복사")
@@ -243,17 +252,7 @@ extension MainHistoryView {
                 .foregroundColor(.gray2)
             
             HStack {
-                
-//                Button {
-//                    //TODO: 좋아요 action 추가
-////                    isLiked.toggle()
-//                } label: {
-//                    Image(.heart)
-//                    foregroundColor(isLiked ? .main : .gray3)
-//                }
-//                .buttonStyle(.bordered)
-                // coredata에 hash테그가 찍혀있는 UUID가 있는지 확인한다.
-                // UUID가 있다면 색을 변경한다. -> 함수화
+                //TODO: 히스토리 좋아요 기능 추가
                 Image(.heart)
                     .foregroundColor(isLiked ? .main : .gray3)
                     .onTapGesture {
@@ -278,7 +277,6 @@ extension MainHistoryView {
                     }
                 
                 Spacer()
-                //TODO: 토스트 위치가 달라짐
                 HStack(spacing: 4) {
                     Image(.copy)
                     Text("복사")
