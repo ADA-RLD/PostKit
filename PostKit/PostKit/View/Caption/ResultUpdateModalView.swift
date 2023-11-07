@@ -27,7 +27,7 @@ struct ResultUpdateModalView: View {
                         showModal = false
                     }, label: {
                         Text("취소")
-                            .body1Regular(textColor: .blue)
+                            .body1Bold(textColor: .main)
                     })
                     
                     Spacer()
@@ -42,7 +42,7 @@ struct ResultUpdateModalView: View {
                         showModal = false
                     }, label: {
                         Text("저장")
-                            .body1Regular(textColor: .blue)
+                            .body1Bold(textColor: .main)
                     })
                 }
                 .padding(.horizontal, 16)
@@ -65,9 +65,9 @@ struct ResultUpdateModalView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .frame(height: 400)
                     .background(Color.gray1)
-                    .cornerRadius(radius2)
+                    .cornerRadius(radius1)
                     .overlay(
-                        RoundedRectangle(cornerRadius: radius2)
+                        RoundedRectangle(cornerRadius: radius1)
                             .stroke(Color.gray3, lineWidth: 1)
                     )
                 }
