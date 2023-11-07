@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// TODO: 색상 에셋 추가되면 색 바꿔야 해요
 struct CTABtn: View {
     var btnLabel: String
     @Binding var isActive: Bool
@@ -26,17 +25,14 @@ struct CTABtn: View {
                             .font(.body1Bold())
                             .foregroundStyle(Color.white)
                     }
-                
             })
             .disabled(!isActive)
         }
         .padding(.horizontal,paddingHorizontal)
         .padding(.vertical,12)
-
     }
 }
 
-// TODO: 색상 애셋 추가되면 색 바꿔야 합니다.
 struct CustomDoubleBtn: View {
     var leftBtnLabel: String
     var rightBtnLabel: String
@@ -72,10 +68,40 @@ struct CustomDoubleBtn: View {
         .frame(height: 56)
         .padding(.horizontal,paddingHorizontal)
         .padding(.vertical,12)
-      
+    }
+}
+
+struct AlertCustomDoubleBtn: View {
+    var topBtnLabel: String
+    var bottomBtnLabel: String
+    var topAction: () -> Void
+    var bottomAction: () -> Void
+    var body: some View {
+        VStack(spacing: 20) {
+            Button(action: {
+                topAction()
+            }, label: {
+                Text(topBtnLabel)
+                    .body2Bold(textColor: Color.white)
+                    .padding(.horizontal, 28)
+                    .padding(.vertical, 16)
+                    .background(.gray5)
+                    .cornerRadius(radius1)
+            })
+            
+            Button(action: {
+                bottomAction()
+            }, label: {
+                Text(bottomBtnLabel)
+                    .body2Bold(textColor: .gray5)
+            })
+        }
     }
 }
 
 #Preview {
-    CustomDoubleBtn(leftBtnLabel: "d", rightBtnLabel: "d", leftAction: {print("hello")}, rightAction: {print("hello")})
+    VStack{
+        CustomDoubleBtn(leftBtnLabel: "d", rightBtnLabel: "d", leftAction: {print("hello")}, rightAction: {print("hello")})
+        AlertCustomDoubleBtn(topBtnLabel: "취소", bottomBtnLabel: "계속 생성", topAction: {print("hello")}, bottomAction: {print("hello")})
+    }
 }
