@@ -59,7 +59,7 @@ extension MenuView {
     
     private func contents() -> some View {
         ContentArea {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 40) {
                 menuInput()
                 
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
@@ -70,25 +70,18 @@ extension MenuView {
     }
     
     private func menuInput() -> some View {
-        RoundedRectangle(cornerRadius: radius1)
-            .stroke(Color.gray2)
-            .foregroundColor(Color.white)
-            .frame(maxWidth: .infinity)
-            .frame(height: 123)
-            .overlay(alignment: .leading) {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("메뉴 이름*")
-                        .body1Bold(textColor: .gray5)
-                    CustomTextfield(text: $menuName, placeHolder: "아이스 아메리카노")
-                        .onChange(of: menuName)  { _ in if menuName.count >= 1 {
-                                isActive = true
-                            } else {
-                                isActive = false
-                            }
-                        }
+        VStack(alignment: .leading, spacing: 12) {
+            Text("메뉴 이름*")
+                .body1Bold(textColor: .gray5)
+            CustomTextfield(text: $menuName, placeHolder: "아이스 아메리카노")
+                .onChange(of: menuName)  { _ in if menuName.count >= 1 {
+                    isActive = true
+                } else {
+                    isActive = false
                 }
-                .padding(.all,20)
-            }
+                }
+        }
+        
     }
     
     private func bottomArea() -> some View {

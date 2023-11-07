@@ -13,11 +13,12 @@ struct KeywordAppend: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                
+            HStack(spacing: 8) {
                 Text("키워드")
                     .font(.body1Bold())
                     .foregroundColor(Color.gray5)
+                Text("\(selectKeyWords.count)/5")
+                    .body2Bold(textColor: .gray4)
                 
                 Spacer()
                 
@@ -26,8 +27,7 @@ struct KeywordAppend: View {
                     
                 }, label: {
                     Text("+ 추가")
-                        .font(.body1Bold())
-                        .foregroundColor(Color.gray5)
+                        .body1Bold(textColor: .main)
                 })
             }
     
@@ -40,13 +40,6 @@ struct KeywordAppend: View {
                     }
                 }
             }
-        }
-        .padding(.all,20)
-        .overlay() {
-            RoundedRectangle(cornerRadius:radius1)
-                .stroke(Color.gray2)
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-                .foregroundColor(Color.clear)
         }
     }
 }
