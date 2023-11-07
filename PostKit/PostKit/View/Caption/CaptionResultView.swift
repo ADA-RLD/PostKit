@@ -16,21 +16,17 @@ enum ActiveAlert {
 struct CaptionResultView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var copyId = UUID()
-    @State private var copyResult = "생성된 텍스트가 들어가요."
     @State private var likeCopy = false //좋아요 버튼 결과뷰에서 변경될 수 있으니까 여기 선언
-    @State private var isShowingToast = false
     @State private var isCaptionChange = false
-    @State private var messages: [Message] = []
     @State private var isPresented: Bool = false
     @State private var activeAlert: ActiveAlert = .first
     @State private var showModal = false
-    @State private var cancellables = Set<AnyCancellable>()
+    @State var isShowingToast = false
+    @State var messages: [Message] = []
+    @State var cancellables = Set<AnyCancellable>()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
-    
-    private let pasteBoard = UIPasteboard.general
-    private let chatGptService = ChatGptService()
-    private let hapticManger = HapticManager.instance
+
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
@@ -137,53 +133,6 @@ extension CaptionResultView {
                 }
             }
         }
-    }
-}
-
-// MARK: 코드의 가독성을 위해 function들을 따로 모았습니다.
-extension CaptionResultView {
-    // MARK: - Chat GPT API에 재생성 요청
-    func regenerateAnswer() { /* Daily, Menu를 선택하지 않아도 이전 답변을 참고하여 재생성 합니다.*/
-        Task{
-            self.messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
-            let newMessage = Message(id: UUID(), role: .user, content: viewModel.prompt)
-            self.messages.append(newMessage)
-            
-            chatGptService.sendMessage(messages: self.messages)
-                .sink(
-                    receiveCompletion: { completion in
-                        switch completion {
-                        case .failure(let error):
-                            print("error 발생. error code: \(error._code)")
-                            if error._code == 10 {
-                                pathManager.path.append(.ErrorResultFailed)
-                            }
-                            else if error._code == 13 {
-                                pathManager.path.append(.ErrorNetwork)
-                            }
-                        case .finished:
-                            print("Caption 생성이 무사히 완료되었습니다.")
-                            
-                            coinManager.coinUse()
-                            pathManager.path.append(.CaptionResult)
-                        }
-                    },
-                    receiveValue:  { response in
-                        print("response: \(response)")
-                        guard let textResponse = response.choices.first?.message.content else {return}
-                        
-                        viewModel.promptAnswer = textResponse
-                    }
-                )
-                .store(in: &cancellables)
-        }
-    }
-    
-    // MARK: - 카피 복사
-    func copyToClipboard() {
-        hapticManger.notification(type: .success)
-        pasteBoard.string = viewModel.promptAnswer
-        isShowingToast = true
     }
 }
 
