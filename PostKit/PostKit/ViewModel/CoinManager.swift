@@ -13,6 +13,8 @@ class CoinManager: ObservableObject {
     @AppStorage("coin") var coin: Int = 10
     static let minimalCoin: Int = 0
     static let maximalCoin: Int = 10
+    static let minmalCaptionCost: Int = 2
+    static let minmalHashtagCost: Int = 1
     private var cancellable: AnyCancellable?
     static let shared = CoinManager()
     

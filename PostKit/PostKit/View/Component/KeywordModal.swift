@@ -62,7 +62,7 @@ extension KeywordModal {
                 self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("취소")
-                    .font(.system(size: 17, weight: .semibold))
+                    .body1Bold(textColor: .main)
             }
             Spacer()
             Text("키워드 추가")
@@ -72,7 +72,7 @@ extension KeywordModal {
                 self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("저장")
-                    .font(.system(size: 17, weight: .semibold))
+                    .body1Bold(textColor: .main)
             }
         }
         .padding(.horizontal,16)
@@ -154,7 +154,7 @@ extension KeywordModal {
             HStack(spacing: 0) {
                 ForEach(pickerList.indices, id: \.self ) { selected in
                     Button {
-                        withAnimation(.spring(response: 0.01,dampingFraction: 0.8)) {
+                        withAnimation(.spring(response: 0.3,dampingFraction: 0.8)) {
                             pickerSelection = selected
                         }
                     } label: {
