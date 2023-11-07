@@ -36,7 +36,7 @@ struct CustomAlertMessageDouble: View {
             }
             .padding(.vertical, 48)
             .background(
-                RoundedRectangle(cornerRadius: radius1)
+                RoundedRectangle(cornerRadius: radius2)
                     .frame(width: 280)
                     .foregroundColor(.gray1)
             )
@@ -64,7 +64,7 @@ struct CustomAlertMessage: View {
             }
             .padding(.vertical, 48)
             .background(
-                RoundedRectangle(cornerRadius: radius1)
+                RoundedRectangle(cornerRadius: radius2)
                     .frame(width: 280)
                     .foregroundColor(.gray1)
             )

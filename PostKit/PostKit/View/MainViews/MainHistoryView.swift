@@ -123,7 +123,6 @@ extension MainHistoryView {
                             .onChange(of: item.like){ _ in
                                 saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
                             }
-                        
                     }
                 }
                 .refreshable{fetchCaptionData()}
@@ -206,16 +205,16 @@ extension MainHistoryView {
                 }
                 .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .background(
-                    RoundedRectangle(cornerRadius: radius2)
+                    RoundedRectangle(cornerRadius: radius1)
                         .fill(Color.gray5)
                 )
             }
         }
         .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
-        .clipShape(RoundedRectangle(cornerRadius: radius2))
+        .clipShape(RoundedRectangle(cornerRadius: radius1))
         .foregroundColor(.clear)
         .overlay {
-            RoundedRectangle(cornerRadius: radius2)
+            RoundedRectangle(cornerRadius: radius1)
                 .stroke(Color.gray2, lineWidth: 1)
         }
         .sheet(isPresented: self.$showModal) {
@@ -290,16 +289,16 @@ extension MainHistoryView {
                 }
                 .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .background(
-                    RoundedRectangle(cornerRadius: radius2)
+                    RoundedRectangle(cornerRadius: radius1)
                         .fill(Color.gray5)
                 )
             }
         }
         .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
-        .clipShape(RoundedRectangle(cornerRadius: radius2))
+        .clipShape(RoundedRectangle(cornerRadius: radius1))
         .foregroundColor(.clear)
         .overlay {
-            RoundedRectangle(cornerRadius: radius2)
+            RoundedRectangle(cornerRadius: radius1)
                 .stroke(Color.gray2, lineWidth: 1)
         }
         .sheet(isPresented: self.$showModal) {

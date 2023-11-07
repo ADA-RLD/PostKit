@@ -65,9 +65,9 @@ struct ResultUpdateModalView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .frame(height: 400)
                     .background(Color.gray1)
-                    .cornerRadius(radius2)
+                    .cornerRadius(radius1)
                     .overlay(
-                        RoundedRectangle(cornerRadius: radius2)
+                        RoundedRectangle(cornerRadius: radius1)
                             .stroke(Color.gray3, lineWidth: 1)
                     )
                 }
