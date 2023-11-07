@@ -23,7 +23,8 @@ struct CustomHashtag: View {
                         deleteAction()
                     }
             }
-            .padding(EdgeInsets(top: 8, leading: radius1, bottom: 8, trailing: radius1))
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
             .background(Color.sub)
             .clipShape(RoundedRectangle(cornerRadius: radius1))
             .overlay {
