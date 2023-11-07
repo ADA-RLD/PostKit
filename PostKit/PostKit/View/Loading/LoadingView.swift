@@ -68,7 +68,12 @@ struct LoadingView: View {
             }
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { hashTagTimer in
                 self.count = count + 1
-                tagTimeStap = count % 6
+                if loadingModel.inputArray.count != 0{
+                    tagTimeStap = count % (loadingModel.inputArray.count + 1)
+                }else {
+                    tagTimeStap = 0
+                }
+                
                 
                 if loadingModel.isCaptionGenerate {
                     hashTagTimer.invalidate()
@@ -115,6 +120,9 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStap: Int) -> some Vi
     ZStack{
         VStack (alignment: .center){
             HStack (alignment: .bottom){
+                if timeStap == 0 {
+                        Spacer()
+                }
                 if timeStap > 0 {
                     CustomTagFeild(tagText: inputArr[0]) {
                         print("Hello")
