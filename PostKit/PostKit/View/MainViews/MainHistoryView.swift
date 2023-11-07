@@ -170,15 +170,13 @@ extension MainHistoryView {
                 .foregroundColor(.gray2)
             
             HStack {
-                //                    Button {
-                //                        //TODO: 좋아요 action 추가
-                //                        isSelected.toggle()
-                //                    } label: {
-                //                        Image(.heart)
-                //                        foregroundColor(isSelected ? .main : .gray3)
-                //                    }
                 Image(.heart)
-                    .foregroundColor(.gray3)
+                    .foregroundColor(isLiked ? .main : .gray3)
+                    .onTapGesture {
+                        withAnimation(.easeIn(duration: 0.3)) {
+                            isLiked.toggle()
+                        }
+                    }
                 
                 Spacer()
                 
@@ -235,7 +233,6 @@ extension MainHistoryView {
     private func hashtagHistoryDetail(uid: UUID, date: String, hashtagContent: Binding<String>, hashtageLike : Bool) -> some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
-                
                 Text(date)
                     .body2Bold(textColor: .gray4)
                 
@@ -247,6 +244,7 @@ extension MainHistoryView {
                 .foregroundColor(.gray2)
             
             HStack {
+                
 //                Button {
 //                    //TODO: 좋아요 action 추가
 ////                    isLiked.toggle()
@@ -255,13 +253,14 @@ extension MainHistoryView {
 //                    foregroundColor(isLiked ? .main : .gray3)
 //                }
 //                .buttonStyle(.bordered)
+                // coredata에 hash테그가 찍혀있는 UUID가 있는지 확인한다.
+                // UUID가 있다면 색을 변경한다. -> 함수화
                 Image(.heart)
                     .foregroundColor(isLiked ? .main : .gray3)
                     .onTapGesture {
                         withAnimation(.easeIn(duration: 0.3)) {
                             isLiked.toggle()
                         }
-             
                     }
                 Spacer()
                 
