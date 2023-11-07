@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Mixpanel
 
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -55,8 +56,11 @@ extension MainCaptionView {
                     }
                     
                     HStack(spacing: 8) {
-                        captionBtn(captionName: "일상", action: {pathManager.path.append(.Daily)})
-                        captionBtn(captionName: "메뉴", action: {pathManager.path.append(.Menu)})
+                        captionBtn(captionName: "일상", action: {pathManager.path.append(.Daily)
+                            Mixpanel.mainInstance().track(event: "일상 카테고리 선택")})
+                        captionBtn(captionName: "메뉴", action: {pathManager.path.append(.Menu)
+                            Mixpanel.mainInstance().track(event: "메뉴 카테고리 선택")
+                        })
                     }
                 }
                 .padding(.vertical,28)
@@ -66,6 +70,7 @@ extension MainCaptionView {
     
     private func hashtagArea() -> some View {
         Button {
+            Mixpanel.mainInstance().track(event: "해시태그 카테고리 선택")
             pathManager.path.append(.Hashtag)
         } label: {
             RoundedRectangle(cornerRadius: radius1)

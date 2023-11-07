@@ -4,7 +4,7 @@
 //
 //  Created by 김다빈 on 11/2/23.
 //
-
+import Mixpanel
 import SwiftUI
 
 enum KeywordModalType {
@@ -86,6 +86,14 @@ extension KeywordModal {
                 }
                 else if selectKeyWords.count > maxCount {
                     isShowingAlert = true
+                }
+            }
+            .onSubmit {
+                if modalType == .daily {
+                    Mixpanel.mainInstance().track(event: "일상 커스텀 키워드 입력")
+                }
+                else if modalType == .menu {
+                    Mixpanel.mainInstance().track(event: "메뉴 커스텀 키워드 입력")
                 }
             }
             
