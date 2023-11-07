@@ -32,8 +32,14 @@ struct CaptionResultView: View {
     @State var cancellables = Set<AnyCancellable>()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
+    
+    private let pasteBoard = UIPasteboard.general
+    private let chatGptService = ChatGptService()
+    private let hapticManger = HapticManager.instance
 
     var captionMode: CaptionMode = .daily
+
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
@@ -47,6 +53,7 @@ struct CaptionResultView: View {
                     //Caption이 생성되면 바로 CoreData에 저장
                     //수정을 위해 UUID를 저장
                     copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
+                    loadingModel.isCaptionGenerate = true
                 }
         }
         .navigationBarBackButtonHidden()
@@ -128,6 +135,8 @@ extension CaptionResultView {
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
                         if coinManager.coin > CoinManager.minimalCoin {
+                            loadingModel.isCaptionGenerate = false
+                            regenerateAnswer()
                             pathManager.path.append(.Loading)
                             Mixpanel.mainInstance().track(event: "결과 재생성")
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
