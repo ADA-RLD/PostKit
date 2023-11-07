@@ -10,6 +10,7 @@
 		1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */; };
 		1336DE5D2AF8DF81000A6D9A /* MainCaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5C2AF8DF81000A6D9A /* MainCaptionView.swift */; };
 		1336DE602AF8FCDF000A6D9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5F2AF8FCDF000A6D9A /* Constants.swift */; };
+		1336DE622AFA4E98000A6D9A /* MixPanelManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE612AFA4E98000A6D9A /* MixPanelManger.swift */; };
 		139B2C7E2ADFF8690036BD18 /* ContentArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C7D2ADFF8690036BD18 /* ContentArea.swift */; };
 		139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C882AECF0CD0036BD18 /* ErrorView.swift */; };
 		139B2C8B2AEF34890036BD18 /* HashtagResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */; };
@@ -97,6 +98,7 @@
 		1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHistoryView.swift; sourceTree = "<group>"; };
 		1336DE5C2AF8DF81000A6D9A /* MainCaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCaptionView.swift; sourceTree = "<group>"; };
 		1336DE5F2AF8FCDF000A6D9A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1336DE612AFA4E98000A6D9A /* MixPanelManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPanelManger.swift; sourceTree = "<group>"; };
 		139B2C7D2ADFF8690036BD18 /* ContentArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentArea.swift; sourceTree = "<group>"; };
 		139B2C882AECF0CD0036BD18 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagResultView.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				7E1EE0872AF9CAD00039207F /* ErrorViewModel.swift */,
 				139B2C922AF23D680036BD18 /* CoinManager.swift */,
 				A1A4FAFA2AF6295700514053 /* CloudKitUserModel.swift */,
+				1336DE612AFA4E98000A6D9A /* MixPanelManger.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 				A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */,
 				B9872A3F2AF23D77000A795C /* HashtagPopover.swift in Sources */,
 				B9872A472AF394DA000A795C /* HistoryButton.swift in Sources */,
+				1336DE622AFA4E98000A6D9A /* MixPanelManger.swift in Sources */,
 				13ECB5092AF28C8B0046E6BE /* AppDelegate.swift in Sources */,
 				7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */,
 				13C296102AD8F16700A2DE7F /* OnboardingRouter.swift in Sources */,
@@ -789,7 +793,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"PostKit/Preview Content\"";
-				DEVELOPMENT_TEAM = U65UYKH3S3;
+				DEVELOPMENT_TEAM = 34K3V5D9X5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PostKit/Info.plist;
@@ -826,7 +830,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"PostKit/Preview Content\"";
-				DEVELOPMENT_TEAM = U65UYKH3S3;
+				DEVELOPMENT_TEAM = 34K3V5D9X5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PostKit/Info.plist;
