@@ -22,8 +22,7 @@ struct LoadingCancelView: View {
                         .foregroundColor(.gray6)
                     
                     Text("취소하더라도 1 크레딧이 사용돼요")
-                        .font(.body2Bold())
-                        .foregroundColor(.gray4)
+                        .body2Bold(textColor: .gray4)
                     
                     RoundedRectangle(cornerRadius: radius2)
                         .foregroundColor(.gray5)
@@ -36,8 +35,7 @@ struct LoadingCancelView: View {
                         .frame(height: 90)
                     
                     Text("계속 생성")
-                        .font(.body2Bold())
-                        .foregroundColor(.gray5)
+                        .body2Bold(textColor: .gray5)
                     
                 }
                 .frame(width: 280,height: 280)
