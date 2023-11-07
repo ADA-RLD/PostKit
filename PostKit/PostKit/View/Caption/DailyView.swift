@@ -22,7 +22,6 @@ struct DailyView: View {
     @State private var dailyCoffeeSelected: [String] = []
     @State private var dailyDessertSelected: [String] = []
     @State var messages: [Message] = []
-    @State var currentInput: String = ""
     @State var cancellables = Set<AnyCancellable>()
     
     //CoreData Data Class
@@ -31,7 +30,6 @@ struct DailyView: View {
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     
-    let chatGptService = ChatGptService()
     //CoreData Manager
     let storeDataManager = CoreDataManager.instance
     let textLengthArr: [Int] = [100, 200, 300]
