@@ -45,10 +45,10 @@ extension CaptionResultView {
     
     // MARK: - 카피 복사
     func copyToClipboard() {
-        let hapticManger = HapticManager.instance
+        let hapticManager = HapticManager.instance
         let pasteBoard = UIPasteboard.general
         
-        hapticManger.notification(type: .success)
+        hapticManager.notification(type: .success)
         pasteBoard.string = viewModel.promptAnswer
         self.isShowingToast = true
     }
