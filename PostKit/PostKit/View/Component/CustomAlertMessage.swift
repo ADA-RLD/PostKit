@@ -21,9 +21,9 @@ struct CustomAlertMessage: View {
     var topBtnLabel: String
     var bottomBtnLabel: String
     var topAction: () -> Void
+    var asdf: Bool
     var bottomAction: () -> Void
     @Binding var showAlert: Bool
-    @Binding var isDeleted: Bool
     var body: some View {
         ZStack {
             Color.black.opacity(0.4)
@@ -34,11 +34,16 @@ struct CustomAlertMessage: View {
                     Text(alertContent)
                         .body2Bold(textColor: .gray4)
                 }
-                AlertCustomDoubleBtn(topBtnLabel: topBtnLabel, bottomBtnLabel: bottomBtnLabel, topAction: {
-                    topAction()
-                }, bottomAction: {
-                    bottomAction()
-                })
+                if asdf {
+                    AlertCustomDoubleBtn(topBtnLabel: topBtnLabel, bottomBtnLabel: bottomBtnLabel, topAction: {
+                        topAction()
+                    }, bottomAction: {
+                        bottomAction()
+                    })
+                }
+                else {
+                    AlertCustomBtn(topBtnLabel: topBtnLabel, topAction: topAction)
+                }
             }
             .padding(.vertical, 48)
             .background(
