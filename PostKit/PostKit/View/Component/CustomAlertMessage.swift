@@ -44,7 +44,6 @@ struct CustomAlertMessageDouble: View {
     }
 }
 
-
 struct CustomAlertMessage: View {
     var alertTopTitle: String
     var alertContent: String
@@ -71,7 +70,3 @@ struct CustomAlertMessage: View {
         }.edgesIgnoringSafeArea(.all)
     }
 }
-
-//#Preview {
-//    CustomAlertMessage(alertTopTitle: "히스토리가 삭제됩니다.", alertContent: "영원히...", topBtnLabel: "삭제", bottomBtnLabel: "취소", topAction: {}, bottomAction: {}, showAlert: .constant(false))
-//}
