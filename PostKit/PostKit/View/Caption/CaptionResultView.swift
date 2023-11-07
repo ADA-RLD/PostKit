@@ -33,7 +33,7 @@ struct CaptionResultView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
 
-    var captionModeState: CaptionMode = .daily
+    var captionMode: CaptionMode = .daily
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     

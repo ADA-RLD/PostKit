@@ -44,7 +44,6 @@ struct LoadingView: View {
             else if pathManager.path.contains(.Hashtag) {
                 Mixpanel.mainInstance().track(event: "해시태그 글 로딩")
             }
-            
         }
         .navigationBarBackButtonHidden()
     }

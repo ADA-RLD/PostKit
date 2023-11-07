@@ -10,7 +10,7 @@ import Combine
 import Mixpanel
 
 enum ErrorReason {
-    case network
+    case networkError
     case apiError
 }
 
@@ -45,9 +45,9 @@ struct ErrorView: View {
                 bottomBtnLabel: "홈으로",
                 topAction: {
                     if errorReasonState == .apiError {
-                        Mixpanel.mainInstance().track(event: "재생성 -API")
+                        Mixpanel.mainInstance().track(event: "재생성 - API")
                     }
-                    else if errorReasonState == .network {
+                    else if errorReasonState == .networkError {
                         Mixpanel.mainInstance().track(event: "재생성 - 네트워크")
                     }
                     pathManager.path.append(.Loading)

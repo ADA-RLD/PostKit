@@ -155,7 +155,6 @@ struct HashtagView: View {
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
                             pathManager.path.append(.HashtagResult)
                         }
-                        
                     }
                 })
             }
