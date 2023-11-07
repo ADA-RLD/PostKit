@@ -26,7 +26,7 @@ struct MainView: View {
     var keyStore = NSUbiquitousKeyValueStore()
     
     //CoreData 임시 Class
-    @StateObject var storeModel = StoreModel( _storeName: "", _tone: ["기본"])
+    @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     @State private var captions: [CaptionModel] = []
     @State private var hashtags: [HashtagModel] = []
     
@@ -121,7 +121,7 @@ extension MainView : MainViewProtocol {
             if let storeCoreData = storeDataArray.last {
                 self.storeModel.storeName = storeCoreData.storeName ?? ""
                 // TODO: 코어데이터 함수 변경 필요
-                self.storeModel.tone = storeCoreData.tones ?? ["기본"]
+                self.storeModel.tone = storeCoreData.tones ?? []
             }
         } catch {
             print("ERROR STORE CORE DATA")

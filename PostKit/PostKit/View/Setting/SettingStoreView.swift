@@ -57,7 +57,7 @@ extension SettingStoreView : SettingProtocol {
             let storeDataArray = try storeDataManager.context.fetch(storeRequest)
             print("StoreData: \(storeDataArray)")
             if let storeCoreData = storeDataArray.last {
-                storeTone = storeCoreData.tones ?? ["기본"]
+                storeTone = storeCoreData.tones ?? []
                 
                 print("Store Fetch 완료!\nStoreTone: \(storeTone)\n")
             }
