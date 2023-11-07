@@ -12,26 +12,31 @@ import Mixpanel
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var coinManager = CoinManager.shared
+    
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
+    var remainingTime = "04:32" // TODO: 24시까지 남은 시간으로 변경
     
     private let coreDataManager = CoreDataManager.instance
     private let hapticManger = HapticManager.instance
+    private let coinMax = 10
     
     var body: some View {
         ContentArea {
-            VStack(alignment:.leading ,spacing: 28) {
-                SettingBtn(action: {pathManager.path.append(.SettingHome)})
-                VStack(alignment: .leading, spacing: 28) {
-                    
-                    Text("\(coinManager.coin)")
-                    Text("어떤 카피를 생성할까요?")
+            VStack(alignment: .leading, spacing: 28) {
+                HStack {
+                    Text("글 쓰기")
                         .title1(textColor: .gray6)
-                    
-                    VStack(alignment: .leading, spacing: 20) {
-                        captionArea()
-                        hashtagArea()
-                    }
+                    Spacer()
+                    SettingBtn(action: {pathManager.path.append(.SettingHome)})
                 }
+                
+                coinArea()
+                
+                VStack(alignment: .leading, spacing: 52) {
+                    captionArea()
+                    hashtagArea()
+                }
+                
                 Spacer()
             }
         }
@@ -40,68 +45,78 @@ struct MainCaptionView: View {
 
 extension MainCaptionView {
     
+    private func coinArea() -> some View {
+        HStack(spacing: 8.0) {
+            Image(.coin)
+            Text("\(coinManager.coin)/\(coinMax)")
+                .body2Bold(textColor: .gray5)
+            Text("\(remainingTime)")
+                .body2Bold(textColor: .gray3)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .overlay(
+            RoundedRectangle(cornerRadius: radius1)
+                .stroke(Color.gray2, lineWidth: 1)
+        )
+    }
+    
     private func captionArea() -> some View {
-        RoundedRectangle(cornerRadius: radius1)
-            .frame(height: 180)
-            .frame(maxWidth: .infinity)
-            .foregroundColor(Color.sub)
-            .overlay(alignment: .leading) {
-                VStack(alignment: .leading, spacing: 16) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("캡션")
-                            .title2(textColor: .gray6)
-
-                        Text("카페의 메뉴에 대한 글을 써요")
-                            .body2Bold(textColor: .gray4)
-                    }
-                    
-                    HStack(spacing: 8) {
-                        captionBtn(captionName: "일상", action: {pathManager.path.append(.Daily)
-                            Mixpanel.mainInstance().track(event: "일상 카테고리 선택")})
-                        captionBtn(captionName: "메뉴", action: {pathManager.path.append(.Menu)
-                            Mixpanel.mainInstance().track(event: "메뉴 카테고리 선택")
-                        })
-                    }
+        VStack(alignment: .leading, spacing: 20.0){
+            HStack(spacing: 12.0) {
+                Text("피드 글")
+                    .title2(textColor: .gray5)
+                HStack(spacing: 6.0) {
+                    Image(.coin)
+                    Text("2개")
+                        .body2Bold(textColor: .gray4)
                 }
-                .padding(.vertical,28)
-                .padding(.horizontal,16)
             }
+            
+            VStack(spacing: 12.0) {
+                categoryBtn(categoryName: "일상", categoryDescription: "보편적인 일상 피드 글", categoryImage: Image(.daily), action: {pathManager.path.append(.Daily)
+                    Mixpanel.mainInstance().track(event: "일상 카테고리 선택")})
+                categoryBtn(categoryName: "메뉴", categoryDescription: "메뉴를 소개하는 피드 글", categoryImage: Image(.menu), action: {pathManager.path.append(.Menu)
+                    Mixpanel.mainInstance().track(event: "메뉴 카테고리 선택")})
+            }
+        }
     }
     
     private func hashtagArea() -> some View {
-        Button {
-            Mixpanel.mainInstance().track(event: "해시태그 카테고리 선택")
-            pathManager.path.append(.Hashtag)
-        } label: {
-            RoundedRectangle(cornerRadius: radius1)
-                .frame(height: 104)
-                .foregroundColor(Color.sub)
-                .overlay(alignment: .leading) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        
-                        Text("해시태그")
-                            .title2(textColor: .gray6)
-                        
-                        Text("우리 카페에는 어떤 해시태그가 어울릴까?")
-                            .body2Bold(textColor: .gray4)
-                    }
-                    .padding(.vertical,28)
-                    .padding(.horizontal,16)
+        VStack(alignment: .leading, spacing: 20.0){
+            HStack(spacing: 12.0) {
+                Text("해시태그")
+                    .title2(textColor: .gray5)
+                HStack(spacing: 6.0) {
+                    Image(.coin)
+                    Text("1개")
+                        .body2Bold(textColor: .gray4)
                 }
+            }
+                    categoryBtn(categoryName: "해시태그", categoryDescription: "우리 매장에 딱 맞는 해시태그", categoryImage: Image(.hashtag), action: {pathManager.path.append(.Hashtag)
+                        Mixpanel.mainInstance().track(event: "해시태그 카테고리 선택")})
         }
     }
 
-    private func captionBtn(captionName: String, action: @escaping () -> Void) -> some View {
+    private func categoryBtn(categoryName: String, categoryDescription: String, categoryImage: Image, action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
-            RoundedRectangle(cornerRadius: radius2)
-                .foregroundColor(Color.white)
-                .frame(height: 60)
-                .overlay(alignment: .center) {
-                    Text(captionName)
-                        .body1Bold(textColor: .gray5)
+            HStack {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(categoryName)
+                        .body1Bold(textColor: .gray6)
+                    Text(categoryDescription)
+                        .body2Bold(textColor: .gray4)
                 }
+                Spacer()
+                categoryImage
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 24)
+            .frame(maxWidth: .infinity)
+            .background(Color.sub)
+            .cornerRadius(radius1)
         }
     }
     
@@ -111,10 +126,7 @@ extension MainCaptionView {
             Button(action: {
                 action()
             }, label: {
-                Image(systemName: "gearshape")
-                    .resizable()
-                    .foregroundStyle(Color.gray5)
-                    .frame(width: 24,height: 24)
+                Image(.gearShape)
             })
         }
     }
