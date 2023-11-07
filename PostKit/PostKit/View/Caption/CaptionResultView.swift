@@ -50,6 +50,7 @@ struct CaptionResultView: View {
         ZStack{
             captionResult
                 .onAppear{
+                    checkDate()
                     //Caption이 생성되면 바로 CoreData에 저장
                     //수정을 위해 UUID를 저장
                     copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
