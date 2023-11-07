@@ -77,6 +77,9 @@ extension DailyView {
                 pathManager.path.append(.Loading)
                 Task{
                     loadingModel.isCaptionGenerate = false
+                    //배열에 추가해서 가져갑니다.
+                    loadingModel.inputArray += weatherSelected + dailyCoffeeSelected + dailyDessertSelected
+
                     sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
                     print(coinManager.coin)
                 }

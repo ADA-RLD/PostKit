@@ -102,6 +102,9 @@ extension MenuView {
 
                     Task{
                         loadingModel.isCaptionGenerate = false
+                        //선택된 옵션들을 가져갑니다.
+                        loadingModel.inputArray += coffeeSelected + dessertSelected + drinkSelected
+                        
                         sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
                     }
                 }

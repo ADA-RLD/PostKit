@@ -9,11 +9,13 @@ import Foundation
 
 final class LoadingViewModel: ObservableObject {
     
-    static let shared = LoadingViewModel(isCaptionGenerate: false)
+    static let shared = LoadingViewModel(isCaptionGenerate: false, inputArray: [])
     
     @Published var isCaptionGenerate: Bool
+    @Published var inputArray: [String]
     
-    init(isCaptionGenerate: Bool) {
+    init(isCaptionGenerate: Bool, inputArray: [String]) {
         self.isCaptionGenerate = isCaptionGenerate
+        self.inputArray = inputArray
     }
 }

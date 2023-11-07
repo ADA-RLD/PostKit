@@ -65,6 +65,7 @@ extension CaptionResultView {
                                 saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
                             }
                             pathManager.path.removeAll()
+                            loadingModel.inputArray.removeAll()
                         }, label: {
                             Text("완료")
                                 .body1Bold(textColor: .gray5)
