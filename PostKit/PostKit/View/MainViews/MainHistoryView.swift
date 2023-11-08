@@ -12,13 +12,14 @@ struct MainHistoryView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @State var historySelected = "피드 글"
     @State private var captions: [CaptionModel] = []
+    @State private var hashtags: [HashtagModel] = []
     @State private var isShowingToast = false
     @State private var isCaptionChange = false
-    @State private var isLiked = false
+    @State private var isCaptionLiked = false
+    @State private var filterLike = false
     @State private var targetUid = UUID()
     @State private var showModal = false
     @State private var showAlert = false
-    @State private var hashtags: [HashtagModel] = []
     @State private var alertType: AlertType = .historyCaption
     @Binding var selection: Int
     @Namespace var nameSpace
@@ -46,7 +47,19 @@ struct MainHistoryView: View {
                             Image(.heart)
                                 .resizable()
                                 .frame(width: 28, height: 28)
-                                .foregroundColor(.gray3)
+                                .foregroundColor(filterLike ? .main : .gray3)
+                                .onTapGesture {
+                                    withAnimation(.easeIn(duration: 0.3)) {
+                                        filterLike.toggle()
+                                        if filterLike {
+                                            captions = captions.filter { $0.like == true }
+                                            hashtags = hashtags.filter { $0.isLike == true }
+                                        } else {
+                                            fetchCaptionData()
+                                            fetchHashtagData()
+                                        }
+                                    }
+                                }
                         }
                         
                         TabView(selection: $historySelected) {
@@ -139,10 +152,22 @@ extension MainHistoryView {
                         }
                     }
                 }
-                .refreshable{fetchCaptionData()}
+                .refreshable{
+                    if filterLike {
+                        captions = captions.filter { $0.like == true }
+                    } else {
+                        fetchHashtagData()
+                    }
+                }
             }
             .onAppear {
-                fetchCaptionData()
+                if filterLike {
+                    captions = captions.filter { $0.like == true }
+                    hashtags = hashtags.filter { $0.isLike == true }
+                } else {
+                    fetchCaptionData()
+                    fetchHashtagData()
+                }
             }
         }
     }
@@ -162,14 +187,26 @@ extension MainHistoryView {
                     }
                 }
             }
-            .refreshable {fetchHashtagData()}
+            .refreshable {
+                if filterLike {
+                    hashtags = hashtags.filter { $0.isLike == true }
+                } else {
+                    fetchHashtagData()
+                }
+            }
         }
         .onAppear {
-            fetchHashtagData()
+            if filterLike {
+                captions = captions.filter { $0.like == true }
+                hashtags = hashtags.filter { $0.isLike == true }
+            } else {
+                fetchCaptionData()
+                fetchHashtagData()
+            }
         }
     }
     
-    private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: Binding<String>, like: Bool) -> some View {
+    private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: Binding<String>, like: Binding<Bool>) -> some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing:8) {
@@ -190,11 +227,9 @@ extension MainHistoryView {
             HStack {
                 //TODO: 히스토리 좋아요 기능 추가
                 Image(.heart)
-                    .foregroundColor(isLiked ? .main : .gray3)
-                    .onTapGesture {
-                        withAnimation(.easeIn(duration: 0.3)) {
-                            isLiked.toggle()
-                        }
+                    .foregroundColor(like.wrappedValue ? .main : .gray3)
+                    .onTapGesture{
+                        like.wrappedValue.toggle()
                     }
                 
                 Spacer()
@@ -243,13 +278,13 @@ extension MainHistoryView {
                 stringContent: content,
                 resultUpdateType: .captionResult
             ) { updatedText in
-                saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like)
+                saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like.wrappedValue)
             }
             .interactiveDismissDisabled()
         }
     }
     
-    private func hashtagHistoryDetail(uid: UUID, date: String, hashtagContent: Binding<String>, hashtageLike : Bool) -> some View {
+    private func hashtagHistoryDetail(uid: UUID, date: String, hashtagContent: Binding<String>, hashtagLike : Binding<Bool>) -> some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
                 Text(date)
@@ -265,12 +300,11 @@ extension MainHistoryView {
             HStack {
                 //TODO: 히스토리 좋아요 기능 추가
                 Image(.heart)
-                    .foregroundColor(isLiked ? .main : .gray3)
-                    .onTapGesture {
-                        withAnimation(.easeIn(duration: 0.3)) {
-                            isLiked.toggle()
-                        }
+                    .foregroundColor(hashtagLike.wrappedValue ? .main : .gray3)
+                    .onTapGesture{
+                        hashtagLike.wrappedValue.toggle()
                     }
+                
                 Spacer()
                 
                 Image(.pen)
@@ -316,7 +350,7 @@ extension MainHistoryView {
                 stringContent: hashtagContent,
                 resultUpdateType: .hashtagResult
             ) { updatedText in
-                saveHashtagData(_uuid: uid, _result: hashtagContent.wrappedValue, _like: hashtageLike)
+                saveHashtagData(_uuid: uid, _result: hashtagContent.wrappedValue, _like: hashtagLike.wrappedValue)
             }
             .interactiveDismissDisabled()
         }
@@ -391,7 +425,7 @@ extension MainHistoryView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\n")
+            print("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\nisLike : \(_like)")
         } else {
             // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
             let newCaption = CaptionResult(context: coreDataManager.context)
@@ -401,7 +435,7 @@ extension MainHistoryView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Caption 새로 저장 완료!\n resultId : \(_uuid)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
+            print("Caption 새로 저장 완료!\n resultId : \(_uuid)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\nisLike : \(_like)")
         }
     }
     
@@ -419,7 +453,7 @@ extension MainHistoryView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Hashtag 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\nHashtag : \(existingCaptionResult.hashtag)\n")
+            print("Hashtag 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\nHashtag : \(existingCaptionResult.hashtag)\nisLike : \(_like)")
         } else {
             // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
             let newCaption = HashtagData(context: coreDataManager.context)
@@ -429,7 +463,7 @@ extension MainHistoryView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Hashtag 수정 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\nHashtag : \(newCaption.hashtag)\n")
+            print("Hashtag 수정 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\nHashtag : \(newCaption.hashtag)\nisLike : \(_like)")
         }
     }
     
