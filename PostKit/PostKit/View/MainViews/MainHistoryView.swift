@@ -46,6 +46,10 @@ struct MainHistoryView: View {
                                 .resizable()
                                 .frame(width: 28, height: 28)
                                 .foregroundColor(.gray3)
+                                .onTapGesture {
+                                    isLiked.toggle()
+                                    captions.filter { $0.like == true }
+                                }
                         }
                         
                         TabView(selection: $historySelected) {
