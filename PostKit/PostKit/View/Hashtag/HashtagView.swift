@@ -23,6 +23,7 @@ struct HashtagView: View {
     @State private var regionAreaHeight: CGFloat = 0
     @State private var keywordLimit = 4
     
+    @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = HashtagViewModel.shared
     
     //Create Hashtag
@@ -153,6 +154,7 @@ struct HashtagView: View {
                         
                         pathManager.path.append(.Loading)
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                            coinManager.coinHashtagUse()
                             pathManager.path.append(.HashtagResult)
                         }
                     }
