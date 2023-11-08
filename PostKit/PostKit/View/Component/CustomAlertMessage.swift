@@ -57,8 +57,10 @@ struct CustomAlertMessage: View {
                 VStack(spacing: 8) {
                     Text(alertTopTitle)
                         .body1Bold(textColor: .gray6)
+                        .multilineTextAlignment(.center)
                     Text(alertContent)
                         .body2Bold(textColor: .gray4)
+                        .multilineTextAlignment(.center)
                 }
                 AlertCustomBtn(topBtnLabel: topBtnLabel, topAction: topAction)
             }

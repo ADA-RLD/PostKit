@@ -9,7 +9,7 @@ import Foundation
 
 enum Constants {
     static let ChatGptAPIKey: [String] = [
-        "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"
+        "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"
 ]
     static let MixpanelToken: String = "b072cc67817594f7e8a51bbf5706ca84"
 }
