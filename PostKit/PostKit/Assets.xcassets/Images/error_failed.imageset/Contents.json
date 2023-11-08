@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "failed.svg",
+      "filename" : "error_failed.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
