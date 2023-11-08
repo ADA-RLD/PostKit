@@ -18,6 +18,7 @@ struct KeywordModal: View {
     @Binding var firstSegementSelected: [String]
     @Binding var secondSegementSelected: [String]
     @Binding var thirdSegementSelected: [String]
+    @Binding var customKeywords: [String]
     @Environment(\.presentationMode) var presentationMode
     @State private var inputText: String = ""
     @State private var isShowingAlert: Bool = false
@@ -88,6 +89,7 @@ extension KeywordModal {
             CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
                 if !inputText.isEmpty && selectKeyWords.count < maxCount {
                     selectKeyWords.append(inputText)
+                    customKeywords.append(inputText)
                 }
                 else if selectKeyWords.count > maxCount {
                     isShowingAlert = true

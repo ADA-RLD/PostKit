@@ -19,6 +19,7 @@ struct MenuView: View {
     @State private var coffeeSelected: [String] = []
     @State private var drinkSelected: [String] = []
     @State private var dessertSelected: [String] = []
+    @State private var customKeyword: [String] = []
     @State private var isAlertPresented: Bool = false
     @State private var isModalPresented: Bool = false
     @State private var isSelected: [String] = []
@@ -44,7 +45,7 @@ struct MenuView: View {
             bottomArea()
         }
         .sheet(isPresented: $isModalPresented, content: {
-            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, modalType: .menu ,pickerList: ["커피","음료","디저트"])
+            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, customKeywords: $customKeyword, modalType: .menu ,pickerList: ["커피","음료","디저트"])
                 .onDisappear {
                     if menuName.count > 0 && !isSelected.isEmpty {
                         isActive = true
