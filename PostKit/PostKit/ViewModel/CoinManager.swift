@@ -15,6 +15,8 @@ class CoinManager: ObservableObject {
     
     static let minimalCoin: Int = 0
     static let maximalCoin: Int = 10
+    static let captionCost: Int = 2
+    static let hashtagCost: Int = 1
     private var cancellable: AnyCancellable?
     static let shared = CoinManager()
     

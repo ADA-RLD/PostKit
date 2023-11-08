@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Mixpanel
+import AppTrackingTransparency
 
 struct OnboardingFinal: View {
     @Binding var isFirstLaunching: Bool
@@ -34,7 +36,9 @@ struct OnboardingFinal: View {
                 }
             }
             Spacer()
-            CTABtn(btnLabel:"확인", isActive: .constant(true), action: {isFirstLaunching = false})
+            CTABtn(btnLabel:"확인", isActive: .constant(true), action: {isFirstLaunching = false
+                Mixpanel.mainInstance().setGroup(groupKey: "RealUser", groupID: "AfterOnboardingGroup")
+            })
         }
     }
 }

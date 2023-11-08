@@ -11,34 +11,34 @@ import CoreData
 struct OnboardingView: View {
     @StateObject var onboardingRouter = OnboardingRouter.shared
     @Binding var isFirstLaunching: Bool
-
+    
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
-
-
+    
+    
     //CoreData 초기화
     //혹시 모르는 잘못된 값을 위해 초기화
     init(isFirstLaunching: Binding<Bool>, storeModel: StoreModel) {
-           self._isFirstLaunching = isFirstLaunching
-           self._storeModel = StateObject(wrappedValue: storeModel)
-       }
+        self._isFirstLaunching = isFirstLaunching
+        self._storeModel = StateObject(wrappedValue: storeModel)
+    }
     
     var body: some View {
         VStack {
             //onBoarding의 순서를 관리합니다.
             //데이터 관리는 해당 위치에서 하기때문에 Binding으로 접근합니다.
             switch onboardingRouter.currentPage {
-                case 0:
-                    OnboardingIntro()
-                case 1:
-                    OnboardingStore(cafeName: $storeModel.storeName)
-                case 2:
-                    OnboardingTone(cafeTone: $storeModel.tone)
-                case 3:
-                    OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
+            case 0:
+                OnboardingIntro()
+            case 1:
+                OnboardingStore(cafeName: $storeModel.storeName)
+            case 2:
+                OnboardingTone(cafeTone: $storeModel.tone)
+            case 3:
+                OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
             default:
                 OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
             }

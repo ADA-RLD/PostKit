@@ -152,9 +152,8 @@ extension HashtagResultView {
             Spacer()
             
             //MARK: 재생성 / 복사 버튼
-            CustomDoubleBtn(leftBtnLabel: "재생성", rightBtnLabel: "복사") {
-                showAlert = true
-                if coinManager.coin > 0 {
+            CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
+                if coinManager.coin > CoinManager.hashtagCost {
                     activeAlert = .first
                 }
                 else {
@@ -162,6 +161,29 @@ extension HashtagResultView {
                 }
             } rightAction: {
                 copyToClipboard()
+            }
+            .alert(isPresented: $isPresented) {
+                switch activeAlert {
+                case .first:
+                    let cancelBtn = Alert.Button.default(Text("취소")) {
+                        
+                    }
+                    let regenreateBtn = Alert.Button.default(Text("재생성")) {
+                        if coinManager.coin > CoinManager.hashtagCost {
+                            loadingModel.isCaptionGenerate = false
+                            pathManager.path.append(.Loading)
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                                coinManager.coinHashtagUse()
+                                pathManager.path.append(.HashtagResult)
+                            }
+                            viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
+                        }
+                    }
+
+                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/\(CoinManager.maximalCoin)"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
+                case .second:
+                    return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
+                }
             }
         }
     }

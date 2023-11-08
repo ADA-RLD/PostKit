@@ -22,7 +22,7 @@ struct SelectTone: View {
         Tone(tone: "9", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false),
         Tone(tone: "10", toneExample: "우리 카페, 맛과 분위기에 걸맞는 퀄리티! ☕✨", isBest: false)
     ]
-
+    
     var body: some View {
         toggleBtns
     }
@@ -41,7 +41,7 @@ extension SelectTone {
             }
         }
     }
-
+    
     private func toggleBtn(concept: String, conceptExample: String, isBest: Bool, action: @escaping () -> Void) -> some View {
         Button {
             action()
@@ -70,7 +70,10 @@ extension SelectTone {
             .padding(.all, 20)
             .background(selectedTones.contains(concept) ? Color.sub : Color.gray1)
             .cornerRadius(radius1)
-            .background(RoundedRectangle(cornerRadius: radius1).stroke(selectedTones.contains(concept) ? Color.main : Color.gray1, lineWidth: 2))
+            .overlay(
+                RoundedRectangle(cornerRadius: radius1)
+                    .stroke(selectedTones.contains(concept) ? Color.main : Color.gray1, lineWidth: 2)
+            )
         }
     }
 }
@@ -78,7 +81,7 @@ extension SelectTone {
 extension SelectTone {
     private func addTone(tone: String) {
         if !selectedTones.contains(tone) && selectedTones.count < 3 {
-                selectedTones.append(tone)
+            selectedTones.append(tone)
         }
         else if selectedTones.contains(tone) {
             selectedTones.removeAll(where: {$0 == tone})
