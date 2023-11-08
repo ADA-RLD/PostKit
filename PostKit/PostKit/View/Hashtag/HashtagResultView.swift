@@ -116,12 +116,10 @@ extension HashtagResultView {
                                 showModal: $showModal, isChange: $isCaptionChange,
                                 stringContent: $viewModel.hashtag,
                                 resultUpdateType: .hashtagResult
-                            ) { updatedText in
-                                viewModel.hashtag = updatedText
-                            }
+                            )
                             .interactiveDismissDisabled()
                         })
-                        .onChange(of: viewModel.hashtag){ _ in
+                        .onAppear{
                             // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
                             //isLike 변수는 좋아요 입니다.
                             copyId = saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)

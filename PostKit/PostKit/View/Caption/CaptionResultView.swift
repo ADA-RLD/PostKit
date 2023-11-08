@@ -116,9 +116,7 @@ extension CaptionResultView {
                                 showModal: $showModal, isChange: $isCaptionChange,
                                 stringContent: $viewModel.promptAnswer,
                                 resultUpdateType: .captionResult
-                            ) { updatedText in
-                                viewModel.promptAnswer = updatedText
-                            }
+                            )
                             .interactiveDismissDisabled()
                         })
                         
