@@ -278,7 +278,7 @@ extension MainHistoryView {
                 showModal: $showModal, isChange: $isCaptionChange,
                 stringContent: content,
                 resultUpdateType: .captionResult
-            ) { updatedText in
+            ) .onChange(of: isCaptionChange) { _ in
                 saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like.wrappedValue)
             }
             .interactiveDismissDisabled()
@@ -350,7 +350,8 @@ extension MainHistoryView {
                 showModal: $showModal, isChange: $isCaptionChange,
                 stringContent: hashtagContent,
                 resultUpdateType: .hashtagResult
-            ) { updatedText in
+            ) 
+            .onChange(of: isCaptionChange){ _ in
                 saveHashtagData(_uuid: uid, _result: hashtagContent.wrappedValue, _like: hashtagLike.wrappedValue)
             }
             .interactiveDismissDisabled()

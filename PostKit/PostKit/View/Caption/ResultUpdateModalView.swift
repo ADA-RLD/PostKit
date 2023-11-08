@@ -18,7 +18,6 @@ struct ResultUpdateModalView: View {
     @Binding var stringContent: String
     @FocusState private var isTextFieldFocused: Bool
     var resultUpdateType: ResultUpdateType = .captionResult
-    var completion: (_ caption: String) -> Void
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -39,7 +38,6 @@ struct ResultUpdateModalView: View {
                     Spacer()
                     
                     Button(action: {
-                        completion(stringContent)
                         showModal = false
                     }, label: {
                         Text("저장")
