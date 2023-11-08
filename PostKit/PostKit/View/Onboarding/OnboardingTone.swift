@@ -10,6 +10,7 @@ import SwiftUI
 struct OnboardingTone: View {
     
     @State var isActive: Bool = false
+    @State var isShowToast: Bool = false
     //Core Data 저장을 위해 가지고 나가기
     @Binding var cafeTone : [String]
     
@@ -30,7 +31,7 @@ struct OnboardingTone: View {
                                     .body2Bold(textColor: .gray4)
                             }
                             
-                            SelectTone(selectedTones: $cafeTone)
+                            SelectTone(selectedTones: $cafeTone, isShowToast: $isShowToast)
                                 .onChange(of: cafeTone) { _ in
                                     isActiveCheck()
                                 }
@@ -38,6 +39,7 @@ struct OnboardingTone: View {
                     }
                 }
             }
+            .toast(toastText: "3개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
             
             Group{
                 CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
