@@ -18,7 +18,7 @@ struct OnboardingTone: View {
     var body: some View {
         ZStack{
             VStack(alignment:.leading,spacing: 0) {
-                CTABtn(btnLabel: "다음", isActive: $isActive, action: onboardingRouter.nextPage)
+                OnboardingCustomHeader(action: onboardingRouter.previousPage)
                 ScrollView {
                     ContentArea {
                         VStack(alignment: .leading,spacing: 40) {

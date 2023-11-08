@@ -7,16 +7,17 @@
 
 import SwiftUI
 import CoreData
+import Mixpanel
 
 struct HashtagResultView: View {
  
     @State private var isShowingToast = false
     @State private var isLike = false //좋아요 버튼은 결과뷰에서만 존재합니다
     @State private var copyId = UUID()
-    @State private var isPresented: Bool = false
+    @State private var showAlert: Bool = false
     @State private var showModal = false
     @State private var isCaptionChange = false
-    @State private var activeAlert: ActiveAlert = .first
+    @State private var activeAlert: ActiveAlert = .second
     @ObservedObject var coinManager = CoinManager.shared
     @EnvironmentObject var pathManager: PathManager
     
@@ -37,8 +38,26 @@ struct HashtagResultView: View {
                 .onAppear{
                     checkDate()
                 }
-                .navigationBarBackButtonHidden()
+            if showAlert == true {
+                switch activeAlert {
+                case .first:
+                    CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "1 크레딧이 사용돼요 \n남은 크레딧 : \(coinManager.coin)", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: {if coinManager.coin > CoinManager.minimalCoin {
+                        loadingModel.isCaptionGenerate = false
+                        pathManager.path.append(.Loading)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                            coinManager.coinHashtagUse()
+                            pathManager.path.append(.HashtagResult)
+                        }
+                        viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
+                    }
+                        showAlert = false
+    }, bottomAction: {showAlert = false}, showAlert: $showAlert)
+                case .second:
+                    CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 재생성할 수 있어요", topBtnLabel: "확인", topAction: {showAlert = false})
+                }
+            }
         }
+        .navigationBarBackButtonHidden()
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
 }
@@ -63,12 +82,11 @@ extension HashtagResultView {
         VStack(alignment: .leading, spacing: 0) {
             
             ContentArea {
-                VStack(alignment: .leading, spacing: 24) {
-
+                VStack(alignment: .leading, spacing: 40.5) {
+                    
                     HStack {
                         Spacer()
                         Button(action: {
-                            //TODO: 수정된 해시태그 CoreData 저장 필요
                             if isCaptionChange {
                                 saveEditHashtagResult(_uuid: copyId, _result: viewModel.hashtag, _like: isLike)
                             }
@@ -80,52 +98,75 @@ extension HashtagResultView {
                         })
                     }
                     
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("주문하신 해시태그가 나왔어요!")
-                            .title1(textColor: .gray6)
-                    }
-                    
-                    VStack {
-                        ZStack(alignment: .leading) {
-                            // TODO: historyLeftAction 추가
-                            HistoryButton(resultText: $viewModel.hashtag, buttonText: "수정하기", historyRightAction: {
-                                self.showModal = true
-                            }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
-                                ResultUpdateModalView(
-                                    showModal: $showModal, isChange: $isCaptionChange,
-                                    stringContent: $viewModel.hashtag,
-                                    resultUpdateType: .hashtagResult
-                                ) { updatedText in
-                                    viewModel.hashtag = updatedText
+                    VStack(alignment: .leading, spacing: 24) {
+                        
+                        HStack {
+                            Text("주문하신 해시태그가 나왔어요!")
+                                .title1(textColor: .gray6)
+                            Spacer()
+                            Image(.pen)
+                                .resizable()
+                                .frame(width: 18, height: 18)
+                                .foregroundColor(.gray4)
+                                .onTapGesture {
+                                    self.showModal = true
                                 }
-                                .interactiveDismissDisabled()
-                            })
+                        }.sheet(isPresented: self.$showModal, content: {
+                            ResultUpdateModalView(
+                                showModal: $showModal, isChange: $isCaptionChange,
+                                stringContent: $viewModel.hashtag,
+                                resultUpdateType: .hashtagResult
+                            ) { updatedText in
+                                viewModel.hashtag = updatedText
+                            }
+                            .interactiveDismissDisabled()
+                        })
+                        .onChange(of: viewModel.hashtag){ _ in
+                            // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
+                            //isLike 변수는 좋아요 입니다.
+                            copyId = saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
                         }
-                    }
-                    .onChange(of: viewModel.hashtag){ _ in
-                        // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
-                        //isLike 변수는 좋아요 입니다.
-                        copyId = saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
+                        
+                        VStack(spacing: 4) {
+                            Text(viewModel.hashtag)
+                                .body1Regular(textColor: .gray5)
+                            
+                            HStack {
+                                Spacer()
+                                //TODO: 좋아요 기능 추가
+                                Image(.heart)
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.gray3)
+                            }
+                        }
+                        .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
+                        .clipShape(RoundedRectangle(cornerRadius: radius1))
+                        .foregroundColor(.clear)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: radius1)
+                                .stroke(Color.gray2, lineWidth: 1)
+                        }
                     }
                 }
             }
             Spacer()
             
             //MARK: 재생성 / 복사 버튼
-            CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
-                if coinManager.coin > CoinManager.hashtagCost {
+            CustomDoubleBtn(leftBtnLabel: "재생성", rightBtnLabel: "복사") {
+                showAlert = true
+                if coinManager.coin > 0 {
                     activeAlert = .first
-                    isPresented.toggle()
                 }
                 else {
                     activeAlert = .second
-                    isPresented.toggle()
                 }
             } rightAction: {
+                Mixpanel.mainInstance().track(event: "복사", properties: ["카테고리": "해시태그"])
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyToClipboard()
             }
-            .alert(isPresented: $isPresented) {
+            .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .first:
                     let cancelBtn = Alert.Button.default(Text("취소")) {
@@ -135,6 +176,7 @@ extension HashtagResultView {
                         if coinManager.coin > CoinManager.hashtagCost {
                             loadingModel.isCaptionGenerate = false
                             pathManager.path.append(.Loading)
+                            Mixpanel.mainInstance().track(event: "재생성", properties: ["카테고리": "해시태그"])
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
                                 coinManager.coinHashtagUse()
                                 pathManager.path.append(.HashtagResult)
@@ -196,3 +238,4 @@ extension HashtagResultView {
 #Preview {
     HashtagResultView()
 }
+

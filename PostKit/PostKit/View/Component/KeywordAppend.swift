@@ -12,11 +12,11 @@ struct KeywordAppend: View {
     @Binding var selectKeyWords: [String]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 20) {
             HStack(spacing: 8) {
                 Text("키워드")
-                    .font(.body1Bold())
-                    .foregroundColor(Color.gray5)
+                    .body1Bold(textColor: .gray5)
+                
                 Text("\(selectKeyWords.count)/5")
                     .body2Bold(textColor: .gray4)
                 
