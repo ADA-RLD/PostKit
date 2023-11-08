@@ -45,8 +45,11 @@ struct DailyView: View {
         }
         .sheet(isPresented: $isModalPresented) {
             KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["날씨 ・ 계절","커피 ・ 음료","디저트"])
+                .presentationDragIndicator(.visible)
+            
   
         }
+
         .navigationBarBackButtonHidden()
     }
 }
