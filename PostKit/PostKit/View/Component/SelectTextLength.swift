@@ -56,11 +56,13 @@ struct RaidioBtn: View {
                 self.selectedId = id
                 print(selectedId)
             }, label: {
-                Circle()
-                    .stroke(self.selectedId != self.id ? Color.gray4 : Color.white)
-                    .frame(width: 14, height: 14)
-                    .background(self.selectedId != self.id ? Color.white : Color.main )
-                    .cornerRadius(radius2)
+                if selectedId == id {
+                    Image(.checkMono)
+                }
+                else if selectedId != id {
+                    Image(.emptyMono)
+                }
+
             })
             
             // TODO: 코드 개선 필요

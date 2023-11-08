@@ -49,7 +49,7 @@ struct CaptionResultView: View {
     var body: some View {
         ZStack{
             captionResult
-                .onAppear{
+                .onAppear {
                     checkDate()
                     //Caption이 생성되면 바로 CoreData에 저장
                     //수정을 위해 UUID를 저장
@@ -199,6 +199,7 @@ struct ToastModifier: ViewModifier {
     @Binding var isShowing: Bool
     var toastImgRes: Image
     var toastText: String
+    var imgColor: Color = .black
     let duration: TimeInterval
     func body(content: Content) -> some View {
         ZStack{
