@@ -59,6 +59,10 @@ extension KeywordModal {
     private func headerArea() -> some View {
         HStack {
             Button {
+                selectKeyWords = []
+                firstSegementSelected = []
+                secondSegementSelected = []
+                thirdSegementSelected = []
                 self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("취소")
