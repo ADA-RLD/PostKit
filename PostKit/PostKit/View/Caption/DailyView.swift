@@ -43,7 +43,7 @@ struct DailyView: View {
             bottomArea()
         }
         .sheet(isPresented: $isModalPresented) {
-            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, modalType: .daily, pickerList: ["날씨・계절","커피・음료","디저트"])
+            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, modalType: .daily, pickerList: ["날씨 ・ 계절","커피 ・ 음료","디저트"])
   
         }
         .navigationBarBackButtonHidden()
@@ -54,13 +54,13 @@ struct DailyView: View {
 extension DailyView {
     //MARK: Header
     private func headerArea() -> some View {
-        CustomHeader(action: {pathManager.path.removeLast()}, title: "일상글")
+        CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 글")
     }
     
     //MARK: ContentsView
     private func contents() -> some View {
         ContentArea {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 40) {
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
                     .onChange(of: isSelected) { _ in
                         isActive = true
