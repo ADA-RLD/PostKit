@@ -142,7 +142,7 @@ extension MainHistoryView {
             VStack {
                 ScrollView{
                     if captions.isEmpty {
-                        HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .heart, selection: $selection)
+                        HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                     }
                     else {
                         ForEach($captions) { $item in
@@ -178,7 +178,7 @@ extension MainHistoryView {
         VStack {
             ScrollView{
                 if hashtags.isEmpty {
-                    HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .heart, selection: $selection)
+                    HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                 }
                 else {
                     ForEach($hashtags) { $item in
@@ -280,7 +280,7 @@ extension MainHistoryView {
                 showModal: $showModal, isChange: $isCaptionChange,
                 stringContent: content,
                 resultUpdateType: .captionResult
-            ) { updatedText in
+            ) .onChange(of: isCaptionChange) { _ in
                 saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like.wrappedValue)
             }
             .interactiveDismissDisabled()
@@ -353,7 +353,8 @@ extension MainHistoryView {
                 showModal: $showModal, isChange: $isCaptionChange,
                 stringContent: hashtagContent,
                 resultUpdateType: .hashtagResult
-            ) { updatedText in
+            ) 
+            .onChange(of: isCaptionChange){ _ in
                 saveHashtagData(_uuid: uid, _result: hashtagContent.wrappedValue, _like: hashtagLike.wrappedValue)
             }
             .interactiveDismissDisabled()

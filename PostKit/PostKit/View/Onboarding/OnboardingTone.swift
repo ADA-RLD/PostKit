@@ -39,7 +39,7 @@ struct OnboardingTone: View {
                     }
                 }
             }
-            .toast(toastText: "3개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
+            .toast(toastText: "3개까지 선택할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
             
             Group{
                 CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})

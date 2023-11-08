@@ -14,10 +14,9 @@ struct DailyView: View {
     @State private var isActive: Bool = false
     @State private var isSelected: [String] = []
     @State private var isModalPresented: Bool = false
-    @State private var isAlertPresented: Bool = false
     // TODO: 글길이가 숫자로 들어오는데 나중에 숫자로 바꾸겠습니다.
     @State private var textLength: Int = 1
-    @State private var isPresented: Bool = false
+    @State private var showAlert: Bool = false
     @State private var weatherSelected: [String] = []
     @State private var dailyCoffeeSelected: [String] = []
     @State private var dailyDessertSelected: [String] = []
@@ -37,22 +36,24 @@ struct DailyView: View {
     let textLengthArr: [Int] = [100, 200, 300]
     
     var body: some View {
-        VStack(spacing: 0) {
-            headerArea()
-            contents()
-            Spacer()
-            bottomArea()
-        }
-        .sheet(isPresented: $isModalPresented) {
-            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["날씨 ・ 계절","커피 ・ 음료","디저트"])
-                .presentationDragIndicator(.visible)
-            
-  
-        }
-
+        ZStack {
+            VStack(spacing: 0) {
+                headerArea()
+                contents()
+                Spacer()
+                bottomArea()
+            }
+            .sheet(isPresented: $isModalPresented) {
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["날씨 ・ 계절","커피 ・ 음료","디저트"])
+                    .presentationDragIndicator(.visible)
+            }
+            if showAlert {
+                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
+                }
+            }
         .navigationBarBackButtonHidden()
+        }
     }
-}
 
 // MARK: View의 모둘화를 한 extension 모음입니다.
 extension DailyView {
@@ -90,11 +91,8 @@ extension DailyView {
                     }
                 }
             } else {
-                isPresented.toggle()
+                showAlert = true
             }
-        })
-        .alert(isPresented: $isPresented, content: {
-            return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
         })
     }
 }
