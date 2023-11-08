@@ -14,7 +14,6 @@ struct DailyView: View {
     @State private var isActive: Bool = false
     @State private var isSelected: [String] = []
     @State private var isModalPresented: Bool = false
-    @State private var isAlertPresented: Bool = false
     // TODO: 글길이가 숫자로 들어오는데 나중에 숫자로 바꾸겠습니다.
     @State private var textLength: Int = 1
     @State private var showAlert: Bool = false
