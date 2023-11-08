@@ -140,7 +140,7 @@ extension CaptionResultView {
                             loadingModel.isCaptionGenerate = false
                             regenerateAnswer()
                             pathManager.path.append(.Loading)
-                            trackingRegenreate()
+                            trackingRegenerate()
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                                 regenerateAnswer()
                             }
@@ -201,7 +201,7 @@ extension View {
 }
 
 extension CaptionResultView {
-    private func trackingRegenreate() {
+    private func trackingRegenerate() {
         if pathManager.path.contains(.Daily) {
             Mixpanel.mainInstance().track(event: "재생성", properties: ["카테고리": "일상"])
         }
