@@ -66,7 +66,7 @@ extension KeywordModal {
             }
             Spacer()
             Text("키워드 추가")
-                .font(.system(size: 17,weight: .semibold))
+                .font(.system(size: 17, weight: .semibold))
             Spacer()
             Button {
                 self.presentationMode.wrappedValue.dismiss()
@@ -75,13 +75,13 @@ extension KeywordModal {
                     .body1Bold(textColor: .main)
             }
         }
-        .padding(.horizontal,16)
-        .padding(.top,25)
+        .padding(.horizontal, 16)
+        .padding(.top, 25)
     }
     
     private func keywordInputArea() -> some View {
         VStack(alignment: .leading, spacing: 16) {
-            CustomTextfield(text: $inputText, placeHolder: "키워드를 추가해보세요",customTextfieldState: .reuse) {
+            CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
                 if !inputText.isEmpty && selectKeyWords.count < maxCount {
                     selectKeyWords.append(inputText)
                 }
@@ -148,13 +148,12 @@ extension KeywordModal {
         
         VStack(alignment: .leading, spacing: 16) {
             Text("추천 키워드")
-                .font(.body2Bold())
-                .foregroundColor(Color.gray5)
+                .body2Bold(textColor: .gray5)
             
             HStack(spacing: 0) {
                 ForEach(pickerList.indices, id: \.self ) { selected in
                     Button {
-                        withAnimation(.spring(response: 0.3,dampingFraction: 0.8)) {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
                             pickerSelection = selected
                         }
                     } label: {
@@ -167,7 +166,7 @@ extension KeywordModal {
                                 if pickerSelection == selected {
                                     RoundedRectangle(cornerRadius: radius2)
                                         .matchedGeometryEffect(id: "activeBackGround", in: nameSpace)
-                                        .foregroundColor(pickerSelection == selected ? .white: .gray2)
+                                        .foregroundColor(pickerSelection == selected ? .white : .gray2)
                                 }
                             }
                     }
@@ -182,6 +181,7 @@ extension KeywordModal {
                 RoundedRectangle(cornerRadius: radius2)
                     .foregroundColor(Color.gray2)
             }
+            
             WrappingHStack(alignment: .leading){
                 switch pickerSelection {
                 case 0:
@@ -227,13 +227,13 @@ extension KeywordModal {
             }
         } label: {
             Text(point)
-                .font(.body2Regular())
-                .foregroundColor(Color.gray4)
-                .padding(EdgeInsets(top: 8, leading: radius1, bottom: 8, trailing: radius1))
+                .body2Regular(textColor: .gray4)
+                .padding(.vertical, 12)
+                .padding(.horizontal, 16)
                 .clipShape(RoundedRectangle(cornerRadius: radius1))
                 .overlay() {
                     RoundedRectangle(cornerRadius: radius1)
-                        .stroke(Color.gray3,lineWidth: 1)
+                        .stroke(Color.gray3, lineWidth: 1)
                 }
         }
     }
