@@ -17,6 +17,7 @@ struct HashtagView: View {
     @State private var isActive = false
     @State private var isShowingDescription = false
     @State private var showingAlert = false
+    @State private var showCreditAlert = false
     @State private var popupState: PopoverType = .keyword
     @State private var headerHeight: CGFloat = 0
     @State private var titleHeight: CGFloat = 0
@@ -36,7 +37,7 @@ struct HashtagView: View {
     @State private var hashtags: [HashtagModel] = []
     
     var body: some View {
-        ZStack{
+        ZStack {
             VStack(alignment: .leading, spacing: 0) {
                 CustomHeader(action: {pathManager.path.removeLast()}, title: "해시태그 생성")
                     .readSize { size in
@@ -142,19 +143,26 @@ struct HashtagView: View {
                 }
                 Spacer()
                 CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {
-                    Task{
-                        viewModel.emphasizeKey = emphasizeTags
-                        viewModel.locationKey = locationTags
-                        viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
-                        
-                        
-                        print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
-                        
-                        pathManager.path.append(.Loading)
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                            coinManager.coinHashtagUse()
-                            pathManager.path.append(.HashtagResult)
+                    if coinManager.coin > CoinManager.minimalCoin {
+                        pathManager.path.append(.HashtagResult)
+                        Task{
+                            viewModel.emphasizeKey = emphasizeTags
+                            viewModel.locationKey = locationTags
+                            viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
+                            
+                            //해쉬태드 생성시 기본 좋아요는 false로 가져갑니다.
+                            saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
+                            
+                            print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
+                            
+                            pathManager.path.append(.Loading)
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                                coinManager.coinHashtagUse()
+                            }
                         }
+                    }
+                    else {
+                        showCreditAlert = true
                     }
                 })
             }
@@ -166,6 +174,9 @@ struct HashtagView: View {
                     .background(Color.gray5.opacity(0.4))
                     .zIndex(1)
             }
+            if showCreditAlert {
+                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
+                }
         }
         .onAppear{fetchHashtag()}
         .navigationBarBackButtonHidden()

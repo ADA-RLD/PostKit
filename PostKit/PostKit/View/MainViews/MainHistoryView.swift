@@ -27,6 +27,7 @@ struct MainHistoryView: View {
     
     private let hapticManger = HapticManager.instance
     private let pasteBoard = UIPasteboard.general
+    private let copyManger = CopyManger.instance
     
     //CoreData Manager
     private let coreDataManager = CoreDataManager.instance
@@ -141,7 +142,7 @@ extension MainHistoryView {
             VStack {
                 ScrollView{
                     if captions.isEmpty {
-                        HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .heart, selection: $selection)
+                        HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                     }
                     else {
                         ForEach($captions) { $item in
@@ -177,7 +178,7 @@ extension MainHistoryView {
         VStack {
             ScrollView{
                 if hashtags.isEmpty {
-                    HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .heart, selection: $selection)
+                    HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                 }
                 else {
                     ForEach($hashtags) { $item in
@@ -257,7 +258,8 @@ extension MainHistoryView {
                         .body2Bold(textColor: .white)
                 }
                 .onTapGesture {
-                    copyToClipboard()
+                    copyManger.copyToClipboard(copyString: content.wrappedValue)
+                    isShowingToast = true
                 }
                 .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .background(
@@ -329,7 +331,8 @@ extension MainHistoryView {
                         .body2Bold(textColor: .white)
                 }
                 .onTapGesture {
-                    copyToClipboard()
+                    copyManger.copyToClipboard(copyString: hashtagContent.wrappedValue)
+                        isShowingToast = true
                 }
                 .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .background(
