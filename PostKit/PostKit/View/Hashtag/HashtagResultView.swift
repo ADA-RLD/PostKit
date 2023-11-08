@@ -55,8 +55,6 @@ struct HashtagResultView: View {
                     CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 재생성할 수 있어요", topBtnLabel: "확인", topAction: {showAlert = false})
                 }
             }
-               
-
         }
         .navigationBarBackButtonHidden()
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
@@ -83,7 +81,7 @@ extension HashtagResultView {
         VStack(alignment: .leading, spacing: 0) {
             
             ContentArea {
-                VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: 40.5) {
                     
                     HStack {
                         Spacer()
