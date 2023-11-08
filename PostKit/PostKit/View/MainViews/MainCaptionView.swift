@@ -14,11 +14,15 @@ struct MainCaptionView: View {
     @ObservedObject var coinManager = CoinManager.shared
     
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
+    @State private var timeRemaining : Int = 0
+
     var remainingTime = "04:32" // TODO: 24시까지 남은 시간으로 변경
     
     private let coreDataManager = CoreDataManager.instance
     private let hapticManger = HapticManager.instance
     private let coinMax = 10
+    private let date = Date()
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         ContentArea {
@@ -40,6 +44,50 @@ struct MainCaptionView: View {
                 Spacer()
             }
         }
+        .onAppear{
+            calcRemain()
+            checkDate()
+        }
+    }
+}
+
+extension MainCaptionView {
+    func convertSecondsToTime(timeInSeconds: Int) -> String {
+        let hours = timeInSeconds / 3600
+        let minutes = (timeInSeconds - hours * 3600) / 60
+        return String(format: "%02i:%02i", hours,minutes)
+    }
+    
+    func calcRemain() {
+        let formatterHour = DateFormatter()
+        formatterHour.dateFormat = "HH"
+        let currentHour = formatterHour.string(from: Date())
+        
+        let formatterMinute = DateFormatter()
+        formatterMinute.dateFormat = "mm"
+        let currentMinute = formatterMinute.string(from: Date())
+        
+        let formatterSecond = DateFormatter()
+        formatterSecond.dateFormat = "ss"
+        let currentSecond = formatterSecond.string(from: Date())
+        
+        let hour = 24 - (Int(currentHour) ?? 0)
+        let minute = (Int(currentMinute) ?? 0)
+        let second = (Int(currentSecond) ?? 0)
+        
+        self.timeRemaining = (hour * 60 - minute) * 60 - second
+    }
+    
+    func checkDate() {
+        let formatterDate = DateFormatter()
+        formatterDate.dateFormat = "yyyy.MM.dd"
+        let currentDay = formatterDate.string(from: Date())
+        
+        if currentDay != coinManager.date {
+            coinManager.date = currentDay
+            coinManager.coin = CoinManager.maximalCoin
+            print("코인이 초기화 되었습니다.")
+        }
     }
 }
 
@@ -50,8 +98,12 @@ extension MainCaptionView {
             Image(.coin)
             Text("\(coinManager.coin)/\(coinMax)")
                 .body2Bold(textColor: .gray5)
-            Text("\(remainingTime)")
+            Text(convertSecondsToTime(timeInSeconds:timeRemaining))
                 .body2Bold(textColor: .gray3)
+                .onReceive(timer) { _ in
+                    timeRemaining -= 1
+                    checkDate()
+                }
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)

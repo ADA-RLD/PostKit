@@ -43,7 +43,7 @@ struct DailyView: View {
             bottomArea()
         }
         .sheet(isPresented: $isModalPresented) {
-            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, modalType: .daily, pickerList: ["날씨/계절","커피/음료","디저트"])
+            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, modalType: .daily, pickerList: ["날씨・계절","커피・음료","디저트"])
   
         }
         .navigationBarBackButtonHidden()
@@ -62,18 +62,19 @@ extension DailyView {
         ContentArea {
             VStack(alignment: .leading, spacing: 16) {
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
-                
+                    .onChange(of: isSelected) { _ in
+                        isActive = true
+                    }
                 SelectTextLength(selected: $textLength)
-                
             }
         }
     }
     
     private func bottomArea() -> some View {
-        //TODO: 모듈화 필요 BottomView로 변경 예정
-        CTABtn(btnLabel: "글 생성", isActive: .constant(true), action: {
+        CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
             if coinManager.coin > CoinManager.minimalCoin {
                 pathManager.path.append(.Loading)
+              
                 Task{
                     loadingModel.isCaptionGenerate = false
                     //배열에 추가해서 가져갑니다.

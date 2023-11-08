@@ -93,7 +93,7 @@ extension MenuView {
                         }
                     case .finished:
                         pathManager.path.append(.CaptionResult)
-                        coinManager.coinUse()
+                        coinManager.coinCaptionUse()
                         loadingModel.isCaptionGenerate = false
                         print("Caption 생성이 무사히 완료되었습니다.")
                     }

@@ -34,9 +34,26 @@ struct HashtagResultView: View {
     var body: some View {
         ZStack {
             resultView()
+                .onAppear{
+                    checkDate()
+                }
                 .navigationBarBackButtonHidden()
         }
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
+    }
+}
+
+extension HashtagResultView {
+    func checkDate() {
+        let formatterDate = DateFormatter()
+        formatterDate.dateFormat = "yyyy.MM.dd"
+        let currentDay = formatterDate.string(from: Date())
+        
+        if currentDay != coinManager.date {
+            coinManager.date = currentDay
+            coinManager.coin = CoinManager.maximalCoin
+            print("코인이 초기화 되었습니다.")
+        }
     }
 }
 
@@ -96,7 +113,7 @@ extension HashtagResultView {
             
             //MARK: 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
-                if coinManager.coin > 0 {
+                if coinManager.coin > CoinManager.hashtagCost {
                     activeAlert = .first
                     isPresented.toggle()
                 }
@@ -115,14 +132,18 @@ extension HashtagResultView {
                         
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
-                        if coinManager.coin > CoinManager.minimalCoin {
+                        if coinManager.coin > CoinManager.hashtagCost {
                             loadingModel.isCaptionGenerate = false
-                            coinManager.coinUse()
+                            pathManager.path.append(.Loading)
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                                coinManager.coinHashtagUse()
+                                pathManager.path.append(.HashtagResult)
+                            }
                             viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
                         }
                     }
-                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/5"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
-                    
+
+                    return Alert(title: Text("1크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/\(CoinManager.maximalCoin)"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
                 case .second:
                     return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
                 }
