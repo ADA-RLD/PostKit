@@ -20,6 +20,7 @@ struct MainHistoryView: View {
     @State private var showAlert = false
     @State private var hashtags: [HashtagModel] = []
     @State private var alertType: AlertType = .historyCaption
+    @Binding var selection: Int
     @Namespace var nameSpace
     
     private let hapticManger = HapticManager.instance
@@ -125,12 +126,17 @@ extension MainHistoryView {
         ZStack {
             VStack {
                 ScrollView{
-                    ForEach($captions) { $item in
-                        //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
-                        feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: item.like)
-                            .onChange(of: item.like){ _ in
-                                saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
-                            }
+                    if captions.isEmpty {
+                        HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                    }
+                    else {
+                        ForEach($captions) { $item in
+                            //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
+                            feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: item.like)
+                                .onChange(of: item.like){ _ in
+                                    saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
+                                }
+                        }
                     }
                 }
                 .refreshable{fetchCaptionData()}
@@ -144,11 +150,16 @@ extension MainHistoryView {
     private var hashtagHistory: some View {
         VStack {
             ScrollView{
-                ForEach($hashtags) { $item in
-                    hashtagHistoryDetail(uid: item.id, date: convertDate(date: item.date), hashtagContent: $item.hashtag, hashtageLike: item.isLike)
-                        .onChange(of: item.isLike){ _ in
-                            saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
-                        }
+                if hashtags.isEmpty {
+                    HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                }
+                else {
+                    ForEach($hashtags) { $item in
+                        hashtagHistoryDetail(uid: item.id, date: convertDate(date: item.date), hashtagContent: $item.hashtag, hashtageLike: item.isLike)
+                            .onChange(of: item.isLike){ _ in
+                                saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
+                            }
+                    }
                 }
             }
             .refreshable {fetchHashtagData()}
@@ -473,3 +484,4 @@ extension MainHistoryView : MainViewProtocol {
         return convertDate
     }
 }
+
