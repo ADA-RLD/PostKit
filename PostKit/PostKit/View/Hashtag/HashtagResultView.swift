@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Mixpanel
 
 struct HashtagResultView: View {
  
@@ -89,6 +90,7 @@ extension HashtagResultView {
                         ZStack(alignment: .leading) {
                             // TODO: historyLeftAction 추가
                             HistoryButton(resultText: $viewModel.hashtag, buttonText: "수정하기", historyRightAction: {
+                                Mixpanel.mainInstance().track(event: "수정", properties: ["카테고리": "해시태그"])
                                 self.showModal = true
                             }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                 ResultUpdateModalView(
@@ -122,6 +124,7 @@ extension HashtagResultView {
                     isPresented.toggle()
                 }
             } rightAction: {
+                Mixpanel.mainInstance().track(event: "복사", properties: ["카테고리": "해시태그"])
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyToClipboard()
             }
@@ -135,6 +138,7 @@ extension HashtagResultView {
                         if coinManager.coin > CoinManager.hashtagCost {
                             loadingModel.isCaptionGenerate = false
                             pathManager.path.append(.Loading)
+                            Mixpanel.mainInstance().track(event: "재생성", properties: ["카테고리": "해시태그"])
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
                                 coinManager.coinHashtagUse()
                                 pathManager.path.append(.HashtagResult)

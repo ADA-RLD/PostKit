@@ -55,6 +55,7 @@ struct CaptionResultView: View {
                     //수정을 위해 UUID를 저장
                     copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
                     loadingModel.isCaptionGenerate = true
+                    trackingResult()
                 }
         }
         .navigationBarBackButtonHidden()
@@ -92,7 +93,7 @@ extension CaptionResultView {
                             ZStack(alignment: .leading) {
                                 // TODO: historyLeftAction 추가
                                 HistoryButton(resultText: $viewModel.promptAnswer, buttonText: "수정하기", historyRightAction: {
-                                    Mixpanel.mainInstance().track(event: "결과 수정")
+                                    trackingEdit()
                                     self.showModal = true
                                 }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
                                     ResultUpdateModalView(
@@ -125,7 +126,7 @@ extension CaptionResultView {
             } rightAction: {
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyToClipboard()
-                Mixpanel.mainInstance().track(event: "결과 복사")
+                trackingCopy()
             }
             .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
             .alert(isPresented: $isPresented) {
@@ -139,7 +140,7 @@ extension CaptionResultView {
                             loadingModel.isCaptionGenerate = false
                             regenerateAnswer()
                             pathManager.path.append(.Loading)
-                            Mixpanel.mainInstance().track(event: "결과 재생성")
+                            trackingRegenreate()
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                                 regenerateAnswer()
                             }
@@ -196,6 +197,44 @@ struct ToastModifier: ViewModifier {
 extension View {
     func toast(toastText: String, toastImgRes: Image, isShowing: Binding<Bool>, duration: TimeInterval = 1.5) -> some View {
         modifier(ToastModifier(isShowing: isShowing, toastImgRes: toastImgRes, toastText: toastText, duration: duration))
+    }
+}
+
+extension CaptionResultView {
+    private func trackingRegenreate() {
+        if pathManager.path.contains(.Daily) {
+            Mixpanel.mainInstance().track(event: "재생성", properties: ["카테고리": "일상"])
+        }
+        else if pathManager.path.contains(.Menu) {
+            Mixpanel.mainInstance().track(event: "재생성", properties: ["카테고리": "메뉴"])
+        }
+    }
+    
+    private func trackingCopy() {
+        if pathManager.path.contains(.Daily) {
+            Mixpanel.mainInstance().track(event: "복사", properties: ["카테고리": "일상"])
+        }
+        else if pathManager.path.contains(.Menu) {
+            Mixpanel.mainInstance().track(event: "복사", properties: ["카테고리": "메뉴"])
+        }
+    }
+    
+    private func trackingEdit() {
+        if pathManager.path.contains(.Daily) {
+            Mixpanel.mainInstance().track(event: "수정", properties: ["카테고리": "일상"])
+        }
+        else if pathManager.path.contains(.Menu) {
+            Mixpanel.mainInstance().track(event: "수정", properties: ["카테고리": "메뉴"])
+        }
+    }
+    
+    private func trackingResult() {
+        if pathManager.path.contains(.Daily) {
+            Mixpanel.mainInstance().track(event: "생성 성공", properties: ["카테고리": "일상"])
+        }
+        else if pathManager.path.contains(.Menu) {
+            Mixpanel.mainInstance().track(event: "생성 성공", properties: ["카테고리": "메뉴"])
+        }
     }
 }
 
