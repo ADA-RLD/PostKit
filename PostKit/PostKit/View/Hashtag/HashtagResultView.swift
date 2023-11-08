@@ -136,7 +136,13 @@ extension HashtagResultView {
                                 Image(.heart)
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                    .foregroundColor(.gray3)
+                                    .foregroundColor(isLike ? .main : .gray3)
+                                    .onTapGesture {
+                                        withAnimation(.easeIn(duration: 0.3)) {
+                                            isLike.toggle()
+                                            saveEditHashtagResult(_uuid: copyId, _result: viewModel.hashtag, _like: isLike)
+                                        }
+                                    }
                             }
                         }
                         .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
@@ -162,7 +168,7 @@ extension HashtagResultView {
             } rightAction: {
                 copyToClipboard()
             }
-            .alert(isPresented: $isPresented) {
+            .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .first:
                     let cancelBtn = Alert.Button.default(Text("취소")) {
@@ -217,7 +223,31 @@ extension HashtagResultView : HashtagProtocol {
     }
     
     func saveEditHashtagResult(_uuid: UUID, _result: String, _like: Bool) {
-        //생성중
+        let fetchRequest = NSFetchRequest<HashtagData>(entityName: "HashtagData")
+        
+        // captionModel의 UUID가 같을 경우
+        let predicate = NSPredicate(format: "resultId == %@", _uuid as CVarArg)
+        fetchRequest.predicate = predicate
+        
+        if let existingHastagResult = try? coreDataManager.context.fetch(fetchRequest).first {
+            // UUID에 해당하는 데이터를 찾았을 경우 업데이트
+            existingHastagResult.hashtag = _result
+            existingHastagResult.like = _like
+            
+            coreDataManager.save() // 변경사항 저장
+            
+            print("Hastag 수정 완료!\n resultId : \(existingHastagResult.resultId)\n Date : \(existingHastagResult.date)\n Caption : \(existingHastagResult.hashtag)\n HastagLike : \(existingHastagResult.like)")
+        } else {
+            // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
+            let newHastag = HashtagData(context: coreDataManager.context)
+            newHastag.resultId = _uuid
+            newHastag.hashtag = _result
+            newHastag.like = _like
+            
+            coreDataManager.save() // 변경사항 저장
+            
+            print("Hastag 수정 완료!\n resultId : \(newHastag.resultId)\n Date : \(newHastag.date)\n Caption : \(newHastag.hashtag)\n HastagLike : \(newHastag.like)")
+        }
     }
 }
 

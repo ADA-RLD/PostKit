@@ -130,7 +130,13 @@ extension CaptionResultView {
                                 Image(.heart)
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                    .foregroundColor(.gray3)
+                                    .foregroundColor(likeCopy ? .main : .gray3)
+                                    .onTapGesture {
+                                        withAnimation(.easeIn(duration: 0.3)) {
+                                            likeCopy.toggle()
+                                            saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
+                                        }
+                                    }
                             }
                         }
                         .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
@@ -161,7 +167,7 @@ extension CaptionResultView {
                 Mixpanel.mainInstance().track(event: "결과 복사")
             }
             .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
-            .alert(isPresented: $isPresented) {
+            .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .first:
                     let cancelBtn = Alert.Button.default(Text("취소")) {
