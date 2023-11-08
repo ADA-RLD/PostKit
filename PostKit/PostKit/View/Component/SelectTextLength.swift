@@ -13,7 +13,7 @@ struct SelectTextLength: View {
     let textLength: [String] = ["짧음","중간","긺"]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 24) {
             Text("글 길이")
                 .body1Bold(textColor: .gray5)
             
@@ -58,15 +58,20 @@ struct RaidioBtn: View {
             }, label: {
                 Circle()
                     .stroke(self.selectedId != self.id ? Color.gray4 : Color.white)
-                    .frame(width: 14,height: 14)
+                    .frame(width: 14, height: 14)
                     .background(self.selectedId != self.id ? Color.white : Color.main )
                     .cornerRadius(radius2)
-                
             })
             
-            Text(title)
-                .font(.body1Bold())
-                .foregroundColor(Color.gray5)
+            // TODO: 코드 개선 필요
+            if self.selectedId != self.id {
+                Text(title)
+                    .body1Bold(textColor: .gray4)
+            }
+            else {
+                Text(title)
+                    .body1Bold(textColor: .gray5)
+            }
         }
     }
 }
