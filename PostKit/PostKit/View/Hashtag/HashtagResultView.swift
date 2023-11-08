@@ -98,6 +98,7 @@ extension HashtagResultView {
                     }
                     
                     VStack(alignment: .leading, spacing: 24) {
+                        
                         HStack {
                             Text("주문하신 해시태그가 나왔어요!")
                                 .title1(textColor: .gray6)
@@ -124,9 +125,11 @@ extension HashtagResultView {
                             //isLike 변수는 좋아요 입니다.
                             copyId = saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
                         }
+                        
                         VStack(spacing: 4) {
                             Text(viewModel.hashtag)
                                 .body1Regular(textColor: .gray5)
+                            
                             HStack {
                                 Spacer()
                                 //TODO: 좋아요 기능 추가
