@@ -37,6 +37,7 @@ struct CaptionResultView: View {
     private let pasteBoard = UIPasteboard.general
     private let chatGptService = ChatGptService()
     private let hapticManger = HapticManager.instance
+    private let copyManager = CopyManger.instance
     
     var captionMode: CaptionMode = .daily
     
@@ -164,7 +165,7 @@ extension CaptionResultView {
                 }
             } rightAction: {
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
-                copyToClipboard()
+                copyManager.copyToClipboard(copyString: viewModel.promptAnswer)
                 trackingCopy()
             }
             .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
@@ -176,6 +177,7 @@ extension CaptionResultView {
                     }
                     let regenreateBtn = Alert.Button.default(Text("재생성")) {
                         if coinManager.coin > CoinManager.captionCost {
+                            print(coinManager.coin)
                             loadingModel.isCaptionGenerate = false
                             regenerateAnswer()
                             pathManager.path.append(.Loading)

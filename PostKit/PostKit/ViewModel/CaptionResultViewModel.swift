@@ -55,14 +55,4 @@ extension CaptionResultView {
                 .store(in: &cancellables)
         }
     }
-    
-    // MARK: - 카피 복사
-    func copyToClipboard() {
-        let hapticManager = HapticManager.instance
-        let pasteBoard = UIPasteboard.general
-        
-        hapticManager.notification(type: .success)
-        pasteBoard.string = viewModel.promptAnswer
-        self.isShowingToast = true
-    }
 }
