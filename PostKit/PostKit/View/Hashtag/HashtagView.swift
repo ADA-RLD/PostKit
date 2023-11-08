@@ -45,20 +45,18 @@ struct HashtagView: View {
                 
                 ScrollView {
                     ContentArea {
-                        VStack(alignment: .leading, spacing: 28) {
-                            Text("입력한 지역명을 기반으로 해시태그가 생성됩니다. \n강조 키워드 미입력 시 기본 키워드만의 조합으로 생성됩니다.")
-                                .body2Bold(textColor: .gray4)
-                                .readSize { size in
-                                    titleHeight = size.height
-                                }
-                            
-                            VStack(alignment: .leading, spacing: 28) {
-                                VStack(alignment: .leading, spacing: 12) {
+                        VStack(alignment: .leading, spacing: 40) {
+                            VStack(alignment: .leading, spacing: 16) {
+                                VStack(spacing: 12.0) {
                                     HStack {
-                                        Text("지역명 *")
-                                            .body1Bold(textColor: .gray5)
+                                        HStack {
+                                            Text("지역명")
+                                                .body1Bold(textColor: .gray5)
+                                            Text("\(locationTags.count)/5")
+                                                .body2Bold(textColor: .gray4)
+                                        }
                                         Spacer()
-                                        Image(systemName: "info.circle")
+                                        Image(.info)
                                             .foregroundColor(.gray3)
                                             .onTapGesture(count:1, coordinateSpace: .global) { location in
                                                 handlePopoverClick(clickType: .region)
@@ -79,31 +77,36 @@ struct HashtagView: View {
                                                   dismissButton: .default(Text("확인")))
                                         }
                                     }
-                                    
-                                    Text("최대 5개까지 작성가능합니다.")
-                                        .body2Regular(textColor: .gray3)
-                                    
-                                    WrappingHStack(alignment: .leading) {
-                                        ForEach(locationTags, id: \.self) { tag in
-                                            CustomHashtag(tagText: tag) {
-                                                locationTags.removeAll(where: { $0 == tag })
-                                                checkTags()
-                                            }
+                                }
+                                
+                                WrappingHStack(alignment: .leading) {
+                                    ForEach(locationTags, id: \.self) { tag in
+                                        CustomHashtag(tagText: tag) {
+                                            locationTags.removeAll(where: { $0 == tag })
+                                            checkTags()
                                         }
                                     }
                                 }
-                                .readSize { size in
-                                    regionAreaHeight = size.height
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 12) {
+                            }
+                            .readSize { size in
+                                regionAreaHeight = size.height
+                            }
+                            
+                            VStack(alignment: .leading, spacing: 16) {
+                                VStack(spacing: 12.0) {
                                     HStack {
-                                        Text("강조 키워드")
-                                            .body1Bold(textColor: .gray5)
+                                        HStack(spacing: 8.0) {
+                                            Text("강조 키워드")
+                                                .body1Bold(textColor: .gray5)
+                                            Text("\(emphasizeTags.count)/5")
+                                                .body2Bold(textColor: .gray4)
+                                            Text("선택")
+                                                .body2Bold(textColor: .gray3)
+                                        }
                                         
                                         Spacer()
                                         
-                                        Image(systemName: "info.circle")
+                                        Image(.info)
                                             .foregroundColor(.gray3)
                                             .onTapGesture(count:1, coordinateSpace: .global) { location in
                                                 handlePopoverClick( clickType: .keyword)
@@ -123,15 +126,12 @@ struct HashtagView: View {
                                                   dismissButton: .default(Text("확인")))
                                         }
                                     }
-                                    
-                                    Text("최대 5개까지 작성가능합니다.")
-                                        .body2Regular(textColor: .gray3)
-                                    
-                                    WrappingHStack(alignment: .leading) {
-                                        ForEach(emphasizeTags, id: \.self) { tag in
-                                            CustomHashtag(tagText: tag) {
-                                                emphasizeTags.removeAll(where: { $0 == tag })
-                                            }
+                                }
+                                
+                                WrappingHStack(alignment: .leading) {
+                                    ForEach(emphasizeTags, id: \.self) { tag in
+                                        CustomHashtag(tagText: tag) {
+                                            emphasizeTags.removeAll(where: { $0 == tag })
                                         }
                                     }
                                 }
