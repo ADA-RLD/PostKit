@@ -25,8 +25,8 @@ struct CustomHashtag: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .cornerRadius(radius1)
         .background(Color.sub)
+        .cornerRadius(radius1)
         .overlay (
             RoundedRectangle(cornerRadius: radius1)
                 .stroke(Color.main, lineWidth: 2)
