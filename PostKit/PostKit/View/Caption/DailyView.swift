@@ -21,6 +21,7 @@ struct DailyView: View {
     @State private var weatherSelected: [String] = []
     @State private var dailyCoffeeSelected: [String] = []
     @State private var dailyDessertSelected: [String] = []
+    @State private var customKeyword: [String] = []
     @State var messages: [Message] = []
     @State var cancellables = Set<AnyCancellable>()
     
@@ -43,9 +44,12 @@ struct DailyView: View {
             bottomArea()
         }
         .sheet(isPresented: $isModalPresented) {
-            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, modalType: .daily, pickerList: ["날씨 ・ 계절","커피 ・ 음료","디저트"])
+            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["날씨 ・ 계절","커피 ・ 음료","디저트"])
+                .presentationDragIndicator(.visible)
+            
   
         }
+
         .navigationBarBackButtonHidden()
     }
 }
