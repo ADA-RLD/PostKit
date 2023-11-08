@@ -16,6 +16,7 @@ struct MainHistoryView: View {
     @State private var isShowingToast = false
     @State private var isCaptionChange = false
     @State private var isCaptionLiked = false
+    @State private var isLiked = false
     @State private var filterLike = false
     @State private var targetUid = UUID()
     @State private var showModal = false
@@ -140,12 +141,12 @@ extension MainHistoryView {
             VStack {
                 ScrollView{
                     if captions.isEmpty {
-                        HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                        HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .heart, selection: $selection)
                     }
                     else {
                         ForEach($captions) { $item in
                             //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
-                            feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: item.like)
+                            feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
                                 .onChange(of: item.like){ _ in
                                     saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
                                 }
@@ -176,11 +177,11 @@ extension MainHistoryView {
         VStack {
             ScrollView{
                 if hashtags.isEmpty {
-                    HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                    HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .heart, selection: $selection)
                 }
                 else {
                     ForEach($hashtags) { $item in
-                        hashtagHistoryDetail(uid: item.id, date: convertDate(date: item.date), hashtagContent: $item.hashtag, hashtageLike: item.isLike)
+                        hashtagHistoryDetail(uid: item.id, date: convertDate(date: item.date), hashtagContent: $item.hashtag, hashtagLike: $item.isLike)
                             .onChange(of: item.isLike){ _ in
                                 saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                             }

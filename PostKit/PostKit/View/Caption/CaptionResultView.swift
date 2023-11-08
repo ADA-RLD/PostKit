@@ -37,9 +37,9 @@ struct CaptionResultView: View {
     private let pasteBoard = UIPasteboard.general
     private let chatGptService = ChatGptService()
     private let hapticManger = HapticManager.instance
-
+    
     var captionMode: CaptionMode = .daily
-
+    
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
     
@@ -70,7 +70,7 @@ struct CaptionResultView: View {
                         }
                     }
                         showAlert = false
-    }, bottomAction: {showAlert = false}, showAlert: $showAlert)
+                    }, bottomAction: {showAlert = false}, showAlert: $showAlert)
                 case .second:
                     CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 재생성할 수 있어요", topBtnLabel: "확인", topAction: {showAlert = false})
                 }
@@ -121,7 +121,7 @@ extension CaptionResultView {
                             }
                             .interactiveDismissDisabled()
                         })
-
+                        
                         VStack(spacing: 4) {
                             Text(viewModel.promptAnswer)
                                 .body1Regular(textColor: .gray5)
@@ -131,7 +131,13 @@ extension CaptionResultView {
                                 Image(.heart)
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                    .foregroundColor(.gray3)
+                                    .foregroundColor(likeCopy ? .main : .gray3)
+                                    .onTapGesture {
+                                        withAnimation(.easeIn(duration: 0.3)) {
+                                            likeCopy.toggle()
+                                            saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
+                                        }
+                                    }
                             }
                         }
                         .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
@@ -208,11 +214,11 @@ struct ToastModifier: ViewModifier {
                     }
                     .padding(.horizontal, 24)
                     .padding(.vertical, 20)
-                        .frame(maxWidth: .infinity)
-                        .background(.gray5)
-                        .cornerRadius(radius1)
-                        .padding(.horizontal, paddingHorizontal)
-                        .padding(.bottom, paddingBottom)
+                    .frame(maxWidth: .infinity)
+                    .background(.gray5)
+                    .cornerRadius(radius1)
+                    .padding(.horizontal, paddingHorizontal)
+                    .padding(.bottom, paddingBottom)
                 }
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()+duration){
