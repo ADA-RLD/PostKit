@@ -13,6 +13,9 @@
 		<string></string>
 	</array>
 	<key>UILaunchScreen</key>
-	<dict/>
+	<dict>
+		<key>UIImageName</key>
+		<string>launchLogo</string>
+	</dict>
 </dict>
 </plist>
