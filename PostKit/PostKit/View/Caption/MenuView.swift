@@ -45,6 +45,11 @@ struct MenuView: View {
         }
         .sheet(isPresented: $isModalPresented, content: {
             KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, modalType: .menu ,pickerList: ["커피","음료","디저트"])
+                .onDisappear {
+                    if menuName.count > 0 && !isSelected.isEmpty {
+                        isActive = true
+                    }
+                }
         })
         .onTapGesture {
             hideKeyboard()
@@ -64,10 +69,7 @@ extension MenuView {
                 menuInput()
                 
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
-                    .onChange(of: isActive) { _ in if menuName.count >= 1 && !isSelected.isEmpty {
-                        isActive = true
-                    }
-                    }
+
                 SelectTextLength(selected: $textLength)
             }
         }
@@ -79,7 +81,7 @@ extension MenuView {
                 .body1Bold(textColor: .gray5)
             CustomTextfield(text: $menuName, placeHolder: "아이스 아메리카노")
                 .onChange(of: menuName)  { _ in
-                    if menuName.count >= 1 && !isSelected.isEmpty {
+                    if menuName.count > 0 && !isSelected.isEmpty {
                         isActive = true
                     } else {
                         isActive = false
@@ -89,7 +91,8 @@ extension MenuView {
     }
     
     private func bottomArea() -> some View {
-        CTABtn(btnLabel: "글 생성", isActive: self.$isActive, action: {
+        CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
+            print(isActive)
             if isActive == true {
                 if coinManager.coin > CoinManager.minimalCoin {
                     pathManager.path.append(.Loading)
