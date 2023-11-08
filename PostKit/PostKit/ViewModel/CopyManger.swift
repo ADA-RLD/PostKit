@@ -8,8 +8,6 @@
 import Foundation
 import UIKit
 
-
-
 class CopyManger {
     static let instance = CopyManger()
     let hapticManager = HapticManager.instance
