@@ -15,7 +15,6 @@ struct LoadingView: View {
     @State var timeStep: Int = 0
     @State private var isActiveAlert: Bool = false
     
-    
     //디버깅용 데이터 삭제하지는 말아주세요.
     //private var SampleData: [String] = ["1번 친구","2번 친구","3번 친구","4번 친구","5번 친구"]
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -46,8 +45,7 @@ struct LoadingView: View {
                     }
                     
                     Text("글을 만들고 있어요!")
-                        .foregroundColor(.gray6)
-                        .font(.title1())
+                        .title1(textColor: .gray6)
                     
                     Text("지금 서비스를 나가면 생성이 중단돼요.\n최대 30초가 소요될 예정이에요.")
                         .body1Bold(textColor: .gray4)
@@ -63,10 +61,10 @@ struct LoadingView: View {
                 
                 LoadingTipView(_timeStep: timeStep, tips: Tips)
                     .frame(height: 150)
-                    .padding(.bottom,12)
+                    .padding(.bottom, 12)
             }
-            .padding(.horizontal,20)
-            .padding(.top,20)
+            .padding(.horizontal, 20)
+            .padding(.top, 20)
             .frame(width: UIScreen.main.bounds.width)
             
             if isActiveAlert == true {
@@ -221,10 +219,9 @@ struct CustomTagFeild: View {
     var body: some View {
         HStack {
             Text(tagText)
-                .font(.body2Regular())
-                .foregroundColor(.main)
+                .body2Regular(textColor: .main)
         }
-        .padding(EdgeInsets(top: 8, leading: radius1, bottom: 8, trailing: radius1))
+        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
         .background(Color.sub)
         .clipShape(RoundedRectangle(cornerRadius: radius1))
         .overlay {
