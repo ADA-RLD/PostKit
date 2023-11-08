@@ -57,10 +57,10 @@ struct RaidioBtn: View {
                 print(selectedId)
             }, label: {
                 if selectedId == id {
-                    Image(.heart)
+                    Image(.checkMono)
                 }
                 else if selectedId != id {
-                    Image(.heart)
+                    Image(.emptyMono)
                 }
 
             })
