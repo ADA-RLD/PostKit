@@ -166,32 +166,10 @@ extension CaptionResultView {
             } rightAction: {
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyManager.copyToClipboard(copyString: viewModel.promptAnswer)
+                isShowingToast = true
                 trackingCopy()
             }
-            .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
-            .alert(isPresented: $showAlert) {
-                switch activeAlert {
-                case .first:
-                    let cancelBtn = Alert.Button.default(Text("취소")) {
-                        
-                    }
-                    let regenreateBtn = Alert.Button.default(Text("재생성")) {
-                        if coinManager.coin > CoinManager.captionCost {
-                            print(coinManager.coin)
-                            loadingModel.isCaptionGenerate = false
-                            regenerateAnswer()
-                            pathManager.path.append(.Loading)
-                            trackingRegenerate()
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                                regenerateAnswer()
-                            }
-                        }
-                    }
-                    return Alert(title: Text("2크래딧이 사용됩니다.\n재생성하시겠습니까?\n\n남은 크래딧 \(coinManager.coin)/\(CoinManager.maximalCoin)"), primaryButton: cancelBtn, secondaryButton: regenreateBtn)
-                case .second:
-                    return Alert(title: Text("크래딧을 모두 소모하였습니다.\n재생성이 불가능합니다."))
-                }
-            }
+
         }
     }
 }
