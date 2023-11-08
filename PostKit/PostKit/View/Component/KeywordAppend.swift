@@ -32,7 +32,7 @@ struct KeywordAppend: View {
             }
     
             if !selectKeyWords.isEmpty {
-                WrappingHStack(alignment: .leading) {
+                WrappingHStack(alignment: .leading,horizontalSpacing: 8, verticalSpacing: 8) {
                     ForEach(selectKeyWords, id: \.self) { index in
                         CustomHashtag(tagText: index) {
                             selectKeyWords.removeAll(where: { $0 == index})

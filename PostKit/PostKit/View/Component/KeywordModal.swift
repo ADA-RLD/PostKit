@@ -105,7 +105,7 @@ extension KeywordModal {
             }
             
             if !selectKeyWords.isEmpty {
-                WrappingHStack(alignment: .leading) {
+                WrappingHStack(alignment: .leading, horizontalSpacing: 8, dverticalSpacing: 8) {
                     ForEach(selectKeyWords, id: \.self) { i in
                         CustomHashtag(tagText: i) {
                             selectKeyWords.removeAll(where: { $0 == i})
@@ -188,7 +188,7 @@ extension KeywordModal {
                     .foregroundColor(Color.gray2)
             }
             
-            WrappingHStack(alignment: .leading){
+            WrappingHStack(alignment: .leading, horizontalSpacing: 8,verticalSpacing: 8){
                 switch pickerSelection {
                 case 0:
                     ForEach(firstSegmentPoint, id: \.self) { i in
