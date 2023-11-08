@@ -174,7 +174,7 @@ struct HashtagView: View {
                     .background(Color.gray5.opacity(0.4))
                     .zIndex(1)
             }
-            if showCreditAlert == true {
+            if showCreditAlert {
                 CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
                 }
         }
