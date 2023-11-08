@@ -24,7 +24,7 @@ struct CaptionResultView: View {
     @State private var copyId = UUID()
     @State private var likeCopy = false //좋아요 버튼 결과뷰에서 변경될 수 있으니까 여기 선언
     @State private var isCaptionChange = false
-    @State private var isPresented: Bool = false
+    @State private var showAlert: Bool = false
     @State private var activeAlert: ActiveAlert = .first
     @State private var showModal = false
     @State var isShowingToast = false
@@ -57,8 +57,27 @@ struct CaptionResultView: View {
                     loadingModel.isCaptionGenerate = true
                     trackingResult()
                 }
+            if showAlert == true {
+                switch activeAlert {
+                case .first:
+                    CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "1 크레딧이 사용돼요 \n남은 크레딧 : \(coinManager.coin)", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: { if coinManager.coin > CoinManager.minimalCoin {
+                        loadingModel.isCaptionGenerate = false
+                        regenerateAnswer()
+                        pathManager.path.append(.Loading)
+                        Mixpanel.mainInstance().track(event: "결과 재생성")
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                            regenerateAnswer()
+                        }
+                    }
+                        showAlert = false
+    }, bottomAction: {showAlert = false}, showAlert: $showAlert)
+                case .second:
+                    CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 재생성할 수 있어요", topBtnLabel: "확인", topAction: {showAlert = false})
+                }
+            }
         }
         .navigationBarBackButtonHidden()
+        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
 }
 
@@ -80,32 +99,47 @@ extension CaptionResultView {
                                 .body1Bold(textColor: .gray5)
                         })
                     }
-                    
-                    // MARK: - 타이틀 + 설명
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("주문하신 글이 나왔어요!")
-                            .title1(textColor: .gray6)
-                    }
-                    
-                    // MARK: - 생성된 카피 출력 + 복사하기 버튼
-                    VStack(alignment: .trailing, spacing: 20) {
-                        VStack {
-                            ZStack(alignment: .leading) {
-                                // TODO: historyLeftAction 추가
-                                HistoryButton(resultText: $viewModel.promptAnswer, buttonText: "수정하기", historyRightAction: {
-                                    trackingEdit()
+                    VStack(alignment: .leading, spacing: 24) {
+                        HStack {
+                            Text("주문하신 글이 나왔어요!")
+                                .title1(textColor: .gray6)
+                            Spacer()
+                            Image(.pen)
+                                .resizable()
+                                .frame(width: 18, height: 18)
+                                .foregroundColor(.gray4)
+                                .onTapGesture {
                                     self.showModal = true
-                                }, historyLeftAction: {}).sheet(isPresented: self.$showModal, content: {
-                                    ResultUpdateModalView(
-                                        showModal: $showModal, isChange: $isCaptionChange,
-                                        stringContent: $viewModel.promptAnswer,
-                                        resultUpdateType: .captionResult
-                                    ) { updatedText in
-                                        viewModel.promptAnswer = updatedText
-                                    }
-                                    .interactiveDismissDisabled()
-                                })
+                                }
+                        }.sheet(isPresented: self.$showModal, content: {
+                            ResultUpdateModalView(
+                                showModal: $showModal, isChange: $isCaptionChange,
+                                stringContent: $viewModel.promptAnswer,
+                                resultUpdateType: .captionResult
+                            ) { updatedText in
+                                viewModel.promptAnswer = updatedText
                             }
+                            .interactiveDismissDisabled()
+                        })
+
+                        VStack(spacing: 4) {
+                            Text(viewModel.promptAnswer)
+                                .body1Regular(textColor: .gray5)
+                            HStack {
+                                Spacer()
+                                //TODO: 좋아요 기능 추가
+                                Image(.heart)
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.gray3)
+                            }
+                        }
+                        .padding(EdgeInsets(top: 24, leading: 20, bottom: 24, trailing: 20))
+                        .clipShape(RoundedRectangle(cornerRadius: radius1))
+                        .foregroundColor(.clear)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: radius1)
+                                .stroke(Color.gray2, lineWidth: 1)
                         }
                     }
                 }
@@ -113,15 +147,14 @@ extension CaptionResultView {
             Spacer()
             
             // MARK: - 재생성 / 복사 버튼
-            CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
+            CustomDoubleBtn(leftBtnLabel: "재생성", rightBtnLabel: "복사") {
+                showAlert = true
                 // TODO: - 상수 값으로의 변경 필요
                 if coinManager.coin >= CoinManager.captionCost {
                     activeAlert = .first
-                    isPresented.toggle()
                 }
                 else {
                     activeAlert = .second
-                    isPresented.toggle()
                 }
             } rightAction: {
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
@@ -129,7 +162,7 @@ extension CaptionResultView {
                 trackingCopy()
             }
             .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
-            .alert(isPresented: $isPresented) {
+            .alert(isPresented: $showAlert) {
                 switch activeAlert {
                 case .first:
                     let cancelBtn = Alert.Button.default(Text("취소")) {

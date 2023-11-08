@@ -57,7 +57,7 @@ struct MainView: View {
                             .tag(0)
                             .onTapGesture {hapticManger.notification(type: .success)}
                         
-                        MainHistoryView()
+                        MainHistoryView(selection: $selection)
                             .tabItem {
                                 if selection == 1 {
                                     Image(.historyFocus)
@@ -68,7 +68,6 @@ struct MainView: View {
                             }
                             .tag(1)
                             .onTapGesture {hapticManger.notification(type: .success)}
-                         
                     }
 
                     .navigationDestination(for: StackViewType.self) { stackViewType in
@@ -157,7 +156,7 @@ extension MainView : MainViewProtocol {
                     _date: captionCoreData.date ?? Date(),
                     _category: captionCoreData.category ?? "",
                     _caption: captionCoreData.caption ?? "",
-                    _like: captionCoreData.like 
+                    _like: captionCoreData.like
                 )
             }
             captions.sort { $0.date > $1.date }
@@ -178,7 +177,7 @@ extension MainView : MainViewProtocol {
                     _date: hashtagCoreData.date ?? Date(),
                     _locationTag: hashtagCoreData.locationTag ?? [""],
                     _keyword: hashtagCoreData.keyword ?? [""],
-                    _hashtag: hashtagCoreData.hashtag ?? "", 
+                    _hashtag: hashtagCoreData.hashtag ?? "",
                     _isLike: hashtagCoreData.like
                 )
             }
@@ -337,3 +336,4 @@ extension MainView : iCloudProtocol {
         //개발중
     }
 }
+
