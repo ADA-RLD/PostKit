@@ -15,6 +15,7 @@ struct CustomTextfield: View {
     
     @StateObject var keyboard: KeyboardObserver = KeyboardObserver()
     @Binding var text : String
+    @FocusState private var isFocused: Bool
     
     var placeHolder: String
     var customTextfieldState: CustomTextfieldState = .one
@@ -23,6 +24,7 @@ struct CustomTextfield: View {
     
     var body: some View {
         TextField(placeHolder, text: $text, prompt: Text(placeHolder).foregroundColor(Color.gray3))
+            .focused($isFocused)
             .font(.body1Bold())
             .tint(Color.gray6)
             .padding()
@@ -30,7 +32,7 @@ struct CustomTextfield: View {
             .clipShape(RoundedRectangle(cornerRadius: radius1))
             .overlay {
                 RoundedRectangle(cornerRadius: radius1)
-                    .stroke(keyboard.isShowing ? Color.gray3 : Color.gray2)
+                    .stroke(isFocused ? Color.gray3 : Color.gray2)
             }
             .onChange(of: text) {
                 _ in if text.count > textLimit {
@@ -46,7 +48,7 @@ struct CustomTextfield: View {
             .overlay(alignment: .trailing) {
                 Text("\(self.text.count.description)/\(textLimit)")
                     .font(.body2Regular())
-                    .foregroundStyle(keyboard.isShowing ? Color.gray6 : Color.gray4)
+                    .foregroundStyle(isFocused ? Color.gray6 : Color.gray4)
                     .padding(.trailing, paddingHorizontal)
             }
             .submitLabel(.done)
@@ -56,7 +58,6 @@ struct CustomTextfield: View {
                     text = ""
                 }
             }
-            
     }
 }
 
