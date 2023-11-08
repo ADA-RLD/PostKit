@@ -47,7 +47,7 @@ struct DailyView: View {
                 KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["날씨 ・ 계절","커피 ・ 음료","디저트"])
                     .presentationDragIndicator(.visible)
             }
-            if showAlert == true {
+            if showAlert {
                 CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
                 }
             }
