@@ -28,6 +28,7 @@ struct HashtagResultView: View {
     @ObservedObject var loadingModel = LoadingViewModel.shared
     
     private let pasteBoard = UIPasteboard.general
+    private let copyManager = CopyManger.instance
     
     //CoreData Manager
     let coreDataManager = CoreDataManager.instance
@@ -166,7 +167,8 @@ extension HashtagResultView {
             } rightAction: {
                 Mixpanel.mainInstance().track(event: "복사", properties: ["카테고리": "해시태그"])
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
-                copyToClipboard()
+                copyManager.copyToClipboard(copyString: viewModel.hashtag)
+                isShowingToast = true
             }
             .alert(isPresented: $showAlert) {
                 switch activeAlert {
@@ -252,14 +254,6 @@ extension HashtagResultView : HashtagProtocol {
     }
 }
 
-//MARK: Function
-extension HashtagResultView {
-    // MARK: 카피 복사
-    private func copyToClipboard() {
-        pasteBoard.string = viewModel.hashtag
-        isShowingToast = true
-    }
-}
 
 #Preview {
     HashtagResultView()
