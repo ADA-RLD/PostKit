@@ -148,11 +148,11 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some Vi
                 if timeStep == 0 {
                     Spacer()
                 }
-                if timeStep > 0 {
-                    CustomTagFeild(tagText: inputArr[0]) {
-                        print("Hello")
-                    }
-                }
+//                if timeStep > 0 {
+//                    //CustomTagFeild(tagText: inputArr[0]) {
+//                        print("Hello")
+//                    }
+//                }
                 if timeStep > 2 {
                     CustomTagFeild(tagText: inputArr[2]) {
                         print("Hello")
