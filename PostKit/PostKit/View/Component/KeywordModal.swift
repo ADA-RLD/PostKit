@@ -21,7 +21,6 @@ struct KeywordModal: View {
     @Binding var customKeywords: [String]
     @Environment(\.presentationMode) var presentationMode
     @State private var inputText: String = ""
-    @State private var isShowingAlert: Bool = false
     @State private var pickerSelection: Int = 0
     @State private var firstSegmentPoint = coffeeKeys.map{$0.name}
     @State private var secondSegmentPoint = drinkKeys.map{$0.name}
@@ -29,28 +28,33 @@ struct KeywordModal: View {
     @State private var weatherPoint = weatherKeys.map {$0.name}
     @State private var coffeeDrinkPoint = dailyCoffeeKeys.map{$0.name}
     @State private var dailyDessertPoint = dailyDessertKeys.map{$0.name}
+    @State private var isShowingToast = false
     @Namespace var nameSpace
     
     var modalType: KeywordModalType = .daily
     
     var pickerList: [String]
     var body: some View {
-        VStack() {
-            headerArea()
-            
-            ContentArea {
-                VStack(alignment: .leading, spacing: 28) {
-                    keywordInputArea()
-                    
-                    segementaionArea()
+        ZStack {
+            VStack() {
+                headerArea()
+                
+                ContentArea {
+                    VStack(alignment: .leading, spacing: 28) {
+                        keywordInputArea()
+                        
+                        segementaionArea()
+                    }
                 }
+                Spacer()
             }
-            Spacer()
-        }.onAppear {
-            if modalType == .daily {
-                firstSegmentPoint = weatherKeys.map { $0.name}
-                secondSegmentPoint = dailyCoffeeKeys.map { $0.name}
-                thirdSegmentPoint = dailyDessertKeys.map { $0.name}
+            .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
+            .onAppear {
+                if modalType == .daily {
+                    firstSegmentPoint = weatherKeys.map { $0.name}
+                    secondSegmentPoint = dailyCoffeeKeys.map { $0.name}
+                    thirdSegmentPoint = dailyDessertKeys.map { $0.name}
+                }
             }
         }
     }
@@ -92,11 +96,11 @@ extension KeywordModal {
                     selectKeyWords.append(inputText)
                     customKeywords.append(inputText)
                 }
-                else if selectKeyWords.count > maxCount {
-                    isShowingAlert = true
-                }
             }
             .onSubmit {
+                if selectKeyWords.count >= maxCount {
+                    isShowingToast = true
+                }
                 if modalType == .daily {
                     Mixpanel.mainInstance().track(event: "커스텀 키워드 입력", properties:["카테고리": "일상"])
                 }
@@ -144,10 +148,6 @@ extension KeywordModal {
                     }
                 }
             }
-        }
-        .alert(isPresented: $isShowingAlert) {
-            Alert(title: Text(""), message: Text("최대 5개까지만 입력할 수 있습니다."),
-                  dismissButton: .default(Text("확인")))
         }
     }
     
@@ -231,7 +231,7 @@ extension KeywordModal {
                 selectKeyWords.append(point)
             }
             else {
-                isShowingAlert.toggle()
+                isShowingToast = true
             }
         } label: {
             Text(point)
