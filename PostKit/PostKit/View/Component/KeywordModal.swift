@@ -35,7 +35,7 @@ struct KeywordModal: View {
     
     var pickerList: [String]
     var body: some View {
-        VStack(alignment: .leading, spacing: 17) {
+        VStack() {
             headerArea()
             
             ContentArea {
@@ -80,12 +80,13 @@ extension KeywordModal {
                     .body1Bold(textColor: .main)
             }
         }
+        .frame(height: 44)
+        .padding(.top,14)
         .padding(.horizontal, 16)
-        .padding(.top, 25)
     }
     
     private func keywordInputArea() -> some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 20) {
             CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
                 if !inputText.isEmpty && selectKeyWords.count < maxCount {
                     selectKeyWords.append(inputText)
@@ -105,7 +106,7 @@ extension KeywordModal {
             }
             
             if !selectKeyWords.isEmpty {
-                WrappingHStack(alignment: .leading, horizontalSpacing: 8, dverticalSpacing: 8) {
+                WrappingHStack(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 8) {
                     ForEach(selectKeyWords, id: \.self) { i in
                         CustomHashtag(tagText: i) {
                             selectKeyWords.removeAll(where: { $0 == i})
@@ -151,60 +152,61 @@ extension KeywordModal {
     }
     
     private func segementaionArea() -> some View {
-        
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 12) {
             Text("추천 키워드")
                 .body2Bold(textColor: .gray5)
             
-            HStack(spacing: 0) {
-                ForEach(pickerList.indices, id: \.self ) { selected in
-                    Button {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                            pickerSelection = selected
-                        }
-                    } label: {
-                        Text(pickerList[selected])
-                            .font(pickerSelection == selected ? .system(size: 13, weight: .semibold) : .system(size: 13, weight: .regular))
-                            .foregroundColor(.gray5)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                            .background {
-                                if pickerSelection == selected {
-                                    RoundedRectangle(cornerRadius: radius2)
-                                        .matchedGeometryEffect(id: "activeBackGround", in: nameSpace)
-                                        .foregroundColor(pickerSelection == selected ? .white : .gray2)
-                                }
+            VStack(alignment: .leading, spacing: 20) {
+                HStack(spacing: 0) {
+                    ForEach(pickerList.indices, id: \.self ) { selected in
+                        Button {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                pickerSelection = selected
                             }
+                        } label: {
+                            Text(pickerList[selected])
+                                .font(pickerSelection == selected ? .system(size: 13, weight: .semibold) : .system(size: 13, weight: .regular))
+                                .foregroundColor(.gray5)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .background {
+                                    if pickerSelection == selected {
+                                        RoundedRectangle(cornerRadius: radius2)
+                                            .matchedGeometryEffect(id: "activeBackGround", in: nameSpace)
+                                            .foregroundColor(pickerSelection == selected ? .white : .gray2)
+                                    }
+                                }
+                        }
+                        .tag(pickerSelection)
                     }
-                    .tag(pickerSelection)
+                    
+                }
+                .padding(.vertical, 4)
+                .padding(.horizontal, 4)
+                .frame(maxWidth: .infinity)
+                .background {
+                    RoundedRectangle(cornerRadius: radius2)
+                        .foregroundColor(Color.gray2)
                 }
                 
-            }
-            .padding(.vertical, 4)
-            .padding(.horizontal, 4)
-            .frame(maxWidth: .infinity)
-            .background {
-                RoundedRectangle(cornerRadius: radius2)
-                    .foregroundColor(Color.gray2)
-            }
-            
-            WrappingHStack(alignment: .leading, horizontalSpacing: 8,verticalSpacing: 8){
-                switch pickerSelection {
-                case 0:
-                    ForEach(firstSegmentPoint, id: \.self) { i in
-                        segementationElement(point: i)
-                    }
-                case 1:
-                    ForEach(secondSegmentPoint, id: \.self) { i in
-                        segementationElement(point: i)
-                    }
-                case 2:
-                    ForEach(thirdSegmentPoint, id: \.self) { i in
-                        segementationElement(point: i)
-                    }
-                default:
-                    ForEach(firstSegmentPoint, id: \.self) { i in
-                        segementationElement(point: i)
+                WrappingHStack(alignment: .leading, horizontalSpacing: 8,verticalSpacing: 8){
+                    switch pickerSelection {
+                    case 0:
+                        ForEach(firstSegmentPoint, id: \.self) { i in
+                            segementationElement(point: i)
+                        }
+                    case 1:
+                        ForEach(secondSegmentPoint, id: \.self) { i in
+                            segementationElement(point: i)
+                        }
+                    case 2:
+                        ForEach(thirdSegmentPoint, id: \.self) { i in
+                            segementationElement(point: i)
+                        }
+                    default:
+                        ForEach(firstSegmentPoint, id: \.self) { i in
+                            segementationElement(point: i)
+                        }
                     }
                 }
             }

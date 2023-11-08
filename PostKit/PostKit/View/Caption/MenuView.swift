@@ -46,6 +46,7 @@ struct MenuView: View {
         }
         .sheet(isPresented: $isModalPresented, content: {
             KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, customKeywords: $customKeyword, modalType: .menu ,pickerList: ["커피","음료","디저트"])
+                .presentationDragIndicator(.visible)
                 .onDisappear {
                     if menuName.count > 0 && !isSelected.isEmpty {
                         isActive = true
