@@ -31,6 +31,7 @@ struct CustomAlertMessageDouble: View {
                         .body1Bold(textColor: .gray6)
                     Text(alertContent)
                         .body2Bold(textColor: .gray4)
+                        .multilineTextAlignment(.center)
                 }
                 AlertCustomDoubleBtn(topBtnLabel: topBtnLabel, bottomBtnLabel: bottomBtnLabel, topAction: topAction, bottomAction: bottomAction)
             }
