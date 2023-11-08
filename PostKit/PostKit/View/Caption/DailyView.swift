@@ -81,7 +81,6 @@ extension DailyView {
               
                 Task{
                     loadingModel.isCaptionGenerate = false
-                    //배열에 추가해서 가져갑니다.
                     loadingModel.inputArray += weatherSelected + dailyCoffeeSelected + dailyDessertSelected
                     
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
