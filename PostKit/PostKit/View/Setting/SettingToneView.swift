@@ -18,6 +18,7 @@ struct SettingToneView: View {
     //CoreData Data Class
     @State var storeName: String = ""
     @State var isActive: Bool = false
+    @State var isShowToast: Bool = false
     @Binding var storeTone: [String]
     
     
@@ -39,7 +40,7 @@ struct SettingToneView: View {
                             }
                             
                             VStack(spacing: 0) {
-                                SelectTone(selectedTones: $storeTone)
+                                SelectTone(selectedTones: $storeTone, isShowToast: $isShowToast)
                                     .onChange(of: storeTone) { _ in
                                         isActiveCheck()
                                     }
@@ -48,6 +49,7 @@ struct SettingToneView: View {
                     }
                 }
             }
+            .toast(toastText: "3개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
             
             Group{
                 CTABtn(btnLabel: "저장", isActive: $isActive) {
@@ -68,7 +70,7 @@ struct SettingToneView: View {
 
 extension SettingToneView {
     private var toggleBtns: some View {
-        SelectTone(selectedTones: $storeTone)
+        SelectTone(selectedTones: $storeTone, isShowToast: $isShowToast)
     }
 }
 
