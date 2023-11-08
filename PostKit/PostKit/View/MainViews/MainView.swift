@@ -55,7 +55,6 @@ struct MainView: View {
                                 Text("글 쓰기")
                             }
                             .tag(0)
-                            .onTapGesture {hapticManger.notification(type: .success)}
                         
                         MainHistoryView(selection: $selection)
                             .tabItem {
@@ -67,7 +66,6 @@ struct MainView: View {
                                 Text("글 보기")
                             }
                             .tag(1)
-                            .onTapGesture {hapticManger.notification(type: .success)}
                     }
 
                     .navigationDestination(for: StackViewType.self) { stackViewType in
