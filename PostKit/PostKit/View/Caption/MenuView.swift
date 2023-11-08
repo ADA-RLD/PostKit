@@ -20,7 +20,7 @@ struct MenuView: View {
     @State private var drinkSelected: [String] = []
     @State private var dessertSelected: [String] = []
     @State private var customKeyword: [String] = []
-    @State private var isAlertPresented: Bool = false
+    @State private var showAlert: Bool = false
     @State private var isModalPresented: Bool = false
     @State private var isSelected: [String] = []
     @State private var textLength: Int = 1
@@ -38,24 +38,29 @@ struct MenuView: View {
     let textLengthArr: [Int] = [100, 200, 300]
     
     var body: some View {
-        VStack(alignment:.leading, spacing: 0) {
-            headerArea()
-            contents()
-            Spacer()
-            bottomArea()
-        }
-        .sheet(isPresented: $isModalPresented, content: {
-            KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, customKeywords: $customKeyword, modalType: .menu ,pickerList: ["커피","음료","디저트"])
-                .presentationDragIndicator(.visible)
-                .onDisappear {
-                    if menuName.count > 0 && !isSelected.isEmpty {
-                        isActive = true
+        ZStack {
+            VStack(alignment:.leading, spacing: 0) {
+                headerArea()
+                contents()
+                Spacer()
+                bottomArea()
+            }
+            .sheet(isPresented: $isModalPresented, content: {
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, customKeywords: $customKeyword, modalType: .menu ,pickerList: ["커피","음료","디저트"])
+                    .presentationDragIndicator(.visible)
+                    .onDisappear {
+                        if menuName.count > 0 && !isSelected.isEmpty {
+                            isActive = true
+                        }
                     }
+            })
+            .onTapGesture {
+                hideKeyboard()
+            }
+            if showAlert == true {
+                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
                 }
-        })
-        .onTapGesture {
-            hideKeyboard()
-        }
+            }
         .navigationBarBackButtonHidden()
     }
 }
@@ -94,8 +99,6 @@ extension MenuView {
     
     private func bottomArea() -> some View {
         CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
-            print(isActive)
-            if isActive == true {
                 if coinManager.coin > CoinManager.minimalCoin {
                     pathManager.path.append(.Loading)
                     
@@ -110,15 +113,11 @@ extension MenuView {
                     }
                 }
                 else {
-                    isAlertPresented.toggle()
+                    showAlert = true
                 }
-            }
-        })
-        .alert(isPresented: $isAlertPresented, content: {
-            return Alert(title: Text("크래딧을 모두 소모하였습니다. 재생성이 불가능합니다."))
-        })
+            })
+        }
     }
-}
 
 extension View {
     func hideKeyboard() {
