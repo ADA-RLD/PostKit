@@ -46,11 +46,10 @@ struct ErrorView: View {
                 bottomBtnLabel: "홈으로",
                 topAction: {
                     if errorReasonState == .apiError {
-                        Mixpanel.mainInstance().track(event: "재생성", properties: ["타입": "API 오류"])
+                        Mixpanel.mainInstance().track(event: "재생성 - API")
                     }
                     else if errorReasonState == .networkError {
-                        Mixpanel.mainInstance().track(event: "생성 실패", properties: ["타입": "네트워크 오류"])
-                        Mixpanel.mainInstance().track(event: "재생성", properties: ["타입": "네트워크 오류"])
+                        Mixpanel.mainInstance().track(event: "재생성 - 네트워크")
                     }
                     pathManager.path.append(.Loading)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
@@ -60,11 +59,6 @@ struct ErrorView: View {
                 bottomAction: {pathManager.path.removeAll()})
         }
         .navigationBarBackButtonHidden()
-        .onAppear  {
-            if errorReasonState == .apiError {
-                Mixpanel.mainInstance().track(event: "생성 실패", properties: ["타입": "API 오류"])
-            }
-        }
     }
 }
 

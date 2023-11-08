@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A444A642AFB100F002F39D2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A444A632AFB100F002F39D2 /* Constants.swift */; };
 		1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */; };
 		1336DE5D2AF8DF81000A6D9A /* MainCaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5C2AF8DF81000A6D9A /* MainCaptionView.swift */; };
 		1336DE642AFA9630000A6D9A /* Ex+ATTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE632AFA9630000A6D9A /* Ex+ATTrackingManager.swift */; };
@@ -62,7 +61,6 @@
 		7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */; };
 		7EF314CE2AD81DE3008E7338 /* ChatGptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */; };
 		7EF314D22AD96A69008E7338 /* ChatGptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */; };
-		A1530EF42AFA968E003F9AE4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1530EF32AFA968E003F9AE4 /* Constants.swift */; };
 		A166F0392AF90C11003C1CFD /* LoadingCancelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A166F0382AF90C11003C1CFD /* LoadingCancelView.swift */; };
 		A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5782AD79E89007473D3 /* StoreModel.swift */; };
 		A188C57F2AD7B822007473D3 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A188C57D2AD7B822007473D3 /* CoreData.xcdatamodeld */; };
@@ -96,12 +94,9 @@
 		B9872A432AF335C1000A795C /* HashtagPopoverExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A422AF335C1000A795C /* HashtagPopoverExtension.swift */; };
 		B9872A472AF394DA000A795C /* HistoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A462AF394DA000A795C /* HistoryButton.swift */; };
 		B9872A492AF3C02D000A795C /* ResultUpdateModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9872A482AF3C02D000A795C /* ResultUpdateModalView.swift */; };
-		B9ECF7E82AFB38CC00CF31F3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ECF7E72AFB38CC00CF31F3 /* Constants.swift */; };
-		B9ECF7EA2AFB3A2C00CF31F3 /* HistoryEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ECF7E92AFB3A2C00CF31F3 /* HistoryEmpty.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A444A632AFB100F002F39D2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHistoryView.swift; sourceTree = "<group>"; };
 		1336DE5C2AF8DF81000A6D9A /* MainCaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCaptionView.swift; sourceTree = "<group>"; };
 		1336DE632AFA9630000A6D9A /* Ex+ATTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+ATTrackingManager.swift"; sourceTree = "<group>"; };
@@ -157,7 +152,6 @@
 		7EF314CB2AD81DC3008E7338 /* ChatGptService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptService.swift; sourceTree = "<group>"; };
 		7EF314CD2AD81DE3008E7338 /* ChatGptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptModel.swift; sourceTree = "<group>"; };
 		7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptViewModel.swift; sourceTree = "<group>"; };
-		A1530EF32AFA968E003F9AE4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A166F0382AF90C11003C1CFD /* LoadingCancelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCancelView.swift; sourceTree = "<group>"; };
 		A188C5782AD79E89007473D3 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		A188C57E2AD7B822007473D3 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -193,8 +187,6 @@
 		B9872A422AF335C1000A795C /* HashtagPopoverExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagPopoverExtension.swift; sourceTree = "<group>"; };
 		B9872A462AF394DA000A795C /* HistoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryButton.swift; sourceTree = "<group>"; };
 		B9872A482AF3C02D000A795C /* ResultUpdateModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultUpdateModalView.swift; sourceTree = "<group>"; };
-		B9ECF7E72AFB38CC00CF31F3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		B9ECF7E92AFB3A2C00CF31F3 /* HistoryEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEmpty.swift; sourceTree = "<group>"; };
 		C674B8973F6DA180203B6836 /* Pods-PostKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.debug.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.debug.xcconfig"; sourceTree = "<group>"; };
 		DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PostKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -346,7 +338,6 @@
 				13ECB50C2AF377530046E6BE /* SelectTextLength.swift */,
 				13ECB50E2AF39D740046E6BE /* KeywordModal.swift */,
 				B913340D2AF9CD7300034036 /* CustomAlertMessage.swift */,
-				B9ECF7E92AFB3A2C00CF31F3 /* HistoryEmpty.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -645,7 +636,6 @@
 				13ECB50D2AF377530046E6BE /* SelectTextLength.swift in Sources */,
 				13C296162AD8F18900A2DE7F /* OnboardingView.swift in Sources */,
 				13C295D32AD64C3500A2DE7F /* SettingView.swift in Sources */,
-				0A444A642AFB100F002F39D2 /* Constants.swift in Sources */,
 				B98632602AD7CFB200DE9FF5 /* KeywordsModel.swift in Sources */,
 				13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */,
 				7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */,
@@ -654,7 +644,6 @@
 				A1A4FAF92AF6245400514053 /* iCloudProtocol.swift in Sources */,
 				1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */,
 				B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */,
-				B9ECF7E82AFB38CC00CF31F3 /* Constants.swift in Sources */,
 				139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
 				A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */,
@@ -668,7 +657,6 @@
 				13C295C82AD620EC00A2DE7F /* MainView.swift in Sources */,
 				13C2960C2AD8F15300A2DE7F /* OnboardingFinal.swift in Sources */,
 				B96211E92AED16CC0074CBE1 /* HashtagView.swift in Sources */,
-				B9ECF7EA2AFB3A2C00CF31F3 /* HistoryEmpty.swift in Sources */,
 				13C296122AD8F17100A2DE7F /* OnboardingStore.swift in Sources */,
 				A188C5852AD7BA89007473D3 /* CoreDataManager.swift in Sources */,
 				13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */,
@@ -817,21 +805,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = PostKit/PostKitDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"PostKit/Preview Content\"";
 				DEVELOPMENT_TEAM = F5LF3NUCU2;
-				DEVELOPMENT_TEAM = FLG797DV64;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PostKit/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "이 앱은 사용자 경험을 향상시키기 위해 추적을 사용합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -857,21 +843,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = PostKit/PostKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"PostKit/Preview Content\"";
 				DEVELOPMENT_TEAM = F5LF3NUCU2;
-				DEVELOPMENT_TEAM = FLG797DV64;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PostKit/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "이 앱은 사용자 경험을 향상시키기 위해 추적을 사용합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;

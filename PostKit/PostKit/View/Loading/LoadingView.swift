@@ -9,15 +9,15 @@ import SwiftUI
 import Mixpanel
 
 struct LoadingView: View {
-    @EnvironmentObject var pathManager: PathManager
+    
     @State var count: Int = 0
     @State var tagTimeStep: Int = 0
     @State var timeStep: Int = 0
-    @State private var isActiveAlert: Bool = false
-    
+
     //디버깅용 데이터 삭제하지는 말아주세요.
     //private var SampleData: [String] = ["1번 친구","2번 친구","3번 친구","4번 친구","5번 친구"]
     @ObservedObject var loadingModel = LoadingViewModel.shared
+    @EnvironmentObject var pathManager: PathManager
     
     var body: some View {
         
@@ -28,51 +28,40 @@ struct LoadingView: View {
             TipStruck(tipNum: 3, tipTitle: "유입을 높이는 프로필 이름 만들기", tips: "강조하고 싶은 유입 키워드와 매장 이름의 조합으로 프로필 이름을 만들어보세요!\n계정태그와 해시태그를 적절히 활용하세요"),
             TipStruck(tipNum: 4, tipTitle: "스토리 하이라이트 기능", tips: "업로드한 스토리를 24시간 후에도 고정시켜 노출할 수 있는 방법이 있어요! 하이라이트를 활용해 스토리를 카테고리화하여 어필하세요")
         ]
-        ZStack {
-            VStack {
-                VStack(alignment: .leading, spacing: 12){
-                    HStack (alignment: .top){
-                        Button(action: {
-                            isActiveAlert = true
-                        }, label: {
-                            Image(systemName: "chevron.backward")
-                                .foregroundColor(.gray4)
-                                .padding(.vertical, 16)
-                            
-                        })
-                        
-                        Spacer()
-                    }
-                    
-                    Text("글을 만들고 있어요!")
-                        .title1(textColor: .gray6)
-                    
-                    Text("지금 서비스를 나가면 생성이 중단돼요.\n최대 30초가 소요될 예정이에요.")
-                        .body1Bold(textColor: .gray4)
-                        .lineLimit(2)
-                        .fixedSize(horizontal: false, vertical: true)
+        
+        VStack {
+            VStack(alignment: .leading, spacing: 12){
+                //top back button
+                HStack (alignment: .top){
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(.gray4)
+                        .padding(.vertical, 16)
                     
                     Spacer()
-                    
                 }
+                
+                Text("글을 만들고 있어요!")
+                    .foregroundColor(.gray6)
+                    .font(.title1())
+                
+                Text("지금 서비스를 나가면 생성이 중단돼요.\n최대 30초가 소요될 예정이에요.")
+                    .body1Bold(textColor: .gray4)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+                
                 Spacer()
                 
-                LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStep)
-                
-                LoadingTipView(_timeStep: timeStep, tips: Tips)
-                    .frame(height: 150)
-                    .padding(.bottom, 12)
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 20)
-            .frame(width: UIScreen.main.bounds.width)
+            Spacer()
             
-            if isActiveAlert == true {
-                CustomAlertMessageDouble(alertTopTitle: "생성을 취소할까요?", alertContent: "취소하더라도 1 크레딧이 사용돼요", topBtnLabel: "취소", bottomBtnLabel: "계속 생성", topAction:{ pathManager.path.removeLast()
-                    trackingCancel()}, bottomAction: {self.isActiveAlert = false}, showAlert: $isActiveAlert)
-            }
+            LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStep)
+            
+            LoadingTipView(_timeStep: timeStep, tips: Tips)
+                .frame(height: 150)
+                .padding(.bottom,12)
         }
-        
+        .padding(.horizontal,20)
+        .padding(.top,20)
         .navigationBarBackButtonHidden()
         .onAppear {
             Timer.scheduledTimer(withTimeInterval: 6.0, repeats: true) { timer in
@@ -93,17 +82,25 @@ struct LoadingView: View {
                     print("\nCaption 생성시간 : \(count)초\n")
                 }
             }
-            Mixpanel.mainInstance().time(event: "글 로딩")
+            if pathManager.path.contains(.Daily) {
+                Mixpanel.mainInstance().time(event: "일상 글 로딩")
+            }
+            else if pathManager.path.contains(.Menu) {
+                Mixpanel.mainInstance().time(event: "메뉴 글 로딩")
+            }
+            else if pathManager.path.contains(.Hashtag) {
+                Mixpanel.mainInstance().time(event: "해시태그 글 로딩")
+            }
         }
         .onDisappear {
             if pathManager.path.contains(.Daily) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "일상"])
+                Mixpanel.mainInstance().track(event: "일상 글 로딩")
             }
             else if pathManager.path.contains(.Menu) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "메뉴"])
+                Mixpanel.mainInstance().track(event: "메뉴 글 로딩")
             }
             else if pathManager.path.contains(.Hashtag) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "해시태그"])
+                Mixpanel.mainInstance().track(event: "해시태그 글 로딩")
             }
         }
     }
@@ -122,7 +119,7 @@ private func LoadingTipView(_timeStep: Int, tips: [TipStruck]) -> some View {
             .frame(maxWidth: .infinity)
             .foregroundColor(.sub)
             .cornerRadius(12)
-        
+
         VStack(alignment: .leading, spacing: 12) {
             HStack{
                 Image(systemName: "lightbulb.fill")
@@ -131,7 +128,7 @@ private func LoadingTipView(_timeStep: Int, tips: [TipStruck]) -> some View {
                     .body1Bold(textColor: .gray5)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            
+
             Text(tips[_timeStep].tips)
                 .body2Regular(textColor: .gray4)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -146,7 +143,7 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some Vi
         VStack (alignment: .center){
             HStack (alignment: .bottom){
                 if timeStep == 0 {
-                    Spacer()
+                        Spacer()
                 }
                 if timeStep > 0 {
                     CustomTagFeild(tagText: inputArr[0]) {
@@ -189,7 +186,7 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some Vi
                     .offset(x: 110, y: -110)
                     .rotationEffect(.degrees(-8))
                 }else {
-                    Spacer()
+                   Spacer()
                         .frame(height: 32)
                 }
             }
@@ -199,37 +196,25 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some Vi
     }
 }
 
-private extension LoadingView {
-    private func trackingCancel() {
-        if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "일상"])
-        }
-        else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "메뉴"])
-        }
-        else if pathManager.path.contains(.Hashtag) {
-            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "해시태그"])
-        }
-    }
-}
 struct CustomTagFeild: View {
     let tagText: String
     let deleteAction: () -> Void
     
     var body: some View {
-        HStack {
-            Text(tagText)
-                .body2Regular(textColor: .main)
-        }
-        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-        .background(Color.sub)
-        .clipShape(RoundedRectangle(cornerRadius: radius1))
-        .overlay {
-            RoundedRectangle(cornerRadius: radius1)
-                .stroke(Color.main,lineWidth: 2)
+            HStack {
+                Text(tagText)
+                    .font(.body2Regular())
+                    .foregroundColor(.main)
+            }
+            .padding(EdgeInsets(top: 8, leading: radius1, bottom: 8, trailing: radius1))
+            .background(Color.sub)
+            .clipShape(RoundedRectangle(cornerRadius: radius1))
+            .overlay {
+                RoundedRectangle(cornerRadius: radius1)
+                    .stroke(Color.main,lineWidth: 2)
+            }
         }
     }
-}
 
 
 #Preview {
