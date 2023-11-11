@@ -164,6 +164,8 @@ extension MainHistoryView {
             }
             .onAppear {
                 if filterLike {
+                    fetchCaptionData()
+                    fetchHashtagData()
                     captions = captions.filter { $0.like == true }
                     hashtags = hashtags.filter { $0.isLike == true }
                 } else {
@@ -199,6 +201,8 @@ extension MainHistoryView {
         }
         .onAppear {
             if filterLike {
+                fetchCaptionData()
+                fetchHashtagData()
                 captions = captions.filter { $0.like == true }
                 hashtags = hashtags.filter { $0.isLike == true }
             } else {
