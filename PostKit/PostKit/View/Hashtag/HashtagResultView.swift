@@ -13,7 +13,6 @@ struct HashtagResultView: View {
     
     @State private var isShowingToast = false
     @State private var isLike = false //좋아요 버튼은 결과뷰에서만 존재합니다
-    @State private var copyId = UUID()
     @State private var showAlert: Bool = false
     @State private var showModal = false
     @State private var isCaptionChange = false
@@ -89,7 +88,7 @@ extension HashtagResultView {
                         Spacer()
                         Button(action: {
                             if isCaptionChange {
-                                saveEditHashtagResult(_uuid: copyId, _result: viewModel.hashtag, _like: isLike)
+                                saveEditHashtagResult(_uuid: viewModel.id, _result: viewModel.hashtag, _like: isLike)
                             }
                             loadingModel.inputArray.removeAll()
                             pathManager.path.removeAll()
@@ -120,11 +119,6 @@ extension HashtagResultView {
                             )
                             .interactiveDismissDisabled()
                         })
-                        .onAppear{
-                            // LocationTag와 Keyword는 확장성을 위해 만들어 두었습니다.
-                            //isLike 변수는 좋아요 입니다.
-                            copyId = saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: isLike)
-                        }
                         
                         VStack(spacing: 4) {
                             Text(viewModel.hashtag)
@@ -139,7 +133,7 @@ extension HashtagResultView {
                                     .onTapGesture {
                                         withAnimation(.easeIn(duration: 0.3)) {
                                             isLike.toggle()
-                                            saveEditHashtagResult(_uuid: copyId, _result: viewModel.hashtag, _like: isLike)
+                                            saveEditHashtagResult(_uuid: viewModel.id, _result: viewModel.hashtag, _like: isLike)
                                         }
                                     }
                             }
