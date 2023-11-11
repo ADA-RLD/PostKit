@@ -141,6 +141,27 @@ struct HashtagView: View {
                         .scrollIndicators(.hidden)
                     }
                 }
+                .onTapGesture {
+                    //키보드를 내림
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    
+                    //지역명이 있는지 확인
+                    if !locationText.isEmpty && locationTags.count <= keywordLimit {
+                        locationTags.append(locationText)
+                        checkTags()
+                        locationText = ""
+                    } else if locationTags.count > keywordLimit {
+                        showingAlert = true
+                    }
+                    
+                    //강조 키워드가 있는지 확인
+                    if !emphasizeText.isEmpty && emphasizeTags.count <= keywordLimit {
+                        emphasizeTags.append(emphasizeText)
+                        emphasizeText = ""
+                    } else if emphasizeTags.count > keywordLimit {
+                        showingAlert = true
+                    }
+                }
                 Spacer()
                 CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {
                     if coinManager.coin > CoinManager.minimalCoin {
