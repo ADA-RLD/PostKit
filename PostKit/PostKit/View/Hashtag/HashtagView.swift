@@ -151,7 +151,7 @@ struct HashtagView: View {
                             viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
                             
                             //해쉬태드 생성시 기본 좋아요는 false로 가져갑니다.
-                            saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
+                            viewModel.id =  saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
                             
                             print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
                             
