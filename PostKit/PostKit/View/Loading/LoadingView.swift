@@ -33,7 +33,6 @@ struct LoadingView: View {
                 CustomHeader(
                     action: {
                         isActiveAlert = true
-                        pathManager.path.removeLast()
                     },
                     title: ""
                 )
