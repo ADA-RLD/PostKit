@@ -75,8 +75,10 @@ struct MainHistoryView: View {
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                     }
+                    .border(.blue)
                 }
             }
+            .border(.red)
             if showAlert {
                 CustomAlertMessageDouble(alertTopTitle: "히스토리를 삭제할까요?", alertContent: "삭제된 글은 복구할 수 없어요", topBtnLabel: "삭제",
                                          bottomBtnLabel: "취소", topAction: {

@@ -92,7 +92,7 @@ extension KeywordModal {
     private func keywordInputArea() -> some View {
         VStack(alignment: .leading, spacing: 20) {
             CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
-                if !inputText.isEmpty && selectKeyWords.count < maxCount {
+                if (!inputText.isEmpty && selectKeyWords.count < maxCount && !firstSegmentPoint.contains(inputText) && !secondSegmentPoint.contains(inputText) && !thirdSegmentPoint.contains(inputText)) {
                     selectKeyWords.append(inputText)
                     customKeywords.append(inputText)
                 }
