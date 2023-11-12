@@ -46,7 +46,8 @@ struct OnboardingTone: View {
                 .background(Color.white)
             }.frame(maxHeight: .infinity, alignment: .bottom)
         }
-        .onAppear{cafeTone.removeAll()}
+        //저번에는 안됬었는데 왜 될까요?
+        //.onAppear{cafeTone.removeAll()}
     }
 }
 
