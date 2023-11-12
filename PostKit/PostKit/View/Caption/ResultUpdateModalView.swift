@@ -63,10 +63,9 @@ struct ResultUpdateModalView: View {
                         Spacer()
                         
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 40)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 24)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .frame(height: 400)
                     .background(Color.gray1)
                     .cornerRadius(radius1)
                     .overlay(
