@@ -37,7 +37,7 @@ struct MainHistoryView: View {
             ContentArea {
                 VStack(alignment: .leading, spacing: 20) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("히스토리")
+                        Text("글 보기")
                             .title1(textColor: .gray6)
                     }
                     
