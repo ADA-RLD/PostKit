@@ -201,7 +201,7 @@ struct ToastModifier: ViewModifier {
                 }
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()+duration){
-                        withAnimation {
+                        withAnimation(.easeOut(duration: 0.1)) {
                             isShowing = false
                         }
                     }
@@ -213,7 +213,7 @@ struct ToastModifier: ViewModifier {
 
 // MARK: - 토스트를 띄워주는 모디파이어 적용
 extension View {
-    func toast(toastText: String, toastImgRes: Image, isShowing: Binding<Bool>, duration: TimeInterval = 1.5) -> some View {
+    func toast(toastText: String, toastImgRes: Image, isShowing: Binding<Bool>, duration: TimeInterval = 2.0) -> some View {
         modifier(ToastModifier(isShowing: isShowing, toastImgRes: toastImgRes, toastText: toastText, duration: duration))
     }
 }
