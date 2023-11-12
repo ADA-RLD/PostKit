@@ -34,7 +34,6 @@ struct MainHistoryView: View {
     
     var body: some View {
         ZStack {
-            ContentArea {
                 VStack(alignment: .leading, spacing: 20) {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("글 보기")
@@ -75,10 +74,8 @@ struct MainHistoryView: View {
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                     }
-                    .border(.blue)
                 }
-            }
-            .border(.red)
+            
             if showAlert {
                 CustomAlertMessageDouble(alertTopTitle: "히스토리를 삭제할까요?", alertContent: "삭제된 글은 복구할 수 없어요", topBtnLabel: "삭제",
                                          bottomBtnLabel: "취소", topAction: {
@@ -94,6 +91,8 @@ struct MainHistoryView: View {
                 }, bottomAction: { showAlert = false }, showAlert: $showAlert)
             }
         }
+        .padding(.top, 20)
+        .padding(.horizontal, 20)
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
 }
@@ -143,20 +142,23 @@ extension MainHistoryView {
         ZStack {
             VStack {
                 ScrollView{
-                    if captions.isEmpty {
-                        HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
-                    }
-                    else {
-                        ForEach($captions) { $item in
-                            //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
-                            feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
-                                .onChange(of: item.like){ _ in
-                                    saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
-                                }
+                    ContentArea {
+                        if captions.isEmpty {
+                            HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                        }
+                        else {
+                            ForEach($captions) { $item in
+                                //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
+                                feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
+                                    .onChange(of: item.like){ _ in
+                                        saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
+                                    }
+                            }
                         }
                     }
+                  
                 }
-                .refreshable{
+                .refreshable {
                     if filterLike {
                         captions = captions.filter { $0.like == true }
                     } else {
