@@ -15,6 +15,7 @@ struct HashtagView: View {
     @State private var locationTags: [String] = []
     @State private var emphasizeTags: [String] = []
     @State private var isActive = false
+    @State private var showingAlert = false
     @State private var isShowingDescription = false
     @State private var isShowingToast = false
     @State private var showCreditAlert = false
