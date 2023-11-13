@@ -17,7 +17,7 @@ struct OnboardingTone: View {
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     
     var body: some View {
-        ZStack{
+        ZStack {
             VStack(alignment:.leading,spacing: 0) {
                 OnboardingCustomHeader(action: onboardingRouter.previousPage)
                 ScrollView {
@@ -39,13 +39,15 @@ struct OnboardingTone: View {
                     }
                 }
             }
-            .toast(toastText: "3개까지 선택할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
+            .zIndex(2)
             
             Group{
                 CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
                 .background(Color.white)
             }.frame(maxHeight: .infinity, alignment: .bottom)
         }
+        .toast(toastText: "3개까지 선택할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
+        .zIndex(1)
         .onAppear{cafeTone.removeAll()}
     }
 }
