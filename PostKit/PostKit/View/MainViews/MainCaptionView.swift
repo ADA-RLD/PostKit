@@ -95,23 +95,34 @@ extension MainCaptionView {
 extension MainCaptionView {
     
     private func coinArea() -> some View {
-        HStack(spacing: 8.0) {
-            Image(.coin)
-            Text("\(coinManager.coin)/\(coinMax)")
-                .body2Bold(textColor: .gray5)
-            Text(convertSecondsToTime(timeInSeconds:timeRemaining))
-                .body2Bold(textColor: .gray3)
-                .onReceive(timer) { _ in
-                    timeRemaining -= 1
-                    checkDate()
-                }
+        HStack {
+            HStack(spacing: 8.0) {
+                Image(.coin)
+                Text("\(coinManager.coin)/\(coinMax)")
+                    .body2Bold(textColor: .gray5)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .overlay(
+                RoundedRectangle(cornerRadius: radius1)
+                    .stroke(Color.gray2, lineWidth: 1)
+            )
+            
+            Spacer()
+            
+            HStack(spacing: 4.0) {
+                Text("무료 충전까지")
+                    .body2Bold(textColor: .gray3)
+                Text(convertSecondsToTime(timeInSeconds:timeRemaining))
+                    .body2Bold(textColor: .gray4)
+                    .multilineTextAlignment(.trailing)
+                    .onReceive(timer) { _ in
+                        timeRemaining -= 1
+                        checkDate()
+                    }
+                    .frame(width: 56) // 숫자가 바뀌며 무료 충전 텍스트의 위치가 바뀌어서 임의의 값을 지정해두었습니다.
+            }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .overlay(
-            RoundedRectangle(cornerRadius: radius1)
-                .stroke(Color.gray2, lineWidth: 1)
-        )
     }
     
     private func captionArea() -> some View {

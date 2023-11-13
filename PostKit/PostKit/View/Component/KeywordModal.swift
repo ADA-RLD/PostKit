@@ -29,6 +29,7 @@ struct KeywordModal: View {
     @State private var coffeeDrinkPoint = dailyCoffeeKeys.map{$0.name}
     @State private var dailyDessertPoint = dailyDessertKeys.map{$0.name}
     @State private var isShowingToast = false
+    @State private var keyboardHeight: CGFloat = 0
     @Namespace var nameSpace
     
     var modalType: KeywordModalType = .daily
@@ -39,12 +40,15 @@ struct KeywordModal: View {
             VStack() {
                 headerArea()
                 
-                ContentArea {
-                    VStack(alignment: .leading, spacing: 28) {
-                        keywordInputArea()
-                        
-                        segementaionArea()
+                ScrollView {
+                    ContentArea {
+                        VStack(alignment: .leading, spacing: 28) {
+                            keywordInputArea()
+                            
+                            segementaionArea()
+                        }
                     }
+                    .scrollIndicators(.hidden)
                 }
                 Spacer()
             }
@@ -56,6 +60,17 @@ struct KeywordModal: View {
                     thirdSegmentPoint = dailyDessertKeys.map { $0.name}
                 }
             }
+            .onReceive(
+                NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+                    .map {$0.userInfo![UIResponder.keyboardFrameEndUserInfoKey]as!CGRect}
+                    .map{$0.height}
+            ) { height in
+                keyboardHeight = height
+            }
+            .onReceive(
+                NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                    keyboardHeight = 0
+                }
         }
     }
 }
@@ -92,7 +107,7 @@ extension KeywordModal {
     private func keywordInputArea() -> some View {
         VStack(alignment: .leading, spacing: 20) {
             CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
-                if !inputText.isEmpty && selectKeyWords.count < maxCount {
+                if (!inputText.isEmpty && selectKeyWords.count < maxCount && !firstSegmentPoint.contains(inputText) && !secondSegmentPoint.contains(inputText) && !thirdSegmentPoint.contains(inputText)) {
                     selectKeyWords.append(inputText)
                     customKeywords.append(inputText)
                 }
