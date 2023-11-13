@@ -95,6 +95,10 @@ struct MainView: View {
                 }
                 .navigationBarBackButtonHidden()
                 .onAppear{
+                    let tabBarAppearance = UITabBarAppearance()
+                        tabBarAppearance.configureWithDefaultBackground()
+                        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+                    
                     fetchStoreData()
                     viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                     
