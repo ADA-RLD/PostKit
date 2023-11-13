@@ -18,6 +18,8 @@ struct HashtagView: View {
     @State private var isShowingDescription = false
     @State private var showingAlert = false
     @State private var showCreditAlert = false
+    @State private var isLocationTagEnable = false
+    @State private var isKeywordEnable = false
     @State private var popupState: PopoverType = .keyword
     @State private var headerHeight: CGFloat = 0
     @State private var titleHeight: CGFloat = 0
@@ -73,6 +75,17 @@ struct HashtagView: View {
                                                 showingAlert = true
                                             }
                                         }
+                                        .onTapGesture {
+                                            isLocationTagEnable = true
+                                            isKeywordEnable = false
+                                            
+                                            if !emphasizeText.isEmpty && emphasizeTags.count <= keywordLimit {
+                                                emphasizeTags.append(emphasizeText)
+                                                emphasizeText = ""
+                                            } else if emphasizeTags.count > keywordLimit {
+                                                showingAlert = true
+                                            }
+                                        }
                                         .alert(isPresented: $showingAlert) {
                                             Alert(title: Text(""), message: Text("최대 5개까지만 입력할 수 있습니다."),
                                                   dismissButton: .default(Text("확인")))
@@ -122,6 +135,19 @@ struct HashtagView: View {
                                                 showingAlert = true
                                             }
                                         }
+                                        .onTapGesture {
+                                            isKeywordEnable = true
+                                            isLocationTagEnable = false
+                                            
+                                            if !locationText.isEmpty && locationTags.count <= keywordLimit && !isLocationTagEnable{
+                                                locationTags.append(locationText)
+                                                checkTags()
+                                                locationText = ""
+                                            } else if locationTags.count > keywordLimit && !isKeywordEnable {
+                                                showingAlert = true
+                                            }
+                                            
+                                        }
                                         .alert(isPresented: $showingAlert) {
                                             Alert(title: Text(""), message: Text("최대 5개까지만 입력할 수 있습니다."),
                                                   dismissButton: .default(Text("확인")))
@@ -142,15 +168,19 @@ struct HashtagView: View {
                     }
                 }
                 .onTapGesture {
+                    
+                    isLocationTagEnable.toggle()
+                    isKeywordEnable.toggle()
+                    
                     //키보드를 내림
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     
                     //지역명이 있는지 확인
-                    if !locationText.isEmpty && locationTags.count <= keywordLimit {
+                    if !locationText.isEmpty && locationTags.count <= keywordLimit && !isLocationTagEnable{
                         locationTags.append(locationText)
                         checkTags()
                         locationText = ""
-                    } else if locationTags.count > keywordLimit {
+                    } else if locationTags.count > keywordLimit && !isKeywordEnable {
                         showingAlert = true
                     }
                     
