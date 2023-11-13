@@ -21,7 +21,7 @@ class ChatGptService {
         let openAIMessages = messages.map({chatGptMessage(role: .user, content: $0.content)})
         let randomKey = getRandomKey()
         // TODO: - 개발을 진행하는 동안 3.5로 진행하고 이후 배포시 4.0으로 상향 조정할 예정
-        let body = chatGptBody(model: "gpt-4", messages: openAIMessages)
+        let body = chatGptBody(model: "gpt-4-1106-preview", messages: openAIMessages)
         let headers: HTTPHeaders =  [
             "Authorization" : "Bearer \(randomKey)"
         ]
