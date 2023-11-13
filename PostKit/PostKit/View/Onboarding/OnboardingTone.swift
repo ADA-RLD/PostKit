@@ -30,7 +30,6 @@ struct OnboardingTone: View {
                                 Text("최대 3개까지 선택할 수 있어요")
                                     .body2Bold(textColor: .gray4)
                             }
-                            
                             SelectTone(selectedTones: $cafeTone, isShowToast: $isShowToast)
                                 .onChange(of: cafeTone) { _ in
                                     isActiveCheck()
@@ -38,14 +37,14 @@ struct OnboardingTone: View {
                         }
                     }
                 }
+                Group{
+                    CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
+                    .background(Color.white)
+                }
             }
-            .zIndex(2)
-            
-            Group{
-                CTABtn(btnLabel: "다음", isActive: $isActive, action: {onboardingRouter.nextPage()})
-                .background(Color.white)
-            }.frame(maxHeight: .infinity, alignment: .bottom)
         }
+        .frame(maxHeight: .infinity, alignment: .bottom)
+        .zIndex(2)
         .toast(toastText: "3개까지 선택할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
         .zIndex(1)
         .onAppear{cafeTone.removeAll()}
