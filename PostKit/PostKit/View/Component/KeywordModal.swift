@@ -72,7 +72,6 @@ struct KeywordModal: View {
                     keyboardHeight = 0
                 }
         }
- 
     }
 }
 

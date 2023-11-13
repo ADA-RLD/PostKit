@@ -16,7 +16,7 @@ struct HashtagView: View {
     @State private var emphasizeTags: [String] = []
     @State private var isActive = false
     @State private var isShowingDescription = false
-    @State private var showingToast = false
+    @State private var isShowingToast = false
     @State private var showCreditAlert = false
     @State private var popupState: PopoverType = .keyword
     @State private var headerHeight: CGFloat = 0
@@ -70,7 +70,7 @@ struct HashtagView: View {
                                                 locationTags.append(locationText)
                                                 checkTags()
                                             } else if locationTags.count > keywordLimit {
-                                                showingToast = true
+                                                isShowingToast = true
                                             }
                                         }
                                     }
@@ -115,7 +115,7 @@ struct HashtagView: View {
                                             if !emphasizeText.isEmpty && emphasizeTags.count <= keywordLimit {
                                                 emphasizeTags.append(emphasizeText)
                                             } else if emphasizeTags.count > keywordLimit {
-                                                showingToast = true
+                                                isShowingToast = true
                                             }
                                         }
                                     }
@@ -170,7 +170,7 @@ struct HashtagView: View {
                 CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
                 }
         }
-        .toast(toastText: "5개까지 추가할 수 있어요.", toastImgRes: Image(.exclamation), isShowing: $showingToast)
+        .toast(toastText: "5개까지 추가할 수 있어요.", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
         .onAppear{fetchHashtag()}
         .navigationBarBackButtonHidden()
     }

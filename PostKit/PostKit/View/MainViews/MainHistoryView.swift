@@ -148,7 +148,6 @@ extension MainHistoryView {
                         }
                         else {
                             ForEach($captions) { $item in
-                                //TODO: 좋아요가 추가되었습니다. 뷰의 변경 필요
                                 feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
                                     .onChange(of: item.like){ _ in
                                         saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
