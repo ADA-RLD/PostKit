@@ -19,7 +19,7 @@ struct HistoryEmptyView: View {
             
             VStack(alignment: .center, spacing: 12) {
                 Text(topTitleLable)
-                    .title1(textColor: .gray6)
+                    .title2(textColor: .gray6)
                     .multilineTextAlignment(.center)
                 
                 Text(bottomTitleLable)
