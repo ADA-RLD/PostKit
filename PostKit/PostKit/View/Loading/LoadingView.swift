@@ -29,43 +29,42 @@ struct LoadingView: View {
             TipStruck(tipNum: 4, tipTitle: "스토리 하이라이트 기능", tips: "업로드한 스토리를 24시간 후에도 고정시켜 노출할 수 있는 방법이 있어요! 하이라이트를 활용해 스토리를 카테고리화하여 어필하세요")
         ]
         ZStack {
-            VStack {
-                VStack(alignment: .leading, spacing: 12){
-                    HStack (alignment: .top){
-                        Button(action: {
-                            isActiveAlert = true
-                        }, label: {
-                            Image(systemName: "chevron.backward")
-                                .foregroundColor(.gray4)
-                                .padding(.vertical, 16)
+            VStack(spacing: 0){
+                CustomHeader(
+                    action: {
+                        isActiveAlert = true
+                    },
+                    title: ""
+                )
+                
+                VStack {
+                    HStack{
+                        VStack(alignment: .leading, spacing: 12){
+                            Text("글을 만들고 있어요!")
+                                .title1(textColor: .gray6)
                             
-                        })
-                        
+                            Text("지금 서비스를 나가면 생성이 중단돼요.\n최대 30초가 소요될 예정이에요.")
+                                .body1Bold(textColor: .gray4)
+                                .lineLimit(2)
+                                .fixedSize(horizontal: false, vertical: true)
+                            
+                            Spacer()
+                        }
                         Spacer()
                     }
                     
-                    Text("글을 만들고 있어요!")
-                        .title1(textColor: .gray6)
-                    
-                    Text("지금 서비스를 나가면 생성이 중단돼요.\n최대 30초가 소요될 예정이에요.")
-                        .body1Bold(textColor: .gray4)
-                        .lineLimit(2)
-                        .fixedSize(horizontal: false, vertical: true)
-                    
                     Spacer()
                     
+                    LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStep)
+                    
+                    LoadingTipView(_timeStep: timeStep, tips: Tips)
+                        .frame(height: 150)
+                        .padding(.bottom, 12)
                 }
-                Spacer()
-                
-                LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStep)
-                
-                LoadingTipView(_timeStep: timeStep, tips: Tips)
-                    .frame(height: 150)
-                    .padding(.bottom, 12)
+                .padding(.horizontal, 20)
+                .padding(.top, 27.6)
+                .frame(width: UIScreen.main.bounds.width)
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 20)
-            .frame(width: UIScreen.main.bounds.width)
             
             if isActiveAlert == true {
                 CustomAlertMessageDouble(alertTopTitle: "생성을 취소할까요?", alertContent: "취소하더라도 1 크레딧이 사용돼요", topBtnLabel: "취소", bottomBtnLabel: "계속 생성", topAction:{ pathManager.path.removeLast()
@@ -221,12 +220,12 @@ struct CustomTagFeild: View {
             Text(tagText)
                 .body2Regular(textColor: .main)
         }
-        .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+        .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
         .background(Color.sub)
         .clipShape(RoundedRectangle(cornerRadius: radius1))
         .overlay {
             RoundedRectangle(cornerRadius: radius1)
-                .stroke(Color.main,lineWidth: 2)
+                .stroke(Color.main, lineWidth: 2)
         }
     }
 }

@@ -47,7 +47,7 @@ struct CustomDoubleBtn: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 18.5)
                     .background(Color.gray2)
-                    .background(in: RoundedRectangle(cornerRadius: radius1))
+                    .background(in: RoundedRectangle(cornerRadius: radius2))
  
             })
             
@@ -59,7 +59,7 @@ struct CustomDoubleBtn: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 18.5)
                     .background(Color.main)
-                    .background(in: RoundedRectangle(cornerRadius: radius1))
+                    .background(in: RoundedRectangle(cornerRadius: radius2))
 
             })
         }
