@@ -10,7 +10,6 @@ import CoreData
 import AppTrackingTransparency
 
 struct MainView: View {
-    @AppStorage("_coin") var coin: Int = 0
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
@@ -96,6 +95,10 @@ struct MainView: View {
                 }
                 .navigationBarBackButtonHidden()
                 .onAppear{
+                    let tabBarAppearance = UITabBarAppearance()
+                        tabBarAppearance.configureWithDefaultBackground()
+                        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+                    
                     fetchStoreData()
                     viewModel.promptAnswer = "생성된 텍스트가 들어가요."
                     

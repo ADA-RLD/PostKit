@@ -144,7 +144,7 @@ extension MainHistoryView {
                 ScrollView{
                     ContentArea {
                         if captions.isEmpty {
-                            HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                            HistoryEmptyView(topTitleLable: filterLike ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                         }
                         else {
                             ForEach($captions) { $item in
@@ -183,7 +183,7 @@ extension MainHistoryView {
         VStack {
             ScrollView{
                 if hashtags.isEmpty {
-                    HistoryEmptyView(topTitleLable: "아직 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                    HistoryEmptyView(topTitleLable: filterLike ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                 }
                 else {
                     ForEach($hashtags) { $item in
