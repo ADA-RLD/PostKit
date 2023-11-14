@@ -105,7 +105,6 @@ extension KeywordModal {
         .frame(height: 44)
         .padding(.top,14)
         .padding(.horizontal, 16)
-        
         .onChange(of: selectModalKeywords) { _ in
             selectModalKeywords = removeDuplicates(from: selectModalKeywords)
         }
