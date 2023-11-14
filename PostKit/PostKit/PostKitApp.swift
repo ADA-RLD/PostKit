@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct PostKitApp: App {
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
     // Naviagtion path Controll
     @StateObject var pathManager = PathManager()
