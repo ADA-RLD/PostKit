@@ -11,19 +11,23 @@ import Combine
 
 class ChatGptService {
     private let baseUrl = "https://api.openai.com/v1/chat/completions"
+    private let firebaseManager = FirebaseManager()
+    private var chatGptKey: String?
     // 키 오류를 대비해서 랜덤하게 키를 게속 바꿔줍니다.
-    func getRandomKey() -> String {
-        let randomIndex = Int.random(in: 0..<Constants.ChatGptAPIKey.count)
-        return Constants.ChatGptAPIKey[randomIndex]
+    func getRandomKey() {
+        let chatGptAPIKey = firebaseManager.getDoucument(apiName: "chatgptAPI") { [weak self] (key) in
+            self?.chatGptKey = key
+        }
+        print(chatGptKey ?? "없음")
     }
     
     func sendMessage(messages: [Message]) -> AnyPublisher<chatGptResponse, Error> {
         let openAIMessages = messages.map({chatGptMessage(role: .user, content: $0.content)})
-        let randomKey = getRandomKey()
+         getRandomKey()
         // TODO: - 개발을 진행하는 동안 3.5로 진행하고 이후 배포시 4.0으로 상향 조정할 예정
         let body = chatGptBody(model: "gpt-4-1106-preview", messages: openAIMessages)
         let headers: HTTPHeaders =  [
-            "Authorization" : "Bearer \(randomKey)"
+            "Authorization" : "Bearer \(chatGptKey ?? "키 값 오류")"
         ]
         
         return Future <chatGptResponse, Error>{ promise in
