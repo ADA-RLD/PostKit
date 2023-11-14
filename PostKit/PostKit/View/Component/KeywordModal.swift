@@ -211,7 +211,7 @@ extension KeywordModal {
                         .foregroundColor(Color.gray2)
                 }
                 
-                WrappingHStack(alignment: .leading, horizontalSpacing: 8,verticalSpacing: 8){
+                WrappingHStack(alignment: .leading, horizontalSpacing: 8,verticalSpacing: 12){
                     switch pickerSelection {
                     case 0:
                         ForEach(firstSegmentPoint, id: \.self) { i in
