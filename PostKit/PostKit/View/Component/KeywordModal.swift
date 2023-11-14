@@ -105,6 +105,10 @@ extension KeywordModal {
         .frame(height: 44)
         .padding(.top,14)
         .padding(.horizontal, 16)
+        
+        .onChange(of: selectModalKeywords) { _ in
+            selectModalKeywords = removeDuplicates(from: selectModalKeywords)
+        }
     }
     
     private func keywordInputArea() -> some View {
@@ -263,6 +267,19 @@ extension KeywordModal {
                 }
         }
     }
+    
+    private func removeDuplicates(from array: [String]) -> [String] {
+        var uniqueArray: [String] = []
+        
+        for element in array {
+            if !uniqueArray.contains(element) {
+                uniqueArray.append(element)
+            }
+        }
+        
+        return uniqueArray
+    }
+    
 }
 //
 //#Preview {
