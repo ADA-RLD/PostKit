@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import AppTrackingTransparency
 import AdSupport
+import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(
@@ -17,6 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   ) -> Bool {
       Mixpanel.initialize(token: Constants.MixpanelToken, trackAutomaticEvents: true)
       Mixpanel.mainInstance().track(event: "앱 실행")
+      FirebaseApp.configure()
     return true
   }
 }
