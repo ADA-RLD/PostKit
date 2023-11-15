@@ -20,33 +20,33 @@ struct ResultUpdateModalView: View {
     var resultUpdateType: ResultUpdateType = .captionResult
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                HStack {
-                    Button(action: {
-                        showModal = false
-                    }, label: {
-                        Text("취소")
-                            .body1Bold(textColor: .main)
-                    })
-                    
-                    Spacer()
-                    
-                    Text(resultUpdateType == .captionResult ? "글 수정하기" : "해시태그 수정하기")
-                        .body1Bold(textColor: .gray6)
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        showModal = false
-                    }, label: {
-                        Text("저장")
-                            .body1Bold(textColor: .main)
-                    })
-                }
-                .padding(.horizontal, 16)
-                .frame(height: 60)
+        VStack{
+            HStack {
+                Button(action: {
+                    showModal = false
+                }, label: {
+                    Text("취소")
+                        .body1Bold(textColor: .main)
+                })
                 
+                Spacer()
+                
+                Text(resultUpdateType == .captionResult ? "글 수정하기" : "해시태그 수정하기")
+                    .body1Bold(textColor: .gray6)
+                
+                Spacer()
+                
+                Button(action: {
+                    showModal = false
+                }, label: {
+                    Text("저장")
+                        .body1Bold(textColor: .main)
+                })
+            }
+            .padding(.horizontal, 16)
+            .frame(height: 60)
+            
+            ScrollView(showsIndicators: false)  {
                 ContentArea {
                     VStack(alignment: .leading) {
                         TextField("기본 텍스트", text: $stringContent, axis: .vertical)
