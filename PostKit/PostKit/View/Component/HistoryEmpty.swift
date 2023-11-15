@@ -16,6 +16,7 @@ struct HistoryEmptyView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 32) {
             Image(historyImage)
+                .padding(.top, 60)
             
             VStack(alignment: .center, spacing: 12) {
                 Text(topTitleLable)
@@ -26,9 +27,9 @@ struct HistoryEmptyView: View {
                     .body2Bold(textColor: .gray4)
                     .multilineTextAlignment(.center)
             }
-            AlertCustomBtn(topBtnLabel: "글 쓰기", topAction: {selection = 0}
-                          )
-        }.frame(width: 335, height: 340)
+            
+            AlertCustomBtn(topBtnLabel: "글 쓰기", topAction: {selection = 0})
+        }
     }
 }
 
