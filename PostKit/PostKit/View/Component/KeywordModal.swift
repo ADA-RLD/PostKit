@@ -22,6 +22,7 @@ struct KeywordModal: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var inputText: String = ""
     @State private var pickerSelection: Int = 0
+    @State private var selectModalKeywords: [String] = []
     @State private var firstSegmentPoint = coffeeKeys.map{$0.name}
     @State private var secondSegmentPoint = drinkKeys.map{$0.name}
     @State private var thirdSegmentPoint = dessertKeys.map{$0.name}
@@ -54,6 +55,7 @@ struct KeywordModal: View {
             }
             .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
             .onAppear {
+                selectModalKeywords = selectKeyWords
                 if modalType == .daily {
                     firstSegmentPoint = weatherKeys.map { $0.name}
                     secondSegmentPoint = dailyCoffeeKeys.map { $0.name}
@@ -79,7 +81,7 @@ extension KeywordModal {
     private func headerArea() -> some View {
         HStack {
             Button {
-                selectKeyWords = []
+                selectModalKeywords = []
                 firstSegementSelected = []
                 secondSegementSelected = []
                 thirdSegementSelected = []
@@ -93,6 +95,7 @@ extension KeywordModal {
                 .font(.system(size: 17, weight: .semibold))
             Spacer()
             Button {
+                selectKeyWords = selectModalKeywords 
                 self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("저장")
@@ -102,18 +105,21 @@ extension KeywordModal {
         .frame(height: 44)
         .padding(.top,14)
         .padding(.horizontal, 16)
+        .onChange(of: selectModalKeywords) { _ in
+            selectModalKeywords = removeDuplicates(from: selectModalKeywords)
+        }
     }
     
     private func keywordInputArea() -> some View {
         VStack(alignment: .leading, spacing: 20) {
             CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
-                if (!inputText.isEmpty && selectKeyWords.count < maxCount && !firstSegmentPoint.contains(inputText) && !secondSegmentPoint.contains(inputText) && !thirdSegmentPoint.contains(inputText)) {
-                    selectKeyWords.append(inputText)
+                if (!inputText.isEmpty && selectModalKeywords.count < maxCount && !firstSegmentPoint.contains(inputText) && !secondSegmentPoint.contains(inputText) && !thirdSegmentPoint.contains(inputText)) {
+                    selectModalKeywords.append(inputText)
                     customKeywords.append(inputText)
                 }
             }
             .onSubmit {
-                if selectKeyWords.count >= maxCount {
+                if selectModalKeywords.count >= maxCount {
                     isShowingToast = true
                 }
                 if modalType == .daily {
@@ -124,11 +130,11 @@ extension KeywordModal {
                 }
             }
             
-            if !selectKeyWords.isEmpty {
+            if !selectModalKeywords.isEmpty {
                 WrappingHStack(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 8) {
-                    ForEach(selectKeyWords, id: \.self) { i in
+                    ForEach(selectModalKeywords, id: \.self) { i in
                         CustomHashtag(tagText: i) {
-                            selectKeyWords.removeAll(where: { $0 == i})
+                            selectModalKeywords.removeAll(where: { $0 == i})
                             
                             if firstSegementSelected.contains(i) {
                                 firstSegementSelected.removeAll(where: { $0 == i})
@@ -204,7 +210,7 @@ extension KeywordModal {
                         .foregroundColor(Color.gray2)
                 }
                 
-                WrappingHStack(alignment: .leading, horizontalSpacing: 8,verticalSpacing: 8){
+                WrappingHStack(alignment: .leading, horizontalSpacing: 8,verticalSpacing: 12){
                     switch pickerSelection {
                     case 0:
                         ForEach(firstSegmentPoint, id: \.self) { i in
@@ -230,7 +236,7 @@ extension KeywordModal {
     
     private func segementationElement(point: String) -> some View {
         Button {
-            if selectKeyWords.count < maxCount {
+            if selectModalKeywords.count < maxCount {
                 if firstSegmentPoint.contains(point) {
                     firstSegementSelected.append(point)
                     firstSegmentPoint.removeAll(where: { $0 == point})
@@ -243,7 +249,7 @@ extension KeywordModal {
                     secondSegementSelected.append(point)
                     secondSegmentPoint.removeAll(where: { $0 == point})
                 }
-                selectKeyWords.append(point)
+                selectModalKeywords.append(point)
             }
             else {
                 isShowingToast = true
@@ -260,8 +266,21 @@ extension KeywordModal {
                 }
         }
     }
+    
+    private func removeDuplicates(from array: [String]) -> [String] {
+        var uniqueArray: [String] = []
+        
+        for element in array {
+            if !uniqueArray.contains(element) {
+                uniqueArray.append(element)
+            }
+        }
+        
+        return uniqueArray
+    }
+    
 }
 //
 //#Preview {
-//    KeywordModal(selectKeyWords: .constant([]))
+//    KeywordModal(selectModalKeywords: .constant([]))
 //}

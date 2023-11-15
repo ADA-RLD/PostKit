@@ -196,7 +196,6 @@ struct ToastModifier: ViewModifier {
                     .background(.gray5)
                     .cornerRadius(radius1)
                     .padding(.horizontal, paddingHorizontal)
-                    .padding(.bottom, paddingBottom)
                 }
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()+duration){
