@@ -85,6 +85,7 @@
 		7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605092AF13965003A87BC /* HashtagViewModel.swift */; };
 		7E06050C2AF22826003A87BC /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E06050B2AF22826003A87BC /* MenuViewModel.swift */; };
 		7E06050E2AF22834003A87BC /* DailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E06050D2AF22834003A87BC /* DailyViewModel.swift */; };
+		7E08977B2B01CB070075BB97 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E08977A2B01CB070075BB97 /* Constants.swift */; };
 		7E1EE0862AF9C50C0039207F /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1EE0852AF9C50C0039207F /* StringExtension.swift */; };
 		7E1EE0882AF9CAD00039207F /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1EE0872AF9CAD00039207F /* ErrorViewModel.swift */; };
 		7E1EE08A2AF9CF8E0039207F /* CaptionResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1EE0892AF9CF8E0039207F /* CaptionResultViewModel.swift */; };
@@ -179,6 +180,7 @@
 		7E0605092AF13965003A87BC /* HashtagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagViewModel.swift; sourceTree = "<group>"; };
 		7E06050B2AF22826003A87BC /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		7E06050D2AF22834003A87BC /* DailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewModel.swift; sourceTree = "<group>"; };
+		7E08977A2B01CB070075BB97 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7E1EE0852AF9C50C0039207F /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		7E1EE0872AF9CAD00039207F /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		7E1EE0892AF9CF8E0039207F /* CaptionResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionResultViewModel.swift; sourceTree = "<group>"; };
@@ -732,6 +734,7 @@
 				13819EEB2B0303DC005E5D91 /* FirebaseManager.swift in Sources */,
 				7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */,
 				13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */,
+				7E08977B2B01CB070075BB97 /* Constants.swift in Sources */,
 				13C296182AD8F1F000A2DE7F /* CustomHeader.swift in Sources */,
 				A1A4FAF92AF6245400514053 /* iCloudProtocol.swift in Sources */,
 				1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */,

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct OnboardingIntro: View {
-    @EnvironmentObject var appstorageManager : AppstorageManager
     @ObservedObject var onboardingRouter = OnboardingRouter.shared
     
     var body: some View {
@@ -21,7 +20,7 @@ struct OnboardingIntro: View {
                         .frame(height: 113)
                     
                     Text("포스트킷과 함께\n우리 매장을 알려봐요")
-                        .title2(textColor: .gray6)
+                        .title1(textColor: .gray6)
                     
                     Text("포스트킷은 쉽고 빠르게 마케팅용 콘텐츠를 생성하는\n효과적인 인공지능 글쓰기 도구에요.\n\n몇 번의 탭만으로\n귀찮은 콘텐츠 제작 업무를 해결해보세요!")
                         .body1Regular(textColor: .gray4)

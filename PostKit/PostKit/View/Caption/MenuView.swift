@@ -41,8 +41,10 @@ struct MenuView: View {
         ZStack {
             VStack(alignment:.leading, spacing: 0) {
                 headerArea()
-                contents()
-                Spacer()
+                ScrollView{
+                    contents()
+                    Spacer()
+                }
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented, content: {
