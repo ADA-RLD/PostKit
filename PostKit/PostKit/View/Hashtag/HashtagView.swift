@@ -196,7 +196,6 @@ struct HashtagView: View {
                 Spacer()
                 CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {
                     if coinManager.coin > CoinManager.minimalCoin {
-                        pathManager.path.append(.HashtagResult)
                         Task{
                             viewModel.emphasizeKey = emphasizeTags
                             viewModel.locationKey = locationTags
@@ -209,6 +208,7 @@ struct HashtagView: View {
                             
                             pathManager.path.append(.Loading)
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                                pathManager.path.append(.HashtagResult)
                                 coinManager.coinHashtagUse()
                             }
                         }

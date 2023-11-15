@@ -29,7 +29,7 @@ struct SettingToneView: View {
                     pathManager.path.removeLast()
                 }, title: "말투")
                 
-                ScrollView {
+                ScrollView (.vertical, showsIndicators: true, content:{
                     ContentArea {
                         VStack(spacing: 0){
                             HStack(spacing: 0){
@@ -47,7 +47,7 @@ struct SettingToneView: View {
                             }
                         }
                     }
-                }
+                })
             }
             .toast(toastText: "3개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
             
