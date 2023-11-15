@@ -14,7 +14,7 @@ struct SelectTone: View {
     let tones: [Tone] = [
         Tone(tone: "친절한", toneExample: "에스프레소와 부드러운 우유가 조화롭게 어우러져요.", isBest: true),
         Tone(tone: "감성적인", toneExample: "바쁜 일상 속 작은 여유를 선사하는 부드러운 맛이에요.", isBest: true),
-        Tone(tone: "논리적인", toneExample: "깊고 진한 에스프레소와 부드러운 우유의 조화를 경험하세요", isBest: false),
+        Tone(tone: "논리적인", toneExample: "깊고 진한 에스프레소와 부드러운 우유의 조화를 경험하세요.", isBest: false),
         Tone(tone: "간단한", toneExample: "부드러운 풍미의 카페라떼에요.", isBest: false),
         Tone(tone: "애교있는", toneExample: "부드러운 풍미의 카페라떼가 여러분을 기다리고 있어요.", isBest: false),
         Tone(tone: "재치있는", toneExample: "입 안 가득 부드러운 풍미에 눈이 번쩍 떠질지도 몰라요!", isBest: false)

@@ -99,6 +99,8 @@ extension CaptionResultView {
                                 .body1Bold(textColor: .gray5)
                         })
                     }
+                    .padding(.vertical, 20.5)
+                    
                     VStack(alignment: .leading, spacing: 24) {
                         HStack {
                             Text("주문하신 글이 나왔어요!")
@@ -196,7 +198,6 @@ struct ToastModifier: ViewModifier {
                     .background(.gray5)
                     .cornerRadius(radius1)
                     .padding(.horizontal, paddingHorizontal)
-                    .padding(.bottom, paddingBottom)
                 }
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()+duration){
