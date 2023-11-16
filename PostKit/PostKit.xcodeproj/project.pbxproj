@@ -39,7 +39,7 @@
 		13819EE72B03028E005E5D91 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 13819EE62B03028E005E5D91 /* FirebaseStorage */; };
 		13819EE92B03028E005E5D91 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 13819EE82B03028E005E5D91 /* FirebaseStorageCombine-Community */; };
 		13819EEB2B0303DC005E5D91 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13819EEA2B0303DC005E5D91 /* FirebaseManager.swift */; };
-		13819EED2B03ABC8005E5D91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13819EEC2B03ABC8005E5D91 /* GoogleService-Info.plist */; };
+		13819EF62B060470005E5D91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13819EF52B060470005E5D91 /* GoogleService-Info.plist */; };
 		139B2C7E2ADFF8690036BD18 /* ContentArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C7D2ADFF8690036BD18 /* ContentArea.swift */; };
 		139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C882AECF0CD0036BD18 /* ErrorView.swift */; };
 		139B2C8B2AEF34890036BD18 /* HashtagResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */; };
@@ -133,7 +133,7 @@
 		1336DE632AFA9630000A6D9A /* Ex+ATTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+ATTrackingManager.swift"; sourceTree = "<group>"; };
 		137DF4E02AFBACB200571AD4 /* CopyManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyManger.swift; sourceTree = "<group>"; };
 		13819EEA2B0303DC005E5D91 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		13819EEC2B03ABC8005E5D91 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		13819EF52B060470005E5D91 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		139B2C7D2ADFF8690036BD18 /* ContentArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentArea.swift; sourceTree = "<group>"; };
 		139B2C882AECF0CD0036BD18 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagResultView.swift; sourceTree = "<group>"; };
@@ -287,7 +287,7 @@
 		13C295A42AD55F2100A2DE7F = {
 			isa = PBXGroup;
 			children = (
-				13819EEC2B03ABC8005E5D91 /* GoogleService-Info.plist */,
+				13819EF52B060470005E5D91 /* GoogleService-Info.plist */,
 				13C295AF2AD55F2100A2DE7F /* PostKit */,
 				13C295AE2AD55F2100A2DE7F /* Products */,
 				D2EED1AA8014945B0B79CFF3 /* Pods */,
@@ -480,6 +480,7 @@
 		7EF314D32AD9A1C2008E7338 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				7E08977A2B01CB070075BB97 /* Constants.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -635,7 +636,7 @@
 				13C295F22AD7136E00A2DE7F /* Pretendard-Light.otf in Resources */,
 				13C295F42AD7136E00A2DE7F /* Pretendard-ExtraLight.otf in Resources */,
 				13C295F02AD7136E00A2DE7F /* Pretendard-Regular.otf in Resources */,
-				13819EED2B03ABC8005E5D91 /* GoogleService-Info.plist in Resources */,
+				13819EF62B060470005E5D91 /* GoogleService-Info.plist in Resources */,
 				13C295F32AD7136E00A2DE7F /* Pretendard-Thin.otf in Resources */,
 				13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */,
 				13C295EF2AD7136E00A2DE7F /* Pretendard-SemiBold.otf in Resources */,
