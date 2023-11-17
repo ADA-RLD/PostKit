@@ -73,6 +73,7 @@ struct MainView: View {
                             }
                             .tag(1)
                     }
+                    .accentColor(.main)
                     .navigationDestination(for: StackViewType.self) { stackViewType in
                         switch stackViewType {
                         case .Menu:
