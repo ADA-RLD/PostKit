@@ -8,12 +8,14 @@ import SwiftUI
 import CoreData
 //import CloudKit
 import AppTrackingTransparency
+import FirebaseRemoteConfig
 
 struct MainView: View {
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var isShowingToast = false
+    @State private var updateAlert = false
     //iCloud가 연동 확인 모델
 //    @StateObject private var iCloudData = CloudKitUserModel()
     @ObservedObject var viewModel = ChatGptViewModel.shared
@@ -33,6 +35,11 @@ struct MainView: View {
     
     //TabView의 선택된 View
     @State var selection = 0
+    
+    
+    let appStoreAppID = "6470146461"
+    let remoteConfig = RemoteConfig.remoteConfig()
+    let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
     
     var body: some View {
         ZStack {
@@ -94,7 +101,12 @@ struct MainView: View {
                     }
                 }
                 .navigationBarBackButtonHidden()
-                .onAppear{
+                .onAppear {
+                    fetchUpdate()
+                    if appVersion < remoteConfig["var_require_ios"].stringValue ?? "오루" {
+                        updateAlert = true
+                    }
+                    
                     let tabBarAppearance = UITabBarAppearance()
                         tabBarAppearance.configureWithDefaultBackground()
                         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
@@ -105,6 +117,8 @@ struct MainView: View {
                     fetchCaptionData()
                     fetchHashtagData()
                     loadingModel.inputArray.removeAll()
+                    print(remoteConfig["var_require_ios"].stringValue!)
+                    print(updateAlert)
 //                    //Cloud 디버깅
 //                    print("iCloud Status")
 //                    print("IS SIGNED IN: \(iCloudData.isSignedIntoiCloud.description.uppercased())\nPermission Status: \(iCloudData.permissionStatus.description)\nUser Name: \(iCloudData.userName)")
@@ -112,6 +126,13 @@ struct MainView: View {
 //                    
 //                    saveToCloud()
                 }
+            }
+        }
+        .alert("업데이트가 필요합니다", isPresented: $updateAlert) {
+            Button {
+                forceUpdate()
+            } label: {
+                Text("확인")
             }
         }
     }
@@ -124,6 +145,23 @@ extension MainView {
         hapticManger.notification(type: .success)
         pasteBoard.string = viewModel.promptAnswer
         isShowingToast = true
+    }
+    
+    private func fetchUpdate() {
+        remoteConfig.fetch(withExpirationDuration: TimeInterval(60)) { (status, error) -> Void in
+            if status == .success {
+                print("Config fetched!")
+                remoteConfig.fetchAndActivate()
+            } else {
+                print("Config not fethed")
+                print("Error: \(error?.localizedDescription ?? "No error availabe.")")
+            }
+        }
+    }
+    
+    private func forceUpdate() {
+        let url = URL(string: "https://apps.apple.com/kr/app/%ED%8F%AC%EC%8A%A4%ED%8A%B8%ED%82%B7-postkit/id" + appStoreAppID)!
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 
