@@ -12,6 +12,7 @@ import AdSupport
 import Firebase
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+
     private let firebaseManager = FirebaseManager()
     private var mixpanelKey: String?
 
@@ -23,6 +24,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             
             DispatchQueue.main.async {
                 Mixpanel.initialize(token: self?.mixpanelKey ?? "믹스패널 키 오류", trackAutomaticEvents: true)
+                Mixpanel.mainInstance().identify(distinctId: UUID().uuidString)
                 Mixpanel.mainInstance().track(event: "앱 실행")
             }
         }
