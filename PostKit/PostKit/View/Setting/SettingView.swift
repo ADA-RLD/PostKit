@@ -27,11 +27,12 @@ struct SettingView: View {
             ContentArea {
                 VStack(spacing: 40.0) {
                     settingStoreInfo(info: "매장 정보", Answer: storeModel.storeName, action: {pathManager.path.append(.SettingStore)})
-                    // TODO: 코어데이터 함수 변경 필요
                     settingToneInfo(info: "말투", tones: storeModel.tone, action: {pathManager.path.append(.SettingTone)})
+                    settingCS()
             
                 }
             }
+         
             Spacer()
         }
         .onAppear{fetchStoreData()}
@@ -55,6 +56,15 @@ private func settingStoreInfo(info: String, Answer: String?,action: @escaping ()
             .font(.body1Bold())
             .foregroundStyle(Color.gray4)
         }
+    }
+}
+
+private func settingCS() -> some View {
+    HStack {
+        NavigationLink(destination: MyWebView(urlToLoad: "https://postkit.channel.io/")) {
+            Text("문의하기")
+        }
+
     }
 }
 
