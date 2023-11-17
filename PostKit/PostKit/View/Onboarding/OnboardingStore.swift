@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Mixpanel
 
 struct OnboardingStore: View {
     //Core Data 저장을 위해 가지고 나가기
@@ -36,7 +37,13 @@ struct OnboardingStore: View {
             }
             Spacer()
             CTABtn(btnLabel: "다음", isActive: $isActive,
-                   action: {hideKeyboard()
+                   action: {
+                hideKeyboard()
+                if cafeName == "TEST" {
+                    Mixpanel.mainInstance().people.set(properties: ["UserType": "Test", "$name": "\(cafeName)"])
+                } else {
+                    Mixpanel.mainInstance().people.set(properties: ["UserType": "Real", "$name": "\(cafeName)"])
+                }
                 onboardingRouter.nextPage()
             })
         }

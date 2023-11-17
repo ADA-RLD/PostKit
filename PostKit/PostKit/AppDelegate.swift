@@ -15,7 +15,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-      Mixpanel.initialize(token: Constants.MixpanelToken, trackAutomaticEvents: true)
+      Mixpanel.initialize(token: Constants.MixpanelToken, trackAutomaticEvents: false)
+      Mixpanel.mainInstance().identify(distinctId: UUID().uuidString)
       Mixpanel.mainInstance().track(event: "앱 실행")
     return true
   }
