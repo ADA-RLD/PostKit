@@ -43,7 +43,6 @@ struct MainHistoryView: View {
                     HStack {
                         historyIndicator
                         Spacer()
-                        //TODO: 좋아요 정렬이 필요함
                         Image(.heart)
                             .resizable()
                             .frame(width: 28, height: 28)
@@ -153,7 +152,6 @@ extension MainHistoryView {
                             feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
                                 .onChange(of: item.like){ _ in
                                     saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
-                                    // TODO: 좋아요 반영
                                     if filterLike {
                                         captions = captions.filter { $0.like == true }
                                         hashtags = hashtags.filter { $0.isLike == true }
