@@ -23,43 +23,41 @@ struct SettingToneView: View {
     
     
     var body: some View {
-        ZStack{
+        ZStack(alignment: .bottom){
             VStack(alignment:.leading, spacing: 0) {
                 CustomHeader(action: {
                     pathManager.path.removeLast()
                 }, title: "말투")
-                
-                ScrollView (.vertical, showsIndicators: true, content:{
+                ScrollView{
                     ContentArea {
-                        VStack(spacing: 0){
-                            HStack(spacing: 0){
-                                Text("최대 3개까지 선택할 수 있어요")
-                                    .body2Bold(textColor: .gray4)
-                                    .padding(.bottom, 16)
-                                Spacer()
+                        VStack(alignment: .leading, spacing: 16){
+                            VStack(spacing: 0){
+                                HStack(spacing: 0){
+                                    Text("최대 3개까지 선택할 수 있어요")
+                                        .body2Bold(textColor: .gray4)
+                                    Spacer()
+                                }
                             }
-                            
-                            VStack(spacing: 0) {
-                                SelectTone(selectedTones: $storeTone, isShowToast: $isShowToast)
-                                    .onChange(of: storeTone) { _ in
-                                        isActiveCheck()
-                                    }
-                            }
+
+                            SelectTone(selectedTones: $storeTone, isShowToast: $isShowToast)
+                                .onChange(of: storeTone) { _ in
+                                    isActiveCheck()
+                                }
                         }
                     }
-                })
+                }
             }
-            .toast(toastText: "3개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
             
             Group{
                 CTABtn(btnLabel: "저장", isActive: $isActive) {
-                    //TODO: coredata 형식 변경 필요
                     saveStoreData(storeName: storeName, storeTone: storeTone)
                     pathManager.path.removeLast()
                 }
                 .background(Color.white)
-            }.frame(maxHeight: .infinity, alignment: .bottom)
+            }
+            .frame(alignment: .bottom)
         }
+        .toast(toastText: "3개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
         .navigationBarBackButtonHidden(true)
         .onAppear {
             fetchStoreData()
@@ -129,5 +127,5 @@ extension SettingToneView: SettingProtocol {
         
     }
     
-
+    
 }
