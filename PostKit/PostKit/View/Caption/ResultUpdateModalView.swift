@@ -51,6 +51,7 @@ struct ResultUpdateModalView: View {
                     VStack(alignment: .leading) {
                         TextField("기본 텍스트", text: $stringContent, axis: .vertical)
                             .font(.body1Bold())
+                            .lineSpacing(4)
                             .foregroundColor(Color.gray5)
                             .onChange(of: stringContent) { _ in
                                 isChange = true

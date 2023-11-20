@@ -43,7 +43,6 @@ struct MainHistoryView: View {
                     HStack {
                         historyIndicator
                         Spacer()
-                        //TODO: 좋아요 정렬이 필요함
                         Image(.heart)
                             .resizable()
                             .frame(width: 28, height: 28)
@@ -74,6 +73,9 @@ struct MainHistoryView: View {
                     .tabViewStyle(.page(indexDisplayMode: .never))
                 }
             }
+            .padding(.top, 20)
+            .padding(.horizontal, 20)
+            .zIndex(0)
             
             if showAlert {
                 CustomAlertMessageDouble(alertTopTitle: "히스토리를 삭제할까요?", alertContent: "삭제된 글은 복구할 수 없어요", topBtnLabel: "삭제",
@@ -90,8 +92,6 @@ struct MainHistoryView: View {
                 }, bottomAction: { showAlert = false }, showAlert: $showAlert)
             }
         }
-        .padding(.top, 20)
-        .padding(.horizontal, 20)
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
 }
@@ -152,6 +152,13 @@ extension MainHistoryView {
                             feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
                                 .onChange(of: item.like){ _ in
                                     saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
+                                    if filterLike {
+                                        captions = captions.filter { $0.like == true }
+                                        hashtags = hashtags.filter { $0.isLike == true }
+                                    } else {
+                                        fetchCaptionData()
+                                        fetchHashtagData()
+                                    }
                                 }
                         }
                     }
@@ -190,6 +197,13 @@ extension MainHistoryView {
                             hashtagHistoryDetail(uid: item.id, date: convertDate(date: item.date), hashtagContent: $item.hashtag, hashtagLike: $item.isLike)
                                 .onChange(of: item.isLike){ _ in
                                     saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
+                                    if filterLike {
+                                        captions = captions.filter { $0.like == true }
+                                        hashtags = hashtags.filter { $0.isLike == true }
+                                    } else {
+                                        fetchCaptionData()
+                                        fetchHashtagData()
+                                    }
                                 }
                         }
                     }
