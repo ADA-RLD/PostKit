@@ -24,7 +24,7 @@ struct CustomAlertMessageDouble: View {
     @Binding var showAlert: Bool
     var body: some View {
         ZStack {
-//            Color.black.opacity(0.4)
+            Color.black.opacity(0.4).ignoresSafeArea()
             VStack(spacing: 36) {
                 VStack(spacing: 8) {
                     Text(alertTopTitle)

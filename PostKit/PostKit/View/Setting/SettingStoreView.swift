@@ -17,6 +17,7 @@ struct SettingStoreView: View {
     
     //CoreData Data Class
     @Binding var storeName: String
+    @State private var originStoreName: String = ""
     @State var storeTone: Array = ["","",""]
     @State var isActive: Bool = false
     
@@ -30,7 +31,7 @@ struct SettingStoreView: View {
                         .foregroundStyle(Color.gray5)
                     CustomTextfield(text: $storeName, placeHolder: storeName)
                         .onChange(of: $storeName.wrappedValue) { lengthCount in
-                            if !lengthCount.isEmpty {
+                            if !lengthCount.isEmpty && $storeName.wrappedValue != originStoreName {
                                 isActive = true
                             } else {
                                 isActive = false
@@ -45,7 +46,10 @@ struct SettingStoreView: View {
             })
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear{fetchStoreData()}
+        .onAppear{
+            fetchStoreData()
+            originStoreName = storeName
+        }
     }
 }
 
