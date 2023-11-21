@@ -29,6 +29,7 @@ struct HashtagView: View {
     
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = HashtagViewModel.shared
+    @ObservedObject var chatGpt = ChatGptService.shared
     
     //Create Hashtag
     private let hashtagService = HashtagService()
@@ -196,20 +197,24 @@ struct HashtagView: View {
                 Spacer()
                 CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {
                     if coinManager.coin > CoinManager.minimalCoin {
-                        Task{
-                            viewModel.emphasizeKey = emphasizeTags
-                            viewModel.locationKey = locationTags
-                            viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
-                            
-                            //해쉬태드 생성시 기본 좋아요는 false로 가져갑니다.
-                            viewModel.id =  saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
-                            
-                            print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
-                            
-                            pathManager.path.append(.Loading)
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                        pathManager.path.append(.Loading)
+                        coinManager.coinHashtagUse()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                            if !chatGpt.isCanceled {
+                                viewModel.emphasizeKey = emphasizeTags
+                                viewModel.locationKey = locationTags
+                                viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
+                                
+                                //해쉬태드 생성시 기본 좋아요는 false로 가져갑니다.
+                                viewModel.id =  saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
+                                
+                                print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
+                                
                                 pathManager.path.append(.HashtagResult)
-                                coinManager.coinHashtagUse()
+                            }
+                            else{
+                                chatGpt.isCanceled = false
                             }
                         }
                     }
