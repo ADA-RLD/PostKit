@@ -280,15 +280,15 @@ extension MainHistoryView {
                     Text("복사")
                         .body2Bold(textColor: .white)
                 }
-                .onTapGesture {
-                    copyManger.copyToClipboard(copyString: content.wrappedValue)
-                    isShowingToast = true
-                }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
                 .background(
                     RoundedRectangle(cornerRadius: radius1)
                         .fill(Color.gray5)
+                        .onTapGesture {
+                            copyManger.copyToClipboard(copyString: content.wrappedValue)
+                            isShowingToast = true
+                        }
                 )
             }
             .padding(.horizontal, 4)
@@ -360,15 +360,15 @@ extension MainHistoryView {
                     Text("복사")
                         .body2Bold(textColor: .white)
                 }
-                .onTapGesture {
-                    copyManger.copyToClipboard(copyString: hashtagContent.wrappedValue)
-                    isShowingToast = true
-                }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
                 .background(
                     RoundedRectangle(cornerRadius: radius1)
                         .fill(Color.gray5)
+                        .onTapGesture {
+                            copyManger.copyToClipboard(copyString: hashtagContent.wrappedValue)
+                            isShowingToast = true
+                        }
                 )
             }
             .padding(.horizontal, 4)
