@@ -120,7 +120,7 @@ extension MainCaptionView {
                         timeRemaining -= 1
                         checkDate()
                     }
-                    .frame(width: 56) // 숫자가 바뀌며 무료 충전 텍스트의 위치가 바뀌어서 임의의 값을 지정해두었습니다.
+                    .frame(width: 60) // 숫자가 바뀌며 무료 충전 텍스트의 위치가 바뀌어서 임의의 값을 지정해두었습니다.
             }
         }
     }
