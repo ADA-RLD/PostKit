@@ -23,7 +23,6 @@ struct MainHistoryView: View {
     @State private var showAlert = false
     @State private var alertType: AlertType = .historyCaption
     @Binding var selection: Int
-    @Namespace var nameSpace
     
     private let hapticManger = HapticManager.instance
     private let pasteBoard = UIPasteboard.general
@@ -100,10 +99,8 @@ extension MainHistoryView {
     private var historyIndicator: some View {
         HStack(spacing: 16) {
             Button(action: {
-                withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
-                    historySelected = "피드 글"
-                    alertType = .historyCaption
-                }
+                historySelected = "피드 글"
+                alertType = .historyCaption
             }, label: {
                 Text("피드 글")
                     .title2(textColor: historySelected == "피드 글" ? .gray6 : .gray3)
@@ -113,16 +110,13 @@ extension MainHistoryView {
                             Rectangle()
                                 .foregroundColor(.gray6)
                                 .frame(height: 2)
-                                .matchedGeometryEffect(id: "activeStroke", in: nameSpace)
                         }
                     }
             })
             
             Button(action: {
-                withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
-                    historySelected = "해시태그"
-                    alertType = .historyHashtag
-                }
+                historySelected = "해시태그"
+                alertType = .historyHashtag
             }, label: {
                 Text("해시태그")
                     .title2(textColor: historySelected == "해시태그" ? .gray6 : .gray3)
@@ -132,7 +126,6 @@ extension MainHistoryView {
                             Rectangle()
                                 .foregroundColor(.gray6)
                                 .frame(height: 2)
-                                .matchedGeometryEffect(id: "activeStroke", in: nameSpace)
                         }
                     }
             })
