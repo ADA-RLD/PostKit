@@ -21,7 +21,6 @@ struct SettingToneView: View {
     @State var isShowToast: Bool = false
     @Binding var storeTone: [String]
     
-    
     var body: some View {
         ZStack(alignment: .bottom){
             VStack(alignment:.leading, spacing: 0) {
@@ -126,6 +125,4 @@ extension SettingToneView: SettingProtocol {
         print("Store 저장 완료!\nStoreName: \(newStore.storeName ?? "지정 안됨")\nStoreTone: \(newStore.tones)\n")
         
     }
-    
-    
 }
