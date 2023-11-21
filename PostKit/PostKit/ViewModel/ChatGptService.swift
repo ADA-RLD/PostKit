@@ -8,8 +8,14 @@
 import Foundation
 import Alamofire
 import Combine
+import SwiftUI
 
-class ChatGptService {
+class ChatGptService: ObservableObject {
+    static let shared = ChatGptService()
+    
+    @AppStorage("_isCanceled") var isCanceled: Bool = false
+    @ObservedObject var coinManager = CoinManager.shared
+    
     private let baseUrl = "https://api.openai.com/v1/chat/completions"
     // 키 오류를 대비해서 랜덤하게 키를 게속 바꿔줍니다.
     func getRandomKey() -> String {
@@ -32,7 +38,15 @@ class ChatGptService {
                     switch response.result {
                     case .success(let result):
                         print("success: \(result)")
-                        promise(.success(result))
+                        if !self.isCanceled {
+                            print("success: \(result)")
+                            promise(.success(result))
+                        }
+                        else{
+                            print("생성이 취소되었습니다.")
+                            self.coinManager.coinCaptionUse()
+                            self.isCanceled = false
+                        }
                     case .failure(let error):
                         print("error 상세 내용: \(error)")
                         print("error_code: \(error._code)")
