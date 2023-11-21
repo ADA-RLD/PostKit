@@ -67,7 +67,7 @@ struct LoadingView: View {
             }
             
             if isActiveAlert == true {
-                CustomAlertMessageDouble(alertTopTitle: "생성을 취소할까요?", alertContent: "취소하더라도 1 크레딧이 사용돼요", topBtnLabel: "취소", bottomBtnLabel: "계속 생성", topAction:{ pathManager.path.removeLast()
+                CustomAlertMessageDouble(alertTopTitle: "생성을 취소할까요?", alertContent: "취소하더라도 1 크레딧이 사용돼요", topBtnLabel: "생성 취소", bottomBtnLabel: "계속 생성", topAction:{ pathManager.path.removeLast()
                     trackingCancel()}, bottomAction: {self.isActiveAlert = false}, showAlert: $isActiveAlert)
             }
         }
