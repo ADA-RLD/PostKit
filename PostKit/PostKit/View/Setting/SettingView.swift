@@ -61,10 +61,17 @@ private func settingStoreInfo(info: String, Answer: String?,action: @escaping ()
 
 private func settingCS() -> some View {
     HStack {
+        Text("문의하기")
+            .font(.body1Bold())
+            .foregroundColor(.gray5)
+        
+        Spacer()
+        
         NavigationLink(destination: MyWebView(urlToLoad: "https://postkit.channel.io/")) {
-            Text("문의하기")
+            Image(systemName: "chevron.right")
+                .font(.body1Bold())
+                .foregroundColor(.gray4)
         }
-
     }
 }
 
