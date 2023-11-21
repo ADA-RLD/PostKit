@@ -8,8 +8,14 @@
 import Foundation
 import Alamofire
 import Combine
+import SwiftUI
 
-class ChatGptService {
+class ChatGptService: ObservableObject {
+    static let shared = ChatGptService()
+    
+    @AppStorage("_isCanceled") var isCanceled: Bool = false
+    @ObservedObject var coinManager = CoinManager.shared
+    
     private let baseUrl = "https://api.openai.com/v1/chat/completions"
     private let firebaseManager = FirebaseManager()
     private var chatGptKey: String?
@@ -23,7 +29,7 @@ class ChatGptService {
     }
     
     func sendMessage(messages: [Message]) -> AnyPublisher<chatGptResponse, Error> {
-        return Future <chatGptResponse, Error>{ promise in
+        return Future <chatGptResponse, Error> { promise in
             self.getRandomKey() {
                 let openAIMessages = messages.map({chatGptMessage(role: .user, content: $0.content)})
                 let body = chatGptBody(model: "gpt-4-1106-preview", messages: openAIMessages)
@@ -36,7 +42,15 @@ class ChatGptService {
                         switch response.result {
                         case .success(let result):
                             print("success: \(result)")
+                        if !self.isCanceled {
+                            print("success: \(result)")
                             promise(.success(result))
+                        }
+                        else{
+                            print("생성이 취소되었습니다.")
+                            self.coinManager.coinCaptionUse()
+                            self.isCanceled = false
+                        }
                         case .failure(let error):
                             print("error 상세 내용: \(error)")
                             print("error_code: \(error._code)")
