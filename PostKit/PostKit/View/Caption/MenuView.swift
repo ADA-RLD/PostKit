@@ -60,7 +60,7 @@ struct MenuView: View {
                 hideKeyboard()
             }
             if showAlert {
-                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
+                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 자정에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
                 }
             }
         .navigationBarBackButtonHidden()
