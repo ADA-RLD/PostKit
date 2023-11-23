@@ -72,6 +72,7 @@ struct HashtagView: View {
                                         CustomTextfield(text: $locationText, placeHolder: "한남동", customTextfieldState: .reuse) {
                                             if !locationText.isEmpty && locationTags.count <= keywordLimit {
                                                 locationTags.append(locationText)
+                                                locationTags = removeDuplicates(from: locationTags)
                                                 checkTags()
                                             } else if locationTags.count > keywordLimit {
                                                 isShowingToast = true
@@ -83,6 +84,7 @@ struct HashtagView: View {
                                             
                                             if !emphasizeText.isEmpty && emphasizeTags.count <= keywordLimit {
                                                 emphasizeTags.append(emphasizeText)
+                                                emphasizeTags = removeDuplicates(from: emphasizeTags)
                                                 emphasizeText = ""
                                             } else if emphasizeTags.count > keywordLimit {
                                                 showingAlert = true
@@ -133,6 +135,7 @@ struct HashtagView: View {
                                         CustomTextfield(text: $emphasizeText, placeHolder: "마카롱", customTextfieldState: .reuse) {
                                             if !emphasizeText.isEmpty && emphasizeTags.count <= keywordLimit {
                                                 emphasizeTags.append(emphasizeText)
+                                                emphasizeTags = removeDuplicates(from: emphasizeTags)
                                             } else if emphasizeTags.count > keywordLimit {
                                                 isShowingToast = true
                                             }
@@ -143,6 +146,7 @@ struct HashtagView: View {
                                             
                                             if !locationText.isEmpty && locationTags.count <= keywordLimit && !isLocationTagEnable{
                                                 locationTags.append(locationText)
+                                                locationTags = removeDuplicates(from: locationTags)
                                                 checkTags()
                                                 locationText = ""
                                             } else if locationTags.count > keywordLimit && !isKeywordEnable {
@@ -274,6 +278,17 @@ extension HashtagView {
         .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
     }
     
+    private func removeDuplicates(from array: [String]) -> [String] {
+        var uniqueArray: [String] = []
+        
+        for element in array {
+            if !uniqueArray.contains(element) {
+                uniqueArray.append(element)
+            }
+        }
+        
+        return uniqueArray
+    }
 }
 
 //MARK: extension: HashtagView Views
