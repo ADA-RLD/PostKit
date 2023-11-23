@@ -9,15 +9,15 @@ import Foundation
 
 extension MenuView {
     // MARK: - Chat Gpt API에 응답 요청
-    func sendMessage(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String, textLenth: Int){
+    func sendMessage(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String, customKeywords: Array<String>, textLenth: Int){
         Task{
-            createPrompt(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLength: textLenth)
+            createPrompt(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, customKeywords: customKeywords, menuName: menuName, textLength: textLenth)
             await createCaption()
         }
     }
     
     // MARK: - Prompt 생성
-    func createPrompt(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String, textLength: Int){
+    func createPrompt(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, customKeywords: Array<String>, menuName: String, textLength: Int){
         var pointText = ""
         var toneInfo = ""
         
@@ -65,6 +65,17 @@ extension MenuView {
             
             for index in dessertSelected.indices {
                 pointText = pointText + "\(dessertSelected[index]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count-2)
+            pointText = pointText + "이 있어."
+        }
+        
+        if !customKeywords.isEmpty {
+            pointText = pointText + "특징으로는 "
+            
+            for index in customKeywords.indices {
+                pointText = pointText + "\(customKeywords[index]), "
             }
             
             pointText = pointText.substring(from: 0, to: pointText.count-2)
