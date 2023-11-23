@@ -77,7 +77,7 @@ extension DailyView {
     
     private func bottomArea() -> some View {
         CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
-            if coinManager.coin > CoinManager.minimalCoin {
+            if coinManager.coin >= CoinManager.captionCost {
                 pathManager.path.append(.Loading)
               
                 Task{
@@ -86,7 +86,7 @@ extension DailyView {
                     loadingModel.inputArray = [isSelected, weatherSelected, dailyCoffeeSelected, dailyDessertSelected].flatMap { $0 }
                     
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                        sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
+                        sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeyword, textLength: textLengthArr[textLength])
                         print(coinManager.coin)
                     }
                 }
