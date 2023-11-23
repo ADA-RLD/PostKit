@@ -86,6 +86,8 @@ struct MainView: View {
                             SettingStoreView(storeName: $storeModel.storeName)
                         case .SettingTone:
                             SettingToneView(storeTone: $storeModel.tone)
+                        case .SettingCS:
+                            MyWebView(urlToLoad: "https://postkit.channel.io/")
                         case .Loading:
                             LoadingView()
                         case .CaptionResult:
