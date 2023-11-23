@@ -10,6 +10,7 @@ import WebKit
 
 struct MyWebView: View {
     @EnvironmentObject var pathManager: PathManager
+    
     var urlToLoad: String
     
     var body: some View {
