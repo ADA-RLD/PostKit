@@ -108,7 +108,7 @@ extension MenuView {
                         loadingModel.isCaptionGenerate = false
                         //선택된 옵션들을 가져갑니다.
                         loadingModel.inputArray = [isSelected, coffeeSelected, dessertSelected, drinkSelected].flatMap { $0 }
-                        
+                        loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                             sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
                         }
@@ -119,6 +119,18 @@ extension MenuView {
                 }
             })
         }
+    
+    private func removeDuplicates(from array: [String]) -> [String] {
+        var uniqueArray: [String] = []
+        
+        for element in array {
+            if !uniqueArray.contains(element) {
+                uniqueArray.append(element)
+            }
+        }
+        
+        return uniqueArray
+    }
     }
 
 extension View {
