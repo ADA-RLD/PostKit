@@ -58,6 +58,9 @@ struct CaptionResultView: View {
                     loadingModel.isCaptionGenerate = true
                     trackingResult()
                 }
+                .onDisappear {
+                    AppState.shared.swipeEnabled = true
+                }
             if showAlert == true {
                 switch activeAlert {
                 case .first:

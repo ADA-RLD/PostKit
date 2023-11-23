@@ -6,17 +6,25 @@
 //
 
 import SwiftUI
-//TODO: 뒤로가기 모든 화면에 적용되서 해결방법을 찾아야 합니다.
-//
-//extension UINavigationController : UINavigationControllerDelegate, UIGestureRecognizerDelegate {
-//    open override func viewDidLoad() {
-//        super.viewDidLoad()
-//        interactivePopGestureRecognizer?.delegate = self
-//        navigationBar.isHidden = true
-//    }
-//    
-//    // MARK: Navigation Stack에 쌓인 뷰가 1개를 초과해야 제스처가 동작하도록
-//    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//        return viewControllers.count > 1
-//    }
-//}
+
+
+class AppState {
+    static let shared = AppState()
+
+    var swipeEnabled = false
+}
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if AppState.shared.swipeEnabled {
+            return viewControllers.count > 1
+        }
+        return false
+    }
+    
+}

@@ -103,6 +103,7 @@ struct MainView: View {
                 }
                 .navigationBarBackButtonHidden()
                 .onAppear {
+                    AppState.shared.swipeEnabled = true
                     fetchUpdate()
                     if appVersion < remoteConfig["var_require_ios"].stringValue ?? "오루" {
                         updateAlert = true
@@ -128,7 +129,9 @@ struct MainView: View {
 //                    saveToCloud()
                 }
             }
+               
         }
+        
         .alert("업데이트가 필요합니다", isPresented: $updateAlert) {
             Button {
                 forceUpdate()

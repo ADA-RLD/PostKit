@@ -47,15 +47,13 @@ struct MainHistoryView: View {
                             .frame(width: 28, height: 28)
                             .foregroundColor(filterLike ? .main : .gray3)
                             .onTapGesture {
-                                withAnimation(.easeIn(duration: 0.3)) {
-                                    filterLike.toggle()
-                                    if filterLike {
-                                        captions = captions.filter { $0.like == true }
-                                        hashtags = hashtags.filter { $0.isLike == true }
-                                    } else {
-                                        fetchCaptionData()
-                                        fetchHashtagData()
-                                    }
+                                filterLike.toggle()
+                                if filterLike {
+                                    captions = captions.filter { $0.like == true }
+                                    hashtags = hashtags.filter { $0.isLike == true }
+                                } else {
+                                    fetchCaptionData()
+                                    fetchHashtagData()
                                 }
                             }
                     }
@@ -91,6 +89,9 @@ struct MainHistoryView: View {
                 }, bottomAction: { showAlert = false }, showAlert: $showAlert)
             }
         }
+//        .toolbarBackground(Color.black.opacity(0.4), for: .tabBar)
+//          .toolbarBackground(.visible, for: .tabBar)
+          .toolbar(showAlert ? .hidden: .visible, for: .tabBar)
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
     }
 }
@@ -137,22 +138,26 @@ extension MainHistoryView {
         VStack(spacing: 0){
             ScrollView{
                 if captions.isEmpty {
-                    HistoryEmptyView(topTitleLable: filterLike ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                    withAnimation(nil) {
+                        HistoryEmptyView(topTitleLable: filterLike ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                    }
                 }
                 else {
-                    VStack(spacing: 20){
-                        ForEach($captions) { $item in
-                            feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
-                                .onChange(of: item.like){ _ in
-                                    saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
-                                    if filterLike {
-                                        captions = captions.filter { $0.like == true }
-                                        hashtags = hashtags.filter { $0.isLike == true }
-                                    } else {
-                                        fetchCaptionData()
-                                        fetchHashtagData()
+                    withAnimation(nil) {
+                        VStack(spacing: 20) {
+                            ForEach($captions) { $item in
+                                feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
+                                    .onChange(of: item.like){ _ in
+                                        saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
+                                        if filterLike {
+                                            captions = captions.filter { $0.like == true }
+                                            hashtags = hashtags.filter { $0.isLike == true }
+                                        } else {
+                                            fetchCaptionData()
+                                            fetchHashtagData()
+                                        }
                                     }
-                                }
+                            }
                         }
                     }
                 }
@@ -180,7 +185,7 @@ extension MainHistoryView {
     
     private var hashtagHistory: some View {
         VStack(spacing: 0) {
-            ScrollView{
+            ScrollView {
                 if hashtags.isEmpty {
                     HistoryEmptyView(topTitleLable: filterLike ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                 }

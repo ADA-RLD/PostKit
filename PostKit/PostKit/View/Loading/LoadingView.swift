@@ -29,7 +29,7 @@ struct LoadingView: View {
             TipStruck(tipNum: 4, tipTitle: "스토리 하이라이트 기능", tips: "업로드한 스토리를 24시간 후에도 고정시켜 노출할 수 있는 방법이 있어요! 하이라이트를 활용해 스토리를 카테고리화하여 어필하세요")
         ]
         ZStack {
-            VStack(spacing: 0){
+            VStack(spacing: 0) {
                 CustomHeader(
                     action: {
                         isActiveAlert = true
@@ -65,9 +65,14 @@ struct LoadingView: View {
                 .padding(.top, 27.6)
                 .frame(width: UIScreen.main.bounds.width)
             }
+            .onAppear {
+                AppState.shared.swipeEnabled = false
+            }
             
             if isActiveAlert == true {
-                CustomAlertMessageDouble(alertTopTitle: "생성을 취소할까요?", alertContent: "취소하더라도 1 크레딧이 사용돼요", topBtnLabel: "취소", bottomBtnLabel: "계속 생성", topAction:{ pathManager.path.removeLast()
+                CustomAlertMessageDouble(alertTopTitle: "생성을 취소할까요?", alertContent: "취소하더라도 1 크레딧이 사용돼요", topBtnLabel: "취소", bottomBtnLabel: "계속 생성", topAction: {
+                    AppState.shared.swipeEnabled = true
+                    pathManager.path.removeLast()
                     trackingCancel()}, bottomAction: {self.isActiveAlert = false}, showAlert: $isActiveAlert)
             }
         }
