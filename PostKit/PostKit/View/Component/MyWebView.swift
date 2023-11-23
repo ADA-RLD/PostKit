@@ -8,8 +8,22 @@
 import SwiftUI
 import WebKit
 
+struct MyWebView: View {
+    @EnvironmentObject var pathManager: PathManager
+    var urlToLoad: String
+    
+    var body: some View {
+        VStack {
+            CustomHeader(action: {
+                pathManager.path.removeLast()
+            }, title: "문의하기")
+            WebViewForCS(urlToLoad: urlToLoad)
+        }
+        .navigationBarBackButtonHidden(true)
+    }
+}
 
-struct MyWebView: UIViewRepresentable {
+struct WebViewForCS: UIViewRepresentable {
     
     var urlToLoad: String
     //UIview 만드는 함수
@@ -24,7 +38,7 @@ struct MyWebView: UIViewRepresentable {
         return webview
     }
     
-    func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<MyWebView>) {
+    func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebViewForCS>) {
         
     }
 }
