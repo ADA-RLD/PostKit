@@ -84,7 +84,7 @@ extension DailyView {
                     loadingModel.isCaptionGenerate = false
                     //배열에 추가해서 가져갑니다.
                     loadingModel.inputArray = [isSelected, weatherSelected, dailyCoffeeSelected, dailyDessertSelected].flatMap { $0 }
-                    
+                    loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                         sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLengthArr[textLength])
                         print(coinManager.coin)
@@ -94,5 +94,17 @@ extension DailyView {
                 showAlert = true
             }
         })
+    }
+    
+    private func removeDuplicates(from array: [String]) -> [String] {
+        var uniqueArray: [String] = []
+        
+        for element in array {
+            if !uniqueArray.contains(element) {
+                uniqueArray.append(element)
+            }
+        }
+        
+        return uniqueArray
     }
 }
