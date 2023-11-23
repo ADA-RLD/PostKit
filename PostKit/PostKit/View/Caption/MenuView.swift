@@ -101,7 +101,7 @@ extension MenuView {
     
     private func bottomArea() -> some View {
         CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
-                if coinManager.coin > CoinManager.minimalCoin {
+                if coinManager.coin >= CoinManager.captionCost {
                     pathManager.path.append(.Loading)
                     
                     Task{
@@ -110,7 +110,7 @@ extension MenuView {
                         loadingModel.inputArray = [isSelected, coffeeSelected, dessertSelected, drinkSelected].flatMap { $0 }
                         
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                            sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
+                            sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, customKeywords: customKeyword, textLenth: textLengthArr[textLength])
                         }
                     }
                 }

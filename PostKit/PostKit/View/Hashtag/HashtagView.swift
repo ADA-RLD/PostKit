@@ -196,7 +196,7 @@ struct HashtagView: View {
                 }
                 Spacer()
                 CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {
-                    if coinManager.coin > CoinManager.minimalCoin {
+                    if coinManager.coin >= CoinManager.hashtagCost {
                         pathManager.path.append(.Loading)
                         coinManager.coinHashtagUse()
                         
