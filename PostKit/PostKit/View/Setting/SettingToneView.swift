@@ -56,7 +56,7 @@ struct SettingToneView: View {
             }
             .frame(alignment: .bottom)
         }
-        .toast(toastText: "3개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
+        .toast(toastText: "3개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast, paddingValue: paddingBottom)
         .navigationBarBackButtonHidden(true)
         .onAppear {
             fetchStoreData()

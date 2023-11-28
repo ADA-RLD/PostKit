@@ -44,9 +44,10 @@ struct OnboardingTone: View {
             }
             .frame(alignment: .bottom)
         }
-        .zIndex(2)
-        .toast(toastText: "3개까지 선택할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast)
-        .zIndex(1)
+        .toast(toastText: "3개까지 선택할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowToast, paddingValue: paddingBottom)
+
+
+ 
         .onAppear{cafeTone.removeAll()}
     }
 }

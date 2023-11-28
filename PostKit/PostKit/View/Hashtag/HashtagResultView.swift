@@ -62,7 +62,7 @@ struct HashtagResultView: View {
             AppState.shared.swipeEnabled = true
         }
         .navigationBarBackButtonHidden()
-        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
+        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast, paddingValue: 30)
     }
 }
 

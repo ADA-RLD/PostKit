@@ -53,7 +53,7 @@ struct KeywordModal: View {
                 }
                 Spacer()
             }
-            .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
+            .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast, paddingValue: paddingBottom)
             .onAppear {
                 selectModalKeywords = selectKeyWords
                 if modalType == .daily {

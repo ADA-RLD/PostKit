@@ -50,6 +50,7 @@ struct CaptionResultView: View {
     var body: some View {
         ZStack{
             captionResult
+                .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast, paddingValue: 30)
                 .onAppear {
                     checkDate()
                     //Caption이 생성되면 바로 CoreData에 저장
@@ -80,7 +81,7 @@ struct CaptionResultView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
+
     }
 }
 
@@ -180,6 +181,7 @@ struct ToastModifier: ViewModifier {
     @Binding var isShowing: Bool
     var toastImgRes: Image
     var toastText: String
+    var padding: Double
     var imgColor: Color = .black
     let duration: TimeInterval
     func body(content: Content) -> some View {
@@ -201,9 +203,10 @@ struct ToastModifier: ViewModifier {
                     .cornerRadius(radius1)
                     .padding(.horizontal, paddingHorizontal)
                 }
+                .padding(.bottom, padding)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()+duration){
-                        withAnimation(.easeOut(duration: 0.1)) {
+                        withAnimation(.default) {
                             isShowing = false
                         }
                     }
@@ -215,8 +218,8 @@ struct ToastModifier: ViewModifier {
 
 // MARK: - 토스트를 띄워주는 모디파이어 적용
 extension View {
-    func toast(toastText: String, toastImgRes: Image, isShowing: Binding<Bool>, duration: TimeInterval = 2.0) -> some View {
-        modifier(ToastModifier(isShowing: isShowing, toastImgRes: toastImgRes, toastText: toastText, duration: duration))
+    func toast(toastText: String, toastImgRes: Image, isShowing: Binding<Bool>, duration: TimeInterval = 2.0, paddingValue: Double) -> some View {
+        modifier(ToastModifier(isShowing: isShowing, toastImgRes: toastImgRes, toastText: toastText, padding: paddingValue, duration: duration))
     }
 }
 

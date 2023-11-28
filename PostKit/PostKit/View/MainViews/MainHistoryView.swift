@@ -72,7 +72,6 @@ struct MainHistoryView: View {
             }
             .padding(.top, 20)
             .padding(.horizontal, 20)
-            .zIndex(0)
             
             if showAlert {
                 CustomAlertMessageDouble(alertTopTitle: "히스토리를 삭제할까요?", alertContent: "삭제된 글은 복구할 수 없어요", topBtnLabel: "삭제",
@@ -92,7 +91,7 @@ struct MainHistoryView: View {
 //        .toolbarBackground(Color.black.opacity(0.4), for: .tabBar)
 //          .toolbarBackground(.visible, for: .tabBar)
           .toolbar(showAlert ? .hidden: .visible, for: .tabBar)
-        .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
+          .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast, paddingValue: 30)
     }
 }
 

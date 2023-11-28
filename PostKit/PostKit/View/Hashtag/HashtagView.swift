@@ -231,7 +231,7 @@ struct HashtagView: View {
                 CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
                 }
         }
-        .toast(toastText: "5개까지 추가할 수 있어요.", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
+        .toast(toastText: "5개까지 추가할 수 있어요.", toastImgRes: Image(.exclamation), isShowing: $isShowingToast, paddingValue: paddingBottom)
         .onAppear{fetchHashtag()}
         .navigationBarBackButtonHidden()
     }
