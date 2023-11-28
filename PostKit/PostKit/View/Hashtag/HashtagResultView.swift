@@ -170,7 +170,7 @@ extension HashtagResultView {
             //MARK: 재생성 / 복사 버튼
             CustomDoubleBtn(leftBtnLabel: "재생성하기", rightBtnLabel: "복사하기") {
                 showAlert = true
-                if coinManager.coin > CoinManager.hashtagCost {
+                if coinManager.coin >= CoinManager.hashtagCost {
                     activeAlert = .first
                 }
                 else {

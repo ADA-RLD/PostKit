@@ -10,15 +10,15 @@ import Combine
 
 extension DailyView {
     // MARK: - Chat Gpt API에 응답 요청
-    func sendMessage(weatherSelected: Array<String>, dailyCoffeeSelected: Array<String>, dailyDessertSelected: Array<String>, textLength: Int) {
+    func sendMessage(weatherSelected: Array<String>, dailyCoffeeSelected: Array<String>, dailyDessertSelected: Array<String>, customKeywords: Array<String>, textLength: Int) {
         Task{
-            createPrompt(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, textLength: textLength)
+            createPrompt(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeywords, textLength: textLength)
             await createCaption()
         }
     }
     
     // MARK: - Prompt 생성
-    func createPrompt(weatherSelected: Array<String>, dailyCoffeeSelected: Array<String>, dailyDessertSelected: Array<String>, textLength: Int){
+    func createPrompt(weatherSelected: Array<String>, dailyCoffeeSelected: Array<String>, dailyDessertSelected: Array<String>, customKeywords: Array<String>, textLength: Int){
         var pointText = ""
         var toneInfo = ""
         
@@ -68,6 +68,17 @@ extension DailyView {
             
             for index in dailyDessertSelected.indices {
                 pointText = pointText + "\(dailyDessertSelected[index]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count-2)
+            pointText = pointText + "이 있어."
+        }
+        
+        if !customKeywords.isEmpty {
+            pointText = pointText + "특징으로는 "
+            
+            for index in customKeywords.indices {
+                pointText = pointText + "\(customKeywords[index]), "
             }
             
             pointText = pointText.substring(from: 0, to: pointText.count-2)
