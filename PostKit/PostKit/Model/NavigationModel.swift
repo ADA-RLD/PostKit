@@ -14,6 +14,7 @@ enum StackViewType {
     case SettingHome
     case SettingStore
     case SettingTone
+    case SettingCS
     case Loading
     case CaptionResult
     case HashtagResult
