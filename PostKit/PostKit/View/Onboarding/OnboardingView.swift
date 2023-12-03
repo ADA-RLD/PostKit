@@ -37,6 +37,7 @@ struct OnboardingView: View {
                 OnboardingStore(cafeName: $storeModel.storeName)
             case 2:
                 OnboardingTone(cafeTone: $storeModel.tone)
+                    .onAppear{storeModel.tone.removeAll()}
             case 3:
                 OnboardingFinal(isFirstLaunching: $isFirstLaunching, storeName: $storeModel.storeName)
             default:

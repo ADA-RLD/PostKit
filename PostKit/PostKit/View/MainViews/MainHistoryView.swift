@@ -8,16 +8,24 @@
 import SwiftUI
 import CoreData
 
+final class LikeFilter: ObservableObject {
+    static let shared = LikeFilter()
+    @Published var isLiked : Bool
+    
+    init(isLiked: Bool = false) {
+        self.isLiked = isLiked
+    }
+}
+
 struct MainHistoryView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var filterLike = LikeFilter.shared
     @State var historySelected = "피드 글"
     @State private var captions: [CaptionModel] = []
     @State private var hashtags: [HashtagModel] = []
     @State private var isShowingToast = false
     @State private var isCaptionChange = false
     @State private var isCaptionLiked = false
-    @State private var isLiked = false
-    @State private var filterLike = false
     @State private var targetUid = UUID()
     @State private var showModal = false
     @State private var showAlert = false
@@ -46,11 +54,11 @@ struct MainHistoryView: View {
                         Image(.heart)
                             .resizable()
                             .frame(width: 28, height: 28)
-                            .foregroundColor(filterLike ? .main : .gray3)
+                            .foregroundColor(filterLike.isLiked ? .main : .gray3)
                             .onTapGesture {
                                 withAnimation(.easeIn(duration: 0.3)) {
-                                    filterLike.toggle()
-                                    if filterLike {
+                                    filterLike.isLiked.toggle()
+                                    if filterLike.isLiked {
                                         captions = captions.filter { $0.like == true }
                                         hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
@@ -144,7 +152,7 @@ extension MainHistoryView {
         VStack(spacing: 0){
             ScrollView{
                 if captions.isEmpty {
-                    HistoryEmptyView(topTitleLable: filterLike ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                    HistoryEmptyView(topTitleLable: filterLike.isLiked ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                 }
                 else {
                     VStack(spacing: 20){
@@ -152,7 +160,7 @@ extension MainHistoryView {
                             feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
                                 .onChange(of: item.like){ _ in
                                     saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
-                                    if filterLike {
+                                    if filterLike.isLiked {
                                         captions = captions.filter { $0.like == true }
                                         hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
@@ -165,7 +173,7 @@ extension MainHistoryView {
                 }
             }
             .refreshable {
-                if filterLike {
+                if filterLike.isLiked {
                     captions = captions.filter { $0.like == true }
                 } else {
                     fetchHashtagData()
@@ -173,7 +181,7 @@ extension MainHistoryView {
             }
         }
         .onAppear {
-            if filterLike {
+            if filterLike.isLiked {
                 fetchCaptionData()
                 fetchHashtagData()
                 captions = captions.filter { $0.like == true }
@@ -189,7 +197,7 @@ extension MainHistoryView {
         VStack(spacing: 0) {
             ScrollView{
                 if hashtags.isEmpty {
-                    HistoryEmptyView(topTitleLable: filterLike ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                    HistoryEmptyView(topTitleLable: filterLike.isLiked ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                 }
                 else {
                     VStack(spacing: 20){
@@ -197,7 +205,7 @@ extension MainHistoryView {
                             hashtagHistoryDetail(uid: item.id, date: convertDate(date: item.date), hashtagContent: $item.hashtag, hashtagLike: $item.isLike)
                                 .onChange(of: item.isLike){ _ in
                                     saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
-                                    if filterLike {
+                                    if filterLike.isLiked {
                                         captions = captions.filter { $0.like == true }
                                         hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
@@ -210,7 +218,7 @@ extension MainHistoryView {
                 }
             }
             .refreshable {
-                if filterLike {
+                if filterLike.isLiked {
                     hashtags = hashtags.filter { $0.isLike == true }
                 } else {
                     fetchHashtagData()
@@ -218,7 +226,7 @@ extension MainHistoryView {
             }
         }
         .onAppear {
-            if filterLike {
+            if filterLike.isLiked {
                 fetchCaptionData()
                 fetchHashtagData()
                 captions = captions.filter { $0.like == true }
@@ -280,15 +288,15 @@ extension MainHistoryView {
                     Text("복사")
                         .body2Bold(textColor: .white)
                 }
-                .onTapGesture {
-                    copyManger.copyToClipboard(copyString: content.wrappedValue)
-                    isShowingToast = true
-                }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
                 .background(
                     RoundedRectangle(cornerRadius: radius1)
                         .fill(Color.gray5)
+                        .onTapGesture {
+                            copyManger.copyToClipboard(copyString: content.wrappedValue)
+                            isShowingToast = true
+                        }
                 )
             }
             .padding(.horizontal, 4)
@@ -360,15 +368,15 @@ extension MainHistoryView {
                     Text("복사")
                         .body2Bold(textColor: .white)
                 }
-                .onTapGesture {
-                    copyManger.copyToClipboard(copyString: hashtagContent.wrappedValue)
-                    isShowingToast = true
-                }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
                 .background(
                     RoundedRectangle(cornerRadius: radius1)
                         .fill(Color.gray5)
+                        .onTapGesture {
+                            copyManger.copyToClipboard(copyString: hashtagContent.wrappedValue)
+                            isShowingToast = true
+                        }
                 )
             }
             .padding(.horizontal, 4)
