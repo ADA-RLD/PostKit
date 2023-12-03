@@ -117,6 +117,7 @@ struct LoadingView: View {
             else if pathManager.path.contains(.Hashtag) {
                 Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "해시태그"])
             }
+            loadingModel.inputArray.removeAll()
         }
     }
 }
@@ -157,24 +158,26 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some Vi
     ZStack{
         VStack (alignment: .center){
             HStack (alignment: .bottom){
-                if timeStep == 0 {
-                    Spacer()
-                }
-                if timeStep > 0 {
-                    CustomTagFeild(tagText: inputArr[0]) {
-                        print("Hello")
+                if inputArr.count > 0 {
+                    if timeStep == 0 {
+                        Spacer()
                     }
-                }
-                if timeStep > 2 {
-                    CustomTagFeild(tagText: inputArr[2]) {
-                        print("Hello")
+                    if timeStep > 0 {
+                        CustomTagFeild(tagText: inputArr[0]) {
+                            print("Hello")
+                        }
                     }
-                }
-                if timeStep > 4 {
-                    CustomTagFeild(tagText: inputArr[4]) {
-                        print("Hello")
+                    if timeStep > 2 {
+                        CustomTagFeild(tagText: inputArr[2]) {
+                            print("Hello")
+                        }
                     }
-                    
+                    if timeStep > 4 {
+                        CustomTagFeild(tagText: inputArr[4]) {
+                            print("Hello")
+                        }
+                        
+                    }
                 }
                 Spacer()
             }
@@ -183,26 +186,30 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some Vi
             .offset(x: 200, y: -20)
             
             HStack{
-                if timeStep > 1 {
-                    CustomTagFeild(tagText: inputArr[1]) {
-                        print("Hello")
+                if inputArr.count > 0 {
+                    if timeStep > 1 {
+                        CustomTagFeild(tagText: inputArr[1]) {
+                            print("Hello")
+                        }
+                        .offset(x: 110, y: -20)
+                        .rotationEffect(.degrees(5))
                     }
-                    .offset(x: 110, y: -20)
-                    .rotationEffect(.degrees(5))
                 }
             }
             .frame(maxHeight: .infinity)
             
             HStack{
-                if timeStep > 3 {
-                    CustomTagFeild(tagText: inputArr[3]) {
-                        print("Hello")
+                if inputArr.count > 0 {
+                    if timeStep > 3 {
+                        CustomTagFeild(tagText: inputArr[3]) {
+                            print("Hello")
+                        }
+                        .offset(x: 110, y: -110)
+                        .rotationEffect(.degrees(-8))
+                    }else {
+                        Spacer()
+                            .frame(height: 32)
                     }
-                    .offset(x: 110, y: -110)
-                    .rotationEffect(.degrees(-8))
-                }else {
-                    Spacer()
-                        .frame(height: 32)
                 }
             }
         }
