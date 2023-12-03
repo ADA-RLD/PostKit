@@ -28,8 +28,9 @@ struct SettingView: View {
                 VStack(spacing: 40.0) {
                     settingStoreInfo(info: "매장 정보", Answer: storeModel.storeName, action: {pathManager.path.append(.SettingStore)})
                     settingToneInfo(info: "말투", tones: storeModel.tone, action: {pathManager.path.append(.SettingTone)})
-                    settingCS()
-            
+                    settingCS(info: "문의하기") {
+                        pathManager.path.append(.SettingCS)
+                    }
                 }
             }
          
@@ -59,12 +60,21 @@ private func settingStoreInfo(info: String, Answer: String?,action: @escaping ()
     }
 }
 
-private func settingCS() -> some View {
+private func settingCS(info: String, action: @escaping () -> Void) -> some View {
     HStack {
-        NavigationLink(destination: MyWebView(urlToLoad: "https://postkit.channel.io/")) {
-            Text("문의하기")
-        }
+        Text(info)
+            .font(.body1Bold())
+            .foregroundColor(.gray5)
+        
+        Spacer()
 
+        Button {
+            action()
+        } label: {
+            Image(systemName: "chevron.right")
+                .font(.body1Bold())
+                .foregroundColor(.gray4)
+        }
     }
 }
 

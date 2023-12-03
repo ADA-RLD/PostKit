@@ -60,7 +60,7 @@ struct MenuView: View {
                 hideKeyboard()
             }
             if showAlert {
-                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
+                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 자정에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
                 }
             }
         .navigationBarBackButtonHidden()
@@ -101,16 +101,16 @@ extension MenuView {
     
     private func bottomArea() -> some View {
         CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
-                if coinManager.coin > CoinManager.minimalCoin {
+                if coinManager.coin >= CoinManager.captionCost {
                     pathManager.path.append(.Loading)
                     
                     Task{
                         loadingModel.isCaptionGenerate = false
                         //선택된 옵션들을 가져갑니다.
                         loadingModel.inputArray = [isSelected, coffeeSelected, dessertSelected, drinkSelected].flatMap { $0 }
-                        
+                        loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                            sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, textLenth: textLengthArr[textLength])
+                            sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, customKeywords: customKeyword, textLenth: textLengthArr[textLength])
                         }
                     }
                 }
@@ -119,6 +119,18 @@ extension MenuView {
                 }
             })
         }
+    
+    private func removeDuplicates(from array: [String]) -> [String] {
+        var uniqueArray: [String] = []
+        
+        for element in array {
+            if !uniqueArray.contains(element) {
+                uniqueArray.append(element)
+            }
+        }
+        
+        return uniqueArray
+    }
     }
 
 extension View {

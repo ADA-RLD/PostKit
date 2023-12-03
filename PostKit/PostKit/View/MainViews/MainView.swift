@@ -21,6 +21,7 @@ struct MainView: View {
 //    @StateObject private var iCloudData = CloudKitUserModel()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
+    @ObservedObject var filterLike = LikeFilter.shared
     private let pasteBoard = UIPasteboard.general
     
     //CoreData Manager
@@ -73,6 +74,9 @@ struct MainView: View {
                                 Text("글 보기")
                             }
                             .tag(1)
+                            .onChange(of: selection) { _ in
+                                filterLike.isLiked = false
+                            }
                     }
                     .accentColor(.main)
                     .navigationDestination(for: StackViewType.self) { stackViewType in
@@ -87,6 +91,8 @@ struct MainView: View {
                             SettingStoreView(storeName: $storeModel.storeName)
                         case .SettingTone:
                             SettingToneView(storeTone: $storeModel.tone)
+                        case .SettingCS:
+                            MyWebView(urlToLoad: "https://postkit.channel.io/")
                         case .Loading:
                             LoadingView()
                         case .CaptionResult:
@@ -100,6 +106,9 @@ struct MainView: View {
                         case .Hashtag:
                             HashtagView()
                         }
+                    }
+                    .onChange(of: pathManager.path) { _ in
+                        filterLike.isLiked = false
                     }
                 }
                 .navigationBarBackButtonHidden()

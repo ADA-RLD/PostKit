@@ -29,6 +29,7 @@ struct HashtagView: View {
     
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = HashtagViewModel.shared
+    @ObservedObject var chatGpt = ChatGptService.shared
     
     //Create Hashtag
     private let hashtagService = HashtagService()
@@ -71,6 +72,7 @@ struct HashtagView: View {
                                         CustomTextfield(text: $locationText, placeHolder: "한남동", customTextfieldState: .reuse) {
                                             if !locationText.isEmpty && locationTags.count <= keywordLimit {
                                                 locationTags.append(locationText)
+                                                locationTags = removeDuplicates(from: locationTags)
                                                 checkTags()
                                             } else if locationTags.count > keywordLimit {
                                                 isShowingToast = true
@@ -82,6 +84,7 @@ struct HashtagView: View {
                                             
                                             if !emphasizeText.isEmpty && emphasizeTags.count <= keywordLimit {
                                                 emphasizeTags.append(emphasizeText)
+                                                emphasizeTags = removeDuplicates(from: emphasizeTags)
                                                 emphasizeText = ""
                                             } else if emphasizeTags.count > keywordLimit {
                                                 showingAlert = true
@@ -132,6 +135,7 @@ struct HashtagView: View {
                                         CustomTextfield(text: $emphasizeText, placeHolder: "마카롱", customTextfieldState: .reuse) {
                                             if !emphasizeText.isEmpty && emphasizeTags.count <= keywordLimit {
                                                 emphasizeTags.append(emphasizeText)
+                                                emphasizeTags = removeDuplicates(from: emphasizeTags)
                                             } else if emphasizeTags.count > keywordLimit {
                                                 isShowingToast = true
                                             }
@@ -142,6 +146,7 @@ struct HashtagView: View {
                                             
                                             if !locationText.isEmpty && locationTags.count <= keywordLimit && !isLocationTagEnable{
                                                 locationTags.append(locationText)
+                                                locationTags = removeDuplicates(from: locationTags)
                                                 checkTags()
                                                 locationText = ""
                                             } else if locationTags.count > keywordLimit && !isKeywordEnable {
@@ -195,21 +200,25 @@ struct HashtagView: View {
                 }
                 Spacer()
                 CTABtn(btnLabel: "해시태그 생성", isActive: self.$isActive, action: {
-                    if coinManager.coin > CoinManager.minimalCoin {
-                        Task{
-                            viewModel.emphasizeKey = emphasizeTags
-                            viewModel.locationKey = locationTags
-                            viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
-                            
-                            //해쉬태드 생성시 기본 좋아요는 false로 가져갑니다.
-                            viewModel.id =  saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
-                            
-                            print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
-                            
-                            pathManager.path.append(.Loading)
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                    if coinManager.coin >= CoinManager.hashtagCost {
+                        pathManager.path.append(.Loading)
+                        coinManager.coinHashtagUse()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                            if !chatGpt.isCanceled {
+                                viewModel.emphasizeKey = emphasizeTags
+                                viewModel.locationKey = locationTags
+                                viewModel.hashtag = hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags)
+                                
+                                //해쉬태드 생성시 기본 좋아요는 false로 가져갑니다.
+                                viewModel.id =  saveHashtagResult(date: convertDayTime(time: Date()), locationTag: viewModel.locationKey, keyword: viewModel.emphasizeKey, result: viewModel.hashtag, isLike: false)
+                                
+                                print(hashtagService.createHashtag(locationArr: locationTags, emphasizeArr: emphasizeTags))
+                                
                                 pathManager.path.append(.HashtagResult)
-                                coinManager.coinHashtagUse()
+                            }
+                            else{
+                                chatGpt.isCanceled = false
                             }
                         }
                     }
@@ -228,7 +237,7 @@ struct HashtagView: View {
                     .onTapGesture {isShowingDescription = false}
             }
             if showCreditAlert {
-                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 정각에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
+                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 자정에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
                 }
         }
         .toast(toastText: "5개까지 추가할 수 있어요.", toastImgRes: Image(.exclamation), isShowing: $isShowingToast, paddingValue: paddingBottom)
@@ -269,6 +278,17 @@ extension HashtagView {
         .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
     }
     
+    private func removeDuplicates(from array: [String]) -> [String] {
+        var uniqueArray: [String] = []
+        
+        for element in array {
+            if !uniqueArray.contains(element) {
+                uniqueArray.append(element)
+            }
+        }
+        
+        return uniqueArray
+    }
 }
 
 //MARK: extension: HashtagView Views

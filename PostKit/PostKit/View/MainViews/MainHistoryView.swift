@@ -8,16 +8,24 @@
 import SwiftUI
 import CoreData
 
+final class LikeFilter: ObservableObject {
+    static let shared = LikeFilter()
+    @Published var isLiked : Bool
+    
+    init(isLiked: Bool = false) {
+        self.isLiked = isLiked
+    }
+}
+
 struct MainHistoryView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var filterLike = LikeFilter.shared
     @State var historySelected = "피드 글"
     @State private var captions: [CaptionModel] = []
     @State private var hashtags: [HashtagModel] = []
     @State private var isShowingToast = false
     @State private var isCaptionChange = false
     @State private var isCaptionLiked = false
-    @State private var isLiked = false
-    @State private var filterLike = false
     @State private var targetUid = UUID()
     @State private var showModal = false
     @State private var showAlert = false
@@ -37,6 +45,7 @@ struct MainHistoryView: View {
                 Text("글 보기")
                     .title1(textColor: .gray6)
                     .multilineTextAlignment(.leading)
+                    .padding(.horizontal,paddingHorizontal)
                 
                 VStack(alignment: .leading, spacing: 20) {
                     HStack {
@@ -45,10 +54,11 @@ struct MainHistoryView: View {
                         Image(.heart)
                             .resizable()
                             .frame(width: 28, height: 28)
-                            .foregroundColor(filterLike ? .main : .gray3)
+                            .foregroundColor(filterLike.isLiked ? .main : .gray3)
                             .onTapGesture {
-                                filterLike.toggle()
-                                if filterLike {
+                                
+                                filterLike.isLiked.toggle()
+                                if filterLike.isLiked {
                                     captions = captions.filter { $0.like == true }
                                     hashtags = hashtags.filter { $0.isLike == true }
                                 } else {
@@ -57,6 +67,7 @@ struct MainHistoryView: View {
                                 }
                             }
                     }
+                    .padding(.horizontal,paddingHorizontal)
                     
                     TabView(selection: $historySelected) {
                         feedHistory
@@ -70,14 +81,15 @@ struct MainHistoryView: View {
                     .tabViewStyle(.page(indexDisplayMode: .never))
                 }
             }
+            .padding(.top,20)
             
             Color(.red)
                 .opacity(0.0000001)
                 .allowsHitTesting(false)
-            .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast, paddingValue: 30)
-            .zIndex(2)
-            .padding(.top, 20)
-            .padding(.horizontal, 20)
+                .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast, paddingValue: 30)
+                .zIndex(2)
+                .padding(.top, 20)
+                .padding(.horizontal, 20)
             
             if showAlert {
                 CustomAlertMessageDouble(alertTopTitle: "히스토리를 삭제할까요?", alertContent: "삭제된 글은 복구할 수 없어요", topBtnLabel: "삭제",
@@ -94,10 +106,10 @@ struct MainHistoryView: View {
                 }, bottomAction: { showAlert = false }, showAlert: $showAlert)
             }
         }
-//        .toolbarBackground(Color.black.opacity(0.4), for: .tabBar)
-//          .toolbarBackground(.visible, for: .tabBar)
-          .zIndex(0)
-          .toolbar(showAlert ? .hidden: .visible, for: .tabBar)
+        //        .toolbarBackground(Color.black.opacity(0.4), for: .tabBar)
+        //          .toolbarBackground(.visible, for: .tabBar)
+        .zIndex(0)
+        .toolbar(showAlert ? .hidden: .visible, for: .tabBar)
         
     }
 }
@@ -143,19 +155,17 @@ extension MainHistoryView {
     private var feedHistory: some View {
         VStack(spacing: 0){
             ScrollView{
-                if captions.isEmpty {
-                    withAnimation(nil) {
-                        HistoryEmptyView(topTitleLable: filterLike ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                ContentArea {
+                    if captions.isEmpty {
+                        HistoryEmptyView(topTitleLable: filterLike.isLiked ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
                     }
-                }
-                else {
-                    withAnimation(nil) {
-                        VStack(spacing: 20) {
+                    else {
+                        VStack(spacing: 20){
                             ForEach($captions) { $item in
                                 feedHisoryDetail(uid: item.id, tag: item.category, date: convertDate(date: item.date), content: $item.caption, like: $item.like)
                                     .onChange(of: item.like){ _ in
                                         saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
-                                        if filterLike {
+                                        if filterLike.isLiked {
                                             captions = captions.filter { $0.like == true }
                                             hashtags = hashtags.filter { $0.isLike == true }
                                         } else {
@@ -167,71 +177,73 @@ extension MainHistoryView {
                         }
                     }
                 }
+                .refreshable {
+                    if filterLike.isLiked {
+                        captions = captions.filter { $0.like == true }
+                    } else {
+                        fetchHashtagData()
+                    }
+                }
             }
-            .refreshable {
-                if filterLike {
+            .onAppear {
+                if filterLike.isLiked {
+                    fetchCaptionData()
+                    fetchHashtagData()
                     captions = captions.filter { $0.like == true }
+                    hashtags = hashtags.filter { $0.isLike == true }
                 } else {
+                    fetchCaptionData()
                     fetchHashtagData()
                 }
             }
-        }
-        .onAppear {
-            if filterLike {
-                fetchCaptionData()
-                fetchHashtagData()
-                captions = captions.filter { $0.like == true }
-                hashtags = hashtags.filter { $0.isLike == true }
-            } else {
-                fetchCaptionData()
-                fetchHashtagData()
-            }
-        }
+                }
     }
     
     private var hashtagHistory: some View {
         VStack(spacing: 0) {
             ScrollView {
-                if hashtags.isEmpty {
-                    HistoryEmptyView(topTitleLable: filterLike ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
-                }
-                else {
-                    VStack(spacing: 20){
-                        ForEach($hashtags) { $item in
-                            hashtagHistoryDetail(uid: item.id, date: convertDate(date: item.date), hashtagContent: $item.hashtag, hashtagLike: $item.isLike)
-                                .onChange(of: item.isLike){ _ in
-                                    saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
-                                    if filterLike {
-                                        captions = captions.filter { $0.like == true }
-                                        hashtags = hashtags.filter { $0.isLike == true }
-                                    } else {
-                                        fetchCaptionData()
-                                        fetchHashtagData()
+                ContentArea {
+                    if hashtags.isEmpty {
+                        HistoryEmptyView(topTitleLable: filterLike.isLiked ? "아직 좋아요한 글이 없어요" : "아직 작성한 글이 없어요", bottomTitleLable: "글을 생성해볼까요?", historyImage: .historyEmpty, selection: $selection)
+                    }
+                    else {
+                        VStack(spacing: 20){
+                            ForEach($hashtags) { $item in
+                                hashtagHistoryDetail(uid: item.id, date: convertDate(date: item.date), hashtagContent: $item.hashtag, hashtagLike: $item.isLike)
+                                    .onChange(of: item.isLike){ _ in
+                                        saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
+                                        if filterLike.isLiked {
+                                            captions = captions.filter { $0.like == true }
+                                            hashtags = hashtags.filter { $0.isLike == true }
+                                        } else {
+                                            fetchCaptionData()
+                                            fetchHashtagData()
+                                        }
                                     }
-                                }
+                            }
                         }
                     }
                 }
+                .refreshable {
+                    if filterLike.isLiked {
+                        hashtags = hashtags.filter { $0.isLike == true }
+                    } else {
+                        fetchHashtagData()
+                    }
+                }
             }
-            .refreshable {
-                if filterLike {
+            .onAppear {
+                if filterLike.isLiked {
+                    fetchCaptionData()
+                    fetchHashtagData()
+                    captions = captions.filter { $0.like == true }
                     hashtags = hashtags.filter { $0.isLike == true }
                 } else {
+                    fetchCaptionData()
                     fetchHashtagData()
                 }
             }
-        }
-        .onAppear {
-            if filterLike {
-                fetchCaptionData()
-                fetchHashtagData()
-                captions = captions.filter { $0.like == true }
-                hashtags = hashtags.filter { $0.isLike == true }
-            } else {
-                fetchCaptionData()
-                fetchHashtagData()
-            }
-        }
+                }
     }
     
     private func feedHisoryDetail(uid: UUID, tag: String, date: String, content: Binding<String>, like: Binding<Bool>) -> some View {
@@ -284,15 +296,15 @@ extension MainHistoryView {
                     Text("복사")
                         .body2Bold(textColor: .white)
                 }
-                .onTapGesture {
-                    copyManger.copyToClipboard(copyString: content.wrappedValue)
-                    isShowingToast = true
-                }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
                 .background(
                     RoundedRectangle(cornerRadius: radius1)
                         .fill(Color.gray5)
+                        .onTapGesture {
+                            copyManger.copyToClipboard(copyString: content.wrappedValue)
+                            isShowingToast = true
+                        }
                 )
             }
             .padding(.horizontal, 4)
@@ -364,15 +376,15 @@ extension MainHistoryView {
                     Text("복사")
                         .body2Bold(textColor: .white)
                 }
-                .onTapGesture {
-                    copyManger.copyToClipboard(copyString: hashtagContent.wrappedValue)
-                    isShowingToast = true
-                }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
                 .background(
                     RoundedRectangle(cornerRadius: radius1)
                         .fill(Color.gray5)
+                        .onTapGesture {
+                            copyManger.copyToClipboard(copyString: hashtagContent.wrappedValue)
+                            isShowingToast = true
+                        }
                 )
             }
             .padding(.horizontal, 4)
