@@ -21,10 +21,10 @@ class CoinManager: ObservableObject {
     static let shared = CoinManager()
     
     func coinCaptionUse() {
-        coin -= 2
+        coin -= 0
     }
     
     func coinHashtagUse() {
-        coin -= 1
+        coin -= 0
     }
 }

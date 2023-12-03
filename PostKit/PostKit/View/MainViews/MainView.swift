@@ -11,7 +11,8 @@ import AppTrackingTransparency
 import FirebaseRemoteConfig
 
 struct MainView: View {
-    @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
+    @State private var isFirstLaunching: Bool = true
+//    @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     @EnvironmentObject var appstorageManager: AppstorageManager
     @EnvironmentObject var pathManager: PathManager
     @State private var isShowingToast = false

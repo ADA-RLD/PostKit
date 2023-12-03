@@ -206,7 +206,7 @@ struct ToastModifier: ViewModifier {
                 .padding(.bottom, padding)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()+duration){
-                        withAnimation(.default) {
+                        withAnimation(.easeInOut(duration: 6.0)) {
                             isShowing = false
                         }
                     }

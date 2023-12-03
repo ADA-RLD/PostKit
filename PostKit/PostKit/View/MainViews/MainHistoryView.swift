@@ -70,6 +70,12 @@ struct MainHistoryView: View {
                     .tabViewStyle(.page(indexDisplayMode: .never))
                 }
             }
+            
+            Color(.red)
+                .opacity(0.0000001)
+                .allowsHitTesting(false)
+            .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast, paddingValue: 30)
+            .zIndex(2)
             .padding(.top, 20)
             .padding(.horizontal, 20)
             
@@ -90,8 +96,9 @@ struct MainHistoryView: View {
         }
 //        .toolbarBackground(Color.black.opacity(0.4), for: .tabBar)
 //          .toolbarBackground(.visible, for: .tabBar)
+          .zIndex(0)
           .toolbar(showAlert ? .hidden: .visible, for: .tabBar)
-          .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast, paddingValue: 30)
+        
     }
 }
 
