@@ -13,6 +13,7 @@ enum KeywordModalType {
 }
 
 struct KeywordModal: View {
+    private let firebaseManager = FirebaseManager()
     private let maxCount: Int = 5
     @Binding var selectKeyWords: [String]
     @Binding var firstSegementSelected: [String]
@@ -23,19 +24,19 @@ struct KeywordModal: View {
     @State private var inputText: String = ""
     @State private var pickerSelection: Int = 0
     @State private var selectModalKeywords: [String] = []
-    @State private var firstSegmentPoint = coffeeKeys.map{$0.name}
-    @State private var secondSegmentPoint = drinkKeys.map{$0.name}
-    @State private var thirdSegmentPoint = dessertKeys.map{$0.name}
-    @State private var weatherPoint = weatherKeys.map {$0.name}
-    @State private var coffeeDrinkPoint = dailyCoffeeKeys.map{$0.name}
-    @State private var dailyDessertPoint = dailyDessertKeys.map{$0.name}
+    @State private var firstSegmentPoint: [String] = []
+    @State private var secondSegmentPoint: [String] = []
+    @State private var thirdSegmentPoint: [String] = []
+    @State private var weatherPoint: [String] = []
+    @State private var coffeeDrinkPoint: [String] = []
+    @State private var dailyDessertPoint: [String] = []
     @State private var isShowingToast = false
     @State private var keyboardHeight: CGFloat = 0
     @Namespace var nameSpace
     
     var modalType: KeywordModalType = .daily
-    
     var pickerList: [String]
+    
     var body: some View {
         ZStack {
             VStack() {
@@ -55,6 +56,24 @@ struct KeywordModal: View {
             }
             .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
             .onAppear {
+                firebaseManager.getKeyWordsDocument(keyWordType: "DailyKeyWords", keyWordName: "dessert") { receviedArray in
+                    self.dailyDessertPoint = receviedArray
+                }
+                firebaseManager.getKeyWordsDocument(keyWordType: "DailyKeyWords", keyWordName: "Coffee") { receviedArray in
+                    self.coffeeDrinkPoint = receviedArray
+                }
+                firebaseManager.getKeyWordsDocument(keyWordType: "DailyKeyWords", keyWordName: "weather") { receviedArray in
+                    self.weatherPoint = receviedArray
+                }
+                firebaseManager.getKeyWordsDocument(keyWordType: "MenuKeyWords", keyWordName: "Coffee") { receviedArray in
+                    self.firstSegmentPoint = receviedArray
+                }
+                firebaseManager.getKeyWordsDocument(keyWordType: "MenuKeyWords", keyWordName: "Dessert") { receviedArray in
+                    self.secondSegmentPoint = receviedArray
+                }
+                firebaseManager.getKeyWordsDocument(keyWordType: "MenuKeyWords", keyWordName: "Drink") { receviedArray in
+                    self.thirdSegmentPoint = receviedArray
+                }
                 selectModalKeywords = selectKeyWords
                 if modalType == .daily {
                     firstSegmentPoint = weatherKeys.map { $0.name}
