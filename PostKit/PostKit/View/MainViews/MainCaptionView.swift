@@ -147,7 +147,7 @@ extension MainCaptionView {
                     Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "일상"])})
                 categoryBtn(categoryName: "메뉴", categoryDescription: "메뉴를 소개하는 피드 글", for: .cafe, action: {pathManager.path.append(.Menu)
                     Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "메뉴"])})
-                categoryBtn(categoryName: "메뉴", categoryDescription: "메뉴를 소개하는 피드 글", for: .fassion, action: {pathManager.path.append(.Menu)
+                categoryBtn(categoryName: "상품", categoryDescription: "상품을 소개하는 피드 글", for: .fassion, action: {pathManager.path.append(.Goods)
                     Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "쇼핑"])})
             }
         }
