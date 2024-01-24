@@ -57,35 +57,11 @@ struct KeywordModal: View {
             .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
             .onAppear {
                 if modalType == .daily {
-                    firebaseManager.getKeyWordsDocument(keyWordType: "DailyKeyWords", keyWordName: "weather") { receviedArray in
-                        self.firstSegmentPoint = receviedArray
-                        self.originFirstSegment = receviedArray
-                    }
-                    firebaseManager.getKeyWordsDocument(keyWordType: "DailyKeyWords", keyWordName: "Coffee") { receviedArray in
-                        self.secondSegmentPoint = receviedArray
-                        self.originSecondSegment = receviedArray
-                    }
-                    firebaseManager.getKeyWordsDocument(keyWordType: "DailyKeyWords", keyWordName: "dessert") { receviedArray in
-                        self.thirdSegmentPoint = receviedArray
-                        self.originThirdSegment = receviedArray
-                    }
-                    
+                    getFireBaseArray(keywordType: "DailyKeyWords", firstSegmentName: "weather", secondSegmentName: "Coffee", thirdSegmentName: "dessert")
                 }
                 else {
-                    firebaseManager.getKeyWordsDocument(keyWordType: "MenuKeyWords", keyWordName: "Coffee") { receviedArray in
-                        self.firstSegmentPoint = receviedArray
-                        self.originFirstSegment = receviedArray
-                    }
-                    firebaseManager.getKeyWordsDocument(keyWordType: "MenuKeyWords", keyWordName: "Drink") { receviedArray in
-                        self.secondSegmentPoint = receviedArray
-                        self.originSecondSegment = receviedArray
-                    }
-                    firebaseManager.getKeyWordsDocument(keyWordType: "MenuKeyWords", keyWordName: "Dessert") { receviedArray in
-                        self.thirdSegmentPoint = receviedArray
-                        self.originThirdSegment = receviedArray
-                    }
+                    getFireBaseArray(keywordType: "MenuKeyWords", firstSegmentName: "Coffee", secondSegmentName: "Drink", thirdSegmentName: "Dessert")
                     selectModalKeywords = selectKeyWords
-                    
                 }
             }
             .onReceive(
@@ -102,7 +78,7 @@ struct KeywordModal: View {
         }
     }
 }
-
+// MARK: Views
 extension KeywordModal {
     private func headerArea() -> some View {
         HStack {
@@ -178,7 +154,6 @@ extension KeywordModal {
                             } else if let dessertTmp = originThirdSegment.firstIndex(of: i) {
                                 thirdSegmentPoint.insert(i, at: dessertTmp)
                             }
-                            
                         }
                     }
                 }
@@ -214,7 +189,6 @@ extension KeywordModal {
                         }
                         .tag(pickerSelection)
                     }
-                    
                 }
                 .padding(.vertical, 4)
                 .padding(.horizontal, 4)
@@ -223,7 +197,7 @@ extension KeywordModal {
                     RoundedRectangle(cornerRadius: radius2)
                         .foregroundColor(Color.gray2)
                 }
-                
+            
                 WrappingHStack(alignment: .leading, horizontalSpacing: 8,verticalSpacing: 12){
                     switch pickerSelection {
                     case 0:
@@ -291,6 +265,24 @@ extension KeywordModal {
         }
         
         return uniqueArray
+    }
+}
+
+//MARK: Functions
+extension KeywordModal {
+    private func getFireBaseArray (keywordType: String, firstSegmentName: String, secondSegmentName: String, thirdSegmentName: String) {
+        firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: firstSegmentName) { receviedArray in
+            self.firstSegmentPoint = receviedArray
+            self.originFirstSegment = receviedArray
+        }
+        firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: secondSegmentName) { receviedArray in
+            self.secondSegmentPoint = receviedArray
+            self.originSecondSegment = receviedArray
+        }
+        firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: thirdSegmentName) { receviedArray in
+            self.thirdSegmentPoint = receviedArray
+            self.originThirdSegment = receviedArray
+        }
     }
 }
 //
