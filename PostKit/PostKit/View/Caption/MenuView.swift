@@ -16,6 +16,8 @@ struct MenuView: View {
     @State private var isCoffeeOpened = true
     @State private var isDrinkOpened = false
     @State private var isDessertOpened = false
+    @State private var openPhoto : Bool = false
+    @State private var selectedImage = UIImage()
     @State private var coffeeSelected: [String] = []
     @State private var drinkSelected: [String] = []
     @State private var dessertSelected: [String] = []
@@ -76,6 +78,15 @@ extension MenuView {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
                 menuInput()
+                
+                HStack{
+                    Image(uiImage: self.selectedImage)
+                        .resizable()
+                    Text("사진 이름")
+                }
+                .sheet(isPresented: $openPhoto) {
+                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage)
+                }
                 
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
 

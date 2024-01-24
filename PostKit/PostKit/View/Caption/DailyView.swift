@@ -14,9 +14,11 @@ struct DailyView: View {
     @State private var isActive: Bool = false
     @State private var isSelected: [String] = []
     @State private var isModalPresented: Bool = false
+    @State private var openPhoto : Bool = false
     // TODO: 글길이가 숫자로 들어오는데 나중에 숫자로 바꾸겠습니다.
     @State private var textLength: Int = 1
     @State private var showAlert: Bool = false
+    @State private var selectedImage = UIImage()
     @State private var weatherSelected: [String] = []
     @State private var dailyCoffeeSelected: [String] = []
     @State private var dailyDessertSelected: [String] = []
@@ -66,6 +68,15 @@ extension DailyView {
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
+                HStack{
+                    Image(uiImage: self.selectedImage)
+                        .resizable()
+                    Text("사진 이름")
+                }
+                .sheet(isPresented: $openPhoto) {
+                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage)
+                }
+                
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
                     .onChange(of: isSelected) { _ in
                         isActive = true
