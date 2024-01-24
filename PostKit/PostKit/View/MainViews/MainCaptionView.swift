@@ -9,6 +9,11 @@ import SwiftUI
 import CoreData
 import Mixpanel
 
+enum categoryType {
+    case cafe
+    case fassion
+}
+
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var coinManager = CoinManager.shared
@@ -16,6 +21,7 @@ struct MainCaptionView: View {
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     @State private var timeRemaining : Int = 0
 
+    var captionCategory: categoryType
     var remainingTime = "04:32" // TODO: 24시까지 남은 시간으로 변경
     
     private let coreDataManager = CoreDataManager.instance
@@ -183,6 +189,12 @@ extension MainCaptionView {
             .cornerRadius(radius1)
         }
     }
+    
+    private func categoryTag(for type: categoryType) -> some View {
+        Text(type == .cafe ? "카페" : "패션")
+            .body2Bold(textColor: type == .cafe ? Color. )
+    }
+    
     
     private func SettingBtn(action: @escaping () -> Void) -> some View {
         HStack(alignment: .center) {
