@@ -27,9 +27,9 @@ struct KeywordModal: View {
     @State private var firstSegmentPoint: [String] = []
     @State private var secondSegmentPoint: [String] = []
     @State private var thirdSegmentPoint: [String] = []
-    @State private var weatherPoint: [String] = []
-    @State private var coffeeDrinkPoint: [String] = []
-    @State private var dailyDessertPoint: [String] = []
+    @State private var originFirstSegment: [String] = []
+    @State private var originSecondSegment: [String] = []
+    @State private var originThirdSegment: [String] = []
     @State private var isShowingToast = false
     @State private var keyboardHeight: CGFloat = 0
     @Namespace var nameSpace
@@ -59,24 +59,30 @@ struct KeywordModal: View {
                 if modalType == .daily {
                     firebaseManager.getKeyWordsDocument(keyWordType: "DailyKeyWords", keyWordName: "weather") { receviedArray in
                         self.firstSegmentPoint = receviedArray
+                        self.originFirstSegment = receviedArray
                     }
                     firebaseManager.getKeyWordsDocument(keyWordType: "DailyKeyWords", keyWordName: "Coffee") { receviedArray in
                         self.secondSegmentPoint = receviedArray
+                        self.originSecondSegment = receviedArray
                     }
                     firebaseManager.getKeyWordsDocument(keyWordType: "DailyKeyWords", keyWordName: "dessert") { receviedArray in
                         self.thirdSegmentPoint = receviedArray
+                        self.originThirdSegment = receviedArray
                     }
                     
                 }
                 else {
                     firebaseManager.getKeyWordsDocument(keyWordType: "MenuKeyWords", keyWordName: "Coffee") { receviedArray in
                         self.firstSegmentPoint = receviedArray
+                        self.originFirstSegment = receviedArray
                     }
                     firebaseManager.getKeyWordsDocument(keyWordType: "MenuKeyWords", keyWordName: "Drink") { receviedArray in
                         self.secondSegmentPoint = receviedArray
+                        self.originSecondSegment = receviedArray
                     }
                     firebaseManager.getKeyWordsDocument(keyWordType: "MenuKeyWords", keyWordName: "Dessert") { receviedArray in
                         self.thirdSegmentPoint = receviedArray
+                        self.originThirdSegment = receviedArray
                     }
                     selectModalKeywords = selectKeyWords
                     
@@ -115,7 +121,7 @@ extension KeywordModal {
                 .font(.system(size: 17, weight: .semibold))
             Spacer()
             Button {
-                selectKeyWords = selectModalKeywords 
+                selectKeyWords = selectModalKeywords
                 self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("저장")
@@ -165,24 +171,12 @@ extension KeywordModal {
                             else if thirdSegementSelected.contains(i) {
                                 thirdSegementSelected.removeAll(where: {$0 == i})
                             }
-                            
-                            if modalType == .menu {
-                                if let coffeeTmp = coffeeKeys.firstIndex(where: { $0.name == i }) {
-                                    firstSegmentPoint.insert(i, at: coffeeTmp)
-                                } else if let drinkTmp = drinkKeys.firstIndex(where: { $0.name == i}) {
-                                    secondSegmentPoint.insert(i, at: drinkTmp)
-                                } else if let dessertTmp = dessertKeys.firstIndex(where: { $0.name == i}) {
-                                    thirdSegmentPoint.insert(i, at: dessertTmp)
-                                }
-                            } else {
-                                if let coffeeTmp = weatherKeys.firstIndex(where: { $0.name == i }) {
-                                    firstSegmentPoint.insert(i, at: coffeeTmp)
-                                } else if let drinkTmp = dailyCoffeeKeys.firstIndex(where: { $0.name == i}) {
-                                    secondSegmentPoint.insert(i, at: drinkTmp)
-                                } else if let dessertTmp = dailyDessertKeys.firstIndex(where: { $0.name == i}) {
-                                    thirdSegmentPoint.insert(i, at: dessertTmp)
-                                }
-                                
+                            if let coffeeTmp = originFirstSegment.firstIndex(of: i) {
+                                firstSegmentPoint.insert(i, at: coffeeTmp)
+                            } else if let drinkTmp = originSecondSegment.firstIndex(of: i) {
+                                secondSegmentPoint.insert(i, at: drinkTmp)
+                            } else if let dessertTmp = originThirdSegment.firstIndex(of: i) {
+                                thirdSegmentPoint.insert(i, at: dessertTmp)
                             }
                             
                         }
