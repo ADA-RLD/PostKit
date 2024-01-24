@@ -107,6 +107,7 @@
 		A1B75ACE2AEFB3EF00DFD343 /* CaptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */; };
 		A1B75AD02AEFDF9200DFD343 /* HashtagProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B75ACF2AEFDF9200DFD343 /* HashtagProtocol.swift */; };
 		A1B75AD22AEFE24100DFD343 /* HashtagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */; };
+		A1B860B02B60CEEE00D74BE1 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B860AF2B60CEEE00D74BE1 /* ImagePicker.swift */; };
 		B913340E2AF9CD7300034036 /* CustomAlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B913340D2AF9CD7300034036 /* CustomAlertMessage.swift */; };
 		B96211E92AED16CC0074CBE1 /* HashtagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96211E82AED16CC0074CBE1 /* HashtagView.swift */; };
 		B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */; };
@@ -205,6 +206,7 @@
 		A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionModel.swift; sourceTree = "<group>"; };
 		A1B75ACF2AEFDF9200DFD343 /* HashtagProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagProtocol.swift; sourceTree = "<group>"; };
 		A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagModel.swift; sourceTree = "<group>"; };
+		A1B860AF2B60CEEE00D74BE1 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		B913340D2AF9CD7300034036 /* CustomAlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertMessage.swift; sourceTree = "<group>"; };
 		B96211E82AED16CC0074CBE1 /* HashtagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagView.swift; sourceTree = "<group>"; };
 		B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHashtag.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				13C296232AD988FC00A2DE7F /* AppStorageManager.swift */,
 				A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */,
 				A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */,
+				A1B860AF2B60CEEE00D74BE1 /* ImagePicker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -769,6 +772,7 @@
 				7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */,
 				B9872A432AF335C1000A795C /* HashtagPopoverExtension.swift in Sources */,
 				A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */,
+				A1B860B02B60CEEE00D74BE1 /* ImagePicker.swift in Sources */,
 				13ECB50B2AF372D60046E6BE /* KeywordAppend.swift in Sources */,
 				B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */,
 				A188C5922AD968A7007473D3 /* MainViewProtocol.swift in Sources */,
