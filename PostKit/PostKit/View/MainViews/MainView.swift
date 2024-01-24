@@ -104,6 +104,8 @@ struct MainView: View {
                             ErrorView(errorReasonState: .apiError, errorCasue: "생성을\n실패했어요", errorDescription: "예기치 못한 이유로 생성에 실패했어요\n다시 시도해주세요", errorImage: .errorFailed)
                         case .Hashtag:
                             HashtagView()
+                        case .Goods:
+                            GoodsView()
                         }
                     }
                     .onChange(of: pathManager.path) { _ in
