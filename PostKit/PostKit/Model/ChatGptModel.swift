@@ -17,6 +17,16 @@ struct chatGptMessage: Codable {
     let content: String
 }
 
+struct Content: Codable {
+    let type: String
+    let text: String?
+    let imageUrl: ImageURL?
+}
+
+struct ImageURL: Codable {
+    let url: String
+}
+
 enum SenderRole: String, Codable {
     case system
     case user
