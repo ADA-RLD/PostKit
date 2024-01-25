@@ -19,6 +19,8 @@ struct DailyView: View {
     @State private var textLength: Int = 1
     @State private var showAlert: Bool = false
     @State private var selectedImage = UIImage()
+    @State private var selectedImageUrl : URL?
+    @State private var selectedImageFileName : String?
     @State private var weatherSelected: [String] = []
     @State private var dailyCoffeeSelected: [String] = []
     @State private var dailyDessertSelected: [String] = []
@@ -42,6 +44,9 @@ struct DailyView: View {
             VStack(spacing: 0) {
                 headerArea()
                 contents()
+                    .sheet(isPresented: $openPhoto) {
+                        ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
+                    }
                 Spacer()
                 bottomArea()
             }
@@ -71,11 +76,15 @@ extension DailyView {
                 HStack{
                     Image(uiImage: self.selectedImage)
                         .resizable()
-                    Text("사진 이름")
+                        .scaledToFill()
+                    Text("\(selectedImageFileName ?? "")")
+                    Image(systemName: "xmark")
                 }
-                .sheet(isPresented: $openPhoto) {
-                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage)
-                }
+                .padding(16)
+                .frame(height: 112)
+                .cornerRadius(12)
+                .background(Color.gray1)
+                .onTapGesture{openPhoto.toggle()}
                 
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
                     .onChange(of: isSelected) { _ in
