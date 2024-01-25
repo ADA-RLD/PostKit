@@ -18,6 +18,8 @@ struct MenuView: View {
     @State private var isDessertOpened = false
     @State private var openPhoto : Bool = false
     @State private var selectedImage = UIImage()
+    @State private var selectedImageUrl : URL?
+    @State private var selectedImageFileName : String?
     @State private var coffeeSelected: [String] = []
     @State private var drinkSelected: [String] = []
     @State private var dessertSelected: [String] = []
@@ -45,6 +47,9 @@ struct MenuView: View {
                 headerArea()
                 ScrollView{
                     contents()
+                        .sheet(isPresented: $openPhoto) {
+                            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
+                    }
                     Spacer()
                 }
                 bottomArea()
@@ -82,11 +87,15 @@ extension MenuView {
                 HStack{
                     Image(uiImage: self.selectedImage)
                         .resizable()
+                        .scaledToFill()
                     Text("사진 이름")
+                    Image(systemName: "xmark")
                 }
-                .sheet(isPresented: $openPhoto) {
-                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage)
-                }
+                .padding(16)
+                .frame(height: 112)
+                .cornerRadius(12)
+                .background(Color.gray1)
+                .onTapGesture{openPhoto.toggle()}
                 
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
 

@@ -8,12 +8,16 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Photos
 
 struct ImagePicker: UIViewControllerRepresentable {
     
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
     @Binding var selectedImage: UIImage
+    @Binding var imageUrl: URL?
+    @Binding var fileName: String?
+    
     @Environment(\.presentationMode) private var presentationMode
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
@@ -48,6 +52,11 @@ struct ImagePicker: UIViewControllerRepresentable {
                 parent.selectedImage = image
             }
             
+            if let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+                parent.imageUrl = imageUrl
+                parent.fileName = imageUrl.lastPathComponent
+            }
+
             parent.presentationMode.wrappedValue.dismiss()
         }
     }
