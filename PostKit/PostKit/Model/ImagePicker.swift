@@ -55,6 +55,8 @@ struct ImagePicker: UIViewControllerRepresentable {
             if let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
                 parent.imageUrl = imageUrl
                 parent.fileName = imageUrl.lastPathComponent
+                print(parent.imageUrl)
+                print(parent.fileName)
             }
 
             parent.presentationMode.wrappedValue.dismiss()
