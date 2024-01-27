@@ -9,13 +9,18 @@ import SwiftUI
 import CoreData
 import Mixpanel
 
+enum categoryType {
+    case cafe
+    case fassion
+}
+
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var coinManager = CoinManager.shared
     
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     @State private var timeRemaining : Int = 0
-
+    
     var remainingTime = "04:32" // TODO: 24시까지 남은 시간으로 변경
     
     private let coreDataManager = CoreDataManager.instance
@@ -138,10 +143,12 @@ extension MainCaptionView {
             }
             
             VStack(spacing: 12.0) {
-                categoryBtn(categoryName: "일상", categoryDescription: "보편적인 일상 피드 글", categoryImage: Image(.daily), action: {pathManager.path.append(.Daily)
+                categoryBtn(categoryName: "일상", categoryDescription: "보편적인 일상 피드 글", for: .cafe, action: {pathManager.path.append(.Daily)
                     Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "일상"])})
-                categoryBtn(categoryName: "메뉴", categoryDescription: "메뉴를 소개하는 피드 글", categoryImage: Image(.menu), action: {pathManager.path.append(.Menu)
+                categoryBtn(categoryName: "메뉴", categoryDescription: "메뉴를 소개하는 피드 글", for: .cafe, action: {pathManager.path.append(.Menu)
                     Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "메뉴"])})
+                categoryBtn(categoryName: "상품", categoryDescription: "상품을 소개하는 피드 글", for: .fassion, action: {pathManager.path.append(.Goods)
+                    Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "쇼핑"])})
             }
         }
     }
@@ -157,12 +164,12 @@ extension MainCaptionView {
                         .body2Bold(textColor: .gray4)
                 }
             }
-                    categoryBtn(categoryName: "해시태그", categoryDescription: "우리 매장에 딱 맞는 해시태그", categoryImage: Image(.hashtag), action: {pathManager.path.append(.Hashtag)
+            categoryBtn(categoryName: "해시태그", categoryDescription: "우리 매장에 딱 맞는 해시태그", for: .cafe, action: {pathManager.path.append(.Hashtag)
                         Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "해시태그"])})
         }
     }
 
-    private func categoryBtn(categoryName: String, categoryDescription: String, categoryImage: Image, action: @escaping () -> Void) -> some View {
+    private func categoryBtn(categoryName: String, categoryDescription: String, for type: categoryType, action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
@@ -174,7 +181,7 @@ extension MainCaptionView {
                         .body2Bold(textColor: .gray4)
                 }
                 Spacer()
-                categoryImage
+                categoryTag(for: type)
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 24)
@@ -183,6 +190,18 @@ extension MainCaptionView {
             .cornerRadius(radius1)
         }
     }
+    
+    private func categoryTag(for type: categoryType) -> some View {
+        Text(type == .cafe ? "카페" : "패션")
+            .body2Bold(textColor: type == .cafe ? Color.categoryTextRed : Color.categoryTextBlue )
+            .padding(.horizontal, 6)
+            .padding(.vertical, 4)
+            .background {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(type == .cafe ? Color.categoryBgRed : Color.categoryBgBlue)
+            }
+    }
+    
     
     private func SettingBtn(action: @escaping () -> Void) -> some View {
         HStack(alignment: .center) {
@@ -326,8 +345,4 @@ extension MainCaptionView : MainViewProtocol {
         
         return convertDate
     }
-}
-
-#Preview {
-    MainCaptionView()
 }
