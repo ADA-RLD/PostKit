@@ -18,7 +18,7 @@ struct DailyView: View {
     // TODO: 글길이가 숫자로 들어오는데 나중에 숫자로 바꾸겠습니다.
     @State private var textLength: Int = 1
     @State private var showAlert: Bool = false
-    @State private var selectedImage = UIImage()
+    @State private var selectedImage = [UIImage()]
     @State private var selectedImageUrl : URL?
     @State private var selectedImageFileName : String?
     @State private var weatherSelected: [String] = []
@@ -73,23 +73,12 @@ extension DailyView {
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
-                HStack{
-                    Image(uiImage: self.selectedImage)
-                        .resizable()
-                        .scaledToFill()
-                    Text("\(selectedImageFileName ?? "")")
-                    Image(systemName: "xmark")
-                }
-                .padding(16)
-                .frame(height: 112)
-                .cornerRadius(12)
-                .background(Color.gray1)
-                .onTapGesture{openPhoto.toggle()}
-                
-                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
+            
+                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
                     .onChange(of: isSelected) { _ in
                         isActive = true
                     }
+
                 SelectTextLength(selected: $textLength)
             }
         }

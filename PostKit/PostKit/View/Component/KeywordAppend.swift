@@ -10,6 +10,8 @@ import SwiftUI
 struct KeywordAppend: View {
     @Binding var isModalToggle: Bool
     @Binding var selectKeyWords: [String]
+    @Binding var openPhoto : Bool
+    @Binding var selectedImage : [UIImage]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -40,6 +42,28 @@ struct KeywordAppend: View {
                     
                 }, label: {
                     Text("+ 키워드 추가")
+                        .body1Bold(textColor: Color.gray5)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 18.5)
+                        .background(Color.gray1)
+                        .background(in: RoundedRectangle(cornerRadius: radius1))
+                })
+            }
+            
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach($selectedImage, id: \.self) { item in
+                        ImageWrappingHstack(ImageData: item)
+                    }
+                }
+            }
+            
+            if !(selectedImage == nil) {
+                Button(action: {
+                    openPhoto.toggle()
+                    
+                }, label: {
+                    Text("이미지 추가")
                         .body1Bold(textColor: Color.gray5)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 18.5)
