@@ -14,7 +14,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
-    @Binding var selectedImage: UIImage
+    @Binding var selectedImage: [UIImage]
     @Binding var imageUrl: URL?
     @Binding var fileName: String?
     
@@ -49,7 +49,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                parent.selectedImage = image
+                parent.selectedImage.append(image)
             }
             
             if let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {

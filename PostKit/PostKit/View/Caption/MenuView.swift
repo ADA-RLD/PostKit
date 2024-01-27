@@ -17,7 +17,7 @@ struct MenuView: View {
     @State private var isDrinkOpened = false
     @State private var isDessertOpened = false
     @State private var openPhoto : Bool = false
-    @State private var selectedImage = UIImage()
+    @State private var selectedImage = [UIImage()]
     @State private var selectedImageUrl : URL?
     @State private var selectedImageFileName : String?
     @State private var coffeeSelected: [String] = []
@@ -84,20 +84,15 @@ extension MenuView {
             VStack(alignment: .leading, spacing: 40) {
                 menuInput()
                 
-                HStack{
-                    Image(uiImage: self.selectedImage)
-                        .resizable()
-                        .scaledToFill()
-                    Text("사진 이름")
-                    Image(systemName: "xmark")
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach($selectedImage, id: \.self) { item in
+                            ImageWrappingHstack(ImageData: item)
+                        }
+                    }
                 }
-                .padding(16)
-                .frame(height: 112)
-                .cornerRadius(12)
-                .background(Color.gray1)
-                .onTapGesture{openPhoto.toggle()}
-                
-                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
+               
+                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
 
                 SelectTextLength(selected: $textLength)
             }
