@@ -50,6 +50,17 @@ struct KeywordAppend: View {
                 })
             }
             
+            HStack(spacing: 8) {
+                Text("이미지")
+                    .body1Bold(textColor: .gray5)
+                
+                Text("\(selectedImage.count)/5")
+                    .body2Bold(textColor: .gray4)
+                
+                Spacer()
+                
+            }
+            
             ScrollView(.horizontal) {
                 HStack {
                     ForEach($selectedImage, id: \.self) { item in

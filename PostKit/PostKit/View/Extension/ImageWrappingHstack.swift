@@ -14,11 +14,12 @@ struct ImageWrappingHstack: View {
         ZStack{
             Image(uiImage: ImageData)
                 .resizable()
-                .scaledToFill()
+                .frame(width: 100, height: 100)
             
             Image(systemName: "xmark")
                 .background(in: RoundedRectangle(cornerRadius: radius3))
-                .offset(x: 16, y: -16)
+                .padding(6)
+                .offset(x: 40, y: -40)
         }
     }
 }
