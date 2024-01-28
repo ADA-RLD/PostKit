@@ -54,22 +54,16 @@ struct KeywordAppend: View {
                 Text("이미지")
                     .body1Bold(textColor: .gray5)
                 
-                Text("\(selectedImage.count)/5")
+                Text("\(selectedImage.count)/1")
                     .body2Bold(textColor: .gray4)
                 
                 Spacer()
                 
             }
             
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach($selectedImage, id: \.self) { item in
-                        ImageWrappingHstack(ImageData: item)
-                    }
-                }
-            }
+            ImageWrappingHstack(ImageData: $selectedImage)
             
-            if !(selectedImage == nil) {
+            if !(selectedImage == nil) && !(selectedImage.count == 1) {
                 Button(action: {
                     openPhoto.toggle()
                     
