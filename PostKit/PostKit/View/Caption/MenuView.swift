@@ -16,6 +16,10 @@ struct MenuView: View {
     @State private var isCoffeeOpened = true
     @State private var isDrinkOpened = false
     @State private var isDessertOpened = false
+    @State private var openPhoto : Bool = false
+    @State private var selectedImage = [UIImage()]
+    @State private var selectedImageUrl : URL?
+    @State private var selectedImageFileName : String?
     @State private var coffeeSelected: [String] = []
     @State private var drinkSelected: [String] = []
     @State private var dessertSelected: [String] = []
@@ -43,6 +47,9 @@ struct MenuView: View {
                 headerArea()
                 ScrollView{
                     contents()
+                        .sheet(isPresented: $openPhoto) {
+                            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
+                    }
                     Spacer()
                 }
                 bottomArea()
@@ -77,7 +84,15 @@ extension MenuView {
             VStack(alignment: .leading, spacing: 40) {
                 menuInput()
                 
-                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected)
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach($selectedImage, id: \.self) { item in
+                            ImageWrappingHstack(ImageData: item)
+                        }
+                    }
+                }
+               
+                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
 
                 SelectTextLength(selected: $textLength)
             }
