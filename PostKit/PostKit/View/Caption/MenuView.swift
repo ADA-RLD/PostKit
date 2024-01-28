@@ -84,14 +84,8 @@ extension MenuView {
             VStack(alignment: .leading, spacing: 40) {
                 menuInput()
                 
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach($selectedImage, id: \.self) { item in
-                            ImageWrappingHstack(ImageData: item)
-                        }
-                    }
-                }
-               
+                ImageWrappingHstack(ImageData: $selectedImage)
+                
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
 
                 SelectTextLength(selected: $textLength)
