@@ -29,6 +29,7 @@ struct ImageWrappingHstack: View {
                             .offset(x: 45, y: -45)
                             .onTapGesture { ImageData.remove(at: index) }
                     }
+                    .padding(.top, 15)
                 }
             }
         }
