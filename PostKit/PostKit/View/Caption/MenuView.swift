@@ -17,7 +17,7 @@ struct MenuView: View {
     @State private var isDrinkOpened = false
     @State private var isDessertOpened = false
     @State private var openPhoto : Bool = false
-    @State private var selectedImage = [UIImage()]
+    @State private var selectedImage : [UIImage] = []
     @State private var selectedImageUrl : URL?
     @State private var selectedImageFileName : String?
     @State private var coffeeSelected: [String] = []
@@ -83,9 +83,7 @@ extension MenuView {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
                 menuInput()
-                
-                ImageWrappingHstack(ImageData: $selectedImage)
-                
+
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
 
                 SelectTextLength(selected: $textLength)
