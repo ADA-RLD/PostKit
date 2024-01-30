@@ -117,3 +117,4 @@ public let paddingBottom: CGFloat = 80
 // MARK: 곡률 값 모음
 public let radius1: CGFloat = 16
 public let radius2: CGFloat = 12
+public let radius3: CGFloat = 8

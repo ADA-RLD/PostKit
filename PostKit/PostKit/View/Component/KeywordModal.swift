@@ -13,6 +13,7 @@ enum KeywordModalType {
 }
 
 struct KeywordModal: View {
+    private let firebaseManager = FirebaseManager()
     private let maxCount: Int = 5
     @Binding var selectKeyWords: [String]
     @Binding var firstSegementSelected: [String]
@@ -23,19 +24,19 @@ struct KeywordModal: View {
     @State private var inputText: String = ""
     @State private var pickerSelection: Int = 0
     @State private var selectModalKeywords: [String] = []
-    @State private var firstSegmentPoint = coffeeKeys.map{$0.name}
-    @State private var secondSegmentPoint = drinkKeys.map{$0.name}
-    @State private var thirdSegmentPoint = dessertKeys.map{$0.name}
-    @State private var weatherPoint = weatherKeys.map {$0.name}
-    @State private var coffeeDrinkPoint = dailyCoffeeKeys.map{$0.name}
-    @State private var dailyDessertPoint = dailyDessertKeys.map{$0.name}
+    @State private var firstSegmentPoint: [String] = []
+    @State private var secondSegmentPoint: [String] = []
+    @State private var thirdSegmentPoint: [String] = []
+    @State private var originFirstSegment: [String] = []
+    @State private var originSecondSegment: [String] = []
+    @State private var originThirdSegment: [String] = []
     @State private var isShowingToast = false
     @State private var keyboardHeight: CGFloat = 0
     @Namespace var nameSpace
     
-    var modalType: KeywordModalType = .daily
-    
+    var modalType: KeywordModalType
     var pickerList: [String]
+    
     var body: some View {
         ZStack {
             VStack() {
@@ -55,11 +56,12 @@ struct KeywordModal: View {
             }
             .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
             .onAppear {
-                selectModalKeywords = selectKeyWords
                 if modalType == .daily {
-                    firstSegmentPoint = weatherKeys.map { $0.name}
-                    secondSegmentPoint = dailyCoffeeKeys.map { $0.name}
-                    thirdSegmentPoint = dailyDessertKeys.map { $0.name}
+                    getFireBaseArray(keywordType: "DailyKeyWords", firstSegmentName: "weather", secondSegmentName: "Coffee", thirdSegmentName: "dessert")
+                }
+                else {
+                    getFireBaseArray(keywordType: "MenuKeyWords", firstSegmentName: "Coffee", secondSegmentName: "Drink", thirdSegmentName: "Dessert")
+                    selectModalKeywords = selectKeyWords
                 }
             }
             .onReceive(
@@ -76,7 +78,7 @@ struct KeywordModal: View {
         }
     }
 }
-
+// MARK: Views
 extension KeywordModal {
     private func headerArea() -> some View {
         HStack {
@@ -95,7 +97,7 @@ extension KeywordModal {
                 .font(.system(size: 17, weight: .semibold))
             Spacer()
             Button {
-                selectKeyWords = selectModalKeywords 
+                selectKeyWords = selectModalKeywords
                 self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("저장")
@@ -145,26 +147,13 @@ extension KeywordModal {
                             else if thirdSegementSelected.contains(i) {
                                 thirdSegementSelected.removeAll(where: {$0 == i})
                             }
-                            
-                            if modalType == .menu {
-                                if let coffeeTmp = coffeeKeys.firstIndex(where: { $0.name == i }) {
-                                    firstSegmentPoint.insert(i, at: coffeeTmp)
-                                } else if let drinkTmp = drinkKeys.firstIndex(where: { $0.name == i}) {
-                                    secondSegmentPoint.insert(i, at: drinkTmp)
-                                } else if let dessertTmp = dessertKeys.firstIndex(where: { $0.name == i}) {
-                                    thirdSegmentPoint.insert(i, at: dessertTmp)
-                                }
-                            } else {
-                                if let coffeeTmp = weatherKeys.firstIndex(where: { $0.name == i }) {
-                                    firstSegmentPoint.insert(i, at: coffeeTmp)
-                                } else if let drinkTmp = dailyCoffeeKeys.firstIndex(where: { $0.name == i}) {
-                                    secondSegmentPoint.insert(i, at: drinkTmp)
-                                } else if let dessertTmp = dailyDessertKeys.firstIndex(where: { $0.name == i}) {
-                                    thirdSegmentPoint.insert(i, at: dessertTmp)
-                                }
-                                
+                            if let coffeeTmp = originFirstSegment.firstIndex(of: i) {
+                                firstSegmentPoint.insert(i, at: coffeeTmp)
+                            } else if let drinkTmp = originSecondSegment.firstIndex(of: i) {
+                                secondSegmentPoint.insert(i, at: drinkTmp)
+                            } else if let dessertTmp = originThirdSegment.firstIndex(of: i) {
+                                thirdSegmentPoint.insert(i, at: dessertTmp)
                             }
-                            
                         }
                     }
                 }
@@ -200,7 +189,6 @@ extension KeywordModal {
                         }
                         .tag(pickerSelection)
                     }
-                    
                 }
                 .padding(.vertical, 4)
                 .padding(.horizontal, 4)
@@ -209,7 +197,7 @@ extension KeywordModal {
                     RoundedRectangle(cornerRadius: radius2)
                         .foregroundColor(Color.gray2)
                 }
-                
+            
                 WrappingHStack(alignment: .leading, horizontalSpacing: 8,verticalSpacing: 12){
                     switch pickerSelection {
                     case 0:
@@ -277,6 +265,24 @@ extension KeywordModal {
         }
         
         return uniqueArray
+    }
+}
+
+//MARK: Functions
+extension KeywordModal {
+    private func getFireBaseArray (keywordType: String, firstSegmentName: String, secondSegmentName: String, thirdSegmentName: String) {
+        firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: firstSegmentName) { receviedArray in
+            self.firstSegmentPoint = receviedArray
+            self.originFirstSegment = receviedArray
+        }
+        firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: secondSegmentName) { receviedArray in
+            self.secondSegmentPoint = receviedArray
+            self.originSecondSegment = receviedArray
+        }
+        firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: thirdSegmentName) { receviedArray in
+            self.thirdSegmentPoint = receviedArray
+            self.originThirdSegment = receviedArray
+        }
     }
 }
 //
