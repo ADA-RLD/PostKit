@@ -28,11 +28,17 @@ class ChatGptService: ObservableObject {
         }
     }
     
-    func sendMessage(messages: [Message]) -> AnyPublisher<chatGptResponse, Error> {
+    func sendMessage(messages: [Message], imageUrl: String? = nil) -> AnyPublisher<chatGptResponse, Error> {
         return Future <chatGptResponse, Error> { promise in
             self.getRandomKey() {
-                let openAIMessages = messages.map({chatGptMessage(role: .user, content: $0.content)})
-                let body = chatGptBody(model: "gpt-4-1106-preview", messages: openAIMessages)
+                var openAIMessages = messages.map({ chatGptMessage(role: .user, content: Content(type: "text", text: $0.content, imageUrl: nil)) })
+                
+                if let imageUrl = imageUrl {
+                    let visionMessage = chatGptMessage(role: .user, content: Content(type: "image_url", text: nil, imageUrl: ImageURL(url: imageUrl)))
+                    openAIMessages.append(visionMessage)
+                }
+                
+                let body = chatGptBody(model: "gpt-4-vision-preview", messages: openAIMessages)
                 let headers: HTTPHeaders =  [
                     "Authorization" : "Bearer \(self.chatGptKey ?? "키 값 오류")"
                 ]
