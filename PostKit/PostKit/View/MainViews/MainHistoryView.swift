@@ -244,9 +244,16 @@ extension MainHistoryView {
                 HStack(spacing: 8) {
                     Text(date)
                         .body2Bold(textColor: .gray4)
+                    if tag == "일상" || tag == "메뉴" {
+                        Text("카페")
+                            .body2Bold(textColor: .gray4)
+                    }
+                    else {
+                        Text("패션")
+                            .body2Bold(textColor: .gray4)
+                    }
                     
-                    Text(tag)
-                        .body2Bold(textColor: .gray4)
+                   
                 }
                 
                 Text(content.wrappedValue)
