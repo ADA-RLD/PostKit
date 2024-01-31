@@ -113,7 +113,7 @@ extension GoodsView {
                     guard let textResponse = response.choices.first?.message.content else {return}
                     
                     viewModel.promptAnswer = textResponse
-                    viewModel.category = "메뉴"
+                    viewModel.category = "상품"
                 }
             )
             .store(in: &cancellables)
