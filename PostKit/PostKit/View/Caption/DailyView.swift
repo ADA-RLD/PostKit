@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import Combine
+import _PhotosUI_SwiftUI
 
 struct DailyView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -27,7 +28,6 @@ struct DailyView: View {
     @State private var customKeyword: [String] = []
     @State var messages: [Message] = []
     @State var cancellables = Set<AnyCancellable>()
-    
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
     
@@ -45,7 +45,7 @@ struct DailyView: View {
                 headerArea()
                 contents()
                     .sheet(isPresented: $openPhoto) {
-                        ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
+                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
                     }
                 Spacer()
                 bottomArea()

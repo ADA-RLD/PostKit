@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import Photos
+import PhotosUI
 
 struct KeywordAppend: View {
+//    let accessLevel: PHAccessLevel = .readWrite
+//    let authorizationStatus = PHPhotoLibrary.authorizationStatus(for: accessLevel)
+    
     @Binding var isModalToggle: Bool
     @Binding var selectKeyWords: [String]
     @Binding var openPhoto : Bool
@@ -65,8 +70,9 @@ struct KeywordAppend: View {
             
             if !(selectedImage == nil) && !(selectedImage.count == 1) {
                 Button(action: {
-                    openPhoto.toggle()
-                    
+                    requestPHPhotoLibraryAuthorization{
+                        //getCanAccessImages()
+                    }
                 }, label: {
                     Text("이미지 추가")
                         .body1Bold(textColor: Color.gray5)
@@ -78,6 +84,40 @@ struct KeywordAppend: View {
             }
         }
     }
+}
+
+extension KeywordAppend {
+    func requestPHPhotoLibraryAuthorization(completion: @escaping () -> Void) {
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
+            switch status {
+            case .limited, .authorized:
+                //completion()
+                openPhoto.toggle()
+            //case .authorized:
+                //completion()
+            default:
+                break
+            }
+        }
+    }
+
+    func getCanAccessImages() {
+        self.selectedImage = []
+        let requestOptions = PHImageRequestOptions()
+        requestOptions.isSynchronous = true
+
+        let fetchOptions = PHFetchOptions()
+        var fetchResult = PHAsset.fetchAssets(with: fetchOptions)
+      
+        fetchResult.enumerateObjects { (asset, _, _) in
+            PHImageManager().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: requestOptions) { (image, info) in
+                guard let image = image else { return }
+                self.selectedImage.append(image)
+                
+            }
+        }
+    }
+
 }
 //#Preview {
 //    KeywordAppend(selectKeyWords: .constant(["ds"]))
