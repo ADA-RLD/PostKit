@@ -105,7 +105,7 @@ struct MainView: View {
                         case .Hashtag:
                             HashtagView()
                         case .Goods:
-                            GoodsView()
+                            GoodsView(storeModel: storeModel )
                         }
                     }
                     .onChange(of: pathManager.path) { _ in
