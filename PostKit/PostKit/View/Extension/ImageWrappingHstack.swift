@@ -8,18 +8,30 @@
 import SwiftUI
 
 struct ImageWrappingHstack: View {
-    @Binding var ImageData: UIImage
-    
+    @Binding var ImageData: [UIImage]
+
     var body: some View {
-        ZStack{
-            Image(uiImage: ImageData)
-                .resizable()
-                .frame(width: 100, height: 100)
-            
-            Image(systemName: "xmark")
-                .background(in: RoundedRectangle(cornerRadius: radius3))
-                .padding(6)
-                .offset(x: 40, y: -40)
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(ImageData.indices, id: \.self) { index in
+                    ZStack {
+                        Image(uiImage: ImageData[index])
+                            .resizable()
+                            .cornerRadius(radius2)
+                            .frame(width: 100, height: 100)
+
+                        Image(systemName: "xmark")
+                            .foregroundColor(Color.gray4)
+                            .bold()
+                            .padding(6)
+                            .background(Color.gray2)
+                            .cornerRadius(radius3)
+                            .offset(x: 45, y: -45)
+                            .onTapGesture { ImageData.remove(at: index) }
+                    }
+                    .padding(.top, 15)
+                }
+            }
         }
     }
 }

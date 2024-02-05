@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import Combine
+import _PhotosUI_SwiftUI
 
 struct DailyView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -18,7 +19,7 @@ struct DailyView: View {
     // TODO: 글길이가 숫자로 들어오는데 나중에 숫자로 바꾸겠습니다.
     @State private var textLength: Int = 1
     @State private var showAlert: Bool = false
-    @State private var selectedImage = [UIImage()]
+    @State private var selectedImage : [UIImage] = []
     @State private var selectedImageUrl : URL?
     @State private var selectedImageFileName : String?
     @State private var weatherSelected: [String] = []
@@ -27,7 +28,6 @@ struct DailyView: View {
     @State private var customKeyword: [String] = []
     @State var messages: [Message] = []
     @State var cancellables = Set<AnyCancellable>()
-    
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
     
@@ -45,7 +45,7 @@ struct DailyView: View {
                 headerArea()
                 contents()
                     .sheet(isPresented: $openPhoto) {
-                        ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
+                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
                     }
                 Spacer()
                 bottomArea()
