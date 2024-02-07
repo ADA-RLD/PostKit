@@ -20,7 +20,6 @@ class ChatGptService: ObservableObject {
     private let firebaseManager = FirebaseManager()
     private var chatGptKey: String?
     // 키 오류를 대비해서 랜덤하게 키를 게속 바꿔줍니다.
-    
     func getRandomKey(completion: @escaping () -> Void) {
         let chatGptAPIKey = firebaseManager.getDoucument(apiName: "chatgptAPI") { [weak self] (key) in
             self?.chatGptKey = key
@@ -31,10 +30,12 @@ class ChatGptService: ObservableObject {
     func sendMessage(messages: [Message], imageUrl: String? = nil) -> AnyPublisher<chatGptResponse, Error> {
         return Future <chatGptResponse, Error> { promise in
             self.getRandomKey() {
-                var openAIMessages = messages.map({ chatGptMessage(role: .user, content: Content(type: "text", text: $0.content, imageUrl: nil)) })
-                
+                var openAIMessages = messages.map { message in
+                    chatGptMessage(role: .user, content: Contents(type: "text", text: message.content.text, imageUrl: nil))
+                }
+
                 if let imageUrl = imageUrl {
-                    let visionMessage = chatGptMessage(role: .user, content: Content(type: "image_url", text: nil, imageUrl: ImageURL(url: imageUrl)))
+                    let visionMessage = chatGptMessage(role: .user, content: Contents(type: "image_url", text: nil, imageUrl: ImageURL(url: imageUrl)))
                     openAIMessages.append(visionMessage)
                 }
                 
@@ -45,6 +46,7 @@ class ChatGptService: ObservableObject {
                 
                 AF.request(self.baseUrl, method: .post, parameters: body, encoder: .json, headers: headers)
                     .responseDecodable(of: chatGptResponse.self) { response in
+                        debugPrint(response)
                         switch response.result {
                         case .success(let result):
                             print("success: \(result)")

@@ -28,8 +28,8 @@ extension CaptionResultView {
         let chatGptService = ChatGptService()
         
         Task{
-            self.messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
-            self.messages.append(Message(id: UUID(), role: .user, content: viewModel.prompt))
+            self.messages.append(Message(id: UUID(), role: .system, content: Contents(type: "text", text: viewModel.basicPrompt, imageUrl: nil)))
+            self.messages.append(Message(id: UUID(), role: .user, content: Contents(type: "text", text: viewModel.prompt, imageUrl: nil)))
             
             chatGptService.sendMessage(messages: self.messages)
                 .sink(
@@ -49,7 +49,7 @@ extension CaptionResultView {
                     },
                     receiveValue:  { response in
                         guard let textResponse = response.choices.first?.message.content else {return}
-                        viewModel.promptAnswer = textResponse
+                        viewModel.promptAnswer = textResponse.text ?? "GPT 오류입니다."
                     }
                 )
                 .store(in: &cancellables)

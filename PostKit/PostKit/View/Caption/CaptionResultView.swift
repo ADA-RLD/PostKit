@@ -66,7 +66,7 @@ struct CaptionResultView: View {
                         pathManager.path.append(.Loading)
                         Mixpanel.mainInstance().track(event: "결과 재생성")
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                            regenerateAnswer()
+//                            regenerateAnswer()
                         }
                     }
                         showAlert = false
@@ -181,9 +181,9 @@ struct ToastModifier: ViewModifier {
     var imgColor: Color = .black
     let duration: TimeInterval
     func body(content: Content) -> some View {
-        ZStack{
+        ZStack {
             content
-            if isShowing{
+            if isShowing {
                 VStack{
                     Spacer()
                     HStack(spacing: 8) {

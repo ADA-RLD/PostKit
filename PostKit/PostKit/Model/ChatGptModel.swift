@@ -14,10 +14,10 @@ struct chatGptBody: Encodable {
 
 struct chatGptMessage: Codable {
     let role: SenderRole
-    let content: Content
+    let content: Contents
 }
 
-struct Content: Codable {
+struct Contents: Codable {
     let type: String
     let text: String?
     let imageUrl: ImageURL?
@@ -45,5 +45,5 @@ struct chatGptChoice: Decodable {
 struct Message: Decodable {
     let id: UUID
     let role: SenderRole
-    let content: String
+    let content: Contents
 }

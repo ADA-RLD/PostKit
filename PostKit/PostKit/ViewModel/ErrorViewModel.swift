@@ -14,8 +14,8 @@ extension ErrorView {
             
             var messages: [Message] = []
             
-            messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
-            messages.append(Message(id: UUID(), role: .user, content: viewModel.prompt))
+            messages.append(Message(id: UUID(), role: .system, content:Contents(type: "text", text: viewModel.basicPrompt, imageUrl: nil)))
+            messages.append(Message(id: UUID(), role: .user, content: Contents(type: "text", text: viewModel.prompt, imageUrl: nil)))
             
             chatGptService.sendMessage(messages: messages)
                 .sink(
@@ -35,7 +35,7 @@ extension ErrorView {
                     },
                     receiveValue:  { response in
                         guard let textResponse = response.choices.first?.message.content else {return}
-                        viewModel.promptAnswer = textResponse
+                        viewModel.promptAnswer = textResponse.text ?? "GPT 오류입니다."
                     }
                 )
                 .store(in: &cancellables)

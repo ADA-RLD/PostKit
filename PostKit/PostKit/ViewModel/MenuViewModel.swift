@@ -38,7 +38,7 @@ extension MenuView {
         
         viewModel.basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
         print(viewModel.basicPrompt)
-        self.messages.append(Message(id: UUID(), role: .system, content: viewModel.basicPrompt))
+        self.messages.append(Message(id: UUID(), role: .system, content: Contents(type: "text", text: viewModel.basicPrompt, imageUrl: nil)))
         
         if !coffeeSelected.isEmpty {
             pointText = pointText + "이 메뉴의 특징으로는 "
@@ -83,7 +83,7 @@ extension MenuView {
         }
         
         viewModel.prompt = "메뉴의 이름은 \(menuName)인 메뉴에 대해서 인스타그램 피드를 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘. \(pointText)"
-        self.messages.append(Message(id: UUID(), role: .user, content: viewModel.prompt))
+        self.messages.append(Message(id: UUID(), role: .user, content: Contents(type: "text", text: viewModel.prompt, imageUrl: nil)))
     }
     
     // MARK: - Caption 생성
@@ -110,7 +110,7 @@ extension MenuView {
                     }
                 },
                 receiveValue:  { response in
-                    guard let textResponse = response.choices.first?.message.content else {return}
+                    guard let textResponse = response.choices.first?.message.content.text else {return}
                     
                     viewModel.promptAnswer = textResponse
                     viewModel.category = "메뉴"
