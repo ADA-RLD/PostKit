@@ -27,6 +27,7 @@ struct DailyView: View {
     @State private var dailyDessertSelected: [String] = []
     @State private var customKeyword: [String] = []
     @State var messages: [Message] = []
+    @State var visionMessages: [GptVisionMessage] = []
     @State var cancellables = Set<AnyCancellable>()
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
@@ -89,7 +90,15 @@ extension DailyView {
             if coinManager.coin >= CoinManager.captionCost {
                 pathManager.path.append(.Loading)
                 if selectedImage.count > 0 {
-                    
+                    Task {
+                        loadingModel.isCaptionGenerate = false
+                        loadingModel.inputArray = [isSelected, weatherSelected, dailyCoffeeSelected, dailyDessertSelected].flatMap { $0 }
+                        loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                            sendVisionMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeyword, textLength: textLengthArr[textLength], images: selectedImage)
+                            print(coinManager.coin)
+                        }
+                    }
                 }
                 else {
                     Task{

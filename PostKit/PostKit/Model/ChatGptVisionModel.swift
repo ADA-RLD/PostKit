@@ -14,7 +14,6 @@ struct ChatGptVisionBody: Encodable {
 }
 
 struct GptVisionMessage: Codable {
-    let id: UUID
     let role: SenderRole
     let content: [GptVisionContent]
 }
@@ -30,10 +29,10 @@ struct ImageURL: Codable {
 }
 
 struct ChatGptVisionResponse: Decodable {
-    let choices: [chatGptChoice]
+    let choices: [ChatGptVisionChoice]
 }
 
-struct chatGptVisionChoice: Decodable {
+struct ChatGptVisionChoice: Decodable {
     let finish_reason: String
-    let message: chatGptMessage
+    let message: GptVisionMessage
 }
