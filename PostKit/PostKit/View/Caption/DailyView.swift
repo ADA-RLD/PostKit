@@ -60,7 +60,11 @@ struct DailyView: View {
                 }
             }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            isActive = true
         }
+        }
+        
     }
 
 // MARK: View의 모둘화를 한 extension 모음입니다.
