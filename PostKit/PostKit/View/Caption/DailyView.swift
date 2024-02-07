@@ -94,7 +94,7 @@ extension DailyView {
                         loadingModel.isCaptionGenerate = false
                         loadingModel.inputArray = [isSelected, weatherSelected, dailyCoffeeSelected, dailyDessertSelected].flatMap { $0 }
                         loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
                             sendVisionMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeyword, textLength: textLengthArr[textLength], images: selectedImage)
                             print(coinManager.coin)
                         }

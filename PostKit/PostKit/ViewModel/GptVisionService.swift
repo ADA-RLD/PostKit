@@ -15,10 +15,12 @@ class GptVisionService: ObservableObject {
     
     @AppStorage("_isCanceled") var isCanceled: Bool = false
     @ObservedObject var coinManager = CoinManager.shared
+    @ObservedObject var viewModel = ChatGptViewModel.shared
     
     private let baseUrl = "https://api.openai.com/v1/chat/completions"
     private let firebaseManager = FirebaseManager()
     private var chatGptKey: String?
+    
     
     // 키 오류를 대비해서 랜덤하게 키를 게속 바꿔줍니다.
     func getRandomKey(completion: @escaping () -> Void) {
@@ -35,6 +37,7 @@ class GptVisionService: ObservableObject {
                 let headers: HTTPHeaders = [
                     "Authorization": "Bearer \(self.chatGptKey ?? "키 값 오류")"
                 ]
+
                 
                 AF.request(self.baseUrl, method: .post, parameters: body, encoder: JSONParameterEncoder.default, headers: headers)
                     .responseDecodable(of: ChatGptVisionResponse.self) { response in
