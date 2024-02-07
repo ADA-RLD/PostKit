@@ -15,8 +15,35 @@ struct ChatGptVisionBody: Encodable {
 
 struct GptVisionMessage: Codable {
     let role: SenderRole
-    let content: [GptVisionContent]
+    let content: Contents
 }
+
+enum Contents: Codable {
+    case string(String)
+    case array([GptVisionContent])
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let array = try? container.decode([GptVisionContent].self) {
+            self = .array(array)
+        } else if let string = try? container.decode(String.self) {
+            self = .string(string)
+        } else {
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "content data is not")
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .string(let string):
+            try container.encode(string)
+        case .array(let array):
+            try container.encode(array)
+        }
+    }
+}
+
 
 struct GptVisionContent: Codable {
     let type: String

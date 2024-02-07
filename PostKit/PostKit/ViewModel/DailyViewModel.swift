@@ -96,7 +96,7 @@ extension DailyView {
         }
         
         viewModel.prompt = "보내준 사진에 대한 설명과 카페 일상과 관련된 인스타그램 피드를 해시태그 없이 작성해줘.  \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘."
-        self.visionMessages.append(GptVisionMessage( role: .user, content: [GptVisionContent(type: "text", text: viewModel.prompt, image_url: nil)]))
+        self.visionMessages.append(GptVisionMessage( role: .user, content: .array([GptVisionContent(type: "text", text: viewModel.prompt, image_url: nil)])))
 
    
     }
@@ -236,19 +236,18 @@ extension DailyView {
 
                     // 선택지의 메시지를 가져옵니다.
                     let message = choice.message
-                    print(choice.message)
-                    print("디코딩 ㅇ")
 
                     // 메시지에서 content를 가져옵니다.
                     let content = message.content
 
-                    // content를 사용하여 원하는 작업을 수행합니다.
-                    // 예: 텍스트 응답을 viewModel에 설정합니다.
-                    if let content = content.first {
-                        viewModel.promptAnswer = content.text ?? ""
+                    // content가 .string 케이스인 경우에 대한 처리
+                    if case let .string(text) = content {
+                        viewModel.promptAnswer = text
                     }
+
                     viewModel.category = "일상"
                 }
+
             )
             .store(in: &cancellables)
 
@@ -261,7 +260,7 @@ extension DailyView {
                 let base64String = imageData.base64EncodedString()
                 let imageUrl = "data:image/jpeg;base64,\(base64String)"
                 let imageContent = GptVisionContent(type: "image_url", text: nil, image_url: ImageURL(url: imageUrl))
-                let message = GptVisionMessage(role: .user, content: [imageContent])
+                let message = GptVisionMessage(role: .user, content: .array([imageContent]))
                 visionMessages.append(message)
             }
         }
