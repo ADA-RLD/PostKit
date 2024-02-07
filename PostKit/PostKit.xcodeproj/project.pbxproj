@@ -49,6 +49,9 @@
 		139B2C8D2AEF42390036BD18 /* HapticManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C8C2AEF42390036BD18 /* HapticManger.swift */; };
 		139B2C8F2AF0B6030036BD18 /* Ex+UINaivgationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C8E2AF0B6030036BD18 /* Ex+UINaivgationController.swift */; };
 		139B2C932AF23D690036BD18 /* CoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C922AF23D680036BD18 /* CoinManager.swift */; };
+		13BDD1482B738A440030AB02 /* ChatGptVisionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDD1472B738A440030AB02 /* ChatGptVisionModel.swift */; };
+		13BDD14A2B738A650030AB02 /* GptVIsionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDD1492B738A650030AB02 /* GptVIsionViewModel.swift */; };
+		13BDD14C2B738A8C0030AB02 /* GptVisionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDD14B2B738A8C0030AB02 /* GptVisionService.swift */; };
 		13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295B02AD55F2100A2DE7F /* PostKitApp.swift */; };
 		13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B42AD55F2200A2DE7F /* Assets.xcassets */; };
 		13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B72AD55F2200A2DE7F /* Preview Assets.xcassets */; };
@@ -147,6 +150,9 @@
 		139B2C8C2AEF42390036BD18 /* HapticManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManger.swift; sourceTree = "<group>"; };
 		139B2C8E2AF0B6030036BD18 /* Ex+UINaivgationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UINaivgationController.swift"; sourceTree = "<group>"; };
 		139B2C922AF23D680036BD18 /* CoinManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinManager.swift; sourceTree = "<group>"; };
+		13BDD1472B738A440030AB02 /* ChatGptVisionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptVisionModel.swift; sourceTree = "<group>"; };
+		13BDD1492B738A650030AB02 /* GptVIsionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GptVIsionViewModel.swift; sourceTree = "<group>"; };
+		13BDD14B2B738A8C0030AB02 /* GptVisionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GptVisionService.swift; sourceTree = "<group>"; };
 		13C295AD2AD55F2100A2DE7F /* PostKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C295B02AD55F2100A2DE7F /* PostKitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostKitApp.swift; sourceTree = "<group>"; };
 		13C295B42AD55F2200A2DE7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -369,6 +375,7 @@
 				A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */,
 				A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */,
 				A1B860AF2B60CEEE00D74BE1 /* ImagePicker.swift */,
+				13BDD1472B738A440030AB02 /* ChatGptVisionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -394,6 +401,8 @@
 				137DF4E02AFBACB200571AD4 /* CopyManger.swift */,
 				13819EEA2B0303DC005E5D91 /* FirebaseManager.swift */,
 				133233012B6A720200A9A5CA /* GoodsViewModel.swift */,
+				13BDD1492B738A650030AB02 /* GptVIsionViewModel.swift */,
+				13BDD14B2B738A8C0030AB02 /* GptVisionService.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -731,6 +740,7 @@
 				139B2C8D2AEF42390036BD18 /* HapticManger.swift in Sources */,
 				7E06050E2AF22834003A87BC /* DailyViewModel.swift in Sources */,
 				A1B75ACE2AEFB3EF00DFD343 /* CaptionModel.swift in Sources */,
+				13BDD1482B738A440030AB02 /* ChatGptVisionModel.swift in Sources */,
 				B98632662AD7D01500DE9FF5 /* WrappingHStack.swift in Sources */,
 				13C295DF2AD6C01300A2DE7F /* CTABtn.swift in Sources */,
 				133232FE2B6121C800A9A5CA /* GoodsView.swift in Sources */,
@@ -753,6 +763,7 @@
 				13819F022B066D3A005E5D91 /* MyWebView.swift in Sources */,
 				A1A4FAF92AF6245400514053 /* iCloudProtocol.swift in Sources */,
 				1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */,
+				13BDD14A2B738A650030AB02 /* GptVIsionViewModel.swift in Sources */,
 				B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */,
 				139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
@@ -760,6 +771,7 @@
 				B9872A3F2AF23D77000A795C /* HashtagPopover.swift in Sources */,
 				B9872A472AF394DA000A795C /* HistoryButton.swift in Sources */,
 				13ECB5092AF28C8B0046E6BE /* AppDelegate.swift in Sources */,
+				13BDD14C2B738A8C0030AB02 /* GptVisionService.swift in Sources */,
 				7EF314CC2AD81DC3008E7338 /* ChatGptService.swift in Sources */,
 				13C296102AD8F16700A2DE7F /* OnboardingRouter.swift in Sources */,
 				7EF314D22AD96A69008E7338 /* ChatGptViewModel.swift in Sources */,
