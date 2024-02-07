@@ -6,3 +6,34 @@
 //
 
 import Foundation
+
+
+struct ChatGptVisionBody: Encodable {
+    let model: String
+    let messages: [GptVisionMessage]
+}
+
+struct GptVisionMessage: Codable {
+    let id: UUID
+    let role: SenderRole
+    let content: [GptVisionContent]
+}
+
+struct GptVisionContent: Codable {
+    let type: String
+    let text: String?
+    let image_url: ImageURL?
+}
+
+struct ImageURL: Codable {
+    let url: String
+}
+
+struct ChatGptVisionResponse: Decodable {
+    let choices: [chatGptChoice]
+}
+
+struct chatGptVisionChoice: Decodable {
+    let finish_reason: String
+    let message: chatGptMessage
+}

@@ -88,17 +88,22 @@ extension DailyView {
         CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
             if coinManager.coin >= CoinManager.captionCost {
                 pathManager.path.append(.Loading)
-              
-                Task{
-                    loadingModel.isCaptionGenerate = false
-                    //배열에 추가해서 가져갑니다.
-                    loadingModel.inputArray = [isSelected, weatherSelected, dailyCoffeeSelected, dailyDessertSelected].flatMap { $0 }
-                    loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                        sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeyword, textLength: textLengthArr[textLength])
-                        print(coinManager.coin)
+                if selectedImage.count > 0 {
+                    
+                }
+                else {
+                    Task{
+                        loadingModel.isCaptionGenerate = false
+                        //배열에 추가해서 가져갑니다.
+                        loadingModel.inputArray = [isSelected, weatherSelected, dailyCoffeeSelected, dailyDessertSelected].flatMap { $0 }
+                        loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                            sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeyword, textLength: textLengthArr[textLength])
+                            print(coinManager.coin)
+                        }
                     }
                 }
+
             } else {
                 showAlert = true
             }
