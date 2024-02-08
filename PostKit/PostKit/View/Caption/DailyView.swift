@@ -27,6 +27,7 @@ struct DailyView: View {
     @State private var dailyDessertSelected: [String] = []
     @State private var customKeyword: [String] = []
     @State var messages: [Message] = []
+    @State var visionMessages: [GptVisionMessage] = []
     @State var cancellables = Set<AnyCancellable>()
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
@@ -59,7 +60,11 @@ struct DailyView: View {
                 }
             }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            isActive = true
         }
+        }
+        
     }
 
 // MARK: View의 모둘화를 한 extension 모음입니다.
@@ -88,17 +93,30 @@ extension DailyView {
         CTABtn(btnLabel: "글 생성", isActive: $isActive, action: {
             if coinManager.coin >= CoinManager.captionCost {
                 pathManager.path.append(.Loading)
-              
-                Task{
-                    loadingModel.isCaptionGenerate = false
-                    //배열에 추가해서 가져갑니다.
-                    loadingModel.inputArray = [isSelected, weatherSelected, dailyCoffeeSelected, dailyDessertSelected].flatMap { $0 }
-                    loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                        sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeyword, textLength: textLengthArr[textLength])
-                        print(coinManager.coin)
+                if selectedImage.count > 0 {
+                    Task {
+                        loadingModel.isCaptionGenerate = false
+                        loadingModel.inputArray = [isSelected, weatherSelected, dailyCoffeeSelected, dailyDessertSelected].flatMap { $0 }
+                        loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                            sendVisionMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeyword, textLength: textLengthArr[textLength], images: selectedImage)
+                            print(coinManager.coin)
+                        }
                     }
                 }
+                else {
+                    Task{
+                        loadingModel.isCaptionGenerate = false
+                        //배열에 추가해서 가져갑니다.
+                        loadingModel.inputArray = [isSelected, weatherSelected, dailyCoffeeSelected, dailyDessertSelected].flatMap { $0 }
+                        loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                            sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeyword, textLength: textLengthArr[textLength])
+                            print(coinManager.coin)
+                        }
+                    }
+                }
+
             } else {
                 showAlert = true
             }
