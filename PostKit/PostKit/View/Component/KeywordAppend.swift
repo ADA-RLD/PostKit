@@ -18,6 +18,7 @@ struct KeywordAppend: View {
     @Binding var openPhoto : Bool
     @Binding var selectedImage : [UIImage]
     
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(spacing: 8) {
