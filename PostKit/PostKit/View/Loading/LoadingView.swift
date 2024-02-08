@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Mixpanel
+import Lottie
 
 struct LoadingView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -49,23 +50,26 @@ struct LoadingView: View {
                                 .lineLimit(2)
                                 .fixedSize(horizontal: false, vertical: true)
                             
-                            Spacer()
                         }
                         Spacer()
                     }
                     
+                    
                     Spacer()
                     
-                    LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStep)
+                    //LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStep)
                     
-                    LoadingTipView(_timeStep: timeStep, tips: Tips)
-                        .frame(height: 150)
-                        .padding(.bottom, 12)
+//                    LoadingTipView(_timeStep: timeStep, tips: Tips)
+//                        .frame(height: 150)
+//                        .padding(.bottom, 12)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 27.6)
                 .frame(width: UIScreen.main.bounds.width)
             }
+            
+            LottieView(jsonName: "LoadingLottie")
+                .frame(width: 200, height: 200)
             
             if isActiveAlert == true {
                 CustomAlertMessageDouble(
