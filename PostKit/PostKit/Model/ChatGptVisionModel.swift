@@ -11,6 +11,13 @@ import Foundation
 struct ChatGptVisionBody: Encodable {
     let model: String
     let messages: [GptVisionMessage]
+    let max_tokens: Int  // max_tokens 필드 추가
+
+    init(model: String, messages: [GptVisionMessage], maxTokens: Int) {
+        self.model = model
+        self.messages = messages
+        self.max_tokens = 2000
+    }
 }
 
 struct GptVisionMessage: Codable {
