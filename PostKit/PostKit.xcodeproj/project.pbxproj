@@ -42,7 +42,6 @@
 		13819EE92B03028E005E5D91 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 13819EE82B03028E005E5D91 /* FirebaseStorageCombine-Community */; };
 		13819EEB2B0303DC005E5D91 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13819EEA2B0303DC005E5D91 /* FirebaseManager.swift */; };
 		13819F022B066D3A005E5D91 /* MyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13819F012B066D3A005E5D91 /* MyWebView.swift */; };
-		13819F032B06E17F005E5D91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13819EF52B060470005E5D91 /* GoogleService-Info.plist */; };
 		139B2C7E2ADFF8690036BD18 /* ContentArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C7D2ADFF8690036BD18 /* ContentArea.swift */; };
 		139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C882AECF0CD0036BD18 /* ErrorView.swift */; };
 		139B2C8B2AEF34890036BD18 /* HashtagResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C8A2AEF34890036BD18 /* HashtagResultView.swift */; };
@@ -51,6 +50,7 @@
 		139B2C932AF23D690036BD18 /* CoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139B2C922AF23D680036BD18 /* CoinManager.swift */; };
 		13BDD1482B738A440030AB02 /* ChatGptVisionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDD1472B738A440030AB02 /* ChatGptVisionModel.swift */; };
 		13BDD14C2B738A8C0030AB02 /* GptVisionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDD14B2B738A8C0030AB02 /* GptVisionService.swift */; };
+		13BDD14E2B88DDB60030AB02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13BDD14D2B88DDB60030AB02 /* GoogleService-Info.plist */; };
 		13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295B02AD55F2100A2DE7F /* PostKitApp.swift */; };
 		13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B42AD55F2200A2DE7F /* Assets.xcassets */; };
 		13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B72AD55F2200A2DE7F /* Preview Assets.xcassets */; };
@@ -141,8 +141,6 @@
 		1336DE632AFA9630000A6D9A /* Ex+ATTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+ATTrackingManager.swift"; sourceTree = "<group>"; };
 		137DF4E02AFBACB200571AD4 /* CopyManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyManger.swift; sourceTree = "<group>"; };
 		13819EEA2B0303DC005E5D91 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		13819EF52B060470005E5D91 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		13819EFF2B0668F5005E5D91 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		13819F012B066D3A005E5D91 /* MyWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWebView.swift; sourceTree = "<group>"; };
 		139B2C7D2ADFF8690036BD18 /* ContentArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentArea.swift; sourceTree = "<group>"; };
 		139B2C882AECF0CD0036BD18 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -152,6 +150,7 @@
 		139B2C922AF23D680036BD18 /* CoinManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinManager.swift; sourceTree = "<group>"; };
 		13BDD1472B738A440030AB02 /* ChatGptVisionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptVisionModel.swift; sourceTree = "<group>"; };
 		13BDD14B2B738A8C0030AB02 /* GptVisionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GptVisionService.swift; sourceTree = "<group>"; };
+		13BDD14D2B88DDB60030AB02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		13C295AD2AD55F2100A2DE7F /* PostKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C295B02AD55F2100A2DE7F /* PostKitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostKitApp.swift; sourceTree = "<group>"; };
 		13C295B42AD55F2200A2DE7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -301,8 +300,7 @@
 		13C295A42AD55F2100A2DE7F = {
 			isa = PBXGroup;
 			children = (
-				13819EF52B060470005E5D91 /* GoogleService-Info.plist */,
-				13819EFF2B0668F5005E5D91 /* GoogleService-Info.plist */,
+				13BDD14D2B88DDB60030AB02 /* GoogleService-Info.plist */,
 				13C295AF2AD55F2100A2DE7F /* PostKit */,
 				13C295AE2AD55F2100A2DE7F /* Products */,
 				D2EED1AA8014945B0B79CFF3 /* Pods */,
@@ -653,12 +651,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13819F032B06E17F005E5D91 /* GoogleService-Info.plist in Resources */,
 				13C295F52AD7136E00A2DE7F /* Pretendard-Bold.otf in Resources */,
 				13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */,
 				13C295F22AD7136E00A2DE7F /* Pretendard-Light.otf in Resources */,
 				13C295F42AD7136E00A2DE7F /* Pretendard-ExtraLight.otf in Resources */,
 				13C295F02AD7136E00A2DE7F /* Pretendard-Regular.otf in Resources */,
+				13BDD14E2B88DDB60030AB02 /* GoogleService-Info.plist in Resources */,
 				13C295F32AD7136E00A2DE7F /* Pretendard-Thin.otf in Resources */,
 				13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */,
 				13C295EF2AD7136E00A2DE7F /* Pretendard-SemiBold.otf in Resources */,

@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyD1yBcIJ7p0749ZBhTA8P7cdkpN2-gViTE</string>
+	<string>AIzaSyAiu8zRWBmyR_B0FuDlbdLiO7ATJt3lTPo</string>
 	<key>GCM_SENDER_ID</key>
-	<string>223289654191</string>
+	<string>91784840134</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.PostKit</string>
 	<key>PROJECT_ID</key>
-	<string>postkit-844cf</string>
+	<string>postkit-edc31</string>
 	<key>STORAGE_BUCKET</key>
-	<string>postkit-844cf.appspot.com</string>
+	<string>postkit-edc31.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:223289654191:ios:8cb5b9544f4b6a8fad4d5a</string>
+	<string>1:91784840134:ios:a40c0898eb15244cee68c7</string>
 </dict>
 </plist>
