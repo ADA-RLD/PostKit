@@ -51,6 +51,8 @@
 		13BDD1482B738A440030AB02 /* ChatGptVisionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDD1472B738A440030AB02 /* ChatGptVisionModel.swift */; };
 		13BDD14C2B738A8C0030AB02 /* GptVisionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDD14B2B738A8C0030AB02 /* GptVisionService.swift */; };
 		13BDD14E2B88DDB60030AB02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13BDD14D2B88DDB60030AB02 /* GoogleService-Info.plist */; };
+		13BDD1502B88E07F0030AB02 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDD14F2B88E07F0030AB02 /* APIManager.swift */; };
+		13BDD1542B89DB790030AB02 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDD1532B89DB790030AB02 /* APIModel.swift */; };
 		13C295B12AD55F2100A2DE7F /* PostKitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C295B02AD55F2100A2DE7F /* PostKitApp.swift */; };
 		13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B42AD55F2200A2DE7F /* Assets.xcassets */; };
 		13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13C295B72AD55F2200A2DE7F /* Preview Assets.xcassets */; };
@@ -151,6 +153,8 @@
 		13BDD1472B738A440030AB02 /* ChatGptVisionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptVisionModel.swift; sourceTree = "<group>"; };
 		13BDD14B2B738A8C0030AB02 /* GptVisionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GptVisionService.swift; sourceTree = "<group>"; };
 		13BDD14D2B88DDB60030AB02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		13BDD14F2B88E07F0030AB02 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		13BDD1532B89DB790030AB02 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
 		13C295AD2AD55F2100A2DE7F /* PostKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C295B02AD55F2100A2DE7F /* PostKitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostKitApp.swift; sourceTree = "<group>"; };
 		13C295B42AD55F2200A2DE7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -374,6 +378,7 @@
 				A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */,
 				A1B860AF2B60CEEE00D74BE1 /* ImagePicker.swift */,
 				13BDD1472B738A440030AB02 /* ChatGptVisionModel.swift */,
+				13BDD1532B89DB790030AB02 /* APIModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -400,6 +405,7 @@
 				13819EEA2B0303DC005E5D91 /* FirebaseManager.swift */,
 				133233012B6A720200A9A5CA /* GoodsViewModel.swift */,
 				13BDD14B2B738A8C0030AB02 /* GptVisionService.swift */,
+				13BDD14F2B88E07F0030AB02 /* APIManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -724,6 +730,7 @@
 				A1A4FAFB2AF6295700514053 /* CloudKitUserModel.swift in Sources */,
 				A188C58C2AD7CFD1007473D3 /* DailyProtocol.swift in Sources */,
 				A10337942B6347FD00BEE4A8 /* ImageWrappingHstack.swift in Sources */,
+				13BDD1542B89DB790030AB02 /* APIModel.swift in Sources */,
 				B913340E2AF9CD7300034036 /* CustomAlertMessage.swift in Sources */,
 				13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */,
 				B986326C2AD7E76200DE9FF5 /* CaptionResultView.swift in Sources */,
@@ -763,6 +770,7 @@
 				A1A4FAF92AF6245400514053 /* iCloudProtocol.swift in Sources */,
 				1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */,
 				B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */,
+				13BDD1502B88E07F0030AB02 /* APIManager.swift in Sources */,
 				139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
 				A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */,
