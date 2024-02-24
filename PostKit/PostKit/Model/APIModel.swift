@@ -15,3 +15,8 @@ struct APIResponse: Decodable {
 struct APIBody: Encodable {
     let prompt: String
 }
+
+struct ImageAPIBody: Encodable {
+    let imageURL: String
+    let prompt: String
+}
