@@ -10,6 +10,7 @@ import SwiftUI
 enum KeywordModalType {
     case daily
     case menu
+    case goods
 }
 
 struct KeywordModal: View {
@@ -56,12 +57,14 @@ struct KeywordModal: View {
             }
             .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
             .onAppear {
-                if modalType == .daily {
+                switch modalType {
+                case .daily:
                     getFireBaseArray(keywordType: "DailyKeyWords", firstSegmentName: "weather", secondSegmentName: "Coffee", thirdSegmentName: "dessert")
-                }
-                else {
+                case .menu:
                     getFireBaseArray(keywordType: "MenuKeyWords", firstSegmentName: "Coffee", secondSegmentName: "Drink", thirdSegmentName: "Dessert")
                     selectModalKeywords = selectKeyWords
+                case .goods:
+                    getFireBaseArray(keywordType: "FashionKeyword", firstSegmentName: "Category", secondSegmentName: "Feature", thirdSegmentName: "Material")
                 }
             }
             .onReceive(
