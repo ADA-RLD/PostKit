@@ -57,7 +57,7 @@ struct MenuView: View {
                 KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, customKeywords: $customKeyword, modalType: .menu ,pickerList: ["커피","음료","디저트"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
-                        if menuName.count > 0 && !isSelected.isEmpty {
+                        if menuName.count > 0 && (!isSelected.isEmpty || selectedImage.count >= 1) {
                             isActive = true
                         }
                     }

@@ -17,12 +17,12 @@ struct GoodsView: View {
     @State private var isDrinkOpened = false
     @State private var isDessertOpened = false
     @State private var openPhoto : Bool = false
-    @State private var selectedImage = [UIImage()]
+    @State private var selectedImage : [UIImage] = []
     @State private var selectedImageUrl : URL?
     @State private var selectedImageFileName : String?
-    @State private var coffeeSelected: [String] = []
-    @State private var drinkSelected: [String] = []
-    @State private var dessertSelected: [String] = []
+    @State private var firstSelected: [String] = []
+    @State private var secondSelected: [String] = []
+    @State private var thirdSelected: [String] = []
     @State private var customKeyword: [String] = []
     @State private var showAlert: Bool = false
     @State private var isModalPresented: Bool = false
@@ -54,7 +54,7 @@ struct GoodsView: View {
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented, content: {
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, customKeywords: $customKeyword, modalType: .goods ,pickerList: ["종류","특징","재질"])
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .goods ,pickerList: ["종류","특징","재질"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
                         if menuName.count > 0 && !isSelected.isEmpty {
@@ -116,10 +116,10 @@ extension GoodsView {
                         Task{
                             loadingModel.isCaptionGenerate = false
                             //선택된 옵션들을 가져갑니다.
-                            loadingModel.inputArray = [isSelected, coffeeSelected, dessertSelected, drinkSelected].flatMap { $0 }
+                            loadingModel.inputArray = [isSelected, firstSelected, secondSelected, thirdSelected].flatMap { $0 }
                             loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
                             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                                sendMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, customKeywords: customKeyword, textLenth: textLengthArr[textLength])
+                                sendMessage(coffeeSelected: firstSelected, dessertSelected: secondSelected, drinkSelected: thirdSelected, menuName: menuName, customKeywords: customKeyword, textLenth: textLengthArr[textLength])
                             }
                         }
                     }
