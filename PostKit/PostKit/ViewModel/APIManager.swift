@@ -19,9 +19,10 @@ class APIManager: ObservableObject {
     
     private let baseURL = "https://flaskexpose-7m5qznpftq-uc.a.run.app"
     
-    func sendKeyWord(prompt: String) -> AnyPublisher<APIResponse, Error> {
+    func sendKeyWord(basicPrompt: String, prompt: String) -> AnyPublisher<APIResponse, Error> {
         return Future <APIResponse, Error> { promise in
-            let body = APIBody(prompt: prompt)
+            let body = APIBody(prompt: prompt, userInfo: basicPrompt)
+            
             AF.request(self.baseURL + "/textCaption", method: .post, parameters: body, encoder: .json, headers: nil)
                 .responseDecodable(of: APIResponse.self) { response in
                     switch response.result {
@@ -34,6 +35,7 @@ class APIManager: ObservableObject {
                             self.isCanceled = false
                         }
                     case .failure(let error):
+                        print("생성실패")
                         promise(.failure(error))
                     }
                 }

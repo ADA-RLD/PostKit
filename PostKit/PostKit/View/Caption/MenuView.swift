@@ -37,6 +37,8 @@ struct MenuView: View {
     @StateObject var storeModel : StoreModel
     
     @State var messages: [Message] = []
+    @State var basicPrompt: String = ""
+    @State var prompt: String = ""
     @State var cancellables = Set<AnyCancellable>()
     
     let textLengthArr: [Int] = [100, 200, 300]

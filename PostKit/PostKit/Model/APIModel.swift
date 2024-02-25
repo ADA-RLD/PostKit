@@ -8,12 +8,13 @@
 import Foundation
 
 struct APIResponse: Decodable {
-    let captionResult: String
+    let captionResult: String?
     let message: String
 }
 
 struct APIBody: Encodable {
     let prompt: String
+    let userInfo: String
 }
 
 struct ImageAPIBody: Encodable {
