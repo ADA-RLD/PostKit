@@ -47,11 +47,8 @@ extension DailyView {
             toneInfo = toneInfo.substring(from: 0, to: toneInfo.count-2)
         }
         
-        viewModel.basicPrompt = "보내준 사진에 대해서 한국말로 설명해줘"
-        print(viewModel.basicPrompt)
-        //        self.visionMessages.append(GptVisionMessage( role: .user, content: .array([GptVisionContent(type: "text", text: viewModel.prompt, image_url: nil)])))
+        viewModel.basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo) 말투를 가지고 있어. 글은 존댓말로 작성해주고, 보내준이미지에 대한 설명을 해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
 
-        self.visionMessages.append(GptVisionMessage( role: .user, content: .array([GptVisionContent(type: "text", text: viewModel.basicPrompt, image_url: nil)])))
         
         if !weatherSelected.isEmpty {
             pointText = pointText + "오늘 날씨의 특징으로는 "
@@ -97,11 +94,7 @@ extension DailyView {
             pointText = pointText + "이 있어."
         }
         
-//        viewModel.prompt = "보내준 사진에 대한 설명과 카페 일상과 관련된 인스타그램 피드를 해시태그 없이 작성해줘.  \(pointText) 글자수는 공백 포함해서 꼭 500자로 맞춰서 작성해줘."
-        print(viewModel.prompt)
-//        self.visionMessages.append(GptVisionMessage( role: .user, content: .array([GptVisionContent(type: "text", text: viewModel.prompt, image_url: nil)])))
-
-   
+        viewModel.prompt = "카페 일상과 관련된 인스타그램 피드를 보내준 사진을 이용해서 해시태그 없이 작성해줘. \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘."
     }
     
     // MARK: - Prompt 생성
@@ -205,63 +198,45 @@ extension DailyView {
     
     func createVisionCaption(images: [UIImage]) {
         let chatGptVisionService = GptVisionService()
+        let apiManager = APIManager()
+        let imageURL = addImagesToMessages(images: images)
         
-        addImagesToMessages(images: images)
-        
-        chatGptVisionService.sendMessage(messages: self.visionMessages)
-            .sink(
-                receiveCompletion: { completion in
-                    switch completion {
-                    case .failure(let error):
-                        loadingModel.isCaptionGenerate = true
-                        print("error 발생. error code: \(error._code)")
-                        if error._code == 10 {
-                            pathManager.path.append(.ErrorResultFailed)
-                        } else if error._code == 13 {
-                            pathManager.path.append(.ErrorNetwork)
-                        }
-                    case .finished:
-                        loadingModel.isCaptionGenerate = false
-                        print("Caption 생성이 무사히 완료되었습니다.")
-                        pathManager.path.append(.CaptionResult)
-                        coinManager.coinCaptionUse()
+        apiManager.sendImageKeyWord(basicPrompt: viewModel.basicPrompt, prompt: viewModel.prompt, imageURL: imageURL ?? "")
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    loadingModel.isCaptionGenerate = false
+                    print("Caption 생성이 무사히 완료되었습니다.")
+                    pathManager.path.append(.CaptionResult)
+                    coinManager.coinCaptionUse()
+                case .failure(let error):
+                    loadingModel.isCaptionGenerate = true
+                    print("error 발생. error code: \(error._code)")
+                    if error._code == 10 {
+                        pathManager.path.append(.ErrorResultFailed)
+                    } else if error._code == 13 {
+                        pathManager.path.append(.ErrorNetwork)
                     }
-                },
-                receiveValue: { response in
-                    guard let choice = response.choices.first else { return }
-                    print(response)
-
-                    // 선택지의 메시지를 가져옵니다.
-                    let message = choice.message
-
-                    // 메시지에서 content를 가져옵니다.
-                    let content = message.content
-
-                    // content가 .string 케이스인 경우에 대한 처리
-                    if case let .string(text) = content {
-                        viewModel.promptAnswer = text
-                    }
-
-                    viewModel.category = "일상"
-                }
+                }},
+                  receiveValue: { response in
+                guard let textResponse = response.captionResult else {return}
                 
+                viewModel.imageURL = imageURL ?? ""
+                viewModel.promptAnswer = textResponse
+                viewModel.category = "일상"
                 
-
-            )
+            })
             .store(in: &cancellables)
-
     }
 
     // MARK: 이미지를 GPT 메세지에 추가하는 함수
-    private func addImagesToMessages(images: [UIImage]) {
-        for image in images {
-            if let imageData = image.jpegData(compressionQuality: 0.5) {
-                let base64String = imageData.base64EncodedString()
-                let imageUrl = "data:image/jpeg;base64,\(base64String)"
-                let imageContent = GptVisionContent(type: "image_url", text: nil, image_url: ImageURL(url: imageUrl))
-                let message = GptVisionMessage(role: .user, content: .array([imageContent]))
-                visionMessages.append(message)
-            }
+    private func addImagesToMessages(images: [UIImage]) -> String? {
+        if let firstImage = images.first,
+           let imageData = firstImage.jpegData(compressionQuality: 0.5) {
+            let base64String = imageData.base64EncodedString()
+            let imageURL = "data:image/jpeg;base64,\(base64String)"
+            return imageURL
         }
+        return ""
     }
 }

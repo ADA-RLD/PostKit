@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension MenuView {
     // MARK: - Chat Gpt API에 응답 요청
@@ -15,6 +16,16 @@ extension MenuView {
             await createCaption()
         }
     }
+    
+    func sendVisionMessage(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String, customKeywords: Array<String>, textLenth: Int, images: [UIImage]){
+        Task{
+            createPrompt(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, customKeywords: customKeywords, menuName: menuName, textLength: textLenth)
+            viewModel.prompt += "메뉴의 사진은 다음과 같아"
+            print(viewModel.basicPrompt,viewModel.prompt)
+            await createVisionCaption(images: images)
+        }
+    }
+    
     
     // MARK: - Prompt 생성
     func createPrompt(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, customKeywords: Array<String>, menuName: String, textLength: Int){
@@ -111,5 +122,50 @@ extension MenuView {
                 viewModel.category = "메뉴"
             })
             .store(in: &cancellables)
+    }
+    
+    // MARK: - image와 Keyword 기반 Caption.생성
+    func createVisionCaption(images: [UIImage]) {
+        let chatGptVisionService = GptVisionService()
+        let apiManager = APIManager()
+        let imageURL = addImagesToMessages(images: images)
+        
+        apiManager.sendImageKeyWord(basicPrompt: viewModel.basicPrompt, prompt: viewModel.prompt, imageURL: imageURL ?? "")
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    loadingModel.isCaptionGenerate = false
+                    print("Caption 생성이 무사히 완료되었습니다.")
+                    pathManager.path.append(.CaptionResult)
+                    coinManager.coinCaptionUse()
+                case .failure(let error):
+                    loadingModel.isCaptionGenerate = true
+                    print("error 발생. error code: \(error._code)")
+                    if error._code == 10 {
+                        pathManager.path.append(.ErrorResultFailed)
+                    } else if error._code == 13 {
+                        pathManager.path.append(.ErrorNetwork)
+                    }
+                }},
+                  receiveValue: { response in
+                guard let textResponse = response.captionResult else {return}
+                
+                viewModel.imageURL = imageURL ?? ""
+                viewModel.promptAnswer = textResponse
+                viewModel.category = "메뉴"
+                
+            })
+            .store(in: &cancellables)
+    }
+
+    // MARK: 이미지를 GPT 메세지에 추가하는 함수
+    private func addImagesToMessages(images: [UIImage]) -> String? {
+        if let firstImage = images.first,
+           let imageData = firstImage.jpegData(compressionQuality: 0.5) {
+            let base64String = imageData.base64EncodedString()
+            let imageURL = "data:image/jpeg;base64,\(base64String)"
+            return imageURL
+        }
+        return ""
     }
 }
