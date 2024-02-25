@@ -19,5 +19,6 @@ struct APIBody: Encodable {
 
 struct ImageAPIBody: Encodable {
     let imageURL: String
+    let userInfo: String
     let prompt: String
 }

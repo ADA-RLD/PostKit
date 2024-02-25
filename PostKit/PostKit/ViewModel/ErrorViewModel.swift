@@ -8,6 +8,7 @@
 import Foundation
 
 extension ErrorView {
+    // TODO: Image 캡션글 생성일때와 키워드기반의 생성글일떄를 분리해서 regenerateAnswer를 해야한다.
     func regenerateAnswer() {
         Task{
             let chatGptService = ChatGptService()

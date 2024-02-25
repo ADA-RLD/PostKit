@@ -38,7 +38,6 @@ extension MenuView {
         
         viewModel.basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
         print(viewModel.basicPrompt)
-        self.messages.append(Message(id: UUID(), role: .system, content: viewModel.basicPrompt))
         
         if !coffeeSelected.isEmpty {
             pointText = pointText + "이 메뉴의 특징으로는 "
@@ -85,7 +84,7 @@ extension MenuView {
         viewModel.prompt = "메뉴의 이름은 \(menuName)인 메뉴에 대해서 인스타그램 피드를 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘. \(pointText)"
     }
     
-    // MARK: - Caption 생성
+    // MARK: - KeyWord 기반 Caption 생성
     func createCaption() async {
         let apiManager = APIManager()
         
@@ -110,39 +109,7 @@ extension MenuView {
                 
                 viewModel.promptAnswer = textResponse
                 viewModel.category = "메뉴"
-                
-                
-            }
-            )
+            })
             .store(in: &cancellables)
-        
-        
-        //        chatGptService.sendMessage(messages: self.messages)
-        //            .sink(
-        //                receiveCompletion: { completion in
-        //                    switch completion {
-        //                    case .failure(let error):
-        //                        loadingModel.isCaptionGenerate = true
-        //                        if error._code == 10 {
-        //                            pathManager.path.append(.ErrorResultFailed)
-        //                        }
-        //                        else if error._code == 13 {
-        //                            pathManager.path.append(.ErrorNetwork)
-        //                        }
-        //                    case .finished:
-        //                        pathManager.path.append(.CaptionResult)
-        //                        coinManager.coinCaptionUse()
-        //                        loadingModel.isCaptionGenerate = false
-        //                        print("Caption 생성이 무사히 완료되었습니다.")
-        //                    }
-        //                },
-        //                receiveValue:  { response in
-        //                    guard let textResponse = response.choices.first?.message.content else {return}
-        //
-        //                    viewModel.promptAnswer = textResponse
-        //                    viewModel.category = "메뉴"
-        //                }
-        //            )
-        //            .store(in: &cancellables)
     }
 }

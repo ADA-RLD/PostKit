@@ -43,9 +43,9 @@ class APIManager: ObservableObject {
         .eraseToAnyPublisher()
     }
     
-    func sendImageKeyWord(prompt: String, imageURL: String) -> AnyPublisher<APIResponse, Error> {
+    func sendImageKeyWord(basicPrompt: String, prompt: String, imageURL: String) -> AnyPublisher<APIResponse, Error> {
         return Future <APIResponse, Error> { promise in
-            let body = ImageAPIBody(imageURL: imageURL, prompt: prompt)
+            let body = ImageAPIBody(imageURL: imageURL, userInfo: basicPrompt, prompt: prompt)
             AF.request(self.baseURL + "/textImageCaption", method: .post, parameters: body, encoder: .json, headers: nil)
                 .responseDecodable(of: APIResponse.self) { response in
                     switch response.result {

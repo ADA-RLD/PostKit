@@ -126,7 +126,6 @@ extension DailyView {
         
         viewModel.basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
         print(viewModel.basicPrompt)
-        self.messages.append(Message(id: UUID(), role: .system, content: viewModel.basicPrompt))
         
         if !weatherSelected.isEmpty {
             pointText = pointText + "오늘 날씨의 특징으로는 "
@@ -173,41 +172,34 @@ extension DailyView {
         }
         
         viewModel.prompt = "카페 일상과 관련된 인스타그램 피드를 해시태그 없이 작성해줘. \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘."
-  
-        self.messages.append(Message(id: UUID(), role: .user, content: viewModel.prompt))
     }
     
     // MARK: - Caption 생성
     func createCaption() async {
-        let chatGptService = ChatGptService()
+        let apiManager = APIManager()
         
-        chatGptService.sendMessage(messages: self.messages)
-            .sink(
-                receiveCompletion: { completion in
-                    switch completion {
-                    case .failure(let error):
-                        loadingModel.isCaptionGenerate = true
-                        print("error 발생. error code: \(error._code)")
-                        if error._code == 10 {
-                            pathManager.path.append(.ErrorResultFailed)
-                        }
-                        else if error._code == 13 {
-                            pathManager.path.append(.ErrorNetwork)
-                        }
-                    case .finished:
-                        loadingModel.isCaptionGenerate = false
-                        print("Caption 생성이 무사히 완료되었습니다.")
-                        pathManager.path.append(.CaptionResult)
-                        coinManager.coinCaptionUse()
-                    }
-                },
-                receiveValue:  { response in
-                    guard let textResponse = response.choices.first?.message.content else {return}
+        apiManager.sendKeyWord(basicPrompt: viewModel.basicPrompt, prompt: viewModel.prompt)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(_):
+                    loadingModel.isCaptionGenerate = true
+                    pathManager.path.append(.ErrorResultFailed)
+                    print(viewModel.prompt)
                     
-                    viewModel.promptAnswer = textResponse
-                    viewModel.category = "일상"
+                    
+                case .finished:
+                    pathManager.path.append(.CaptionResult)
+                    coinManager.coinCaptionUse()
+                    loadingModel.isCaptionGenerate = false
+                    print("Caption 생성 완료")
                 }
-            )
+                
+            }, receiveValue: { response in
+                guard let textResponse = response.captionResult else {return}
+                
+                viewModel.promptAnswer = textResponse
+                viewModel.category = "메뉴"
+            })
             .store(in: &cancellables)
     }
     
