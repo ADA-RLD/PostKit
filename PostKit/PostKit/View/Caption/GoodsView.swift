@@ -36,7 +36,6 @@ struct GoodsView: View {
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
     
-    @State var messages: [Message] = []
     @State var cancellables = Set<AnyCancellable>()
     
     let textLengthArr: [Int] = [100, 200, 300]

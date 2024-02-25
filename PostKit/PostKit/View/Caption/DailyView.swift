@@ -26,7 +26,6 @@ struct DailyView: View {
     @State private var dailyCoffeeSelected: [String] = []
     @State private var dailyDessertSelected: [String] = []
     @State private var customKeyword: [String] = []
-    @State var messages: [Message] = []
     @State var visionMessages: [GptVisionMessage] = []
     @State var cancellables = Set<AnyCancellable>()
     //CoreData Data Class
