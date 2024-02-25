@@ -35,6 +35,7 @@ class GptVisionService: ObservableObject {
             self.getRandomKey() {
                 let minToken = 300
                 let body = ChatGptVisionBody(model: "gpt-4-vision-preview", messages: messages, maxTokens: 2000)
+
                 let headers: HTTPHeaders = [
                     "Authorization": "Bearer \(self.chatGptKey ?? "키 값 오류")"
                 ]

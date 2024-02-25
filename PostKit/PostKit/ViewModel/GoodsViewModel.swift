@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+
 extension GoodsView {
     // MARK: - Chat Gpt API에 응답 요청
     func sendMessage(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, menuName: String, customKeywords: Array<String>, textLenth: Int){
@@ -26,7 +27,7 @@ extension GoodsView {
             await createVisionCaption(images: images)
         }
     }
-    
+
     // MARK: - Prompt 생성
     func createPrompt(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, customKeywords: Array<String>, menuName: String, textLength: Int){
         var pointText = ""

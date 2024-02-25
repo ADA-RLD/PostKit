@@ -11,6 +11,7 @@ import Combine
 import SwiftUI
 import FirebaseFunctions
 
+
 class ChatGptService: ObservableObject {
     static let shared = ChatGptService()
     
