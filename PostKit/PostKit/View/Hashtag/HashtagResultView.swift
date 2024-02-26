@@ -25,7 +25,7 @@ struct HashtagResultView: View {
     
     @ObservedObject var viewModel = HashtagViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
-    @ObservedObject var chatGpt = ChatGptService.shared
+    @ObservedObject var chatGpt = APIManager.shared
     
     private let pasteBoard = UIPasteboard.general
     private let copyManager = CopyManger.instance

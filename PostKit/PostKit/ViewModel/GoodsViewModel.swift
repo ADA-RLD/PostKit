@@ -125,7 +125,6 @@ extension GoodsView {
     }
     
     func createVisionCaption(images: [UIImage]) {
-        let chatGptVisionService = GptVisionService()
         let apiManager = APIManager()
         let imageURL = addImagesToMessages(images: images)
         

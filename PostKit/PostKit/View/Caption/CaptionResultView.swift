@@ -28,14 +28,12 @@ struct CaptionResultView: View {
     @State private var activeAlert: ActiveAlert = .first
     @State private var showModal = false
     @State var isShowingToast = false
-    @State var messages: [Message] = []
     @State var cancellables = Set<AnyCancellable>()
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
     
     private let pasteBoard = UIPasteboard.general
-    private let chatGptService = ChatGptService()
     private let hapticManger = HapticManager.instance
     private let copyManager = CopyManger.instance
     

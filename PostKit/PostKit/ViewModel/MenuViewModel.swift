@@ -126,7 +126,6 @@ extension MenuView {
     
     // MARK: - image와 Keyword 기반 Caption.생성
     func createVisionCaption(images: [UIImage]) {
-        let chatGptVisionService = GptVisionService()
         let apiManager = APIManager()
         let imageURL = addImagesToMessages(images: images)
         
