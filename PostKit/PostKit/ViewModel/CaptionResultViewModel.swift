@@ -24,35 +24,59 @@ extension CaptionResultView {
     }
     
     // MARK: - Chat GPT API에 재생성 요청
-    func regenerateAnswer() { /* Daily, Menu를 선택하지 않아도 이전 답변을 참고하여 재생성 합니다.*/
-        let chatGptService = ChatGptService()
-        
-        Task{
-            self.messages.append(Message(id: UUID(), role: .system, content:viewModel.basicPrompt))
-            self.messages.append(Message(id: UUID(), role: .user, content: viewModel.prompt))
-            
-            chatGptService.sendMessage(messages: self.messages)
-                .sink(
-                    receiveCompletion: { completion in
-                        switch completion {
-                        case .failure(let error):
-                            if error._code == 10 {
-                                pathManager.path.append(.ErrorResultFailed)
+    func regenerateAnswer() {
+        let apiManager = APIManager()
+        if viewModel.imageURL != "" {
+            Task {
+                apiManager.sendImageKeyWord(basicPrompt:viewModel.basicPrompt, prompt:viewModel.prompt,imageURL: viewModel.imageURL)
+                    .sink(
+                        receiveCompletion: { completion in
+                            switch completion {
+                            case .failure(let error):
+                                if error._code == 10 {
+                                    pathManager.path.append(.ErrorResultFailed)
+                                }
+                                else if error._code == 13 {
+                                    pathManager.path.append(.ErrorNetwork)
+                                }
+                            case .finished:
+                                coinManager.coinCaptionUse()
+                                pathManager.path.append(.CaptionResult)
                             }
-                            else if error._code == 13 {
-                                pathManager.path.append(.ErrorNetwork)
-                            }
-                        case .finished:
-                            coinManager.coinCaptionUse()
-                            pathManager.path.append(.CaptionResult)
+                        },
+                        receiveValue:  { response in
+                            guard let textResponse = response.captionResult else{return}
+                            viewModel.promptAnswer = textResponse
                         }
-                    },
-                    receiveValue:  { response in
-                        guard let textResponse = response.choices.first?.message.content else {return}
-                        viewModel.promptAnswer = textResponse
-                    }
-                )
-                .store(in: &cancellables)
+                    )
+                    .store(in: &cancellables)
+            }
+        }
+        else {
+            Task {
+                apiManager.sendKeyWord(basicPrompt: viewModel.basicPrompt,prompt:viewModel.prompt)
+                    .sink(
+                        receiveCompletion: { completion in
+                            switch completion {
+                            case .failure(let error):
+                                if error._code == 10 {
+                                    pathManager.path.append(.ErrorResultFailed)
+                                }
+                                else if error._code == 13 {
+                                    pathManager.path.append(.ErrorNetwork)
+                                }
+                            case .finished:
+                                coinManager.coinCaptionUse()
+                                pathManager.path.append(.CaptionResult)
+                            }
+                        },
+                        receiveValue:  { response in
+                            guard let textResponse = response.captionResult else{return}
+                            viewModel.promptAnswer = textResponse
+                        }
+                    )
+                    .store(in: &cancellables)
+            }
         }
     }
 }

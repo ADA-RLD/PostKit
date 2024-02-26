@@ -35,8 +35,6 @@ struct MenuView: View {
     
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
-    
-    @State var messages: [Message] = []
     @State var cancellables = Set<AnyCancellable>()
     
     let textLengthArr: [Int] = [100, 200, 300]
@@ -58,7 +56,7 @@ struct MenuView: View {
                 KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, customKeywords: $customKeyword, modalType: .menu ,pickerList: ["커피","음료","디저트"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
-                        if menuName.count > 0 && !isSelected.isEmpty {
+                        if menuName.count > 0 && (!isSelected.isEmpty || selectedImage.count >= 1) {
                             isActive = true
                         }
                     }
@@ -112,7 +110,15 @@ extension MenuView {
                     pathManager.path.append(.Loading)
                     
                     if selectedImage.count >= 1 {
-                        
+                        Task{
+                            loadingModel.isCaptionGenerate = false
+                            //선택된 옵션들을 가져갑니다.
+                            loadingModel.inputArray = [isSelected, coffeeSelected, dessertSelected, drinkSelected].flatMap { $0 }
+                            loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                                sendVisionMessage(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, menuName: menuName, customKeywords: customKeyword, textLenth: textLengthArr[textLength], images: selectedImage)
+                            }
+                        }
                     }
                     else {
                         Task{
