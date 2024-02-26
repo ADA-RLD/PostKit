@@ -19,7 +19,7 @@ struct LoadingView: View {
     //디버깅용 데이터 삭제하지는 말아주세요.
     //private var SampleData: [String] = ["1번 친구","2번 친구","3번 친구","4번 친구","5번 친구"]
     @ObservedObject var loadingModel = LoadingViewModel.shared
-    @ObservedObject var chatGpt = ChatGptService.shared
+    @ObservedObject var chatGpt = APIManager.shared
     
     var body: some View {
         

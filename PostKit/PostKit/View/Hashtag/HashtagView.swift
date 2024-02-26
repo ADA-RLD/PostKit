@@ -29,7 +29,7 @@ struct HashtagView: View {
     
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = HashtagViewModel.shared
-    @ObservedObject var chatGpt = ChatGptService.shared
+    @ObservedObject var chatGpt = APIManager.shared
     
     //Create Hashtag
     private let hashtagService = HashtagService()
