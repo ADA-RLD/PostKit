@@ -30,12 +30,10 @@ class APIManager: ObservableObject {
                         if !self.isCanceled {
                             promise(.success(result))
                         } else {
-                            print("생성이 취소되었습니다.")
                             self.coinManager.coinCaptionUse()
                             self.isCanceled = false
                         }
                     case .failure(let error):
-                        print("생성실패")
                         promise(.failure(error))
                     }
                 }

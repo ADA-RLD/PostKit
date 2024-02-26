@@ -23,7 +23,6 @@ extension GoodsView {
         Task{
             createPrompt(coffeeSelected: coffeeSelected, dessertSelected: dessertSelected, drinkSelected: drinkSelected, customKeywords: customKeywords, menuName: menuName, textLength: textLenth)
             viewModel.prompt += "상품의 사진은 다음과 같아"
-            print(viewModel.basicPrompt,viewModel.prompt)
             await createVisionCaption(images: images)
         }
     }

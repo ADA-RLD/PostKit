@@ -197,7 +197,6 @@ extension DailyView {
     }
     
     func createVisionCaption(images: [UIImage]) {
-        let chatGptVisionService = GptVisionService()
         let apiManager = APIManager()
         let imageURL = addImagesToMessages(images: images)
         
@@ -211,7 +210,6 @@ extension DailyView {
                     coinManager.coinCaptionUse()
                 case .failure(let error):
                     loadingModel.isCaptionGenerate = true
-                    print("error 발생. error code: \(error._code)")
                     if error._code == 10 {
                         pathManager.path.append(.ErrorResultFailed)
                     } else if error._code == 13 {
