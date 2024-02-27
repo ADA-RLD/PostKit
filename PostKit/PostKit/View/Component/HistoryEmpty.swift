@@ -27,6 +27,7 @@ struct HistoryEmptyView: View {
                     .body2Bold(textColor: .gray4)
                     .multilineTextAlignment(.center)
             }
+            .frame(maxWidth: .infinity)
             
             AlertCustomBtn(topBtnLabel: "글 쓰기", topAction: {selection = 0})
         }
