@@ -28,4 +28,9 @@ public enum categoryType {
     case fassion
 }
 
-public var CaptionCtgModel: [(imageName: String, name: String, destination: categoryType)] = [("visionpro", "일상", categoryType.cafe), ("visionpro", "메뉴", categoryType.cafe), ("visionpro", "상품", categoryType.fassion)]
+//MARK: 이미지 리소스 필요
+public var CaptionCtgModel: [(imageName: String, name: String, destination: categoryType, path: StackViewType)] = [
+    ("visionpro", "일상", categoryType.cafe, StackViewType.Daily),
+    ("visionpro", "메뉴", categoryType.cafe, StackViewType.Menu),
+    ("visionpro", "상품", categoryType.fassion, StackViewType.Goods)
+]

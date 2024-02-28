@@ -127,15 +127,16 @@ extension MainCaptionView {
     
     private func captionArea() -> some View {
         VStack(alignment: .leading, spacing: 20.0){
-            HStack(spacing: 12.0) {
-                Text("피드 글")
-                    .title2(textColor: .gray5)
-                HStack(spacing: 6.0) {
-                    Image(.coin)
-                    Text("2개")
-                        .body2Bold(textColor: .gray4)
-                }
-            }
+            //MARK: 디자인 수정으로 인한 삭제 (백업용 주석)
+//            HStack(spacing: 12.0) {
+//                Text("피드 글")
+//                    .title2(textColor: .gray5)
+//                HStack(spacing: 6.0) {
+//                    Image(.coin)
+//                    Text("2개")
+//                        .body2Bold(textColor: .gray4)
+//                }
+//            }
             
             VStack(spacing: 12.0) {
                 ForEach(0...(CaptionCtgModel.count - 1)/2, id: \.self) { index in
@@ -144,14 +145,14 @@ extension MainCaptionView {
                     
                     HStack {
                         categoryBtn(categoryImage: firstItem.imageName, categoryName: firstItem.name, for: firstItem.destination, action: {
-                            pathManager.path.append(.Daily)
+                            pathManager.path.append(firstItem.path)
                             Mixpanel.mainInstance().track(event: "카테고리 선택", properties: ["카테고리": firstItem.name])
                         })
                         
                         if secondIndex < CaptionCtgModel.count {
                             let secondItem = CaptionCtgModel[secondIndex]
                             categoryBtn(categoryImage: secondItem.imageName, categoryName: secondItem.name, for: secondItem.destination, action: {
-                                pathManager.path.append(.Daily)
+                                pathManager.path.append(secondItem.path)
                                 Mixpanel.mainInstance().track(event: "카테고리 선택", properties: ["카테고리": secondItem.name])
                             })
                         } else {
