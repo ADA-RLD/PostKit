@@ -22,3 +22,10 @@ class CaptionModel : Identifiable {
         self.like = _like
     }
 }
+
+public enum categoryType {
+    case cafe
+    case fassion
+}
+
+public var CaptionCtgModel: [(imageName: String, name: String, destination: categoryType)] = [("visionpro", "일상", categoryType.cafe), ("visionpro", "메뉴", categoryType.cafe), ("visionpro", "상품", categoryType.fassion)]

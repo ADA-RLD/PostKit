@@ -9,11 +9,6 @@ import SwiftUI
 import CoreData
 import Mixpanel
 
-enum categoryType {
-    case cafe
-    case fassion
-}
-
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var coinManager = CoinManager.shared
