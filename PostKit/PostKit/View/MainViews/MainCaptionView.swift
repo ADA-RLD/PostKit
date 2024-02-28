@@ -138,12 +138,28 @@ extension MainCaptionView {
             }
             
             VStack(spacing: 12.0) {
-                categoryBtn(categoryImage: "visionpro", categoryName: "일상", for: .cafe, action: {pathManager.path.append(.Daily)
-                    Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "일상"])})
-                categoryBtn(categoryImage: "visionpro", categoryName: "메뉴",for: .cafe, action: {pathManager.path.append(.Menu)
-                    Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "메뉴"])})
-                categoryBtn(categoryImage: "visionpro", categoryName: "상품", for: .fassion, action: {pathManager.path.append(.Goods)
-                    Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "쇼핑"])})
+                ForEach(0...(CaptionCtgModel.count - 1)/2, id: \.self) { index in
+                    let firstItem = CaptionCtgModel[index * 2]
+                    let secondIndex = index * 2 + 1
+                    
+                    HStack {
+                        categoryBtn(categoryImage: firstItem.imageName, categoryName: firstItem.name, for: firstItem.destination, action: {
+                            pathManager.path.append(.Daily)
+                            Mixpanel.mainInstance().track(event: "카테고리 선택", properties: ["카테고리": firstItem.name])
+                        })
+                        
+                        if secondIndex < CaptionCtgModel.count {
+                            let secondItem = CaptionCtgModel[secondIndex]
+                            categoryBtn(categoryImage: secondItem.imageName, categoryName: secondItem.name, for: secondItem.destination, action: {
+                                pathManager.path.append(.Daily)
+                                Mixpanel.mainInstance().track(event: "카테고리 선택", properties: ["카테고리": secondItem.name])
+                            })
+                        } else {
+                            Spacer()
+                                .frame(maxWidth: .infinity)
+                        }
+                    }
+                }
             }
         }
     }
@@ -175,8 +191,6 @@ extension MainCaptionView {
                     .body1Bold(textColor: .gray5)
                 
                 Spacer()
-                
-                categoryTag(for: type)
             }
             .padding(20)
             .frame(maxWidth: .infinity)
