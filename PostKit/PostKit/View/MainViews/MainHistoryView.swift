@@ -43,40 +43,40 @@ struct MainHistoryView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 28) {
-                Text("글 보기")
-                    .title1(textColor: .gray6)
-                    .multilineTextAlignment(.leading)
-                
-                VStack(alignment: .leading, spacing: 20) {
-                    HStack {
-                        historyIndicator
-                        Spacer()
-                        Image(.heart)
-                            .resizable()
-                            .frame(width: 28, height: 28)
-                            .foregroundColor(filterLike.isLiked ? .main : .gray3)
-                            .onTapGesture {
-                                withAnimation(.easeIn(duration: 0.3)) {
-                                    filterLike.isLiked.toggle()
-                                    if filterLike.isLiked {
-                                        captions = captions.filter { $0.like == true }
-                                        hashtags = hashtags.filter { $0.isLike == true }
-                                    } else {
-                                        fetchCaptionData()
-                                        fetchHashtagData()
-                                    }
+                HStack {
+                    //historyIndicator
+                    Text("글 보기")
+                        .title1(textColor: .gray6)
+                        .multilineTextAlignment(.leading)
+                    
+                    Spacer()
+                    Image(.heart)
+                        .resizable()
+                        .frame(width: 28, height: 28)
+                        .foregroundColor(filterLike.isLiked ? .main : .gray3)
+                        .onTapGesture {
+                            withAnimation(.easeIn(duration: 0.3)) {
+                                filterLike.isLiked.toggle()
+                                if filterLike.isLiked {
+                                    captions = captions.filter { $0.like == true }
+                                    //hashtags = hashtags.filter { $0.isLike == true }
+                                } else {
+                                    fetchCaptionData()
+                                    fetchHashtagData()
                                 }
                             }
-                    }
-                    
+                        }
+                }
+                
+                VStack(alignment: .leading, spacing: 20) {
                     TabView(selection: $historySelected) {
                         feedHistory
                             .highPriorityGesture(DragGesture())
                             .tag("피드 글")
                         
-                        hashtagHistory
-                            .highPriorityGesture(DragGesture())
-                            .tag("해시태그")
+//                        hashtagHistory
+//                            .highPriorityGesture(DragGesture())
+//                            .tag("해시태그")
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                 }
@@ -162,7 +162,7 @@ extension MainHistoryView {
                                     saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
                                     if filterLike.isLiked {
                                         captions = captions.filter { $0.like == true }
-                                        hashtags = hashtags.filter { $0.isLike == true }
+                                        //hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
                                         fetchCaptionData()
                                         fetchHashtagData()
@@ -185,7 +185,7 @@ extension MainHistoryView {
                 fetchCaptionData()
                 fetchHashtagData()
                 captions = captions.filter { $0.like == true }
-                hashtags = hashtags.filter { $0.isLike == true }
+                //hashtags = hashtags.filter { $0.isLike == true }
             } else {
                 fetchCaptionData()
                 fetchHashtagData()
@@ -207,7 +207,7 @@ extension MainHistoryView {
                                     saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                                     if filterLike.isLiked {
                                         captions = captions.filter { $0.like == true }
-                                        hashtags = hashtags.filter { $0.isLike == true }
+                                        //hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
                                         fetchCaptionData()
                                         fetchHashtagData()
@@ -219,7 +219,7 @@ extension MainHistoryView {
             }
             .refreshable {
                 if filterLike.isLiked {
-                    hashtags = hashtags.filter { $0.isLike == true }
+                    //hashtags = hashtags.filter { $0.isLike == true }
                 } else {
                     fetchHashtagData()
                 }
@@ -230,7 +230,7 @@ extension MainHistoryView {
                 fetchCaptionData()
                 fetchHashtagData()
                 captions = captions.filter { $0.like == true }
-                hashtags = hashtags.filter { $0.isLike == true }
+                //hashtags = hashtags.filter { $0.isLike == true }
             } else {
                 fetchCaptionData()
                 fetchHashtagData()

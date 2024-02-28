@@ -43,7 +43,7 @@ struct MainCaptionView: View {
                 
                 VStack(alignment: .leading, spacing: 52) {
                     captionArea()
-                    hashtagArea()
+                    //hashtagArea()
                 }
                 
                 Spacer()
