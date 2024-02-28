@@ -59,7 +59,7 @@ struct MainHistoryView: View {
                                 filterLike.isLiked.toggle()
                                 if filterLike.isLiked {
                                     captions = captions.filter { $0.like == true }
-                                    hashtags = hashtags.filter { $0.isLike == true }
+                                    //hashtags = hashtags.filter { $0.isLike == true }
                                 } else {
                                     fetchCaptionData()
                                     fetchHashtagData()
@@ -162,7 +162,7 @@ extension MainHistoryView {
                                     saveCaptionData(_uuid: item.id, _result: item.caption, _like: item.like)
                                     if filterLike.isLiked {
                                         captions = captions.filter { $0.like == true }
-                                        hashtags = hashtags.filter { $0.isLike == true }
+                                        //hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
                                         fetchCaptionData()
                                         fetchHashtagData()
@@ -185,7 +185,7 @@ extension MainHistoryView {
                 fetchCaptionData()
                 fetchHashtagData()
                 captions = captions.filter { $0.like == true }
-                hashtags = hashtags.filter { $0.isLike == true }
+                //hashtags = hashtags.filter { $0.isLike == true }
             } else {
                 fetchCaptionData()
                 fetchHashtagData()
@@ -207,7 +207,7 @@ extension MainHistoryView {
                                     saveHashtagData(_uuid: item.id, _result: item.hashtag, _like: item.isLike)
                                     if filterLike.isLiked {
                                         captions = captions.filter { $0.like == true }
-                                        hashtags = hashtags.filter { $0.isLike == true }
+                                        //hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
                                         fetchCaptionData()
                                         fetchHashtagData()
@@ -219,7 +219,7 @@ extension MainHistoryView {
             }
             .refreshable {
                 if filterLike.isLiked {
-                    hashtags = hashtags.filter { $0.isLike == true }
+                    //hashtags = hashtags.filter { $0.isLike == true }
                 } else {
                     fetchHashtagData()
                 }
@@ -230,7 +230,7 @@ extension MainHistoryView {
                 fetchCaptionData()
                 fetchHashtagData()
                 captions = captions.filter { $0.like == true }
-                hashtags = hashtags.filter { $0.isLike == true }
+                //hashtags = hashtags.filter { $0.isLike == true }
             } else {
                 fetchCaptionData()
                 fetchHashtagData()
