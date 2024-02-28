@@ -186,7 +186,7 @@ extension MainCaptionView {
             action()
         } label: {
             HStack {
-                Image(systemName: categoryName)
+                Image(categoryImage)
                 
                 Text(categoryName)
                     .body1Bold(textColor: .gray5)
