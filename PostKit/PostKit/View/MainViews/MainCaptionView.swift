@@ -143,11 +143,11 @@ extension MainCaptionView {
             }
             
             VStack(spacing: 12.0) {
-                categoryBtn(categoryName: "일상", categoryDescription: "보편적인 일상 피드 글", for: .cafe, action: {pathManager.path.append(.Daily)
+                categoryBtn(categoryImage: "visionpro", categoryName: "일상", for: .cafe, action: {pathManager.path.append(.Daily)
                     Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "일상"])})
-                categoryBtn(categoryName: "메뉴", categoryDescription: "메뉴를 소개하는 피드 글", for: .cafe, action: {pathManager.path.append(.Menu)
+                categoryBtn(categoryImage: "visionpro", categoryName: "메뉴",for: .cafe, action: {pathManager.path.append(.Menu)
                     Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "메뉴"])})
-                categoryBtn(categoryName: "상품", categoryDescription: "상품을 소개하는 피드 글", for: .fassion, action: {pathManager.path.append(.Goods)
+                categoryBtn(categoryImage: "visionpro", categoryName: "상품", for: .fassion, action: {pathManager.path.append(.Goods)
                     Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "쇼핑"])})
             }
         }
@@ -164,27 +164,26 @@ extension MainCaptionView {
                         .body2Bold(textColor: .gray4)
                 }
             }
-            categoryBtn(categoryName: "해시태그", categoryDescription: "우리 매장에 딱 맞는 해시태그", for: .cafe, action: {pathManager.path.append(.Hashtag)
+            categoryBtn(categoryImage: "eye", categoryName: "해시태그", for: .cafe, action: {pathManager.path.append(.Hashtag)
                         Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "해시태그"])})
         }
     }
 
-    private func categoryBtn(categoryName: String, categoryDescription: String, for type: categoryType, action: @escaping () -> Void) -> some View {
+    private func categoryBtn(categoryImage: String, categoryName: String, for type: categoryType, action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
             HStack {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(categoryName)
-                        .body1Bold(textColor: .gray6)
-                    Text(categoryDescription)
-                        .body2Bold(textColor: .gray4)
-                }
+                Image(systemName: categoryName)
+                
+                Text(categoryName)
+                    .body1Bold(textColor: .gray5)
+                
                 Spacer()
+                
                 categoryTag(for: type)
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 24)
+            .padding(20)
             .frame(maxWidth: .infinity)
             .background(Color.sub)
             .cornerRadius(radius1)
