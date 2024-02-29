@@ -8,9 +8,10 @@
 import Foundation
 
 
-enum StackViewType {
+public enum StackViewType {
     case Menu
     case Daily
+    case Goods
     case SettingHome
     case SettingStore
     case SettingTone
@@ -21,7 +22,6 @@ enum StackViewType {
     case ErrorNetwork
     case ErrorResultFailed
     case Hashtag
-    case Goods
 }
 
 class PathManager: ObservableObject {
