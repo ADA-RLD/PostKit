@@ -51,6 +51,7 @@ struct HairView: View {
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented, content: {
+                //MARK: 키워드 수정
                 KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .goods ,pickerList: ["종류","특징","재질"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
@@ -72,7 +73,7 @@ struct HairView: View {
 
 extension HairView {
     private func headerArea() -> some View {
-        CustomHeader(action: {pathManager.path.removeLast()}, title: "상품 글")
+        CustomHeader(action: {pathManager.path.removeLast()}, title: "헤어 글")
     }
     
     private func contents() -> some View {
@@ -89,9 +90,9 @@ extension HairView {
     
     private func menuInput() -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("상품 이름")
+            Text("스타일")
                 .body1Bold(textColor: .gray5)
-            CustomTextfield(text: $hairName, placeHolder: "발마칸 코트")
+            CustomTextfield(text: $hairName, placeHolder: "스타일 예시")
                 .onChange(of: hairName)  { _ in
                     if hairName.count > 0 && !isSelected.isEmpty {
                         isActive = true
