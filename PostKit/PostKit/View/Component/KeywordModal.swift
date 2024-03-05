@@ -11,7 +11,8 @@ enum KeywordModalType {
     case daily
     case menu
     case goods
-
+    case fassion
+    case hair
 }
 
 struct KeywordModal: View {
@@ -66,7 +67,11 @@ struct KeywordModal: View {
                     selectModalKeywords = selectKeyWords
                 case .goods:
                     getFireBaseArray(keywordType: "FashionKeyword", firstSegmentName: "Category", secondSegmentName: "Feature", thirdSegmentName: "Material")
-
+                    //MARK: FireBase 키워드 위치 이름 수정, 1,2,3 SegmentName 정해지면 수정
+                case .fassion:
+                    getFireBaseArray(keywordType: "FashionKeywords", firstSegmentName: "Category", secondSegmentName: "Feature", thirdSegmentName: "Material")
+                case .hair:
+                    getFireBaseArray(keywordType: "HairKeywords", firstSegmentName: "Category", secondSegmentName: "Feature", thirdSegmentName: "Material")
                 }
             }
             .onReceive(

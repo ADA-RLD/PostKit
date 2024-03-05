@@ -12,6 +12,8 @@ public enum StackViewType {
     case Menu
     case Daily
     case Goods
+    case Fashion
+    case Hair
     case SettingHome
     case SettingStore
     case SettingTone
