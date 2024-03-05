@@ -25,6 +25,7 @@ class CaptionModel : Identifiable {
 
 public enum categoryType {
     case cafe
+    case goods
     case fassion
     case hair
 }
@@ -33,7 +34,7 @@ public enum categoryType {
 public var CaptionCtgModel: [(imageName: String, name: String, destination: categoryType, path: StackViewType)] = [
     ("Cafe", "일상", categoryType.cafe, .Daily),
     ("Cafe", "메뉴", categoryType.cafe, .Menu),
-    ("Goods", "상품", categoryType.fassion, .Goods),
+    ("Goods", "상품", categoryType.goods, .Goods),
     ("Fashion", "패션", categoryType.fassion, .Fashion),
     ("Hair", "헤어", categoryType.hair, .Hair)
 ]

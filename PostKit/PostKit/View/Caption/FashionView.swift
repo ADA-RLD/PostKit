@@ -12,10 +12,7 @@ import Combine
 struct FashionView: View {
     @EnvironmentObject var pathManager: PathManager
     @State private var isActive: Bool = false
-    @State private var menuName = ""
-    @State private var isCoffeeOpened = true
-    @State private var isDrinkOpened = false
-    @State private var isDessertOpened = false
+    @State private var FashionName = ""
     @State private var openPhoto : Bool = false
     @State private var selectedImage : [UIImage] = []
     @State private var selectedImageUrl : URL?
@@ -57,7 +54,7 @@ struct FashionView: View {
                 KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .goods ,pickerList: ["종류","특징","재질"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
-                        if menuName.count > 0 && !isSelected.isEmpty {
+                        if FashionName.count > 0 && !isSelected.isEmpty {
                             isActive = true
                         }
                     }
@@ -94,9 +91,9 @@ extension FashionView {
         VStack(alignment: .leading, spacing: 12) {
             Text("상품 이름")
                 .body1Bold(textColor: .gray5)
-            CustomTextfield(text: $menuName, placeHolder: "발마칸 코트")
-                .onChange(of: menuName)  { _ in
-                    if menuName.count > 0 && !isSelected.isEmpty {
+            CustomTextfield(text: $FashionName, placeHolder: "발마칸 코트")
+                .onChange(of: FashionName)  { _ in
+                    if FashionName.count > 0 && !isSelected.isEmpty {
                         isActive = true
                     } else {
                         isActive = false
@@ -119,7 +116,7 @@ extension FashionView {
                         loadingModel.inputArray = [isSelected, firstSelected, secondSelected, thirdSelected].flatMap { $0 }
                         loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                            sendMessage(coffeeSelected: firstSelected, dessertSelected: secondSelected, drinkSelected: thirdSelected, menuName: menuName, customKeywords: customKeyword, textLenth: textLengthArr[textLength])
+                            sendMessage(coffeeSelected: firstSelected, dessertSelected: secondSelected, drinkSelected: thirdSelected, menuName: FashionName, customKeywords: customKeyword, textLenth: textLengthArr[textLength])
                         }
                     }
                 }
