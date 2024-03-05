@@ -47,7 +47,7 @@ extension FashionView {
         }
         
         viewModel.basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
-        print(viewModel.basicPrompt)
+        traceLog(viewModel.basicPrompt)
         
         if !coffeeSelected.isEmpty {
             pointText = pointText + "이 상품의 종류는 "
@@ -104,21 +104,21 @@ extension FashionView {
                 case .failure(_):
                     loadingModel.isCaptionGenerate = true
                     pathManager.path.append(.ErrorResultFailed)
-                    print(viewModel.prompt)
+                    traceLog(viewModel.prompt)
                     
                     
                 case .finished:
                     pathManager.path.append(.CaptionResult)
                     coinManager.coinCaptionUse()
                     loadingModel.isCaptionGenerate = false
-                    print("Caption 생성 완료")
+                    traceLog("Caption 생성 완료")
                 }
                 
             }, receiveValue: { response in
                 guard let textResponse = response.captionResult else {return}
                 
                 viewModel.promptAnswer = textResponse
-                viewModel.category = "상품"
+                viewModel.category = "패션"
             })
             .store(in: &cancellables)
     }
@@ -132,12 +132,12 @@ extension FashionView {
                 switch completion {
                 case .finished:
                     loadingModel.isCaptionGenerate = false
-                    print("Caption 생성이 무사히 완료되었습니다.")
+                    traceLog("Caption 생성이 무사히 완료되었습니다.")
                     pathManager.path.append(.CaptionResult)
                     coinManager.coinCaptionUse()
                 case .failure(let error):
                     loadingModel.isCaptionGenerate = true
-                    print("error 발생. error code: \(error._code)")
+                    traceLog("error 발생. error code: \(error._code)")
                     if error._code == 10 {
                         pathManager.path.append(.ErrorResultFailed)
                     } else if error._code == 13 {
@@ -149,7 +149,7 @@ extension FashionView {
                 
                 viewModel.imageURL = imageURL ?? ""
                 viewModel.promptAnswer = textResponse
-                viewModel.category = "일상"
+                viewModel.category = "패션"
                 
             })
             .store(in: &cancellables)

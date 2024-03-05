@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import UIKit
 
 extension HairView {
@@ -46,11 +47,11 @@ extension HairView {
             toneInfo = toneInfo.substring(from: 0, to: toneInfo.count-2)
         }
         
-        viewModel.basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
-        print(viewModel.basicPrompt)
+        viewModel.basicPrompt = "너는 \(storeModel.storeName)라는 헤어샵을 운영하고 있으며 \(toneInfo) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
+        traceLog(viewModel.basicPrompt)
         
         if !coffeeSelected.isEmpty {
-            pointText = pointText + "이 상품의 종류는 "
+            pointText = pointText + "이 스타일의 종류는 "
             
             for index in coffeeSelected.indices {
                 pointText = pointText + "\(coffeeSelected[index]), "
@@ -60,7 +61,7 @@ extension HairView {
             pointText = pointText + "이 있어."
         }
         else if !drinkSelected.isEmpty {
-            pointText = pointText + "이 상품의 특징으로는 "
+            pointText = pointText + "이 스타일의 특징으로는 "
             
             for index in drinkSelected.indices {
                 pointText = pointText + "\(drinkSelected[index]), "
@@ -70,7 +71,7 @@ extension HairView {
             pointText = pointText + "이 있어."
         }
         else if !dessertSelected.isEmpty {
-            pointText = pointText + "이 상품의 재질은 "
+            pointText = pointText + "이 스타일의 특징은 "
             
             for index in dessertSelected.indices {
                 pointText = pointText + "\(dessertSelected[index]), "
@@ -104,26 +105,26 @@ extension HairView {
                 case .failure(_):
                     loadingModel.isCaptionGenerate = true
                     pathManager.path.append(.ErrorResultFailed)
-                    print(viewModel.prompt)
+                    traceLog(viewModel.prompt)
                     
                     
                 case .finished:
                     pathManager.path.append(.CaptionResult)
                     coinManager.coinCaptionUse()
                     loadingModel.isCaptionGenerate = false
-                    print("Caption 생성 완료")
+                    traceLog("Hair Caption 생성 완료")
                 }
                 
             }, receiveValue: { response in
                 guard let textResponse = response.captionResult else {return}
                 
                 viewModel.promptAnswer = textResponse
-                viewModel.category = "상품"
+                viewModel.category = "헤어"
             })
             .store(in: &cancellables)
     }
     
-    func createVisionCaption(images: [UIImage]) {
+    func createVisionCaption(images: [UIImage]) async {
         let apiManager = APIManager()
         let imageURL = addImagesToMessages(images: images)
         
@@ -132,12 +133,12 @@ extension HairView {
                 switch completion {
                 case .finished:
                     loadingModel.isCaptionGenerate = false
-                    print("Caption 생성이 무사히 완료되었습니다.")
+                    traceLog("Caption 생성이 무사히 완료되었습니다.")
                     pathManager.path.append(.CaptionResult)
                     coinManager.coinCaptionUse()
                 case .failure(let error):
                     loadingModel.isCaptionGenerate = true
-                    print("error 발생. error code: \(error._code)")
+                    traceLog("error 발생. error code: \(error._code)")
                     if error._code == 10 {
                         pathManager.path.append(.ErrorResultFailed)
                     } else if error._code == 13 {
@@ -149,7 +150,7 @@ extension HairView {
                 
                 viewModel.imageURL = imageURL ?? ""
                 viewModel.promptAnswer = textResponse
-                viewModel.category = "일상"
+                viewModel.category = "헤어"
                 
             })
             .store(in: &cancellables)

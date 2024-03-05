@@ -133,8 +133,8 @@ struct MainView: View {
                     fetchCaptionData()
                     fetchHashtagData()
                     loadingModel.inputArray.removeAll()
-                    print(remoteConfig["var_require_ios"].stringValue!)
-                    print(updateAlert)
+                    traceLog(remoteConfig["var_require_ios"].stringValue!)
+                    traceLog(updateAlert)
 //                    //Cloud 디버깅
 //                    print("iCloud Status")
 //                    print("IS SIGNED IN: \(iCloudData.isSignedIntoiCloud.description.uppercased())\nPermission Status: \(iCloudData.permissionStatus.description)\nUser Name: \(iCloudData.userName)")

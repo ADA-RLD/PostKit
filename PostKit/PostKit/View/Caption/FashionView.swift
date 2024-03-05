@@ -72,7 +72,7 @@ struct FashionView: View {
 
 extension FashionView {
     private func headerArea() -> some View {
-        CustomHeader(action: {pathManager.path.removeLast()}, title: "상품 글")
+        CustomHeader(action: {pathManager.path.removeLast()}, title: "패션")
     }
     
     private func contents() -> some View {

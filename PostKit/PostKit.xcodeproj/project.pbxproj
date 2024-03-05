@@ -99,6 +99,7 @@
 		A182C9ED2B96E5770016320F /* FashionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182C9EC2B96E5770016320F /* FashionView.swift */; };
 		A182C9EF2B96E7420016320F /* HairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182C9EE2B96E7420016320F /* HairView.swift */; };
 		A182C9F12B96E7810016320F /* HairViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182C9F02B96E7810016320F /* HairViewModel.swift */; };
+		A182C9F32B972AA30016320F /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182C9F22B972AA30016320F /* LogManager.swift */; };
 		A188C5792AD79E89007473D3 /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5782AD79E89007473D3 /* StoreModel.swift */; };
 		A188C57F2AD7B822007473D3 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A188C57D2AD7B822007473D3 /* CoreData.xcdatamodeld */; };
 		A188C5852AD7BA89007473D3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C5842AD7BA89007473D3 /* CoreDataManager.swift */; };
@@ -203,6 +204,7 @@
 		A182C9EC2B96E5770016320F /* FashionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FashionView.swift; sourceTree = "<group>"; };
 		A182C9EE2B96E7420016320F /* HairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HairView.swift; sourceTree = "<group>"; };
 		A182C9F02B96E7810016320F /* HairViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HairViewModel.swift; sourceTree = "<group>"; };
+		A182C9F22B972AA30016320F /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		A188C5782AD79E89007473D3 /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		A188C57E2AD7B822007473D3 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		A188C5842AD7BA89007473D3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				B9872A422AF335C1000A795C /* HashtagPopoverExtension.swift */,
 				1336DE632AFA9630000A6D9A /* Ex+ATTrackingManager.swift */,
 				A10337932B6347FD00BEE4A8 /* ImageWrappingHstack.swift */,
+				A182C9F22B972AA30016320F /* LogManager.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -773,6 +776,7 @@
 				13BDD1502B88E07F0030AB02 /* APIManager.swift in Sources */,
 				139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
+				A182C9F32B972AA30016320F /* LogManager.swift in Sources */,
 				A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */,
 				A182C9F12B96E7810016320F /* HairViewModel.swift in Sources */,
 				B9872A3F2AF23D77000A795C /* HashtagPopover.swift in Sources */,
