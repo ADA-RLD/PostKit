@@ -13,6 +13,7 @@ enum KeywordModalType {
     case goods
     case fassion
     case hair
+    case browshop
 }
 
 struct KeywordModal: View {
@@ -61,7 +62,7 @@ struct KeywordModal: View {
             .onAppear {
                 switch modalType {
                 case .daily:
-                    getFireBaseArray(keywordType: "DailyKeyWords", firstSegmentName: "weather", secondSegmentName: "Coffee", thirdSegmentName: "dessert")
+                    getFireBaseArray(keywordType: "CafeKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
                 case .menu:
                     getFireBaseArray(keywordType: "MenuKeyWords", firstSegmentName: "Coffee", secondSegmentName: "Drink", thirdSegmentName: "Dessert")
                     selectModalKeywords = selectKeyWords
@@ -69,9 +70,11 @@ struct KeywordModal: View {
                     getFireBaseArray(keywordType: "FashionKeyword", firstSegmentName: "Category", secondSegmentName: "Feature", thirdSegmentName: "Material")
                     //MARK: FireBase 키워드 위치 이름 수정, 1,2,3 SegmentName 정해지면 수정
                 case .fassion:
-                    getFireBaseArray(keywordType: "FashionKeywords", firstSegmentName: "Category", secondSegmentName: "Feature", thirdSegmentName: "Material")
+                    getFireBaseArray(keywordType: "FashionKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
                 case .hair:
-                    getFireBaseArray(keywordType: "HairKeywords", firstSegmentName: "Category", secondSegmentName: "Feature", thirdSegmentName: "Material")
+                    getFireBaseArray(keywordType: "HairKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
+                case .browshop:
+                    getFireBaseArray(keywordType: "BrowKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
                 }
             }
             .onReceive(
