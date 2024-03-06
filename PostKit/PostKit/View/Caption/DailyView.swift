@@ -69,7 +69,7 @@ struct DailyView: View {
 extension DailyView {
     //MARK: Header
     private func headerArea() -> some View {
-        CustomHeader(action: {pathManager.path.removeLast()}, title: "일상 글")
+        CustomHeader(action: {pathManager.path.removeLast()}, title: "카페 글")
     }
     
     //MARK: ContentsView
