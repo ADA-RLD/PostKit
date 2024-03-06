@@ -47,44 +47,44 @@ extension DailyView {
             toneInfo = toneInfo.substring(from: 0, to: toneInfo.count-2)
         }
         
-        viewModel.basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo) 말투를 가지고 있어. 글은 존댓말로 작성해주고, 보내준이미지에 대한 설명을 해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
+        viewModel.basicPrompt = "너는 \(toneInfo) 말투와 사진을 기반으로 카페 홍보를 위한 인스타 그램 캡션을 대신 작성해주는 카피라이터야 가게의 이름은 \(storeModel.storeName)이야"
 
         
         if !weatherSelected.isEmpty {
-            pointText = pointText + "오늘 날씨의 특징으로는 "
+            pointText = pointText + "날씨 키워드는 "
             
             for index in weatherSelected.indices {
                 pointText = pointText + "\(weatherSelected[index]), "
             }
             
             pointText = pointText.substring(from: 0, to: pointText.count-2)
-            pointText = pointText + "이 있어."
+            pointText = pointText + "가 있어."
         }
         
         if !dailyCoffeeSelected.isEmpty {
-            pointText = pointText + "오늘 이야기하고자 하는 음료는 "
+            pointText = pointText + "음료수 키워드는 "
             
             for index in dailyCoffeeSelected.indices {
                 pointText = pointText + "\(dailyCoffeeSelected[index]), "
             }
             
             pointText = pointText.substring(from: 0, to: pointText.count-2)
-            pointText = pointText + "이 있어."
+            pointText = pointText + "가 있어."
         }
         
         if !dailyDessertSelected.isEmpty {
-            pointText = pointText + "오늘 이야기하고자 하는 디저트는 "
+            pointText = pointText + "디저트 키워드는 "
             
             for index in dailyDessertSelected.indices {
                 pointText = pointText + "\(dailyDessertSelected[index]), "
             }
             
             pointText = pointText.substring(from: 0, to: pointText.count-2)
-            pointText = pointText + "이 있어."
+            pointText = pointText + "가 있어."
         }
         
         if !customKeywords.isEmpty {
-            pointText = pointText + "특징으로는 "
+            pointText = pointText + "강조하고 싶은 키워드는 "
             
             for index in customKeywords.indices {
                 pointText = pointText + "\(customKeywords[index]), "
@@ -94,7 +94,7 @@ extension DailyView {
             pointText = pointText + "이 있어."
         }
         
-        viewModel.prompt = "카페 일상과 관련된 인스타그램 피드를 보내준 사진을 이용해서 해시태그 없이 작성해줘. \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘."
+        viewModel.prompt = "다음의 키워드와 사진을 기반으로 캡션을 작성해줘. \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해고 인스타그램에 바로 복사붙혀넣기 할 수 있게 캡션만 보내줘."
     }
     
     // MARK: - Prompt 생성
@@ -117,8 +117,7 @@ extension DailyView {
             toneInfo = toneInfo.substring(from: 0, to: toneInfo.count-2)
         }
         
-        viewModel.basicPrompt = "너는 \(storeModel.storeName)를 운영하고 있으며 \(toneInfo) 말투를 가지고 있어. 글은 존댓말로 작성해줘. 다른 부연 설명은 하지 말고 응답 내용만 작성해줘. 글자수는 꼭 \(textLength)자로 맞춰서 작성해줘."
-        print(viewModel.basicPrompt)
+        viewModel.basicPrompt = "너는 \(toneInfo) 말투로 카페 홍보를 위한 인스타 그램 캡션을 대신 작성해주는 카피라이터야 가게의 이름은 \(storeModel.storeName)이야"
         
         if !weatherSelected.isEmpty {
             pointText = pointText + "오늘 날씨의 특징으로는 "
@@ -164,7 +163,7 @@ extension DailyView {
             pointText = pointText + "이 있어."
         }
         
-        viewModel.prompt = "카페 일상과 관련된 인스타그램 피드를 해시태그 없이 작성해줘. \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰서 작성해줘."
+        viewModel.prompt = "다음 키워드들을 포함해서 카페 홍보를 위한 인스타그램 캡션만 작성해줘. \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰주고 인스타그램에 바로 복사붙혀넣기 할 수 있게 캡션만 보내줘."
     }
     
     // MARK: - Caption 생성
