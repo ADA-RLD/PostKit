@@ -41,7 +41,29 @@ struct BrowShopView: View {
     
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            VStack(spacing: 0) {
+                headerArea()
+                contents()
+                    .sheet(isPresented: $openPhoto) {
+                        ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
+                    }
+                Spacer()
+                bottomArea()
+            }
+            .sheet(isPresented: $isModalPresented) {
+                // TODO: 키워드가 정해지면 바꿔야 합니다.
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSegmentSelected, secondSegementSelected: $secondSegmentSelected, thirdSegementSelected: $thirdSegementSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["임시", "임시", "임시"])
+                    .presentationDragIndicator(.visible)
+            }
+            if showAlert {
+                CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 자정에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
+            }
+        }
+        .navigationBarBackButtonHidden()
+        .onAppear {
+            isActive = true
+        }
     }
 }
 
@@ -69,7 +91,32 @@ extension BrowShopView {
     //MARK: BotomArea
     private func bottomArea() -> some View {
         CTABtn(btnLabel: "글 생성", isActive: $isActive) {
-            print()
+            if coinManager.coin >= CoinManager.captionCost {
+                pathManager.path.append(.Loading)
+                
+                if selectedImage.count > 0 {
+                    Task {
+                        loadingModel.isCaptionGenerate = false
+                        loadingModel.inputArray = [isSelected,firstSegmentSelected,secondSegmentSelected,thirdSegementSelected].flatMap { $0 }
+                        loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                            sendVisionMessage(firstSegmentSelected: firstSegmentSelected, secondSegmentSelected: secondSegmentSelected, thirdSegmentSelected: thirdSegementSelected, customKeywords: customKeyword, textLength: textLength, images: selectedImage)
+                        }
+                    }
+                }
+                else {
+                    Task {
+                        loadingModel.isCaptionGenerate = false
+                        loadingModel.inputArray = [isSelected,firstSegmentSelected,secondSegmentSelected,thirdSegementSelected].flatMap { $0 }
+                        loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
+                            sendMessage(firstSegmentSelected: firstSegmentSelected, secondSegmentSelected: secondSegmentSelected, thirdSegmentSelected: thirdSegementSelected, customKeywords: customKeyword, textLength: textLength)
+                        }
+                    }
+                }
+            } else {
+                showAlert = true
+            }
         }
     }
     
@@ -84,8 +131,4 @@ extension BrowShopView {
         }
         return uniqueArray
     }
-}
-
-#Preview {
-    BrowShopView()
 }

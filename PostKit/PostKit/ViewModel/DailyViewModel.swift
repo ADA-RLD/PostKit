@@ -177,21 +177,21 @@ extension DailyView {
                 case .failure(_):
                     loadingModel.isCaptionGenerate = true
                     pathManager.path.append(.ErrorResultFailed)
-                    print(viewModel.prompt)
+                    traceLog(viewModel.prompt)
                     
                     
                 case .finished:
                     pathManager.path.append(.CaptionResult)
                     coinManager.coinCaptionUse()
                     loadingModel.isCaptionGenerate = false
-                    print("Caption 생성 완료")
+                    traceLog(viewModel.prompt)
                 }
                 
             }, receiveValue: { response in
                 guard let textResponse = response.captionResult else {return}
                 
                 viewModel.promptAnswer = textResponse
-                viewModel.category = "메뉴"
+                viewModel.category = "카페"
             })
             .store(in: &cancellables)
     }
