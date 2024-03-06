@@ -28,7 +28,7 @@ public enum categoryType {
     case goods
     case fassion
     case hair
-    case brwoshop
+    case browShop
 }
 
 //MARK: 이미지 리소스 필요
@@ -37,5 +37,5 @@ public var CaptionCtgModel: [(imageName: String, name: String, destination: cate
     ("Goods", "상품", categoryType.goods, .Goods),
     ("Fashion", "패션", categoryType.fassion, .Fashion),
     ("Hair", "헤어", categoryType.hair, .Hair),
-    ("Brow", "브로우샵", categoryType.brwoshop, .BrowShop)
+    ("Brow", "브로우샵", categoryType.browShop, .BrowShop)
 ]
