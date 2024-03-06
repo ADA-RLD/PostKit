@@ -37,5 +37,5 @@ public var CaptionCtgModel: [(imageName: String, name: String, destination: cate
     ("Goods", "상품", categoryType.goods, .Goods),
     ("Fashion", "패션", categoryType.fassion, .Fashion),
     ("Hair", "헤어", categoryType.hair, .Hair),
-    ("BrowShop", "브로우샵", categoryType.brwoshop, .BrowShop)
+    ("Brow", "브로우샵", categoryType.brwoshop, .BrowShop)
 ]
