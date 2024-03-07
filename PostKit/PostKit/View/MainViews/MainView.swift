@@ -104,6 +104,8 @@ struct MainView: View {
                             CaptionResultView(storeModel: storeModel)
                         case .HashtagResult:
                             HashtagResultView()
+                        case .BrowShop:
+                            BrowShopView(storeModel: storeModel)
                         case .ErrorNetwork:
                             ErrorView(errorReasonState: .networkError, errorCasue: "네트워크 연결이\n원활하지 않아요", errorDescription: "네트워크 연결을 확인해주세요", errorImage: .errorNetwork)
                         case .ErrorResultFailed:

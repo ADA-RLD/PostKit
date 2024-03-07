@@ -24,6 +24,7 @@ public enum StackViewType {
     case ErrorNetwork
     case ErrorResultFailed
     case Hashtag
+    case BrowShop
 }
 
 class PathManager: ObservableObject {
