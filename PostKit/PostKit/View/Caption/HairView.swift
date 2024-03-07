@@ -52,7 +52,7 @@ struct HairView: View {
             }
             .sheet(isPresented: $isModalPresented, content: {
                 //MARK: 키워드 수정
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .goods ,pickerList: ["종류","특징","재질"])
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .hair ,pickerList: ["느낌","스타일","날씨"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
                         if hairName.count > 0 && !isSelected.isEmpty {
