@@ -56,8 +56,64 @@ extension BrowShopView {
         
         viewModel.basicPrompt = "너는 \(toneInfo) 말투와 주어진 사진을 기반으로 브로우샵 홍보를 위한 인스타그램 캡션을 대신 작성해주는 카피라이터야 가게의 이름은 \(storeModel.storeName)이야"
         
-        //MARK: 키워드가 정해지면 다시 해서 올리겠습니다.
-        viewModel.prompt = ""
+        if !secondSegmentSelected.isEmpty {
+            pointText = "스타일은 "
+            
+            for i in secondSegmentSelected.indices {
+                pointText = pointText + "\(secondSegmentSelected[i]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count - 2)
+            pointText = pointText + "이 있어"
+            
+            if !firstSegmentSelected.isEmpty {
+                pointText += "스타일의 특징으로는 "
+                
+                for i in firstSegmentSelected.indices {
+                    pointText += "\(firstSegmentSelected[i]), "
+                }
+                
+                pointText = pointText.substring(from: 0, to: pointText.count - 2)
+                pointText = pointText + "가 있어"
+            }
+            
+        }
+        
+        if !firstSegmentSelected.isEmpty && secondSegmentSelected.isEmpty {
+            pointText = "브로우샵의 특징은"
+            
+            for i in firstSegmentSelected.indices {
+                pointText = pointText + "\(firstSegmentSelected[i]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count - 2)
+            pointText = pointText + "이 있어"
+            
+        }
+        
+        if !thirdSegmentSelected.isEmpty {
+            pointText = "일상 키워드는"
+            
+            for i in thirdSegmentSelected.indices {
+                pointText = pointText + "\(thirdSegmentSelected[i]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count - 2)
+            pointText = pointText + "이 있어"
+        }
+        
+        if !customKeywords.isEmpty {
+            pointText = "다른 키워드는"
+            
+            for i in customKeywords.indices {
+                pointText = pointText + "\(customKeywords[i]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count - 2)
+            pointText = pointText + "이 있어"
+        }
+        
+        viewModel.prompt = "다음 문장들과 보내준 이미지를 기반으로 브로우샵 홍보를 위한 인스타그램 캡션을 작성해줘 \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰주고 인스타그램에 바로 복사붙혀넣기 할 수 있게 캡션만 보내줘"
     }
     
     //MARK: - 이미지가 없는 Prompt 생성
@@ -82,8 +138,64 @@ extension BrowShopView {
         
         viewModel.basicPrompt = "너는 \(toneInfo) 말투로 브로우샵 홍보를 위한 인스타 그램 캡션을 대신 작성해주는 카피라이터야 가게의 이름은 \(storeModel.storeName)이야"
         
-        // MARK: 키워드가 나오면 디테일하게 짜야해서 일단 비워두겠습니다.
-        viewModel.prompt = "테스트"
+        if !secondSegmentSelected.isEmpty {
+            pointText = "스타일은 "
+            
+            for i in secondSegmentSelected.indices {
+                pointText = pointText + "\(secondSegmentSelected[i]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count - 2)
+            pointText = pointText + "이 있어"
+            
+            if !firstSegmentSelectd.isEmpty {
+                pointText += "스타일의 특징으로는 "
+                
+                for i in firstSegmentSelectd.indices {
+                    pointText += "\(firstSegmentSelectd[i]), "
+                }
+                
+                pointText = pointText.substring(from: 0, to: pointText.count - 2)
+                pointText = pointText + "가 있어"
+            }
+            
+        }
+        
+        if !firstSegmentSelectd.isEmpty && secondSegmentSelected.isEmpty {
+            pointText = "브로우샵의 특징은"
+            
+            for i in firstSegmentSelectd.indices {
+                pointText = pointText + "\(firstSegmentSelectd[i]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count - 2)
+            pointText = pointText + "이 있어"
+            
+        }
+        
+        if !thirdSegmentSelected.isEmpty {
+            pointText = "일상 키워드는"
+            
+            for i in thirdSegmentSelected.indices {
+                pointText = pointText + "\(thirdSegmentSelected[i]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count - 2)
+            pointText = pointText + "이 있어"
+        }
+        
+        if !customKeywords.isEmpty {
+            pointText = "다른 키워드는"
+            
+            for i in customKeywords.indices {
+                pointText = pointText + "\(customKeywords[i]), "
+            }
+            
+            pointText = pointText.substring(from: 0, to: pointText.count - 2)
+            pointText = pointText + "이 있어"
+        }
+        
+        viewModel.prompt = "다음 문장들을 기반으로 브로우샵 홍보를 위한 인스타그램 캡션을 작성해줘 \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰주고 인스타그램에 바로 복사붙혀넣기 할 수 있게 캡션만 보내줘"
     }
     
     

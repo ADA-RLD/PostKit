@@ -50,7 +50,7 @@ struct DailyView: View {
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented) {
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["날씨 ・ 계절","커피 ・ 음료","디저트"])
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["음료", "디저트", "일상"])
                     .presentationDragIndicator(.visible)
             }
             if showAlert {

@@ -84,7 +84,7 @@ extension DailyView {
         }
         
         if !customKeywords.isEmpty {
-            pointText = pointText + "강조하고 싶은 키워드는 "
+            pointText = pointText + "기타 키워드는 "
             
             for index in customKeywords.indices {
                 pointText = pointText + "\(customKeywords[index]), "
@@ -120,7 +120,7 @@ extension DailyView {
         viewModel.basicPrompt = "너는 \(toneInfo) 말투로 카페 홍보를 위한 인스타 그램 캡션을 대신 작성해주는 카피라이터야 가게의 이름은 \(storeModel.storeName)이야"
         
         if !weatherSelected.isEmpty {
-            pointText = pointText + "오늘 날씨의 특징으로는 "
+            pointText = pointText + "음료 키워드로는"
             
             for index in weatherSelected.indices {
                 pointText = pointText + "\(weatherSelected[index]), "
@@ -131,7 +131,7 @@ extension DailyView {
         }
         
         if !dailyCoffeeSelected.isEmpty {
-            pointText = pointText + "오늘 이야기하고자 하는 음료는 "
+            pointText = pointText + "디저트 키워드로는 "
             
             for index in dailyCoffeeSelected.indices {
                 pointText = pointText + "\(dailyCoffeeSelected[index]), "
@@ -142,7 +142,7 @@ extension DailyView {
         }
         
         if !dailyDessertSelected.isEmpty {
-            pointText = pointText + "오늘 이야기하고자 하는 디저트는 "
+            pointText = pointText + "일상 키워드로는 "
             
             for index in dailyDessertSelected.indices {
                 pointText = pointText + "\(dailyDessertSelected[index]), "
@@ -153,7 +153,7 @@ extension DailyView {
         }
         
         if !customKeywords.isEmpty {
-            pointText = pointText + "특징으로는 "
+            pointText = pointText + "기타 키워드로는 "
             
             for index in customKeywords.indices {
                 pointText = pointText + "\(customKeywords[index]), "
