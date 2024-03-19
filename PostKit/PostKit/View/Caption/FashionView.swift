@@ -116,7 +116,7 @@ extension FashionView {
                         loadingModel.inputArray = [isSelected, firstSelected, secondSelected, thirdSelected].flatMap { $0 }
                         loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                            sendMessage(coffeeSelected: firstSelected, dessertSelected: secondSelected, drinkSelected: thirdSelected, menuName: FashionName, customKeywords: customKeyword, textLenth: textLengthArr[textLength])
+                            sendVisionMessage(coffeeSelected: firstSelected, dessertSelected: secondSelected, drinkSelected: thirdSelected, menuName: FashionName, customKeywords: customKeyword, textLenth: textLengthArr[textLength], images: selectedImage)
                         }
                     }
                 }
