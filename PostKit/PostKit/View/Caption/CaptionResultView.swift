@@ -32,7 +32,7 @@ struct CaptionResultView: View {
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
-    
+    private let firebaseManager = FirebaseManager()
     private let pasteBoard = UIPasteboard.general
     private let hapticManger = HapticManager.instance
     private let copyManager = CopyManger.instance
@@ -46,7 +46,7 @@ struct CaptionResultView: View {
     @StateObject var storeModel : StoreModel
     
     var body: some View {
-        ZStack{
+        ZStack {
             captionResult
                 .onAppear {
                     checkDate()
@@ -73,6 +73,9 @@ struct CaptionResultView: View {
                     CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 재생성할 수 있어요", topBtnLabel: "확인", topAction: {showAlert = false})
                 }
             }
+        }
+        .onAppear {
+            
         }
         .navigationBarBackButtonHidden()
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)

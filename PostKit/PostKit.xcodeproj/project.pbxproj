@@ -88,7 +88,6 @@
 		13F4B3942BA88F18001435E7 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 13F4B3932BA88F18001435E7 /* FirebaseStorageCombine-Community */; };
 		13F4B3962BA88FC5001435E7 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 13F4B3952BA88FC5001435E7 /* FirebaseDynamicLinks */; };
 		13F4B3982BA9600A001435E7 /* FIrebaseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F4B3972BA9600A001435E7 /* FIrebaseDataModel.swift */; };
-		13F4B39A2BA964F1001435E7 /* FirebaseDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F4B3992BA964F1001435E7 /* FirebaseDataViewModel.swift */; };
 		6EF76458DDB4A8411EF377DE /* Pods_PostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE6BE08B166896FD0EC1F6B1 /* Pods_PostKit.framework */; };
 		7E0605082AF108A5003A87BC /* HashtagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605072AF108A5003A87BC /* HashtagService.swift */; };
 		7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0605092AF13965003A87BC /* HashtagViewModel.swift */; };
@@ -195,7 +194,6 @@
 		13ECB50C2AF377530046E6BE /* SelectTextLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTextLength.swift; sourceTree = "<group>"; };
 		13ECB50E2AF39D740046E6BE /* KeywordModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordModal.swift; sourceTree = "<group>"; };
 		13F4B3972BA9600A001435E7 /* FIrebaseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIrebaseDataModel.swift; sourceTree = "<group>"; };
-		13F4B3992BA964F1001435E7 /* FirebaseDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataViewModel.swift; sourceTree = "<group>"; };
 		3E68A9EB98B7C9C0E4C2479A /* Pods-PostKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PostKit.release.xcconfig"; path = "Target Support Files/Pods-PostKit/Pods-PostKit.release.xcconfig"; sourceTree = "<group>"; };
 		7E0605072AF108A5003A87BC /* HashtagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagService.swift; sourceTree = "<group>"; };
 		7E0605092AF13965003A87BC /* HashtagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagViewModel.swift; sourceTree = "<group>"; };
@@ -413,7 +411,6 @@
 				A182C9EA2B96D3170016320F /* FashionViewModel.swift */,
 				A182C9F02B96E7810016320F /* HairViewModel.swift */,
 				1352C7B32B9839D100F8C68F /* BrowShopViewModel.swift */,
-				13F4B3992BA964F1001435E7 /* FirebaseDataViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -791,7 +788,6 @@
 				A188C5882AD7C8BB007473D3 /* StoreProtocol.swift in Sources */,
 				A182C9F12B96E7810016320F /* HairViewModel.swift in Sources */,
 				B9872A3F2AF23D77000A795C /* HashtagPopover.swift in Sources */,
-				13F4B39A2BA964F1001435E7 /* FirebaseDataViewModel.swift in Sources */,
 				B9872A472AF394DA000A795C /* HistoryButton.swift in Sources */,
 				13ECB5092AF28C8B0046E6BE /* AppDelegate.swift in Sources */,
 				13C296102AD8F16700A2DE7F /* OnboardingRouter.swift in Sources */,
