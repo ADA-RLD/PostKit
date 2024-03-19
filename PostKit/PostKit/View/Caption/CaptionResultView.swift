@@ -75,7 +75,7 @@ struct CaptionResultView: View {
             }
         }
         .onAppear {
-            if viewModel.imageURL != "" && (!viewModel.customKeywords.isEmpty || !viewModel.recommendKeywords.isEmpty) {
+            if viewModel.imageURL != "" && !(viewModel.customKeywords.isEmpty && viewModel.recommendKeywords.isEmpty) {
                 let data = CaptionInfo(customKeywords: viewModel.customKeywords, recommendKeywords: viewModel.recommendKeywords, captionResult: viewModel.promptAnswer, isIncludeImage: true)
                 firebaseManager.updateCaptionResult(cpationType: .both, Data: data.data)
             }
@@ -83,7 +83,7 @@ struct CaptionResultView: View {
                 let data = ImageInfo(captionResult: viewModel.promptAnswer)
                 firebaseManager.updateCaptionResult(cpationType: .imageOnly, Data: data.data)
             }
-            else if viewModel.imageURL == "" && (!viewModel.customKeywords.isEmpty || !viewModel.recommendKeywords.isEmpty) {
+            else if viewModel.imageURL == "" && !(viewModel.customKeywords.isEmpty && viewModel.recommendKeywords.isEmpty) {
                 let data = CaptionInfo(customKeywords: viewModel.customKeywords, recommendKeywords: viewModel.recommendKeywords, captionResult: viewModel.promptAnswer, isIncludeImage: false)
                 firebaseManager.updateCaptionResult(cpationType: .keywordsOnly, Data: data.data)
             }
