@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
 
 class FirebaseManager {
     private let db = Firestore.firestore()

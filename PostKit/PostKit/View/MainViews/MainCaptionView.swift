@@ -200,18 +200,6 @@ extension MainCaptionView {
         }
     }
     
-    private func categoryTag(for type: categoryType) -> some View {
-        Text(type == .cafe ? "카페" : "패션")
-            .body2Bold(textColor: type == .cafe ? Color.categoryTextRed : Color.categoryTextBlue )
-            .padding(.horizontal, 6)
-            .padding(.vertical, 4)
-            .background {
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(type == .cafe ? Color.categoryBgRed : Color.categoryBgBlue)
-            }
-    }
-    
-    
     private func SettingBtn(action: @escaping () -> Void) -> some View {
         HStack(alignment: .center) {
             Spacer()
