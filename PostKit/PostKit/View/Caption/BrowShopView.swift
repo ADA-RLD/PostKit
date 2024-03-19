@@ -53,7 +53,7 @@ struct BrowShopView: View {
             }
             .sheet(isPresented: $isModalPresented) {
                 // TODO: 키워드가 정해지면 바꿔야 합니다.
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSegmentSelected, secondSegementSelected: $secondSegmentSelected, thirdSegementSelected: $thirdSegementSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["특징", "스타일", "일상"])
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSegmentSelected, secondSegementSelected: $secondSegmentSelected, thirdSegementSelected: $thirdSegementSelected, customKeywords: $customKeyword, modalType: .browshop, pickerList: ["특징", "스타일", "일상"])
                     .presentationDragIndicator(.visible)
             }
             if showAlert {
