@@ -31,6 +31,9 @@ extension HairView {
     func createPrompt(coffeeSelected: Array<String>, dessertSelected: Array<String>, drinkSelected: Array<String>, customKeywords: Array<String>, menuName: String, textLength: Int){
         var pointText = ""
         var toneInfo = ""
+        viewModel.customKeywords = customKeywords
+        viewModel.recommendKeywords = coffeeSelected + dessertSelected + drinkSelected
+        viewModel.imageURL = ""
         
         for _tone in storeModel.tone {
             if _tone == "" {
