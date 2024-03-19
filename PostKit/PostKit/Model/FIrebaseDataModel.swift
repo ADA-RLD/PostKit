@@ -10,15 +10,15 @@ import FirebaseFirestoreSwift
 
 
 public enum captionType: String, CaseIterable {
-    case onlyKeywords = "OnlyKeywords"
-    case onlyImage = "OnlyImage"
+    case keywordsOnly = "OnlyKeywords"
+    case imageOnly = "OnlyImage"
     case both = "Both"
     
     var type: String {
         switch self {
-        case .onlyImage:
+        case .imageOnly:
             return "OnlyImage"
-        case .onlyKeywords:
+        case .keywordsOnly:
             return "OnlyKeywords"
         case .both:
             return "Both"
@@ -36,7 +36,7 @@ struct ImageInfo {
     }
 }
 
-struct CpationInfo {
+struct CaptionInfo {
     var customKeywords: [String]?
     var recommendKeywords: [String]?
     var captionResult: String
