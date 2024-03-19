@@ -124,7 +124,6 @@
 		B913340E2AF9CD7300034036 /* CustomAlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B913340D2AF9CD7300034036 /* CustomAlertMessage.swift */; };
 		B96211E92AED16CC0074CBE1 /* HashtagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96211E82AED16CC0074CBE1 /* HashtagView.swift */; };
 		B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */; };
-		B98632602AD7CFB200DE9FF5 /* KeywordsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B986325F2AD7CFB200DE9FF5 /* KeywordsModel.swift */; };
 		B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632612AD7CFD500DE9FF5 /* CustomTextfield.swift */; };
 		B98632642AD7CFEE00DE9FF5 /* Keywords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632632AD7CFEE00DE9FF5 /* Keywords.swift */; };
 		B98632662AD7D01500DE9FF5 /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98632652AD7D01500DE9FF5 /* WrappingHStack.swift */; };
@@ -235,7 +234,6 @@
 		B913340D2AF9CD7300034036 /* CustomAlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertMessage.swift; sourceTree = "<group>"; };
 		B96211E82AED16CC0074CBE1 /* HashtagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagView.swift; sourceTree = "<group>"; };
 		B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHashtag.swift; sourceTree = "<group>"; };
-		B986325F2AD7CFB200DE9FF5 /* KeywordsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsModel.swift; sourceTree = "<group>"; };
 		B98632612AD7CFD500DE9FF5 /* CustomTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextfield.swift; sourceTree = "<group>"; };
 		B98632632AD7CFEE00DE9FF5 /* Keywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keywords.swift; sourceTree = "<group>"; };
 		B98632652AD7D01500DE9FF5 /* WrappingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
@@ -380,7 +378,6 @@
 			children = (
 				13C295D42AD677FA00A2DE7F /* NavigationModel.swift */,
 				A188C5782AD79E89007473D3 /* StoreModel.swift */,
-				B986325F2AD7CFB200DE9FF5 /* KeywordsModel.swift */,
 				13C2961B2AD8F32000A2DE7F /* ToneModel.swift */,
 				13C296232AD988FC00A2DE7F /* AppStorageManager.swift */,
 				A1B75ACD2AEFB3EF00DFD343 /* CaptionModel.swift */,
@@ -778,7 +775,6 @@
 				13C296162AD8F18900A2DE7F /* OnboardingView.swift in Sources */,
 				A182C9ED2B96E5770016320F /* FashionView.swift in Sources */,
 				13C295D32AD64C3500A2DE7F /* SettingView.swift in Sources */,
-				B98632602AD7CFB200DE9FF5 /* KeywordsModel.swift in Sources */,
 				13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */,
 				13819EEB2B0303DC005E5D91 /* FirebaseManager.swift in Sources */,
 				7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */,
