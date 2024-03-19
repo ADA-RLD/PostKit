@@ -87,6 +87,8 @@ struct LoadingView: View {
                     },
                     showAlert: $isActiveAlert)
             }
+            GoogleAdMob(type: .fullSize)
+                .background(Color.red)
         }
         
         .navigationBarBackButtonHidden()

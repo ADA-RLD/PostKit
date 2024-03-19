@@ -119,6 +119,8 @@
 		A1B75AD22AEFE24100DFD343 /* HashtagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */; };
 		A1B860B02B60CEEE00D74BE1 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B860AF2B60CEEE00D74BE1 /* ImagePicker.swift */; };
 		A1F6699A2B99C66D00271073 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1F669992B99C66D00271073 /* GoogleService-Info.plist */; };
+		A1FD67042BA921BE00487430 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = A1FD67032BA921BE00487430 /* GoogleMobileAds */; };
+		A1FD67062BA924BE00487430 /* GoogleAdmob.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FD67052BA924BE00487430 /* GoogleAdmob.swift */; };
 		B913340E2AF9CD7300034036 /* CustomAlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B913340D2AF9CD7300034036 /* CustomAlertMessage.swift */; };
 		B96211E92AED16CC0074CBE1 /* HashtagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96211E82AED16CC0074CBE1 /* HashtagView.swift */; };
 		B96211EB2AED255C0074CBE1 /* CustomHashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */; };
@@ -228,6 +230,7 @@
 		A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagModel.swift; sourceTree = "<group>"; };
 		A1B860AF2B60CEEE00D74BE1 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A1F669992B99C66D00271073 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/PostKit/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A1FD67052BA924BE00487430 /* GoogleAdmob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAdmob.swift; sourceTree = "<group>"; };
 		B913340D2AF9CD7300034036 /* CustomAlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertMessage.swift; sourceTree = "<group>"; };
 		B96211E82AED16CC0074CBE1 /* HashtagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagView.swift; sourceTree = "<group>"; };
 		B96211EA2AED255C0074CBE1 /* CustomHashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHashtag.swift; sourceTree = "<group>"; };
@@ -266,6 +269,7 @@
 				13819EC52B03028E005E5D91 /* FirebaseCrashlytics in Frameworks */,
 				13819EDD2B03028E005E5D91 /* FirebaseMLModelDownloader in Frameworks */,
 				13819EC92B03028E005E5D91 /* FirebaseDatabaseSwift in Frameworks */,
+				A1FD67042BA921BE00487430 /* GoogleMobileAds in Frameworks */,
 				13819ECD2B03028E005E5D91 /* FirebaseFirestore in Frameworks */,
 				13819EDB2B03028E005E5D91 /* FirebaseInstallations in Frameworks */,
 				13819ED52B03028E005E5D91 /* FirebaseFunctionsCombine-Community in Frameworks */,
@@ -411,6 +415,7 @@
 				A182C9EA2B96D3170016320F /* FashionViewModel.swift */,
 				A182C9F02B96E7810016320F /* HairViewModel.swift */,
 				1352C7B32B9839D100F8C68F /* BrowShopViewModel.swift */,
+				A1FD67052BA924BE00487430 /* GoogleAdmob.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				13819EE42B03028E005E5D91 /* FirebaseRemoteConfigSwift */,
 				13819EE62B03028E005E5D91 /* FirebaseStorage */,
 				13819EE82B03028E005E5D91 /* FirebaseStorageCombine-Community */,
+				A1FD67032BA921BE00487430 /* GoogleMobileAds */,
 			);
 			productName = PostKit;
 			productReference = 13C295AD2AD55F2100A2DE7F /* PostKit.app */;
@@ -651,6 +657,7 @@
 			packageReferences = (
 				13ECB5052AF28C1B0046E6BE /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
 				13819EB32B03028E005E5D91 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				A1FD67022BA921BE00487430 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = 13C295AE2AD55F2100A2DE7F /* Products */;
 			projectDirPath = "";
@@ -781,6 +788,7 @@
 				A1A4FAF92AF6245400514053 /* iCloudProtocol.swift in Sources */,
 				1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */,
 				B98632622AD7CFD500DE9FF5 /* CustomTextfield.swift in Sources */,
+				A1FD67062BA924BE00487430 /* GoogleAdmob.swift in Sources */,
 				13BDD1502B88E07F0030AB02 /* APIManager.swift in Sources */,
 				139B2C892AECF0CD0036BD18 /* ErrorView.swift in Sources */,
 				13C295D52AD677FA00A2DE7F /* NavigationModel.swift in Sources */,
@@ -961,6 +969,7 @@
 				INFOPLIST_FILE = PostKit/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Gpt가 이미지를 이용하기 위해서 사진첩에 접근합니다.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "사용자에게 맞춤 광고를 표시하기 위해 사용합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
@@ -1003,6 +1012,7 @@
 				INFOPLIST_FILE = PostKit/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Gpt가 이미지를 이용하기 위해서 사진첩에 접근합니다.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "사용자에게 맞춤 광고를 표시하기 위해 사용합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
@@ -1065,6 +1075,14 @@
 			requirement = {
 				branch = master;
 				kind = branch;
+			};
+		};
+		A1FD67022BA921BE00487430 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1209,6 +1227,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 13ECB5052AF28C1B0046E6BE /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
 			productName = Mixpanel;
+		};
+		A1FD67032BA921BE00487430 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1FD67022BA921BE00487430 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 /* End XCSwiftPackageProductDependency section */
 

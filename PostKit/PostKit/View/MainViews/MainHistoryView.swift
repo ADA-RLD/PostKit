@@ -80,6 +80,7 @@ struct MainHistoryView: View {
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                 }
+                GoogleAdMob(type: .banner)
             }
             .padding(.top, 20)
             .padding(.horizontal, 20)
