@@ -146,14 +146,16 @@ extension MainCaptionView {
                     HStack {
                         categoryBtn(categoryImage: firstItem.imageName, categoryName: firstItem.name, for: firstItem.destination, action: {
                             pathManager.path.append(firstItem.path)
-                            Mixpanel.mainInstance().track(event: "카테고리 선택", properties: ["카테고리": firstItem.name])
+                            Mixpanel.mainInstance().registerSuperProperties(["Category": firstItem.name])
+                            Mixpanel.mainInstance().track(event: "카테고리 선택")
                         })
                         
                         if secondIndex < CaptionCtgModel.count {
                             let secondItem = CaptionCtgModel[secondIndex]
                             categoryBtn(categoryImage: secondItem.imageName, categoryName: secondItem.name, for: secondItem.destination, action: {
                                 pathManager.path.append(secondItem.path)
-                                Mixpanel.mainInstance().track(event: "카테고리 선택", properties: ["카테고리": secondItem.name])
+                                Mixpanel.mainInstance().registerSuperProperties(["Category": secondItem.name])
+                                Mixpanel.mainInstance().track(event: "카테고리 선택")
                             })
                         } else {
                             Spacer()

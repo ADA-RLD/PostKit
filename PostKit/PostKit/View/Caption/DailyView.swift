@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 import Combine
 import _PhotosUI_SwiftUI
+import Mixpanel
 
 struct DailyView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -101,6 +102,12 @@ extension DailyView {
                             print(coinManager.coin)
                         }
                     }
+                    if isSelected.isEmpty{
+                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["isKeywords" : false, "isImage" : true])
+                    }
+                    else {
+                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["isKeywords" : true, "isImage" : true])
+                    }
                 }
                 else {
                     Task{
@@ -112,6 +119,12 @@ extension DailyView {
                             sendMessage(weatherSelected: weatherSelected, dailyCoffeeSelected: dailyCoffeeSelected, dailyDessertSelected: dailyDessertSelected, customKeywords: customKeyword, textLength: textLengthArr[textLength])
                             print(coinManager.coin)
                         }
+                    }
+                    if isSelected.isEmpty{
+                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["isKeywords" : false, "isImage" : false])
+                    }
+                    else {
+                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["isKeywords" : true, "isImage" : false])
                     }
                 }
 
