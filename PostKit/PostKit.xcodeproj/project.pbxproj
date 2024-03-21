@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		130566182BA721FC00D51C0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 130566172BA721FC00D51C0F /* GoogleService-Info.plist */; };
+		0AF0832C2BABCFC100836468 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AF0832B2BABCFC100836468 /* GoogleService-Info.plist */; };
 		133232FE2B6121C800A9A5CA /* GoodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133232FD2B6121C800A9A5CA /* GoodsView.swift */; };
 		133233022B6A720200A9A5CA /* GoodsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133233012B6A720200A9A5CA /* GoodsViewModel.swift */; };
 		1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */; };
@@ -139,7 +139,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		130566172BA721FC00D51C0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0AF0832B2BABCFC100836468 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		133232FD2B6121C800A9A5CA /* GoodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsView.swift; sourceTree = "<group>"; };
 		133233012B6A720200A9A5CA /* GoodsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsViewModel.swift; sourceTree = "<group>"; };
 		1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHistoryView.swift; sourceTree = "<group>"; };
@@ -310,7 +310,7 @@
 		13C295A42AD55F2100A2DE7F = {
 			isa = PBXGroup;
 			children = (
-				130566172BA721FC00D51C0F /* GoogleService-Info.plist */,
+				0AF0832B2BABCFC100836468 /* GoogleService-Info.plist */,
 				13C295AF2AD55F2100A2DE7F /* PostKit */,
 				13C295AE2AD55F2100A2DE7F /* Products */,
 				D2EED1AA8014945B0B79CFF3 /* Pods */,
@@ -666,12 +666,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				130566182BA721FC00D51C0F /* GoogleService-Info.plist in Resources */,
 				13C295F52AD7136E00A2DE7F /* Pretendard-Bold.otf in Resources */,
 				13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */,
 				13C295F22AD7136E00A2DE7F /* Pretendard-Light.otf in Resources */,
 				13C295F42AD7136E00A2DE7F /* Pretendard-ExtraLight.otf in Resources */,
 				13C295F02AD7136E00A2DE7F /* Pretendard-Regular.otf in Resources */,
+				0AF0832C2BABCFC100836468 /* GoogleService-Info.plist in Resources */,
 				13C295F32AD7136E00A2DE7F /* Pretendard-Thin.otf in Resources */,
 				13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */,
 				13C295EF2AD7136E00A2DE7F /* Pretendard-SemiBold.otf in Resources */,
