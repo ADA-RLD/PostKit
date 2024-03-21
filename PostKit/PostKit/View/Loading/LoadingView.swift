@@ -113,13 +113,16 @@ struct LoadingView: View {
         }
         .onDisappear {
             if pathManager.path.contains(.Daily) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "일상"])
+                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "카페"])
             }
-            else if pathManager.path.contains(.Menu) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "메뉴"])
+            else if pathManager.path.contains(.Fashion) {
+                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "패션"])
             }
-            else if pathManager.path.contains(.Hashtag) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "해시태그"])
+            else if pathManager.path.contains(.Hair) {
+                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "헤어"])
+            }
+            else if pathManager.path.contains(.BrowShop) {
+                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "브로우샵"])
             }
             loadingModel.inputArray.removeAll()
         }
