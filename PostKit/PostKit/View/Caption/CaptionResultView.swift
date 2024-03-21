@@ -234,37 +234,37 @@ extension View {
 extension CaptionResultView {
     private func trackingRegenerate() {
         if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "재생성", properties: ["카테고리": "일상"])
+            Mixpanel.mainInstance().track(event: "재생성")
         }
         else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "재생성", properties: ["카테고리": "메뉴"])
+            Mixpanel.mainInstance().track(event: "재생성")
         }
     }
     
     private func trackingCopy() {
         if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "복사", properties: ["카테고리": "일상"])
+            Mixpanel.mainInstance().track(event: "복사")
         }
         else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "복사", properties: ["카테고리": "메뉴"])
+            Mixpanel.mainInstance().track(event: "복사")
         }
     }
     
     private func trackingEdit() {
         if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "수정", properties: ["카테고리": "일상"])
+            Mixpanel.mainInstance().track(event: "수정")
         }
         else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "수정", properties: ["카테고리": "메뉴"])
+            Mixpanel.mainInstance().track(event: "수정")
         }
     }
     
     private func trackingResult() {
         if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "생성 성공", properties: ["카테고리": "일상"])
+            Mixpanel.mainInstance().track(event: "생성 성공")
         }
         else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "생성 성공", properties: ["카테고리": "메뉴"])
+            Mixpanel.mainInstance().track(event: "생성 성공")
         }
     }
 }

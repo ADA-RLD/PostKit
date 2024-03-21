@@ -103,10 +103,10 @@ extension DailyView {
                         }
                     }
                     if isSelected.isEmpty{
-                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["Category" : "Cafe", "isKeywords" : false, "isImage" : true])
+                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["isKeywords" : false, "isImage" : true])
                     }
                     else {
-                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["Category" : "Cafe", "isKeywords" : true, "isImage" : true])
+                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["isKeywords" : true, "isImage" : true])
                     }
                 }
                 else {
@@ -121,10 +121,10 @@ extension DailyView {
                         }
                     }
                     if isSelected.isEmpty{
-                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["Category" : "Cafe", "isKeywords" : false, "isImage" : false])
+                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["isKeywords" : false, "isImage" : false])
                     }
                     else {
-                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["Category" : "Cafe", "isKeywords" : true, "isImage" : false])
+                        Mixpanel.mainInstance().track(event: "글 생성", properties: ["isKeywords" : true, "isImage" : false])
                     }
                 }
 
