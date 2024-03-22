@@ -10,6 +10,7 @@ import UIKit
 import AppTrackingTransparency
 import AdSupport
 import Firebase
+import GoogleMobileAds
 
 class AppDelegate: NSObject, UIApplicationDelegate {
 
@@ -32,9 +33,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
     func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         getRandomKey() // 랜덤 키를 가져오는 함수를 호출해주세요.
+        GADMobileAds.sharedInstance().start(completionHandler: nil) //구글 광고 초기화
         return true
     }
 }

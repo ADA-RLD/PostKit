@@ -59,9 +59,9 @@ struct LoadingView: View {
                     
                     //LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStep)
                     
-//                    LoadingTipView(_timeStep: timeStep, tips: Tips)
-//                        .frame(height: 150)
-//                        .padding(.bottom, 12)
+                    //                    LoadingTipView(_timeStep: timeStep, tips: Tips)
+                    //                        .frame(height: 150)
+                    //                        .padding(.bottom, 12)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 27.6)
@@ -88,11 +88,12 @@ struct LoadingView: View {
                     showAlert: $isActiveAlert)
             }
             GoogleAdMob(type: .fullSize)
-                .background(Color.red)
         }
         
         .navigationBarBackButtonHidden()
         .onAppear {
+            InterstitialAdcoordinator().loadAd()
+            InterstitialAdcoordinator().showAd(from: UIApplication.shared.windows.first?.rootViewController)
             Timer.scheduledTimer(withTimeInterval: 6.0, repeats: true) { timer in
                 self.count = count + 1
                 timeStep = count % 5

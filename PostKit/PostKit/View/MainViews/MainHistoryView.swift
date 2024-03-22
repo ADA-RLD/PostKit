@@ -74,12 +74,13 @@ struct MainHistoryView: View {
                             .highPriorityGesture(DragGesture())
                             .tag("피드 글")
                         
-//                        hashtagHistory
-//                            .highPriorityGesture(DragGesture())
-//                            .tag("해시태그")
+                        //                        hashtagHistory
+                        //                            .highPriorityGesture(DragGesture())
+                        //                            .tag("해시태그")
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                 }
+                
                 GoogleAdMob(type: .banner)
             }
             .padding(.top, 20)
