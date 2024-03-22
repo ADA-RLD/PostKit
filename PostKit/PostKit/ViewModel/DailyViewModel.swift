@@ -31,6 +31,8 @@ extension DailyView {
         var pointText = ""
         var toneInfo = ""
         addImagesToMessages(images: images)
+        viewModel.customKeywords = customKeywords
+        viewModel.recommendKeywords = weatherSelected + dailyCoffeeSelected + dailyDessertSelected
         
         for _tone in storeModel.tone {
             if _tone == "" {
@@ -101,6 +103,10 @@ extension DailyView {
     func createPrompt(weatherSelected: Array<String>, dailyCoffeeSelected: Array<String>, dailyDessertSelected: Array<String>, customKeywords: Array<String>, textLength: Int){
         var pointText = ""
         var toneInfo = ""
+        viewModel.customKeywords = customKeywords
+        viewModel.recommendKeywords = weatherSelected + dailyCoffeeSelected + dailyDessertSelected
+        viewModel.imageURL = ""
+        
         
         for _tone in storeModel.tone {
             if _tone == "" {

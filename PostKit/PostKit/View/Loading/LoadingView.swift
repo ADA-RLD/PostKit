@@ -115,15 +115,7 @@ struct LoadingView: View {
             Mixpanel.mainInstance().time(event: "글 로딩")
         }
         .onDisappear {
-            if pathManager.path.contains(.Daily) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "일상"])
-            }
-            else if pathManager.path.contains(.Menu) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "메뉴"])
-            }
-            else if pathManager.path.contains(.Hashtag) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "해시태그"])
-            }
+            Mixpanel.mainInstance().track(event: "글 로딩")
             loadingModel.inputArray.removeAll()
         }
     }
@@ -227,15 +219,7 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some Vi
 
 private extension LoadingView {
     private func trackingCancel() {
-        if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "일상"])
-        }
-        else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "메뉴"])
-        }
-        else if pathManager.path.contains(.Hashtag) {
-            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "해시태그"])
-        }
+        Mixpanel.mainInstance().track(event: "사용자 생성 취소")
     }
 }
 struct CustomTagFeild: View {

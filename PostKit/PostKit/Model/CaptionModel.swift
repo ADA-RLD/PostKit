@@ -33,8 +33,7 @@ public enum categoryType {
 
 //MARK: 이미지 리소스 필요
 public var CaptionCtgModel: [(imageName: String, name: String, destination: categoryType, path: StackViewType)] = [
-    ("Cafe", "일상", categoryType.cafe, .Daily),
-    ("Goods", "상품", categoryType.goods, .Goods),
+    ("Cafe", "카페", categoryType.cafe, .Daily),
     ("Fashion", "패션", categoryType.fassion, .Fashion),
     ("Hair", "헤어", categoryType.hair, .Hair),
     ("Brow", "브로우샵", categoryType.browShop, .BrowShop)

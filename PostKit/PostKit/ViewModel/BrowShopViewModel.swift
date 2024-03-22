@@ -36,7 +36,8 @@ extension BrowShopView {
     func createVisionPrompt(firstSegmentSelected: Array<String>, secondSegmentSelected: Array<String>, thirdSegmentSelected: Array<String>, customKeywords: Array<String>, textLength: Int, images: [UIImage]) {
         var pointText = ""
         var toneInfo = ""
-        
+        viewModel.customKeywords = customKeywords
+        viewModel.recommendKeywords = firstSegmentSelected + secondSegmentSelected + thirdSegmentSelected
         addImagesToMessages(images: images)
         
         for _tone in storeModel.tone {
@@ -120,6 +121,9 @@ extension BrowShopView {
     func createPrompt(firstSegmentSelectd: Array<String>, secondSegmentSelected: Array<String>, thirdSegmentSelected: Array<String>, customKeywords: Array<String>, textLength: Int) {
         var pointText = ""
         var toneInfo = ""
+        viewModel.customKeywords = customKeywords
+        viewModel.recommendKeywords = firstSegmentSelectd + secondSegmentSelected + thirdSegmentSelected
+        viewModel.imageURL = ""
         
         for _tone in storeModel.tone {
             if _tone == "" {

@@ -78,8 +78,6 @@ extension FashionView {
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
-                menuInput()
-                
                 KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
                 
                 SelectTextLength(selected: $textLength)
@@ -116,7 +114,7 @@ extension FashionView {
                         loadingModel.inputArray = [isSelected, firstSelected, secondSelected, thirdSelected].flatMap { $0 }
                         loadingModel.inputArray = removeDuplicates(from: loadingModel.inputArray)
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                            sendMessage(coffeeSelected: firstSelected, dessertSelected: secondSelected, drinkSelected: thirdSelected, menuName: FashionName, customKeywords: customKeyword, textLenth: textLengthArr[textLength])
+                            sendVisionMessage(coffeeSelected: firstSelected, dessertSelected: secondSelected, drinkSelected: thirdSelected, menuName: FashionName, customKeywords: customKeyword, textLenth: textLengthArr[textLength], images: selectedImage)
                         }
                     }
                 }
