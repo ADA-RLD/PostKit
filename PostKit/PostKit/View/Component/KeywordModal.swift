@@ -138,10 +138,10 @@ extension KeywordModal {
                     isShowingToast = true
                 }
                 if modalType == .daily {
-                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력")
+                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력", properties:["카테고리": "일상"])
                 }
                 else if modalType == .menu {
-                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력")
+                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력", properties:["카테고리": "메뉴"])
                 }
             }
             
