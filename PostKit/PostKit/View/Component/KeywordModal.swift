@@ -126,7 +126,7 @@ extension KeywordModal {
 
     private func keywordInputArea() -> some View {
         VStack(alignment: .leading, spacing: 20) {
-            CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
+            CustomTextfield(text: $inputText, placeHolder: modalType.placeholderName, customTextfieldState: .reuse) {
                 if (!inputText.isEmpty && selectModalKeywords.count < maxCount) {
                     if firstSegmentPoint.contains(inputText) {
                         firstSegementSelected.append(inputText)

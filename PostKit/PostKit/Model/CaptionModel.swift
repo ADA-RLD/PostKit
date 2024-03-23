@@ -49,8 +49,6 @@ public enum captionLength: Int, CaseIterable {
             return 300
         }
     }
-    
-    
 }
 
 public enum categoryType: String, CaseIterable{
@@ -69,6 +67,19 @@ public enum categoryType: String, CaseIterable{
             return "헤어"
         case .browShop:
             return "브로우샵"
+        }
+    }
+    
+    var placeholderName: String {
+        switch self {
+        case .cafe:
+            return "아메리카노"
+        case .fassion:
+            return "발마칸 코트"
+        case .hair:
+            return "히피펌"
+        case .browShop:
+            return "속눈썹 연장"
         }
     }
     
