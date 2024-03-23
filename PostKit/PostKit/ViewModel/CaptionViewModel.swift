@@ -5,14 +5,21 @@
 //  Created by 김다빈 on 3/23/24.
 //
 
-import SwiftUI
+import Foundation
+import CoreData
+import Combine
+import _PhotosUI_SwiftUI
+import Mixpanel
 
-struct CaptionViewModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    CaptionViewModel()
+class CaptionViewModel:
+    ObservableObject {
+    @Published var isButtonEnabled: Bool = false
+    @Published var isKeywordModal: Bool = false
+    @Published var isOpenPhoto: Bool = false
+    @Published var selectedKeywords: [String] = []
+    @Published var firstSegmentSelected: [String] = []
+    @Published var secondSegmentSelected: [String] = []
+    @Published var thirdSegmentSelected: [String] = []
+    @Published var cancellabes = Set<AnyCancellable>()
+    
 }

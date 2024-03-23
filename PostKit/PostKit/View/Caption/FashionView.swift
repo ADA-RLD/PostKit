@@ -26,6 +26,7 @@ struct FashionView: View {
     @State private var isSelected: [String] = []
     @State private var textLength: Int = 1
     
+    @StateObject var captionViewModel = CaptionViewModel()
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -78,7 +79,7 @@ extension FashionView {
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
-                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
+                KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
                 
                 SelectTextLength(selected: $textLength)
             }

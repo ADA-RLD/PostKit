@@ -23,12 +23,24 @@ class CaptionModel : Identifiable {
     }
 }
 
-public enum categoryType {
+public enum categoryType: String, CaseIterable{
     case cafe
-    case goods
     case fassion
     case hair
     case browShop
+    
+    var korCategoryName: String {
+        switch self {
+        case .cafe:
+            return "카페"
+        case .fassion:
+            return "패션"
+        case .hair:
+            return "헤어"
+        case .browShop:
+            return "브로우샵"
+        }
+    }
 }
 
 //MARK: 이미지 리소스 필요

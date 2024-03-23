@@ -30,7 +30,7 @@ struct BrowShopView: View {
     
     // CoreData Data class
     @StateObject var storeModel: StoreModel
-    
+    @StateObject var captionViewModel = CaptionViewModel()
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -78,7 +78,7 @@ extension BrowShopView {
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
-                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
+                KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
                     .onChange(of: isSelected) { _ in
                         isActive = true
                     }

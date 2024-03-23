@@ -30,7 +30,7 @@ struct DailyView: View {
     @State var cancellables = Set<AnyCancellable>()
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
-    
+    @StateObject var captionViewModel = CaptionViewModel()
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -78,10 +78,10 @@ extension DailyView {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
             
-                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
-                    .onChange(of: isSelected) { _ in
-                        isActive = true
-                    }
+//                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
+//                    .onChange(of: isSelected) { _ in
+//                        isActive = true
+//                    }
 
                 SelectTextLength(selected: $textLength)
             }

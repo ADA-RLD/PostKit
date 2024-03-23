@@ -12,7 +12,7 @@ import PhotosUI
 struct KeywordAppend: View {
 //    let accessLevel: PHAccessLevel = .readWrite
 //    let authorizationStatus = PHPhotoLibrary.authorizationStatus(for: accessLevel)
-    
+    @ObservedObject var captionViewModel: CaptionViewModel
     @Binding var isModalToggle: Bool
     @Binding var selectKeyWords: [String]
     @Binding var openPhoto : Bool
