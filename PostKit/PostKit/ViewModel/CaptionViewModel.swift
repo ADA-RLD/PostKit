@@ -28,12 +28,12 @@ class CaptionViewModel:
     @Published var selectedImageFileName : String?
     @Published var textLength: Int = 200
     
-    func checkConditions(enable isButtonEnabled: Bool, keywords  selectedKeywords: [String], image selectedImage: [UIImage]) {
-        
-        DispatchQueue.main.async {
-            if !(selectedImage.isEmpty && selectedImage.isEmpty) {
-                self.isButtonEnabled = true
-            }
+    func checkConditions() {
+        if !(selectedImage.isEmpty && selectedKeywords.isEmpty) {
+            self.isButtonEnabled = true
+        }
+        else {
+            self.isButtonEnabled = false
         }
     }
 

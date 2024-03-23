@@ -23,12 +23,13 @@ struct CaptionView: View {
             .sheet(isPresented: $captionViewModel.isOpenPhoto) {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: $captionViewModel.selectedImage,imageUrl: $captionViewModel.selectedImageUrl, fileName: $captionViewModel.selectedImageFileName)
             }
-            .onChange(of: captionViewModel.selectedKeywords, perform: { value in
-                captionViewModel.checkConditions(enable: captionViewModel.isButtonEnabled, keywords: captionViewModel.selectedKeywords, image: captionViewModel.selectedImage)
+            .onReceive((captionViewModel.$selectedImage), perform: { _ in
+                captionViewModel.checkConditions()
             })
-            .onChange(of: captionViewModel.selectedImage, perform: { value in
-                captionViewModel.checkConditions(enable: captionViewModel.isButtonEnabled, keywords: captionViewModel.selectedKeywords, image: captionViewModel.selectedImage)
+            .onReceive(captionViewModel.$selectedKeywords, perform: { _ in
+                captionViewModel.checkConditions()
             })
+
             .sheet(isPresented: $captionViewModel.isKeywordModal) {
                 KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $captionViewModel.selectedKeywords, firstSegementSelected: $captionViewModel.firstSegmentSelected, secondSegementSelected: $captionViewModel.secondSegmentSelected, thirdSegementSelected: $captionViewModel.thirdSegmentSelected, customKeywords: $captionViewModel.customKeyword, modalType: categoryName, pickerList: categoryName.picekrList)
             }
