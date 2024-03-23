@@ -123,21 +123,24 @@ extension KeywordModal {
             selectModalKeywords = removeDuplicates(from: selectModalKeywords)
         }
     }
-    
+
     private func keywordInputArea() -> some View {
         VStack(alignment: .leading, spacing: 20) {
             CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
                 if (!inputText.isEmpty && selectModalKeywords.count < maxCount) {
                     if firstSegmentPoint.contains(inputText) {
                         firstSegementSelected.append(inputText)
+                        selectModalKeywords.append(inputText)
                         firstSegmentPoint.removeAll(where: {$0 == inputText})
                     }
                     else if secondSegmentPoint.contains(inputText) {
                         secondSegementSelected.append(inputText)
+                        selectModalKeywords.append(inputText)
                         secondSegmentPoint.removeAll(where: {$0 == inputText})
                     }
                     else if thirdSegmentPoint.contains(inputText) {
                         thirdSegementSelected.append(inputText)
+                        selectModalKeywords.append(inputText)
                         thirdSegmentPoint.removeAll(where: {$0 == inputText})
                     }
                     else {
@@ -172,6 +175,9 @@ extension KeywordModal {
                             }
                             else if thirdSegementSelected.contains(i) {
                                 thirdSegementSelected.removeAll(where: {$0 == i})
+                            }
+                            else {
+                                customKeywords.removeAll(where: {$0 == i})
                             }
                             if let coffeeTmp = originFirstSegment.firstIndex(of: i) {
                                 firstSegmentPoint.insert(i, at: coffeeTmp)

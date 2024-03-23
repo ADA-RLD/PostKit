@@ -36,7 +36,7 @@ class CaptionViewModel:
             }
         }
     }
-    
+
     func deleteKeywords(keywords: String) {
         if firstSegmentSelected.contains(keywords) {
             self.firstSegmentSelected.removeAll(where: {$0 == keywords})
