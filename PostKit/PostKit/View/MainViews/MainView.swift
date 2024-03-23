@@ -83,13 +83,13 @@ struct MainView: View {
                         case .Menu:
                             MenuView(storeModel: storeModel)
                         case .Daily:
-                            DailyView(storeModel: storeModel)
+                            CaptionView(categoryName: categoryType.cafe)
                         case .Goods:
                             GoodsView(storeModel: storeModel)
                         case .Fashion:
-                            FashionView(storeModel: storeModel)
+                            CaptionView(categoryName: categoryType.fassion)
                         case .Hair:
-                            HairView(storeModel: storeModel)
+                            CaptionView(categoryName: categoryType.hair)
                         case .SettingHome:
                             SettingView(storeModel: storeModel)
                         case .SettingStore:
@@ -105,7 +105,7 @@ struct MainView: View {
                         case .HashtagResult:
                             HashtagResultView()
                         case .BrowShop:
-                            BrowShopView(storeModel: storeModel)
+                            CaptionView(categoryName: categoryType.browShop)
                         case .ErrorNetwork:
                             ErrorView(errorReasonState: .networkError, errorCasue: "네트워크 연결이\n원활하지 않아요", errorDescription: "네트워크 연결을 확인해주세요", errorImage: .errorNetwork)
                         case .ErrorResultFailed:
