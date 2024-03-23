@@ -8,11 +8,10 @@
 import Foundation
 import CoreData
 import Combine
-import _PhotosUI_SwiftUI
 import Mixpanel
-
-class CaptionViewModel:
-    ObservableObject {
+import SwiftUI
+@MainActor
+class CaptionViewModel: ObservableObject {
     @Published var isButtonEnabled: Bool = false
     @Published var isKeywordModal: Bool = false
     @Published var isOpenPhoto: Bool = false
@@ -29,14 +28,14 @@ class CaptionViewModel:
     @Published var textLength: Int = 200
     
     func checkConditions() {
-        if !(selectedImage.isEmpty && selectedKeywords.isEmpty) {
+        if !(self.selectedImage.isEmpty && self.selectedKeywords.isEmpty) {
             self.isButtonEnabled = true
         }
         else {
             self.isButtonEnabled = false
         }
     }
-
+    
     func deleteKeywords(keywords: String) {
         if firstSegmentSelected.contains(keywords) {
             self.firstSegmentSelected.removeAll(where: {$0 == keywords})

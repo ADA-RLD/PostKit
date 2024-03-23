@@ -10,6 +10,11 @@ import SwiftUI
 struct CaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @StateObject var captionViewModel = CaptionViewModel()
+    @StateObject var storeModel : StoreModel
+    @ObservedObject var coinManager = CoinManager.shared
+    @ObservedObject var viewModel = ChatGptViewModel.shared
+    @ObservedObject var loadingModel = LoadingViewModel.shared
+
     var categoryName: categoryType
     
     var body: some View {
@@ -24,7 +29,10 @@ struct CaptionView: View {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: $captionViewModel.selectedImage,imageUrl: $captionViewModel.selectedImageUrl, fileName: $captionViewModel.selectedImageFileName)
             }
             .onReceive((captionViewModel.$selectedImage), perform: { _ in
-                captionViewModel.checkConditions()
+                DispatchQueue.main.async {
+                    captionViewModel.checkConditions()
+
+                }
             })
             .onReceive(captionViewModel.$selectedKeywords, perform: { _ in
                 captionViewModel.checkConditions()
@@ -32,6 +40,7 @@ struct CaptionView: View {
 
             .sheet(isPresented: $captionViewModel.isKeywordModal) {
                 KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $captionViewModel.selectedKeywords, firstSegementSelected: $captionViewModel.firstSegmentSelected, secondSegementSelected: $captionViewModel.secondSegmentSelected, thirdSegementSelected: $captionViewModel.thirdSegmentSelected, customKeywords: $captionViewModel.customKeyword, modalType: categoryName, pickerList: categoryName.picekrList)
+                
             }
      
         }
@@ -66,6 +75,3 @@ extension CaptionView {
     }
 }
 
-#Preview {
-    CaptionView(categoryName: .cafe)
-}

@@ -88,14 +88,14 @@ struct KeywordAppend: View {
 }
 
 extension KeywordAppend {
+    @MainActor
     func requestPHPhotoLibraryAuthorization(completion: @escaping () -> Void) {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
             switch status {
             case .limited, .authorized:
-                //completion()
-                openPhoto.toggle()
-            //case .authorized:
-                //completion()
+                DispatchQueue.main.async {
+                    openPhoto.toggle()
+                }
             default:
                 break
             }
