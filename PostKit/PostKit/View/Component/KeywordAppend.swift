@@ -36,7 +36,7 @@ struct KeywordAppend: View {
                 WrappingHStack(alignment: .leading,horizontalSpacing: 8, verticalSpacing: 8) {
                     ForEach(selectKeyWords, id: \.self) { index in
                         CustomHashtag(tagText: index) {
-                            selectKeyWords.removeAll(where: { $0 == index})
+                            captionViewModel.deleteKeywords(keywords: index)
                         }
                     }
                 }

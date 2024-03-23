@@ -46,14 +46,14 @@ struct BrowShopView: View {
                 headerArea()
                 contents()
                     .sheet(isPresented: $openPhoto) {
-                        ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
+                        ImagePicker(sourceType: .photoLibrary,selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
                     }
                 Spacer()
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented) {
                 // TODO: 키워드가 정해지면 바꿔야 합니다.
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSegmentSelected, secondSegementSelected: $secondSegmentSelected, thirdSegementSelected: $thirdSegementSelected, customKeywords: $customKeyword, modalType: .browShop, pickerList: ["특징", "스타일", "일상"])
+                KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $isSelected, firstSegementSelected: $firstSegmentSelected, secondSegementSelected: $secondSegmentSelected, thirdSegementSelected: $thirdSegementSelected, customKeywords: $customKeyword, modalType: .browShop, pickerList: ["특징", "스타일", "일상"])
                     .presentationDragIndicator(.visible)
             }
             if showAlert {

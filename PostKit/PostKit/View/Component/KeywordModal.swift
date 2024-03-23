@@ -17,7 +17,7 @@ public enum KeywordModalType {
 }
 
 struct KeywordModal: View {
-//    @ObservedObject var captionViewModel: CaptionViewModel
+    @ObservedObject var captionViewModel: CaptionViewModel
     private let firebaseManager = FirebaseManager()
     private let maxCount: Int = 5
     @Binding var selectKeyWords: [String]
@@ -29,9 +29,11 @@ struct KeywordModal: View {
     @State private var inputText: String = ""
     @State private var pickerSelection: Int = 0
     @State private var selectModalKeywords: [String] = []
+    // MARK: 파이어베이스에서 받아온 키워드들
     @State private var firstSegmentPoint: [String] = []
     @State private var secondSegmentPoint: [String] = []
     @State private var thirdSegmentPoint: [String] = []
+    // MARK: 기존의 배열과 비교하는 키워드
     @State private var originFirstSegment: [String] = []
     @State private var originSecondSegment: [String] = []
     @State private var originThirdSegment: [String] = []
@@ -61,6 +63,7 @@ struct KeywordModal: View {
             }
             .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
             .onAppear {
+                selectModalKeywords = captionViewModel.selectedKeywords
                 switch modalType {
                 case .cafe:
                     getFireBaseArray(keywordType: "CafeKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
@@ -71,6 +74,7 @@ struct KeywordModal: View {
                 case .browShop:
                     getFireBaseArray(keywordType: "BrowKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
                 }
+                print(captionViewModel.firstSegmentSelected)
             }
             .onReceive(
                 NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
@@ -91,10 +95,10 @@ extension KeywordModal {
     private func headerArea() -> some View {
         HStack {
             Button {
-                selectModalKeywords = []
-                firstSegementSelected = []
-                secondSegementSelected = []
-                thirdSegementSelected = []
+                selectModalKeywords = captionViewModel.selectedKeywords
+                firstSegementSelected = captionViewModel.firstSegmentSelected
+                secondSegementSelected = captionViewModel.secondSegmentSelected
+                thirdSegementSelected = captionViewModel.thirdSegmentSelected
                 self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("취소")
@@ -123,9 +127,23 @@ extension KeywordModal {
     private func keywordInputArea() -> some View {
         VStack(alignment: .leading, spacing: 20) {
             CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
-                if (!inputText.isEmpty && selectModalKeywords.count < maxCount && !firstSegmentPoint.contains(inputText) && !secondSegmentPoint.contains(inputText) && !thirdSegmentPoint.contains(inputText)) {
-                    selectModalKeywords.append(inputText)
-                    customKeywords.append(inputText)
+                if (!inputText.isEmpty && selectModalKeywords.count < maxCount) {
+                    if firstSegmentPoint.contains(inputText) {
+                        firstSegementSelected.append(inputText)
+                        firstSegmentPoint.removeAll(where: {$0 == inputText})
+                    }
+                    else if secondSegmentPoint.contains(inputText) {
+                        secondSegementSelected.append(inputText)
+                        secondSegmentPoint.removeAll(where: {$0 == inputText})
+                    }
+                    else if thirdSegmentPoint.contains(inputText) {
+                        thirdSegementSelected.append(inputText)
+                        thirdSegmentPoint.removeAll(where: {$0 == inputText})
+                    }
+                    else {
+                        selectModalKeywords.append(inputText)
+                        customKeywords.append(inputText)
+                    }
                 }
             }
             .onSubmit {
@@ -271,25 +289,43 @@ extension KeywordModal {
                 uniqueArray.append(element)
             }
         }
-        
         return uniqueArray
     }
 }
 
 //MARK: Functions
 extension KeywordModal {
+
     private func getFireBaseArray (keywordType: String, firstSegmentName: String, secondSegmentName: String, thirdSegmentName: String) {
         firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: firstSegmentName) { receviedArray in
             self.firstSegmentPoint = receviedArray
             self.originFirstSegment = receviedArray
+        
+            for i in captionViewModel.firstSegmentSelected {
+                if firstSegmentPoint.contains(i) {
+                    firstSegmentPoint.removeAll(where: { $0 == i})
+                }
+            }
         }
         firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: secondSegmentName) { receviedArray in
             self.secondSegmentPoint = receviedArray
             self.originSecondSegment = receviedArray
+
+            for i in captionViewModel.secondSegmentSelected {
+                if secondSegmentPoint.contains(i) {
+                    secondSegmentPoint.removeAll(where: { $0 == i})
+                }
+            }
         }
         firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: thirdSegmentName) { receviedArray in
             self.thirdSegmentPoint = receviedArray
             self.originThirdSegment = receviedArray
+            
+            for i in captionViewModel.thirdSegmentSelected {
+                if thirdSegmentPoint.contains(i) {
+                    thirdSegmentPoint.removeAll(where: { $0 == i })
+                }
+            }
         }
     }
 }

@@ -24,5 +24,36 @@ class CaptionViewModel:
     @Published var customKeyword: [String] = []
     @Published var cancellabes = Set<AnyCancellable>()
     @Published var selectedImage: [UIImage] = []
+    @Published var selectedImageUrl: URL?
+    @Published var selectedImageFileName : String?
+    @Published var textLength: Int = 200
     
+    func checkConditions(enable isButtonEnabled: Bool, keywords  selectedKeywords: [String], image selectedImage: [UIImage]) {
+        
+        DispatchQueue.main.async {
+            if !(selectedImage.isEmpty && selectedImage.isEmpty) {
+                self.isButtonEnabled = true
+            }
+        }
+    }
+    
+    func deleteKeywords(keywords: String) {
+        if firstSegmentSelected.contains(keywords) {
+            self.firstSegmentSelected.removeAll(where: {$0 == keywords})
+            self.selectedKeywords.removeAll(where: {$0 == keywords})
+        }
+        else if secondSegmentSelected.contains(keywords) {
+            self.secondSegmentSelected.removeAll(where: {$0 == keywords})
+            self.selectedKeywords.removeAll(where: {$0 == keywords})
+        }
+        else if thirdSegmentSelected.contains(keywords) {
+            self.thirdSegmentSelected.removeAll(where: {$0 == keywords})
+            self.selectedKeywords.removeAll(where: {$0 == keywords})
+        }
+        else if customKeyword.contains(keywords) {
+            self.customKeyword.removeAll(where: {$0 == keywords})
+            self.selectedKeywords.removeAll(where: {$0 == keywords})
+        }
+        
+    }
 }

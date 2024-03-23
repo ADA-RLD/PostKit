@@ -23,6 +23,36 @@ class CaptionModel : Identifiable {
     }
 }
 
+public enum captionLength: Int, CaseIterable {
+    case short
+    case middle
+    case long
+    
+    var korcaptionLength: String {
+        switch self {
+        case .short:
+            return "짧음"
+        case .middle:
+            return "중간"
+        case .long:
+            return "긺"
+        }
+    }
+    
+    var captionLength: Int {
+        switch self {
+        case .short:
+            return 100
+        case .middle:
+            return 200
+        case .long:
+            return 300
+        }
+    }
+    
+    
+}
+
 public enum categoryType: String, CaseIterable{
     case cafe
     case fassion
