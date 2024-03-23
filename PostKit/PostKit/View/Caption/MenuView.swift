@@ -54,7 +54,7 @@ struct MenuView: View {
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented, content: {
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, customKeywords: $customKeyword, modalType: .menu ,pickerList: ["커피","음료","디저트"])
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $coffeeSelected, secondSegementSelected: $drinkSelected, thirdSegementSelected: $dessertSelected, customKeywords: $customKeyword, modalType: .cafe ,pickerList: ["커피","음료","디저트"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
                         if menuName.count > 0 && (!isSelected.isEmpty || selectedImage.count >= 1) {

@@ -7,7 +7,7 @@
 import Mixpanel
 import SwiftUI
 
-enum KeywordModalType {
+public enum KeywordModalType {
     case daily
     case menu
     case goods
@@ -39,7 +39,7 @@ struct KeywordModal: View {
     @State private var keyboardHeight: CGFloat = 0
     @Namespace var nameSpace
     
-    var modalType: KeywordModalType
+    var modalType: categoryType
     var pickerList: [String]
     
     var body: some View {
@@ -62,19 +62,13 @@ struct KeywordModal: View {
             .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
             .onAppear {
                 switch modalType {
-                case .daily:
+                case .cafe:
                     getFireBaseArray(keywordType: "CafeKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
-                case .menu:
-                    getFireBaseArray(keywordType: "MenuKeyWords", firstSegmentName: "Coffee", secondSegmentName: "Drink", thirdSegmentName: "Dessert")
-                    selectModalKeywords = selectKeyWords
-                case .goods:
-                    getFireBaseArray(keywordType: "FashionKeyword", firstSegmentName: "Category", secondSegmentName: "Feature", thirdSegmentName: "Material")
-                    //MARK: FireBase 키워드 위치 이름 수정, 1,2,3 SegmentName 정해지면 수정
                 case .fassion:
                     getFireBaseArray(keywordType: "FashionKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
                 case .hair:
                     getFireBaseArray(keywordType: "HairKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
-                case .browshop:
+                case .browShop:
                     getFireBaseArray(keywordType: "BrowKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
                 }
             }
@@ -138,10 +132,10 @@ extension KeywordModal {
                 if selectModalKeywords.count >= maxCount {
                     isShowingToast = true
                 }
-                if modalType == .daily {
+                if modalType == .cafe {
                     Mixpanel.mainInstance().track(event: "커스텀 키워드 입력")
                 }
-                else if modalType == .menu {
+                else if modalType == .browShop {
                     Mixpanel.mainInstance().track(event: "커스텀 키워드 입력")
                 }
             }

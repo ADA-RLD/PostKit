@@ -41,6 +41,20 @@ public enum categoryType: String, CaseIterable{
             return "브로우샵"
         }
     }
+    
+    var picekrList: [String] {
+        switch self {
+            
+        case .cafe:
+            return ["음료", "디저트", "일상"]
+        case .fassion:
+            return ["특징", "재질", "종류"]
+        case .hair:
+            return ["느낌", "스타일", "날씨"]
+        case .browShop:
+            return ["특징", "스타일", "일상"]
+        }
+    }
 }
 
 //MARK: 이미지 리소스 필요

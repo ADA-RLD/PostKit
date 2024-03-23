@@ -55,7 +55,7 @@ struct GoodsView: View {
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented, content: {
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .goods ,pickerList: ["종류","특징","재질"])
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .fassion ,pickerList: ["종류","특징","재질"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
                         if menuName.count > 0 && !isSelected.isEmpty {

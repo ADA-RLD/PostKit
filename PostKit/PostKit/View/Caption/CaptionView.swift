@@ -20,7 +20,11 @@ struct CaptionView: View {
                 Spacer()
                 bottomArea
             }
+            .sheet(isPresented: $captionViewModel.isKeywordModal) {
+                KeywordModal(selectKeyWords: $captionViewModel.selectedKeywords, firstSegementSelected: $captionViewModel.firstSegmentSelected, secondSegementSelected: $captionViewModel.secondSegmentSelected, thirdSegementSelected: $captionViewModel.thirdSegmentSelected, customKeywords: $captionViewModel.customKeyword, modalType: categoryName, pickerList: categoryName.picekrList)
+            }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -36,6 +40,7 @@ extension CaptionView {
     private var contentsArea: some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
+                KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $captionViewModel.isKeywordModal, selectKeyWords: $captionViewModel.selectedKeywords, openPhoto: $captionViewModel.isOpenPhoto, selectedImage: $captionViewModel.selectedImage)
                 
             }
         }
