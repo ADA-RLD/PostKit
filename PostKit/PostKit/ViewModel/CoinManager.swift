@@ -24,7 +24,9 @@ class CoinManager: ObservableObject {
         coin -= 2
     }
     
-    func coinHashtagUse() {
-        coin -= 1
+    func checkCoin() {
+        if coin >= CoinManager.captionCost {
+            
+        }
     }
 }

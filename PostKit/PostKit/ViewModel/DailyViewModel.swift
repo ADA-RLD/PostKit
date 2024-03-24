@@ -201,7 +201,7 @@ extension DailyView {
             .store(in: &cancellables)
     }
     
-    func createVisionCaption(images: [UIImage]) {
+    func createVisionCaption(images: [UIImage]) async{
         let apiManager = APIManager()
         let imageURL = addImagesToMessages(images: images)
         
