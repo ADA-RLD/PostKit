@@ -78,6 +78,7 @@ extension CaptionView {
                 pathManager.path.append(.Loading)
                 Task {
                     loadingModel.isCaptionGenerate = false
+                    print(captionViewModel.isImage(), 123)
                     if captionViewModel.isImage() {
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                             captionViewModel.createVisionPrompt(storeName: storeModel.storeName, storeInfo: categoryName.korCategoryName, toneInfo: storeModel.tone, segmentInfo: categoryName.picekrList)
@@ -100,19 +101,23 @@ extension CaptionView {
         .onReceive(captionViewModel.$isCaptionSuccess, perform: { _ in
             print(captionViewModel.isCaptionSuccess)
             if captionViewModel.isCaptionSuccess == true {
-                loadingModel.isCaptionGenerate = false
-                print("생성성공")
-                pathManager.path.append(.CaptionResult)
+                DispatchQueue.main.async {
+                    loadingModel.isCaptionGenerate = false
+                    pathManager.path.append(.CaptionResult)
+                }
             }
         })
         .onReceive(captionViewModel.$errorCode, perform: { _ in
+            print(captionViewModel.errorCode)
             if captionViewModel.errorCode == 10 {
-                loadingModel.isCaptionGenerate = true
-                print("생성오류")
-                pathManager.path.append(.ErrorResultFailed)
+                DispatchQueue.main.async {
+                    loadingModel.isCaptionGenerate = true
+                    pathManager.path.append(.ErrorResultFailed)
+                }
             } else if captionViewModel.errorCode == 13{
-                pathManager.path.append(.ErrorNetwork)
-                print("네트워크오류")
+                DispatchQueue.main.async {
+                    pathManager.path.append(.ErrorNetwork)
+                }
             }
         })
     }

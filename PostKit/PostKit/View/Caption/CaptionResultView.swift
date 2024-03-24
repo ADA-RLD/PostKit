@@ -77,7 +77,9 @@ struct CaptionResultView: View {
         }
         
         .onReceive(captionViewModel.$isCaptionSuccess, perform: { _ in
-            loadingModel.isCaptionGenerate = false
+            if captionViewModel.isCaptionSuccess == true {
+                loadingModel.isCaptionGenerate = false
+            }
         })
         .onReceive(captionViewModel.$errorCode, perform: { _ in
             if captionViewModel.errorCode == 10 {

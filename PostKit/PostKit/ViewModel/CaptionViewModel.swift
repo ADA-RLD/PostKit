@@ -201,7 +201,7 @@ class CaptionViewModel: ObservableObject {
     
     func sendVisionMessage() {
         Task {
-            await createVisionCaption
+            await createVisionCaption()
         }
         
     }
@@ -271,7 +271,7 @@ class CaptionViewModel: ObservableObject {
     func createVisionCaption() {
         let apiManager = APIManager()
         let imageURL = addImagesToMessages()
-        
+        print("비전캡션")
         apiManager.sendImageKeyWord(basicPrompt: basicPrompt, prompt: prompt, imageURL: imageURL ?? "")
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -294,7 +294,9 @@ class CaptionViewModel: ObservableObject {
             }, receiveValue: { response in
                 guard let textResponse = response.captionResult else {return}
                 DispatchQueue.main.async {
+                    print(textResponse)
                     self.promptAnswer = textResponse
+                    self.isCaptionSuccess = true
                 }
                 
             }).store(in: &cancellabes)
