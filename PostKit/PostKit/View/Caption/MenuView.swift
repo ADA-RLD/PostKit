@@ -29,7 +29,7 @@ struct MenuView: View {
     @State private var isSelected: [String] = []
     @State private var textLength: Int = 1
     
-    @StateObject var captionViewModel = CaptionViewModel()
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared

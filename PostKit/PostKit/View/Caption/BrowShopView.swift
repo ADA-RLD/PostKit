@@ -30,7 +30,7 @@ struct BrowShopView: View {
     
     // CoreData Data class
     @StateObject var storeModel: StoreModel
-    @StateObject var captionViewModel = CaptionViewModel()
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared

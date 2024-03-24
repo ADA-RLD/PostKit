@@ -296,7 +296,7 @@ extension MainView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Hashtag 수정 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\nHashtag : \(newCaption.hashtag)\n")
+            print("Hashtag 수정 완료!\n resultId c: \(newCaption.resultId)\n Date : \(newCaption.date)\nHashtag : \(newCaption.hashtag)\n")
         }
     }
     

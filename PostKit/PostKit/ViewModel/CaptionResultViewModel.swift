@@ -26,56 +26,20 @@ extension CaptionResultView {
     // MARK: - Chat GPT API에 재생성 요청
     func regenerateAnswer() {
         let apiManager = APIManager()
-        if viewModel.imageURL != "" {
+        if coinManager.checkCoin() {
+            pathManager.path.append(.Loading)
             Task {
-                apiManager.sendImageKeyWord(basicPrompt:viewModel.basicPrompt, prompt:viewModel.prompt,imageURL: viewModel.imageURL)
-                    .sink(
-                        receiveCompletion: { completion in
-                            switch completion {
-                            case .failure(let error):
-                                if error._code == 10 {
-                                    pathManager.path.append(.ErrorResultFailed)
-                                }
-                                else if error._code == 13 {
-                                    pathManager.path.append(.ErrorNetwork)
-                                }
-                            case .finished:
-                                coinManager.coinCaptionUse()
-                                pathManager.path.append(.CaptionResult)
-                            }
-                        },
-                        receiveValue:  { response in
-                            guard let textResponse = response.captionResult else{return}
-                            viewModel.promptAnswer = textResponse
-                        }
-                    )
-                    .store(in: &cancellables)
-            }
-        }
-        else {
-            Task {
-                apiManager.sendKeyWord(basicPrompt: viewModel.basicPrompt,prompt:viewModel.prompt)
-                    .sink(
-                        receiveCompletion: { completion in
-                            switch completion {
-                            case .failure(let error):
-                                if error._code == 10 {
-                                    pathManager.path.append(.ErrorResultFailed)
-                                }
-                                else if error._code == 13 {
-                                    pathManager.path.append(.ErrorNetwork)
-                                }
-                            case .finished:
-                                coinManager.coinCaptionUse()
-                                pathManager.path.append(.CaptionResult)
-                            }
-                        },
-                        receiveValue:  { response in
-                            guard let textResponse = response.captionResult else{return}
-                            viewModel.promptAnswer = textResponse
-                        }
-                    )
-                    .store(in: &cancellables)
+                loadingModel.isCaptionGenerate = false
+                if captionViewModel.isImage() {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                        captionViewModel.sendVisionMessage()
+                    }
+                }
+                else {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                        captionViewModel.sendMessage()
+                    }
+                }
             }
         }
     }

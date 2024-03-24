@@ -17,7 +17,7 @@ public enum KeywordModalType {
 }
 
 struct KeywordModal: View {
-    @ObservedObject var captionViewModel: CaptionViewModel
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     private let firebaseManager = FirebaseManager()
     private let maxCount: Int = 5
     @Binding var selectKeyWords: [String]

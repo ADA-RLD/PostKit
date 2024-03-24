@@ -48,22 +48,22 @@ struct HashtagResultView: View {
                         topBtnLabel: "확인",
                         bottomBtnLabel: "취소",
                         topAction: {
-                            if coinManager.coin > CoinManager.minimalCoin {
-                                loadingModel.isCaptionGenerate = false
-                                pathManager.path.append(.Loading)
-                                Mixpanel.mainInstance().track(event: "재생성", properties: ["카테고리": "해시태그"])
-                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                                    coinManager.coinHashtagUse()
-                                    if !chatGpt.isCanceled {
-                                        pathManager.path.append(.HashtagResult)
-                                        viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
-                                    }
-                                    else{
-                                        chatGpt.isCanceled = false
-                                    }
-                                }
-                            }
-                            showAlert = false
+//                            if coinManager.coin > CoinManager.minimalCoin {
+//                                loadingModel.isCaptionGenerate = false
+//                                pathManager.path.append(.Loading)
+//                                Mixpanel.mainInstance().track(event: "재생성", properties: ["카테고리": "해시태그"])
+//                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+//                                    $coinManager.coinHashtagUse()
+//                                    if !chatGpt.isCanceled {
+//                                        pathManager.path.append(.HashtagResult)
+//                                        viewModel.hashtag = hashtagService.createHashtag(locationArr: viewModel.locationKey, emphasizeArr: viewModel.emphasizeKey)
+//                                    }
+//                                    else{
+//                                        chatGpt.isCanceled = false
+//                                    }
+//                                }
+//                            }
+//                            showAlert = false
                         }, 
                         bottomAction: {
                             showAlert = false

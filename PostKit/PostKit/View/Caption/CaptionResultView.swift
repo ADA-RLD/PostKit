@@ -29,6 +29,7 @@ struct CaptionResultView: View {
     @State private var showModal = false
     @State var isShowingToast = false
     @State var cancellables = Set<AnyCancellable>()
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -52,7 +53,7 @@ struct CaptionResultView: View {
                     checkDate()
                     //Caption이 생성되면 바로 CoreData에 저장
                     //수정을 위해 UUID를 저장
-                    copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
+                    copyId = saveCaptionResult(category: captionViewModel.categoryName, date: convertDayTime(time: Date()), result: captionViewModel.promptAnswer,like: likeCopy)
                     loadingModel.isCaptionGenerate = true
                     trackingResult()
                 }
@@ -74,6 +75,18 @@ struct CaptionResultView: View {
                 }
             }
         }
+        
+        .onReceive(captionViewModel.$isCaptionSuccess, perform: { _ in
+            loadingModel.isCaptionGenerate = false
+        })
+        .onReceive(captionViewModel.$errorCode, perform: { _ in
+            if captionViewModel.errorCode == 10 {
+                loadingModel.isCaptionGenerate = true
+                pathManager.path.append(.ErrorResultFailed)
+            } else if captionViewModel.errorCode == 13{
+                pathManager.path.append(.ErrorNetwork)
+            }
+        })
         .onAppear {
             if viewModel.imageURL != "" && !(viewModel.customKeywords.isEmpty && viewModel.recommendKeywords.isEmpty) {
                 let data = CaptionInfo(customKeywords: viewModel.customKeywords, recommendKeywords: viewModel.recommendKeywords, captionResult: viewModel.promptAnswer, isIncludeImage: true)
@@ -103,6 +116,7 @@ extension CaptionResultView {
                     HStack {
                         Spacer()
                         Button(action: {
+                            captionViewModel.resetCondition()
                             if isCaptionChange {
                                 saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
                             }
@@ -129,14 +143,14 @@ extension CaptionResultView {
                         }.sheet(isPresented: self.$showModal, content: {
                             ResultUpdateModalView(
                                 showModal: $showModal, isChange: $isCaptionChange,
-                                stringContent: $viewModel.promptAnswer,
+                                stringContent: $captionViewModel.promptAnswer,
                                 resultUpdateType: .captionResult
                             )
                             .interactiveDismissDisabled()
                         })
                         
                         VStack(spacing: 4) {
-                            Text(viewModel.promptAnswer)
+                            Text(captionViewModel.promptAnswer)
                                 .body1Regular(textColor: .gray5)
                             HStack {
                                 Spacer()
@@ -148,7 +162,9 @@ extension CaptionResultView {
                                     .onTapGesture {
                                         withAnimation(.easeIn(duration: 0.3)) {
                                             likeCopy.toggle()
-                                            saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
+                                            DispatchQueue.main.async {
+                                                saveEditCaptionResult(_uuid: copyId, _result: captionViewModel.promptAnswer, _like: likeCopy)
+                                            }
                                         }
                                     }
                             }
@@ -181,7 +197,7 @@ extension CaptionResultView {
                 isShowingToast = true
                 trackingCopy()
             }
-
+            
         }
     }
 }

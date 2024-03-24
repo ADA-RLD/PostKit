@@ -18,6 +18,8 @@ class CaptionViewModel: ObservableObject {
     @Published var isOpenPhoto: Bool = false
     @Published var coinAlert: Bool = false
     @Published var selectedKeywords: [String] = []
+    @Published var isCaptionSuccess: Bool = false
+    @Published var errorCode: Int = 0
     @Published var firstSegmentSelected: [String] = []
     @Published var secondSegmentSelected: [String] = []
     @Published var thirdSegmentSelected: [String] = []
@@ -27,9 +29,12 @@ class CaptionViewModel: ObservableObject {
     @Published var selectedImageUrl: URL?
     @Published var selectedImageFileName : String?
     @Published var textLength: Int = 200
+    @Published var categoryName: String = ""
     @Published var promptAnswer: String = ""
     @Published var basicPrompt: String = ""
     @Published var prompt: String = ""
+    
+    static let shared = CaptionViewModel()
     
     func checkConditions() {
         if !(self.selectedImage.isEmpty && self.selectedKeywords.isEmpty) {
@@ -38,6 +43,10 @@ class CaptionViewModel: ObservableObject {
         else {
             self.isButtonEnabled = false
         }
+    }
+    
+    func checkCategory(category: String) {
+        categoryName = category
     }
     
     func deleteKeywords(keywords: String) {
@@ -191,18 +200,113 @@ class CaptionViewModel: ObservableObject {
     }
     
     func sendVisionMessage() {
+        Task {
+            await createVisionCaption
+        }
         
     }
     
-    func sendMessage() {
+    func sendMessage()  {
+        Task {
+            await createCaption()
+        }
         
     }
     
-    func createCaption() async {
-        
+    func resetCondition() {
+        isCaptionSuccess = false
+        errorCode = 0
+        selectedImage = []
+        firstSegmentSelected = []
+        secondSegmentSelected = []
+        thirdSegmentSelected = []
+        customKeyword = []
+        selectedKeywords = []
     }
     
-    func createVisionCaption() async {
+    func isImage() -> Bool {
+        if selectedImage.isEmpty {
+            return false
+        }
+        return true
+    }
+    
+    func createCaption() {
+        let apiManager = APIManager()
         
+        apiManager.sendKeyWord(basicPrompt: basicPrompt, prompt: prompt)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case.failure(let error):
+                    print("실패")
+                    if error._code == 10 {
+                        DispatchQueue.main.async {
+                            self.errorCode = 10
+                        }
+                    } else if error._code == 13 {
+                        DispatchQueue.main.async {
+                            self.errorCode = 13
+                        }
+                    }
+                case.finished:
+                    print("성공")
+                    DispatchQueue.main.async {
+                        self.isCaptionSuccess = true
+                    }
+                }
+                
+            }, receiveValue: { response in
+                guard let textResponse = response.captionResult else {return}
+                DispatchQueue.main.async {
+                    print(textResponse)
+                    self.promptAnswer = textResponse
+                    print(self.promptAnswer)
+                    self.isCaptionSuccess = true
+                }
+                
+            })
+            .store(in: &cancellabes)
+    }
+    
+    func createVisionCaption() {
+        let apiManager = APIManager()
+        let imageURL = addImagesToMessages()
+        
+        apiManager.sendImageKeyWord(basicPrompt: basicPrompt, prompt: prompt, imageURL: imageURL ?? "")
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case.finished:
+                    DispatchQueue.main.async {
+                        self.isCaptionSuccess = true
+                    }
+                case.failure(let error):
+                    if error._code == 10 {
+                        DispatchQueue.main.async {
+                            self.errorCode = 10
+                        }
+                    } else if error._code == 13 {
+                        DispatchQueue.main.async {
+                            self.errorCode = 13
+                        }
+                    }
+                }
+                
+            }, receiveValue: { response in
+                guard let textResponse = response.captionResult else {return}
+                DispatchQueue.main.async {
+                    self.promptAnswer = textResponse
+                }
+                
+            }).store(in: &cancellabes)
+    }
+    
+    func addImagesToMessages() -> String? {
+        if let firstImage = selectedImage.first,
+           let imageData = firstImage.jpegData(compressionQuality: 0.5) {
+            let base64String = imageData.base64EncodedString()
+            let imageURL = "data:image/jpeg;base64,\(base64String)"
+            return imageURL
+        }
+        return ""
     }
 }

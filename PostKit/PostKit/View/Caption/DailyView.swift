@@ -30,7 +30,7 @@ struct DailyView: View {
     @State var cancellables = Set<AnyCancellable>()
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
-    @StateObject var captionViewModel = CaptionViewModel()
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
