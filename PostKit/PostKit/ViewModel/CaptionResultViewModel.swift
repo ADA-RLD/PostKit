@@ -27,9 +27,7 @@ extension CaptionResultView {
     func regenerateAnswer() {
         let apiManager = APIManager()
         if coinManager.checkCoin() {
-            pathManager.path.append(.Loading)
             Task {
-                loadingModel.isCaptionGenerate = false
                 if captionViewModel.isImage() {
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                         captionViewModel.sendVisionMessage()

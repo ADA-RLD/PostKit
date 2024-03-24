@@ -46,7 +46,9 @@ class CaptionViewModel: ObservableObject {
     }
     
     func checkCategory(category: String) {
-        categoryName = category
+        DispatchQueue.main.async {
+            self.categoryName = category
+        }
     }
     
     func deleteKeywords(keywords: String) {
@@ -199,14 +201,14 @@ class CaptionViewModel: ObservableObject {
         prompt = "다음 키워드들을 포함해서 \(storeInfo) 홍보를 위한 인스타그램 캡션만 작성해줘. \(pointText) 글자수는 공백 포함해서 꼭 \(textLength)자로 맞춰주고 인스타그램에 바로 복사 붙혀넣기 할 수 있게 캡션만 보내줘."
     }
     
-    func sendVisionMessage() {
+    @MainActor func sendVisionMessage() {
         Task {
             await createVisionCaption()
         }
         
     }
     
-    func sendMessage()  {
+    @MainActor func sendMessage()  {
         Task {
             await createCaption()
         }
@@ -240,13 +242,9 @@ class CaptionViewModel: ObservableObject {
                 case.failure(let error):
                     print("실패")
                     if error._code == 10 {
-                        DispatchQueue.main.async {
                             self.errorCode = 10
-                        }
                     } else if error._code == 13 {
-                        DispatchQueue.main.async {
                             self.errorCode = 13
-                        }
                     }
                 case.finished:
                     print("성공")
@@ -257,13 +255,8 @@ class CaptionViewModel: ObservableObject {
                 
             }, receiveValue: { response in
                 guard let textResponse = response.captionResult else {return}
-                DispatchQueue.main.async {
-                    print(textResponse)
                     self.promptAnswer = textResponse
-                    print(self.promptAnswer)
                     self.isCaptionSuccess = true
-                }
-                
             })
             .store(in: &cancellabes)
     }
@@ -276,18 +269,12 @@ class CaptionViewModel: ObservableObject {
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case.finished:
-                    DispatchQueue.main.async {
                         self.isCaptionSuccess = true
-                    }
                 case.failure(let error):
                     if error._code == 10 {
-                        DispatchQueue.main.async {
                             self.errorCode = 10
-                        }
                     } else if error._code == 13 {
-                        DispatchQueue.main.async {
                             self.errorCode = 13
-                        }
                     }
                 }
                 

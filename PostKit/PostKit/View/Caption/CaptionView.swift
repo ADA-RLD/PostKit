@@ -77,8 +77,9 @@ extension CaptionView {
                 captionViewModel.checkCategory(category: categoryName.korCategoryName)
                 pathManager.path.append(.Loading)
                 Task {
-                    loadingModel.isCaptionGenerate = false
-                    print(captionViewModel.isImage(), 123)
+                    DispatchQueue.main.async {
+                        loadingModel.isCaptionGenerate = false
+                    }
                     if captionViewModel.isImage() {
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                             captionViewModel.createVisionPrompt(storeName: storeModel.storeName, storeInfo: categoryName.korCategoryName, toneInfo: storeModel.tone, segmentInfo: categoryName.picekrList)
@@ -104,6 +105,7 @@ extension CaptionView {
                 DispatchQueue.main.async {
                     loadingModel.isCaptionGenerate = false
                     pathManager.path.append(.CaptionResult)
+                    coinManager.coinCaptionUse()
                 }
             }
         })

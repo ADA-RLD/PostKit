@@ -61,7 +61,6 @@ struct CaptionResultView: View {
                 switch activeAlert {
                 case .first:
                     CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "2 크레딧이 사용돼요 \n남은 크레딧 : \(coinManager.coin)", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: { if coinManager.coin > CoinManager.minimalCoin {
-                        loadingModel.isCaptionGenerate = false
                         pathManager.path.append(.Loading)
                         Mixpanel.mainInstance().track(event: "결과 재생성")
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
@@ -75,12 +74,6 @@ struct CaptionResultView: View {
                 }
             }
         }
-        
-        .onReceive(captionViewModel.$isCaptionSuccess, perform: { _ in
-            if captionViewModel.isCaptionSuccess == true {
-                loadingModel.isCaptionGenerate = false
-            }
-        })
         .onReceive(captionViewModel.$errorCode, perform: { _ in
             if captionViewModel.errorCode == 10 {
                 loadingModel.isCaptionGenerate = true
