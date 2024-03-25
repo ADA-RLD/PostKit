@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CaptionView: View {
     @EnvironmentObject var pathManager: PathManager
-    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @StateObject var storeModel : StoreModel
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared

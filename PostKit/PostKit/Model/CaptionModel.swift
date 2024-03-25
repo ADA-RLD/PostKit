@@ -53,7 +53,7 @@ public enum captionLength: Int, CaseIterable {
 
 public enum categoryType: String, CaseIterable{
     case cafe
-    case fassion
+    case fashion
     case hair
     case browShop
     
@@ -61,7 +61,7 @@ public enum categoryType: String, CaseIterable{
         switch self {
         case .cafe:
             return "카페"
-        case .fassion:
+        case .fashion:
             return "패션"
         case .hair:
             return "헤어"
@@ -74,7 +74,7 @@ public enum categoryType: String, CaseIterable{
         switch self {
         case .cafe:
             return "아메리카노"
-        case .fassion:
+        case .fashion:
             return "발마칸 코트"
         case .hair:
             return "히피펌"
@@ -88,7 +88,7 @@ public enum categoryType: String, CaseIterable{
             
         case .cafe:
             return ["음료", "디저트", "일상"]
-        case .fassion:
+        case .fashion:
             return ["특징", "재질", "종류"]
         case .hair:
             return ["느낌", "스타일", "날씨"]
@@ -101,7 +101,7 @@ public enum categoryType: String, CaseIterable{
 //MARK: 이미지 리소스 필요
 public var CaptionCtgModel: [(imageName: String, name: String, destination: categoryType, path: StackViewType)] = [
     ("Cafe", "카페", categoryType.cafe, .Daily),
-    ("Fashion", "패션", categoryType.fassion, .Fashion),
+    ("Fashion", "패션", categoryType.fashion, .Fashion),
     ("Hair", "헤어", categoryType.hair, .Hair),
     ("Brow", "브로우샵", categoryType.browShop, .BrowShop)
 ]

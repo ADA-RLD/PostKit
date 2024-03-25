@@ -67,7 +67,7 @@ struct KeywordModal: View {
                 switch modalType {
                 case .cafe:
                     getFireBaseArray(keywordType: "CafeKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
-                case .fassion:
+                case .fashion:
                     getFireBaseArray(keywordType: "FashionKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
                 case .hair:
                     getFireBaseArray(keywordType: "HairKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")

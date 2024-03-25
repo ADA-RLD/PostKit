@@ -84,7 +84,7 @@ struct CaptionResultView: View {
         })
         .onAppear {
             if viewModel.imageURL != "" && !(viewModel.customKeywords.isEmpty && viewModel.recommendKeywords.isEmpty) {
-                let data = CaptionInfo(customKeywords: viewModel.customKeywords, recommendKeywords: viewModel.recommendKeywords, captionResult: viewModel.promptAnswer, isIncludeImage: true)
+                let data = CaptionInfo(customKeywords: captionViewModel.customKeyword, recommendKeywords: viewModel.recommendKeywords, captionResult: captionViewModel.promptAnswer, isIncludeImage: true)
                 firebaseManager.updateCaptionResult(cpationType: .both, Data: data.data)
             }
             else if viewModel.imageURL != "" {
@@ -192,7 +192,6 @@ extension CaptionResultView {
                 isShowingToast = true
                 trackingCopy()
             }
-            
         }
     }
 }

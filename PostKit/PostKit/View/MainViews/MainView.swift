@@ -87,7 +87,7 @@ struct MainView: View {
                         case .Goods:
                             GoodsView(storeModel: storeModel)
                         case .Fashion:
-                            CaptionView(storeModel: storeModel, categoryName: categoryType.fassion)
+                            CaptionView(storeModel: storeModel, categoryName: categoryType.fashion)
                         case .Hair:
                             CaptionView(storeModel: storeModel, categoryName: categoryType.hair)
                         case .SettingHome:

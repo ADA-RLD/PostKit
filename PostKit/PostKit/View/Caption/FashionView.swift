@@ -52,7 +52,7 @@ struct FashionView: View {
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented, content: {
-                KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .fassion ,pickerList: ["특징","재질","종류"])
+                KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .fashion ,pickerList: ["특징","재질","종류"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
                         if FashionName.count > 0 && !isSelected.isEmpty {
