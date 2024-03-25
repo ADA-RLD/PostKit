@@ -258,7 +258,7 @@ extension MainView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\n")
+            traceLog("Caption 수정 완료!\n resultId : \(String(describing: existingCaptionResult.resultId))\n Date : \(String(describing: existingCaptionResult.date))\n Category : \(String(describing: existingCaptionResult.category))\n Caption : \(String(describing: existingCaptionResult.caption))\n")
         } else {
             // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
             let newCaption = CaptionResult(context: coreDataManager.context)
@@ -268,7 +268,7 @@ extension MainView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Caption 새로 저장 완료!\n resultId : \(_uuid)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
+            traceLog("Caption 새로 저장 완료!\n resultId : \(_uuid)\n Date : \(String(describing: newCaption.date))\n Category : \(String(describing: newCaption.category))\n Caption : \(String(describing: newCaption.caption))\n")
         }
     }
     
@@ -285,8 +285,7 @@ extension MainView : MainViewProtocol {
             existingCaptionResult.like = _like
             
             coreDataManager.save() // 변경사항 저장
-            
-            print("Hashtag 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\nHashtag : \(existingCaptionResult.hashtag)\n")
+            traceLog("Hashtag 수정 완료!\n resultId : \(String(describing: existingCaptionResult.resultId))\n Date : \(String(describing: existingCaptionResult.date))\nHashtag : \(String(describing: existingCaptionResult.hashtag))\n")
         } else {
             // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
             let newCaption = HashtagData(context: coreDataManager.context)
@@ -295,8 +294,7 @@ extension MainView : MainViewProtocol {
             newCaption.like = _like
             
             coreDataManager.save() // 변경사항 저장
-            
-            print("Hashtag 수정 완료!\n resultId c: \(newCaption.resultId)\n Date : \(newCaption.date)\nHashtag : \(newCaption.hashtag)\n")
+            traceLog("Hashtag 수정 완료!\n resultId c: \(String(describing: newCaption.resultId))\n Date : \(String(describing: newCaption.date))\nHashtag : \(String(describing: newCaption.hashtag))\n")
         }
     }
     
