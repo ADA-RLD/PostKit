@@ -21,10 +21,15 @@ class CoinManager: ObservableObject {
     static let shared = CoinManager()
     
     func coinCaptionUse() {
-        coin -= 2
+        if coin >= CoinManager.captionCost {
+            coin -= 2
+        }
     }
     
-    func coinHashtagUse() {
-        coin -= 1
+    func checkCoin() -> Bool {
+        if coin >= CoinManager.captionCost {
+            return true
+        }
+        return false
     }
 }

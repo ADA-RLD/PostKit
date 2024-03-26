@@ -26,6 +26,7 @@ struct FashionView: View {
     @State private var isSelected: [String] = []
     @State private var textLength: Int = 1
     
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -51,7 +52,7 @@ struct FashionView: View {
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented, content: {
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .fassion ,pickerList: ["특징","재질","종류"])
+                KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .fashion ,pickerList: ["특징","재질","종류"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
                         if FashionName.count > 0 && !isSelected.isEmpty {
@@ -78,7 +79,7 @@ extension FashionView {
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
-                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
+                KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
                 
                 SelectTextLength(selected: $textLength)
             }
