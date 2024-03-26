@@ -71,9 +71,6 @@ struct LoadingView: View {
             
             LottieView(jsonName: "LoadingLottie")
                 .frame(width: 200, height: 200)
-                .onTapGesture {
-                    InterstitialAdcoordinator().showAd(from: FullSizeAd().viewController)
-                }
             
             if isActiveAlert == true {
                 CustomAlertMessageDouble(
