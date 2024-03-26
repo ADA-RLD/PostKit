@@ -18,4 +18,5 @@ final class LoadingViewModel: ObservableObject {
         self.isCaptionGenerate = isCaptionGenerate
         self.inputArray = inputArray
     }
+    
 }

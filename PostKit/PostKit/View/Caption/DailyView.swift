@@ -29,7 +29,7 @@ struct DailyView: View {
     @State var cancellables = Set<AnyCancellable>()
     //CoreData Data Class
     @StateObject var storeModel : StoreModel
-    
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -44,13 +44,13 @@ struct DailyView: View {
                 headerArea()
                 contents()
                     .sheet(isPresented: $openPhoto) {
-                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
+                        ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
                     }
                 Spacer()
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented) {
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["음료", "디저트", "일상"])
+                KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $isSelected, firstSegementSelected: $weatherSelected, secondSegementSelected: $dailyCoffeeSelected, thirdSegementSelected: $dailyDessertSelected, customKeywords: $customKeyword, modalType: .cafe, pickerList: ["음료", "디저트", "일상"])
                     .presentationDragIndicator(.visible)
             }
             if showAlert {
@@ -77,7 +77,7 @@ extension DailyView {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
             
-                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
+                KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
                     .onChange(of: isSelected) { _ in
                         isActive = true
                     }

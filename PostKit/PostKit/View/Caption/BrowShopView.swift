@@ -30,7 +30,7 @@ struct BrowShopView: View {
     
     // CoreData Data class
     @StateObject var storeModel: StoreModel
-    
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -46,14 +46,14 @@ struct BrowShopView: View {
                 headerArea()
                 contents()
                     .sheet(isPresented: $openPhoto) {
-                        ImagePicker(sourceType: .photoLibrary, selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
+                        ImagePicker(sourceType: .photoLibrary,selectedImage: self.$selectedImage, imageUrl: $selectedImageUrl, fileName: $selectedImageFileName)
                     }
                 Spacer()
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented) {
                 // TODO: 키워드가 정해지면 바꿔야 합니다.
-                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSegmentSelected, secondSegementSelected: $secondSegmentSelected, thirdSegementSelected: $thirdSegementSelected, customKeywords: $customKeyword, modalType: .daily, pickerList: ["특징", "스타일", "일상"])
+                KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $isSelected, firstSegementSelected: $firstSegmentSelected, secondSegementSelected: $secondSegmentSelected, thirdSegementSelected: $thirdSegementSelected, customKeywords: $customKeyword, modalType: .browShop, pickerList: ["특징", "스타일", "일상"])
                     .presentationDragIndicator(.visible)
             }
             if showAlert {
@@ -78,7 +78,7 @@ extension BrowShopView {
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
-                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
+                KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
                     .onChange(of: isSelected) { _ in
                         isActive = true
                     }

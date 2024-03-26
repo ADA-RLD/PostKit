@@ -29,6 +29,7 @@ struct CaptionResultView: View {
     @State private var showModal = false
     @State var isShowingToast = false
     @State var cancellables = Set<AnyCancellable>()
+    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -52,7 +53,7 @@ struct CaptionResultView: View {
                     checkDate()
                     //Caption이 생성되면 바로 CoreData에 저장
                     //수정을 위해 UUID를 저장
-                    copyId = saveCaptionResult(category: viewModel.category, date: convertDayTime(time: Date()), result: viewModel.promptAnswer,like: likeCopy)
+                    copyId = saveCaptionResult(category: captionViewModel.categoryName, date: convertDayTime(time: Date()), result: captionViewModel.promptAnswer,like: likeCopy)
                     loadingModel.isCaptionGenerate = true
                     trackingResult()
                 }
@@ -60,7 +61,6 @@ struct CaptionResultView: View {
                 switch activeAlert {
                 case .first:
                     CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "2 크레딧이 사용돼요 \n남은 크레딧 : \(coinManager.coin)", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: { if coinManager.coin > CoinManager.minimalCoin {
-                        loadingModel.isCaptionGenerate = false
                         pathManager.path.append(.Loading)
                         Mixpanel.mainInstance().track(event: "결과 재생성")
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
@@ -73,6 +73,29 @@ struct CaptionResultView: View {
                     CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 재생성할 수 있어요", topBtnLabel: "확인", topAction: {showAlert = false})
                 }
             }
+        }
+        .onReceive(captionViewModel.$errorCode, perform: { _ in
+            if captionViewModel.errorCode == 10 {
+                loadingModel.isCaptionGenerate = true
+                pathManager.path.append(.ErrorResultFailed)
+            } else if captionViewModel.errorCode == 13{
+                pathManager.path.append(.ErrorNetwork)
+            }
+        })
+        .onAppear {
+            if viewModel.imageURL != "" && !(viewModel.customKeywords.isEmpty && viewModel.recommendKeywords.isEmpty) {
+                let data = CaptionInfo(customKeywords: captionViewModel.customKeyword, recommendKeywords: viewModel.recommendKeywords, captionResult: captionViewModel.promptAnswer, isIncludeImage: true)
+                firebaseManager.updateCaptionResult(cpationType: .both, Data: data.data)
+            }
+            else if viewModel.imageURL != "" {
+                let data = ImageInfo(captionResult: viewModel.promptAnswer)
+                firebaseManager.updateCaptionResult(cpationType: .imageOnly, Data: data.data)
+            }
+            else if viewModel.imageURL == "" && !(viewModel.customKeywords.isEmpty && viewModel.recommendKeywords.isEmpty) {
+                let data = CaptionInfo(customKeywords: viewModel.customKeywords, recommendKeywords: viewModel.recommendKeywords, captionResult: viewModel.promptAnswer, isIncludeImage: false)
+                firebaseManager.updateCaptionResult(cpationType: .keywordsOnly, Data: data.data)
+            }
+            
         }
         .navigationBarBackButtonHidden()
         .toast(toastText: "클립보드에 복사했어요", toastImgRes: Image(.copy), isShowing: $isShowingToast)
@@ -88,6 +111,7 @@ extension CaptionResultView {
                     HStack {
                         Spacer()
                         Button(action: {
+                            captionViewModel.resetCondition()
                             if isCaptionChange {
                                 saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
                             }
@@ -114,14 +138,14 @@ extension CaptionResultView {
                         }.sheet(isPresented: self.$showModal, content: {
                             ResultUpdateModalView(
                                 showModal: $showModal, isChange: $isCaptionChange,
-                                stringContent: $viewModel.promptAnswer,
+                                stringContent: $captionViewModel.promptAnswer,
                                 resultUpdateType: .captionResult
                             )
                             .interactiveDismissDisabled()
                         })
                         
                         VStack(spacing: 4) {
-                            Text(viewModel.promptAnswer)
+                            Text(captionViewModel.promptAnswer)
                                 .body1Regular(textColor: .gray5)
                             HStack {
                                 Spacer()
@@ -133,7 +157,9 @@ extension CaptionResultView {
                                     .onTapGesture {
                                         withAnimation(.easeIn(duration: 0.3)) {
                                             likeCopy.toggle()
-                                            saveEditCaptionResult(_uuid: copyId, _result: viewModel.promptAnswer, _like: likeCopy)
+                                            DispatchQueue.main.async {
+                                                saveEditCaptionResult(_uuid: copyId, _result: captionViewModel.promptAnswer, _like: likeCopy)
+                                            }
                                         }
                                     }
                             }
@@ -166,7 +192,6 @@ extension CaptionResultView {
                 isShowingToast = true
                 trackingCopy()
             }
-
         }
     }
 }
