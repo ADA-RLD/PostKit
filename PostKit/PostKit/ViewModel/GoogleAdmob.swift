@@ -10,26 +10,33 @@ import SwiftUI
 import UIKit
 import GoogleMobileAds
 
-enum BannerType {
+
+
+enum AdType {
     case fullSize
     case banner
 }
 
-class InterstitialAdcoordinator: NSObject, GADFullScreenContentDelegate {
-    var interstitial: GADInterstitialAd?
+final class InterstitialAdcoordinator: NSObject, GADFullScreenContentDelegate {
+    private var interstitial: GADInterstitialAd?
     
-    func loadAd() {
-        let request = GADRequest()
+    override init() {
+        super.init()
+    }
+    
+    func loadAd(completion: @escaping () -> Void) {
         GADInterstitialAd.load(
-            withAdUnitID: "ca-app-pub-3940256099942544/4411468910",
-            request: request) { ad, error in
+            withAdUnitID: "ca-app-pub-6026611917778161/1299148880",
+            request: GADRequest(), completionHandler: { [self] ad, error in
                 if let error = error {
-                    traceLog("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                    traceLog("Failed to load interstitial ad: \(error.localizedDescription)")
                     return
                 }
-                self.interstitial = ad
-                self.interstitial?.fullScreenContentDelegate = self
-            }
+                traceLog("🟢: FullAd Loading succeeded")
+                interstitial = ad
+                interstitial?.fullScreenContentDelegate = self
+                completion()
+            })
     }
     
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
@@ -45,49 +52,47 @@ class InterstitialAdcoordinator: NSObject, GADFullScreenContentDelegate {
         interstitial = nil
     }
     
-    func showAd(from viewController: UIViewController?) {
-        guard let viewController = viewController, let interstitial = interstitial else {
+    func showAd(from viewController: UIViewController) {
+        guard let interstitial = interstitial else {
             traceLog("Ad wasn't ready")
             return
         }
-        interstitial.present(fromRootViewController: viewController)
+        traceLog(viewController)
+        interstitial.present(fromRootViewController: FullSizeAd().viewController)
     }
 }
 
 
 struct FullSizeAd: UIViewControllerRepresentable {
-    var interstitial: GADInterstitialAd?
+    let viewController = UIViewController()
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        let viewController = UIViewController()
         return viewController
     }
     
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        
-    }
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }
 
 struct BannerSizeAd : UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> some UIViewController {
         let view = GADBannerView(adSize: GADAdSizeBanner)
-        let viewController = UIViewController()
-        view.adUnitID = "ca-app-pub-3940256099942544/2934735716" //광고 ID
-        view.rootViewController = viewController
-        viewController.view.addSubview(view)
-        viewController.view.frame = CGRect(origin: .zero, size: GADAdSizeBanner.size)
+        let BannerViewController = UIViewController()
+        view.adUnitID = "ca-app-pub-6026611917778161/9828940240" //광고 ID
+        view.rootViewController = BannerViewController
+        BannerViewController.view.addSubview(view)
+        BannerViewController.view.frame = CGRect(origin: .zero, size: GADAdSizeBanner.size)
         view.load(GADRequest())
-        return viewController
+        return BannerViewController
     }
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        
-    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }
 
-@ViewBuilder func GoogleAdMob(type: BannerType) -> some View {
+@ViewBuilder func GoogleAdMob(type: AdType) -> some View {
     switch type {
     case .fullSize:
-        FullSizeAd(interstitial: InterstitialAdcoordinator().interstitial)
+        FullSizeAd()
+            .frame(width: .zero,height: .zero)
     case .banner:
         HStack{
             Spacer()

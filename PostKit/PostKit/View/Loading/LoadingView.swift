@@ -67,9 +67,13 @@ struct LoadingView: View {
                 .padding(.top, 27.6)
                 .frame(width: UIScreen.main.bounds.width)
             }
+            .background(GoogleAdMob(type: .fullSize))
             
             LottieView(jsonName: "LoadingLottie")
                 .frame(width: 200, height: 200)
+                .onTapGesture {
+                    InterstitialAdcoordinator().showAd(from: FullSizeAd().viewController)
+                }
             
             if isActiveAlert == true {
                 CustomAlertMessageDouble(
@@ -87,13 +91,15 @@ struct LoadingView: View {
                     },
                     showAlert: $isActiveAlert)
             }
-            GoogleAdMob(type: .fullSize)
         }
         
         .navigationBarBackButtonHidden()
         .onAppear {
-            InterstitialAdcoordinator().loadAd()
-            InterstitialAdcoordinator().showAd(from: UIApplication.shared.windows.first?.rootViewController)
+            
+            InterstitialAdcoordinator().loadAd() {
+                InterstitialAdcoordinator().showAd(from: FullSizeAd().viewController)
+            }
+            
             Timer.scheduledTimer(withTimeInterval: 6.0, repeats: true) { timer in
                 self.count = count + 1
                 timeStep = count % 5
