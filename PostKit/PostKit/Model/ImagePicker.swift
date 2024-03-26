@@ -19,7 +19,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var fileName: String?
     
     @Environment(\.presentationMode) private var presentationMode
-    
+
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         
         let imagePicker = UIImagePickerController()
@@ -47,14 +47,18 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.originalImage] as? UIImage {
+            
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 parent.selectedImage.append(image)
             }
             
-            if let imageUrl = info[.imageURL] as? URL {
+            if let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
                 parent.imageUrl = imageUrl
                 parent.fileName = imageUrl.lastPathComponent
+                print(parent.imageUrl)
+                print(parent.fileName)
             }
+
             parent.presentationMode.wrappedValue.dismiss()
         }
     }

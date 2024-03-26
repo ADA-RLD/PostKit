@@ -10,6 +10,7 @@ import UIKit
 import AppTrackingTransparency
 import AdSupport
 import Firebase
+import GoogleMobileAds
 
 class AppDelegate: NSObject, UIApplicationDelegate {
 
@@ -17,10 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     private var mixpanelKey: String?
 
     func getRandomKey() {
-        // 개발용 - "mixpanelDev"
-        // 출시용 - "mixpanelRelease"
-        // TODO: 기존의 "mixpanel" 파이어베이스에서 삭제
-        let chatGptAPIKey = firebaseManager.getDoucument(apiName: "mixpanelDev") { [weak self] (key) in
+        let chatGptAPIKey = firebaseManager.getDoucument(apiName: "mixpanel") { [weak self] (key) in
             self?.mixpanelKey = key
             print("앱 시작")
             print(self?.mixpanelKey ?? "키 값 오류")
@@ -35,9 +33,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
     func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         getRandomKey() // 랜덤 키를 가져오는 함수를 호출해주세요.
+        GADMobileAds.sharedInstance().start(completionHandler: nil) //구글 광고 초기화
         return true
     }
 }

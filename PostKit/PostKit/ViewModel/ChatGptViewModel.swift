@@ -16,13 +16,9 @@ final class ChatGptViewModel: ObservableObject {
     @Published var prompt : String
     @Published var promptAnswer : String
     @Published var imageURL: String
-    @Published var customKeywords: [String]
-    @Published var recommendKeywords: [String]
     
-    init(category: String = "", basicPrompt: String = "", prompt: String = "", promptAnswer: String = "생성된 텍스트가 들어가요.", imageURL:String = "", customKeyword:[String] = [], recommendKeywords:[String] = []) {
-        
-        self.customKeywords = customKeyword
-        self.recommendKeywords = recommendKeywords
+    init(category: String = "", basicPrompt: String = "", prompt: String = "", promptAnswer: String = "생성된 텍스트가 들어가요.", imageURL:String = "") {
+
         self.category = category
         self.basicPrompt = basicPrompt
         self.prompt = prompt

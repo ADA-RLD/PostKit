@@ -24,7 +24,7 @@ struct OnboardingStore: View {
                         .title1(textColor: .gray6)
                     
                     VStack(alignment: .leading) {
-                        CustomTextfield(text: $cafeName, placeHolder: "매장 이름")
+                        CustomTextfield(text: $cafeName, placeHolder: "카페 포스트킷")
                             .onChange(of: $cafeName.wrappedValue) { lengthCount in
                                 if !lengthCount.isEmpty {
                                     isActive = true
