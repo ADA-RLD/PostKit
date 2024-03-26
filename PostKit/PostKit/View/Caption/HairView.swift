@@ -26,7 +26,6 @@ struct HairView: View {
     @State private var isSelected: [String] = []
     @State private var textLength: Int = 1
     
-    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -53,7 +52,7 @@ struct HairView: View {
             }
             .sheet(isPresented: $isModalPresented, content: {
                 //MARK: 키워드 수정
-                KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .hair ,pickerList: ["느낌","스타일","날씨"])
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .hair ,pickerList: ["느낌","스타일","날씨"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
                         if hairName.count > 0 && !isSelected.isEmpty {
@@ -80,7 +79,9 @@ extension HairView {
     private func contents() -> some View {
         ContentArea {
             VStack(alignment: .leading, spacing: 40) {
-                KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
+                menuInput()
+                
+                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
                 
                 SelectTextLength(selected: $textLength)
             }

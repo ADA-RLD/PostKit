@@ -11,7 +11,6 @@ import Lottie
 
 struct LoadingView: View {
     @EnvironmentObject var pathManager: PathManager
-    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @State var count: Int = 0
     @State var tagTimeStep: Int = 0
     @State var timeStep: Int = 0
@@ -262,4 +261,7 @@ struct CustomTagFeild: View {
 }
 
 
+#Preview {
+    LoadingView()
+}
 

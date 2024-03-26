@@ -12,6 +12,7 @@ import Mixpanel
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var coinManager = CoinManager.shared
+    
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     @State private var timeRemaining : Int = 0
     
