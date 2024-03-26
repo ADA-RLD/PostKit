@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AF0832C2BABCFC100836468 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AF0832B2BABCFC100836468 /* GoogleService-Info.plist */; };
 		1321B7512BAEC51B00EF69BF /* CaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321B7502BAEC51B00EF69BF /* CaptionView.swift */; };
 		1321B7532BAEC53400EF69BF /* CaptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321B7522BAEC53400EF69BF /* CaptionViewModel.swift */; };
 		1321B7552BAEC54700EF69BF /* PromptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321B7542BAEC54700EF69BF /* PromptModel.swift */; };
@@ -101,6 +100,8 @@
 		7E1EE08A2AF9CF8E0039207F /* CaptionResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1EE0892AF9CF8E0039207F /* CaptionResultViewModel.swift */; };
 		7EF314D22AD96A69008E7338 /* ChatGptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */; };
 		A10337942B6347FD00BEE4A8 /* ImageWrappingHstack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10337932B6347FD00BEE4A8 /* ImageWrappingHstack.swift */; };
+		A1268B332BB2F7E800635F08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1268B322BB2F7E800635F08 /* GoogleService-Info.plist */; };
+		A1268B352BB2F9C000635F08 /* GoogleAdmob.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1268B342BB2F9C000635F08 /* GoogleAdmob.swift */; };
 		A14F0A2B2B72373100D2D8E9 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F0A2A2B72373100D2D8E9 /* LottieView.swift */; };
 		A182C9EB2B96D3180016320F /* FashionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182C9EA2B96D3170016320F /* FashionViewModel.swift */; };
 		A182C9ED2B96E5770016320F /* FashionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182C9EC2B96E5770016320F /* FashionView.swift */; };
@@ -142,7 +143,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0AF0832B2BABCFC100836468 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1321B7502BAEC51B00EF69BF /* CaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionView.swift; sourceTree = "<group>"; };
 		1321B7522BAEC53400EF69BF /* CaptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewModel.swift; sourceTree = "<group>"; };
 		1321B7542BAEC54700EF69BF /* PromptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptModel.swift; sourceTree = "<group>"; };
@@ -211,6 +211,8 @@
 		7E1EE0892AF9CF8E0039207F /* CaptionResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionResultViewModel.swift; sourceTree = "<group>"; };
 		7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptViewModel.swift; sourceTree = "<group>"; };
 		A10337932B6347FD00BEE4A8 /* ImageWrappingHstack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWrappingHstack.swift; sourceTree = "<group>"; };
+		A1268B322BB2F7E800635F08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/PostKit/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A1268B342BB2F9C000635F08 /* GoogleAdmob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAdmob.swift; sourceTree = "<group>"; };
 		A14F0A2A2B72373100D2D8E9 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		A182C9EA2B96D3170016320F /* FashionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FashionViewModel.swift; sourceTree = "<group>"; };
 		A182C9EC2B96E5770016320F /* FashionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FashionView.swift; sourceTree = "<group>"; };
@@ -316,7 +318,7 @@
 		13C295A42AD55F2100A2DE7F = {
 			isa = PBXGroup;
 			children = (
-				0AF0832B2BABCFC100836468 /* GoogleService-Info.plist */,
+				A1268B322BB2F7E800635F08 /* GoogleService-Info.plist */,
 				13C295AF2AD55F2100A2DE7F /* PostKit */,
 				13C295AE2AD55F2100A2DE7F /* Products */,
 				D2EED1AA8014945B0B79CFF3 /* Pods */,
@@ -419,6 +421,7 @@
 				A182C9F02B96E7810016320F /* HairViewModel.swift */,
 				1352C7B32B9839D100F8C68F /* BrowShopViewModel.swift */,
 				1321B7522BAEC53400EF69BF /* CaptionViewModel.swift */,
+				A1268B342BB2F9C000635F08 /* GoogleAdmob.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -675,12 +678,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1268B332BB2F7E800635F08 /* GoogleService-Info.plist in Resources */,
 				13C295F52AD7136E00A2DE7F /* Pretendard-Bold.otf in Resources */,
 				13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */,
 				13C295F22AD7136E00A2DE7F /* Pretendard-Light.otf in Resources */,
 				13C295F42AD7136E00A2DE7F /* Pretendard-ExtraLight.otf in Resources */,
 				13C295F02AD7136E00A2DE7F /* Pretendard-Regular.otf in Resources */,
-				0AF0832C2BABCFC100836468 /* GoogleService-Info.plist in Resources */,
 				13C295F32AD7136E00A2DE7F /* Pretendard-Thin.otf in Resources */,
 				13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */,
 				13C295EF2AD7136E00A2DE7F /* Pretendard-SemiBold.otf in Resources */,
@@ -783,6 +786,7 @@
 				A182C9ED2B96E5770016320F /* FashionView.swift in Sources */,
 				13C295D32AD64C3500A2DE7F /* SettingView.swift in Sources */,
 				13C2961C2AD8F32000A2DE7F /* ToneModel.swift in Sources */,
+				A1268B352BB2F9C000635F08 /* GoogleAdmob.swift in Sources */,
 				13819EEB2B0303DC005E5D91 /* FirebaseManager.swift in Sources */,
 				7E06050A2AF13965003A87BC /* HashtagViewModel.swift in Sources */,
 				13C295DA2AD68BF600A2DE7F /* SettingToneView.swift in Sources */,

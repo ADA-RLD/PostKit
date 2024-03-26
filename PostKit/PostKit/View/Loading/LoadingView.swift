@@ -11,7 +11,6 @@ import Lottie
 
 struct LoadingView: View {
     @EnvironmentObject var pathManager: PathManager
-    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @State var count: Int = 0
     @State var tagTimeStep: Int = 0
     @State var timeStep: Int = 0
@@ -60,9 +59,9 @@ struct LoadingView: View {
                     
                     //LoadingImageFunc(inputArr: loadingModel.inputArray, timeStep: tagTimeStep)
                     
-//                    LoadingTipView(_timeStep: timeStep, tips: Tips)
-//                        .frame(height: 150)
-//                        .padding(.bottom, 12)
+                    //                    LoadingTipView(_timeStep: timeStep, tips: Tips)
+                    //                        .frame(height: 150)
+                    //                        .padding(.bottom, 12)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 27.6)
@@ -88,10 +87,13 @@ struct LoadingView: View {
                     },
                     showAlert: $isActiveAlert)
             }
+            GoogleAdMob(type: .fullSize)
         }
         
         .navigationBarBackButtonHidden()
         .onAppear {
+            InterstitialAdcoordinator().loadAd()
+            InterstitialAdcoordinator().showAd(from: UIApplication.shared.windows.first?.rootViewController)
             Timer.scheduledTimer(withTimeInterval: 6.0, repeats: true) { timer in
                 self.count = count + 1
                 timeStep = count % 5
@@ -113,7 +115,15 @@ struct LoadingView: View {
             Mixpanel.mainInstance().time(event: "글 로딩")
         }
         .onDisappear {
-            Mixpanel.mainInstance().track(event: "글 로딩")
+            if pathManager.path.contains(.Daily) {
+                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "일상"])
+            }
+            else if pathManager.path.contains(.Menu) {
+                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "메뉴"])
+            }
+            else if pathManager.path.contains(.Hashtag) {
+                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "해시태그"])
+            }
             loadingModel.inputArray.removeAll()
         }
     }
@@ -217,7 +227,15 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some Vi
 
 private extension LoadingView {
     private func trackingCancel() {
-        Mixpanel.mainInstance().track(event: "사용자 생성 취소")
+        if pathManager.path.contains(.Daily) {
+            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "일상"])
+        }
+        else if pathManager.path.contains(.Menu) {
+            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "메뉴"])
+        }
+        else if pathManager.path.contains(.Hashtag) {
+            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "해시태그"])
+        }
     }
 }
 struct CustomTagFeild: View {
@@ -240,4 +258,6 @@ struct CustomTagFeild: View {
 }
 
 
-
+#Preview {
+    LoadingView()
+}
