@@ -7,11 +7,6 @@
 
 import Foundation
 import Firebase
-import FirebaseFirestore
-import SwiftUI
-import Combine
-import FirebaseFirestoreSwift
-
 
 class FirebaseManager {
     private let db = Firestore.firestore()
@@ -28,11 +23,6 @@ class FirebaseManager {
                 print("Document Error")
             }
         }
-    }
-    
-    func updateCaptionResult(cpationType: captionType, Data: Dictionary<String, Any>) {
-        let postDocs = db.collection("CaptionResult").document("Type").collection(cpationType.type).document()
-        postDocs.setData(Data)
     }
     
     func getKeyWordsDocument(keyWordType: String, keyWordName: String, completion: @escaping ([String]) -> Void) {

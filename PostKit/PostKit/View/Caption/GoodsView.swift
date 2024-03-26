@@ -29,7 +29,6 @@ struct GoodsView: View {
     @State private var isSelected: [String] = []
     @State private var textLength: Int = 1
     
-    @ObservedObject var captionViewModel = CaptionViewModel.shared
     @ObservedObject var coinManager = CoinManager.shared
     @ObservedObject var viewModel = ChatGptViewModel.shared
     @ObservedObject var loadingModel = LoadingViewModel.shared
@@ -55,7 +54,7 @@ struct GoodsView: View {
                 bottomArea()
             }
             .sheet(isPresented: $isModalPresented, content: {
-                KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .fashion ,pickerList: ["종류","특징","재질"])
+                KeywordModal(selectKeyWords: $isSelected, firstSegementSelected: $firstSelected, secondSegementSelected: $secondSelected, thirdSegementSelected: $thirdSelected, customKeywords: $customKeyword, modalType: .goods ,pickerList: ["종류","특징","재질"])
                     .presentationDragIndicator(.visible)
                     .onDisappear {
                         if menuName.count > 0 && !isSelected.isEmpty {
@@ -84,7 +83,7 @@ extension GoodsView {
             VStack(alignment: .leading, spacing: 40) {
                 menuInput()
                 
-                KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
+                KeywordAppend(isModalToggle: $isModalPresented, selectKeyWords: $isSelected, openPhoto: $openPhoto, selectedImage: $selectedImage)
 
                 SelectTextLength(selected: $textLength)
             }
