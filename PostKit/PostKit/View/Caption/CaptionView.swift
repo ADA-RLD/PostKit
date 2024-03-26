@@ -19,33 +19,32 @@ struct CaptionView: View {
     var categoryName: categoryType
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
+        ZStack(alignment: .bottom) {
+            VStack(alignment: .leading, spacing: 0) {
                 headerArea
                 contentsArea
-                Spacer()
-                bottomArea
             }
-            .sheet(isPresented: $captionViewModel.isOpenPhoto) {
-                ImagePicker(sourceType: .photoLibrary, selectedImage: $captionViewModel.selectedImage,imageUrl: $captionViewModel.selectedImageUrl, fileName: $captionViewModel.selectedImageFileName)
-            }
-            .onReceive((captionViewModel.$selectedImage), perform: { _ in
-                DispatchQueue.main.async {
+            bottomArea
+                .sheet(isPresented: $captionViewModel.isOpenPhoto) {
+                    ImagePicker(sourceType: .photoLibrary, selectedImage: $captionViewModel.selectedImage,imageUrl: $captionViewModel.selectedImageUrl, fileName: $captionViewModel.selectedImageFileName)
+                }
+                .onReceive((captionViewModel.$selectedImage), perform: { _ in
+                    DispatchQueue.main.async {
+                        captionViewModel.checkConditions()
+                        
+                    }
+                })
+                .onReceive(captionViewModel.$selectedKeywords, perform: { _ in
                     captionViewModel.checkConditions()
+                })
+            
+                .sheet(isPresented: $captionViewModel.isKeywordModal) {
+                    KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $captionViewModel.selectedKeywords, firstSegementSelected: $captionViewModel.firstSegmentSelected, secondSegementSelected: $captionViewModel.secondSegmentSelected, thirdSegementSelected: $captionViewModel.thirdSegmentSelected, customKeywords: $captionViewModel.customKeyword, modalType: categoryName, pickerList: categoryName.picekrList)
                     
                 }
-            })
-            .onReceive(captionViewModel.$selectedKeywords, perform: { _ in
-                captionViewModel.checkConditions()
-            })
-            
-            .sheet(isPresented: $captionViewModel.isKeywordModal) {
-                KeywordModal(captionViewModel: captionViewModel, selectKeyWords: $captionViewModel.selectedKeywords, firstSegementSelected: $captionViewModel.firstSegmentSelected, secondSegementSelected: $captionViewModel.secondSegmentSelected, thirdSegementSelected: $captionViewModel.thirdSegmentSelected, customKeywords: $captionViewModel.customKeyword, modalType: categoryName, pickerList: categoryName.picekrList)
-                
-            }
             if showAlert {
                 CustomAlertMessage(alertTopTitle: "크레딧을 모두 사용했어요", alertContent: "크레딧이 있어야 생성할 수 있어요\n크레딧은 자정에 충전돼요", topBtnLabel: "확인") {pathManager.path.removeAll()}
-                }
+            }
         }
         .navigationBarBackButtonHidden()
     }
@@ -61,11 +60,13 @@ extension CaptionView {
     
     // MARK: ContentsArea
     private var contentsArea: some View {
-        ContentArea {
-            VStack(alignment: .leading, spacing: 40) {
-                KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $captionViewModel.isKeywordModal, selectKeyWords: $captionViewModel.selectedKeywords, openPhoto: $captionViewModel.isOpenPhoto, selectedImage: $captionViewModel.selectedImage)
-                
-                SelectTextLength(selected: $captionViewModel.textLength )
+        ScrollView {
+            ContentArea {
+                VStack(alignment: .leading, spacing: 40) {
+                    KeywordAppend(captionViewModel: captionViewModel, isModalToggle: $captionViewModel.isKeywordModal, selectKeyWords: $captionViewModel.selectedKeywords, openPhoto: $captionViewModel.isOpenPhoto, selectedImage: $captionViewModel.selectedImage)
+                    
+                    SelectTextLength(selected: $captionViewModel.textLength )
+                }
             }
         }
     }
