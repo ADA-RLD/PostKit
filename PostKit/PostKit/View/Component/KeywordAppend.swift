@@ -12,7 +12,7 @@ import PhotosUI
 struct KeywordAppend: View {
 //    let accessLevel: PHAccessLevel = .readWrite
 //    let authorizationStatus = PHPhotoLibrary.authorizationStatus(for: accessLevel)
-    @ObservedObject var captionViewModel = CaptionViewModel.shared
+    
     @Binding var isModalToggle: Bool
     @Binding var selectKeyWords: [String]
     @Binding var openPhoto : Bool
@@ -36,7 +36,7 @@ struct KeywordAppend: View {
                 WrappingHStack(alignment: .leading,horizontalSpacing: 8, verticalSpacing: 8) {
                     ForEach(selectKeyWords, id: \.self) { index in
                         CustomHashtag(tagText: index) {
-                            captionViewModel.deleteKeywords(keywords: index)
+                            selectKeyWords.removeAll(where: { $0 == index})
                         }
                     }
                 }
@@ -88,14 +88,14 @@ struct KeywordAppend: View {
 }
 
 extension KeywordAppend {
-    @MainActor
     func requestPHPhotoLibraryAuthorization(completion: @escaping () -> Void) {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
             switch status {
             case .limited, .authorized:
-                DispatchQueue.main.async {
-                    openPhoto.toggle()
-                }
+                //completion()
+                openPhoto.toggle()
+            //case .authorized:
+                //completion()
             default:
                 break
             }

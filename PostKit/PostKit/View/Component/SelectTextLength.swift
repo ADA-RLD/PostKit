@@ -18,8 +18,8 @@ struct SelectTextLength: View {
                 .body1Bold(textColor: .gray5)
             
             HStack(spacing: 32) {
-                ForEach(captionLength.allCases, id:\.self) { item in
-                    RaidioBtn(title: item.korcaptionLength, id: item.captionLength, selectedId: self.$selected)
+                ForEach(Array(textLength.enumerated()), id: \.offset) { idx, item in
+                    RaidioBtn(title: item, id: idx, selectedId: self.$selected)
                 }
             }
         }
@@ -64,6 +64,8 @@ struct RaidioBtn: View {
                 }
 
             })
+            
+            // TODO: 코드 개선 필요
             if self.selectedId != self.id {
                 Text(title)
                     .body1Bold(textColor: .gray4)

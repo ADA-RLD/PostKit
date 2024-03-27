@@ -31,7 +31,7 @@ struct OnboardingFinal: View {
                         .title1(textColor: .gray6)
 
                     
-                    Text("포스트킷과 함께\n우리 매장의 이야기를 적어내려가봐요")
+                    Text("포스트킷과 함께\n카페 이야기를 적어내려가봐요")
                         .body1Regular(textColor: .gray4)
                 }
             }

@@ -7,7 +7,7 @@
 import Mixpanel
 import SwiftUI
 
-public enum KeywordModalType {
+enum KeywordModalType {
     case daily
     case menu
     case goods
@@ -17,7 +17,6 @@ public enum KeywordModalType {
 }
 
 struct KeywordModal: View {
-    @ObservedObject var captionViewModel = CaptionViewModel.shared
     private let firebaseManager = FirebaseManager()
     private let maxCount: Int = 5
     @Binding var selectKeyWords: [String]
@@ -29,11 +28,9 @@ struct KeywordModal: View {
     @State private var inputText: String = ""
     @State private var pickerSelection: Int = 0
     @State private var selectModalKeywords: [String] = []
-    // MARK: 파이어베이스에서 받아온 키워드들
     @State private var firstSegmentPoint: [String] = []
     @State private var secondSegmentPoint: [String] = []
     @State private var thirdSegmentPoint: [String] = []
-    // MARK: 기존의 배열과 비교하는 키워드
     @State private var originFirstSegment: [String] = []
     @State private var originSecondSegment: [String] = []
     @State private var originThirdSegment: [String] = []
@@ -41,7 +38,7 @@ struct KeywordModal: View {
     @State private var keyboardHeight: CGFloat = 0
     @Namespace var nameSpace
     
-    var modalType: categoryType
+    var modalType: KeywordModalType
     var pickerList: [String]
     
     var body: some View {
@@ -63,18 +60,22 @@ struct KeywordModal: View {
             }
             .toast(toastText: "5개까지 추가할 수 있어요", toastImgRes: Image(.exclamation), isShowing: $isShowingToast)
             .onAppear {
-                selectModalKeywords = captionViewModel.selectedKeywords
                 switch modalType {
-                case .cafe:
+                case .daily:
                     getFireBaseArray(keywordType: "CafeKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
-                case .fashion:
+                case .menu:
+                    getFireBaseArray(keywordType: "MenuKeyWords", firstSegmentName: "Coffee", secondSegmentName: "Drink", thirdSegmentName: "Dessert")
+                    selectModalKeywords = selectKeyWords
+                case .goods:
+                    getFireBaseArray(keywordType: "FashionKeyword", firstSegmentName: "Category", secondSegmentName: "Feature", thirdSegmentName: "Material")
+                    //MARK: FireBase 키워드 위치 이름 수정, 1,2,3 SegmentName 정해지면 수정
+                case .fassion:
                     getFireBaseArray(keywordType: "FashionKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
                 case .hair:
                     getFireBaseArray(keywordType: "HairKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
-                case .browShop:
+                case .browshop:
                     getFireBaseArray(keywordType: "BrowKeywords", firstSegmentName: "Section1", secondSegmentName: "Section2", thirdSegmentName: "Section3")
                 }
-                print(captionViewModel.firstSegmentSelected)
             }
             .onReceive(
                 NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
@@ -95,10 +96,10 @@ extension KeywordModal {
     private func headerArea() -> some View {
         HStack {
             Button {
-                selectModalKeywords = captionViewModel.selectedKeywords
-                firstSegementSelected = captionViewModel.firstSegmentSelected
-                secondSegementSelected = captionViewModel.secondSegmentSelected
-                thirdSegementSelected = captionViewModel.thirdSegmentSelected
+                selectModalKeywords = []
+                firstSegementSelected = []
+                secondSegementSelected = []
+                thirdSegementSelected = []
                 self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("취소")
@@ -123,41 +124,24 @@ extension KeywordModal {
             selectModalKeywords = removeDuplicates(from: selectModalKeywords)
         }
     }
-
+    
     private func keywordInputArea() -> some View {
         VStack(alignment: .leading, spacing: 20) {
-            CustomTextfield(text: $inputText, placeHolder: modalType.placeholderName, customTextfieldState: .reuse) {
-                if (!inputText.isEmpty && selectModalKeywords.count < maxCount) {
-                    if firstSegmentPoint.contains(inputText) {
-                        firstSegementSelected.append(inputText)
-                        selectModalKeywords.append(inputText)
-                        firstSegmentPoint.removeAll(where: {$0 == inputText})
-                    }
-                    else if secondSegmentPoint.contains(inputText) {
-                        secondSegementSelected.append(inputText)
-                        selectModalKeywords.append(inputText)
-                        secondSegmentPoint.removeAll(where: {$0 == inputText})
-                    }
-                    else if thirdSegmentPoint.contains(inputText) {
-                        thirdSegementSelected.append(inputText)
-                        selectModalKeywords.append(inputText)
-                        thirdSegmentPoint.removeAll(where: {$0 == inputText})
-                    }
-                    else {
-                        selectModalKeywords.append(inputText)
-                        customKeywords.append(inputText)
-                    }
+            CustomTextfield(text: $inputText, placeHolder: "크리스마스", customTextfieldState: .reuse) {
+                if (!inputText.isEmpty && selectModalKeywords.count < maxCount && !firstSegmentPoint.contains(inputText) && !secondSegmentPoint.contains(inputText) && !thirdSegmentPoint.contains(inputText)) {
+                    selectModalKeywords.append(inputText)
+                    customKeywords.append(inputText)
                 }
             }
             .onSubmit {
                 if selectModalKeywords.count >= maxCount {
                     isShowingToast = true
                 }
-                if modalType == .cafe {
-                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력")
+                if modalType == .daily {
+                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력", properties:["카테고리": "일상"])
                 }
-                else if modalType == .browShop {
-                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력")
+                else if modalType == .menu {
+                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력", properties:["카테고리": "메뉴"])
                 }
             }
             
@@ -175,9 +159,6 @@ extension KeywordModal {
                             }
                             else if thirdSegementSelected.contains(i) {
                                 thirdSegementSelected.removeAll(where: {$0 == i})
-                            }
-                            else {
-                                customKeywords.removeAll(where: {$0 == i})
                             }
                             if let coffeeTmp = originFirstSegment.firstIndex(of: i) {
                                 firstSegmentPoint.insert(i, at: coffeeTmp)
@@ -295,43 +276,25 @@ extension KeywordModal {
                 uniqueArray.append(element)
             }
         }
+        
         return uniqueArray
     }
 }
 
 //MARK: Functions
 extension KeywordModal {
-
     private func getFireBaseArray (keywordType: String, firstSegmentName: String, secondSegmentName: String, thirdSegmentName: String) {
         firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: firstSegmentName) { receviedArray in
             self.firstSegmentPoint = receviedArray
             self.originFirstSegment = receviedArray
-        
-            for i in captionViewModel.firstSegmentSelected {
-                if firstSegmentPoint.contains(i) {
-                    firstSegmentPoint.removeAll(where: { $0 == i})
-                }
-            }
         }
         firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: secondSegmentName) { receviedArray in
             self.secondSegmentPoint = receviedArray
             self.originSecondSegment = receviedArray
-
-            for i in captionViewModel.secondSegmentSelected {
-                if secondSegmentPoint.contains(i) {
-                    secondSegmentPoint.removeAll(where: { $0 == i})
-                }
-            }
         }
         firebaseManager.getKeyWordsDocument(keyWordType: keywordType, keyWordName: thirdSegmentName) { receviedArray in
             self.thirdSegmentPoint = receviedArray
             self.originThirdSegment = receviedArray
-            
-            for i in captionViewModel.thirdSegmentSelected {
-                if thirdSegmentPoint.contains(i) {
-                    thirdSegmentPoint.removeAll(where: { $0 == i })
-                }
-            }
         }
     }
 }
