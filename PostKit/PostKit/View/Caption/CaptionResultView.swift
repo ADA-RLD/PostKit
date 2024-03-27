@@ -217,7 +217,7 @@ struct ToastModifier: ViewModifier {
                         Spacer()
                     }
                     .padding(.horizontal, 24)
-                    .padding(.vertical, 20)
+                    .padding(.vertical, 30)
                     .frame(maxWidth: .infinity)
                     .background(.gray5)
                     .cornerRadius(radius1)
