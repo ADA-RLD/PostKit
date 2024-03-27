@@ -79,6 +79,8 @@ struct MainHistoryView: View {
 //                            .tag("해시태그")
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
+                    
+                    GoogleAdMob(type: .banner)
                 }
             }
             .padding(.top, 20)

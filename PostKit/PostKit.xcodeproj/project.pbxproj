@@ -99,6 +99,7 @@
 		A10337942B6347FD00BEE4A8 /* ImageWrappingHstack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10337932B6347FD00BEE4A8 /* ImageWrappingHstack.swift */; };
 		A11FA8EA2BB3D15700FDBC35 /* CaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11FA8E92BB3D15700FDBC35 /* CaptionView.swift */; };
 		A11FA8EC2BB3D30200FDBC35 /* CaptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11FA8EB2BB3D30200FDBC35 /* CaptionViewModel.swift */; };
+		A11FA8EE2BB3D6DC00FDBC35 /* FIrebaseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11FA8ED2BB3D6DC00FDBC35 /* FIrebaseDataModel.swift */; };
 		A14F0A2B2B72373100D2D8E9 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F0A2A2B72373100D2D8E9 /* LottieView.swift */; };
 		A182C9EB2B96D3180016320F /* FashionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182C9EA2B96D3170016320F /* FashionViewModel.swift */; };
 		A182C9ED2B96E5770016320F /* FashionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182C9EC2B96E5770016320F /* FashionView.swift */; };
@@ -210,6 +211,7 @@
 		A10337932B6347FD00BEE4A8 /* ImageWrappingHstack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWrappingHstack.swift; sourceTree = "<group>"; };
 		A11FA8E92BB3D15700FDBC35 /* CaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionView.swift; sourceTree = "<group>"; };
 		A11FA8EB2BB3D30200FDBC35 /* CaptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewModel.swift; sourceTree = "<group>"; };
+		A11FA8ED2BB3D6DC00FDBC35 /* FIrebaseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIrebaseDataModel.swift; sourceTree = "<group>"; };
 		A14F0A2A2B72373100D2D8E9 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		A182C9EA2B96D3170016320F /* FashionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FashionViewModel.swift; sourceTree = "<group>"; };
 		A182C9EC2B96E5770016320F /* FashionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FashionView.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				A1B75AD12AEFE24100DFD343 /* HashtagModel.swift */,
 				A1B860AF2B60CEEE00D74BE1 /* ImagePicker.swift */,
 				13BDD1532B89DB790030AB02 /* APIModel.swift */,
+				A11FA8ED2BB3D6DC00FDBC35 /* FIrebaseDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -757,6 +760,7 @@
 				13C295D82AD68BEA00A2DE7F /* SettingStoreView.swift in Sources */,
 				B986326C2AD7E76200DE9FF5 /* CaptionResultView.swift in Sources */,
 				7E1EE0882AF9CAD00039207F /* ErrorViewModel.swift in Sources */,
+				A11FA8EE2BB3D6DC00FDBC35 /* FIrebaseDataModel.swift in Sources */,
 				A182C9EB2B96D3180016320F /* FashionViewModel.swift in Sources */,
 				B986326A2AD7D13400DE9FF5 /* KeyboardObserver.swift in Sources */,
 				139B2C8B2AEF34890036BD18 /* HashtagResultView.swift in Sources */,
