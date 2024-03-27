@@ -41,6 +41,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     final class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         
         var parent: ImagePicker
+        private let maxImageCnt = 5
         
         init(_ parent: ImagePicker) {
             self.parent = parent
@@ -48,7 +49,10 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
-                parent.selectedImage.append(image)
+                //추가할 수 있는 최대값 지정
+                if parent.selectedImage.count < maxImageCnt {
+                    parent.selectedImage.append(image)
+                }
             }
             
             if let imageUrl = info[.imageURL] as? URL {

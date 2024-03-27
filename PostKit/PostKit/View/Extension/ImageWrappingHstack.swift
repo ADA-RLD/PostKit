@@ -22,7 +22,7 @@ struct ImageWrappingHstack: View {
                         Image(systemName: "xmark")
                             .foregroundColor(Color.gray4)
                             .bold()
-                            .padding(6)
+                            .padding(8)
                             .background(Color.gray2)
                             .cornerRadius(radius3)
                             .offset(x: 45, y: -45)
