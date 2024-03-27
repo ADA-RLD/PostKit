@@ -62,7 +62,7 @@ struct MainHistoryView: View {
                                     //hashtags = hashtags.filter { $0.isLike == true }
                                 } else {
                                     fetchCaptionData()
-                                    fetchHashtagData()
+                                    //fetchHashtagData()
                                 }
                             }
                         }
@@ -96,7 +96,7 @@ struct MainHistoryView: View {
                     }
                     else if alertType == .historyHashtag {
                         deleteHashtagData(_uuid: targetUid)
-                        fetchHashtagData()
+                        //fetchHashtagData()
                     }
                     showAlert = false
                 }, bottomAction: { showAlert = false }, showAlert: $showAlert)
@@ -167,7 +167,7 @@ extension MainHistoryView {
                                         //hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
                                         fetchCaptionData()
-                                        fetchHashtagData()
+                                        //fetchHashtagData()
                                     }
                                 }
                         }
@@ -178,19 +178,19 @@ extension MainHistoryView {
                 if filterLike.isLiked {
                     captions = captions.filter { $0.like == true }
                 } else {
-                    fetchHashtagData()
+                    //fetchHashtagData()
                 }
             }
         }
         .onAppear {
             if filterLike.isLiked {
                 fetchCaptionData()
-                fetchHashtagData()
+                //fetchHashtagData()
                 captions = captions.filter { $0.like == true }
                 //hashtags = hashtags.filter { $0.isLike == true }
             } else {
                 fetchCaptionData()
-                fetchHashtagData()
+                //fetchHashtagData()
             }
         }
     }
@@ -212,7 +212,7 @@ extension MainHistoryView {
                                         //hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
                                         fetchCaptionData()
-                                        fetchHashtagData()
+                                        //fetchHashtagData()
                                     }
                                 }
                         }
@@ -223,19 +223,19 @@ extension MainHistoryView {
                 if filterLike.isLiked {
                     //hashtags = hashtags.filter { $0.isLike == true }
                 } else {
-                    fetchHashtagData()
+                    //fetchHashtagData()
                 }
             }
         }
         .onAppear {
             if filterLike.isLiked {
                 fetchCaptionData()
-                fetchHashtagData()
+                //fetchHashtagData()
                 captions = captions.filter { $0.like == true }
                 //hashtags = hashtags.filter { $0.isLike == true }
             } else {
                 fetchCaptionData()
-                fetchHashtagData()
+                //fetchHashtagData()
             }
         }
     }
