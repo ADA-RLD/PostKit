@@ -12,7 +12,6 @@ import Mixpanel
 struct MainCaptionView: View {
     @EnvironmentObject var pathManager: PathManager
     @ObservedObject var coinManager = CoinManager.shared
-    
     @StateObject var storeModel = StoreModel( _storeName: "", _tone: [])
     @State private var timeRemaining : Int = 0
     
@@ -42,6 +41,7 @@ struct MainCaptionView: View {
                 }
                 
                 Spacer()
+                
                 GoogleAdMob(type: .banner)
             }
         }
@@ -147,14 +147,16 @@ extension MainCaptionView {
                     HStack {
                         categoryBtn(categoryImage: firstItem.imageName, categoryName: firstItem.name, for: firstItem.destination, action: {
                             pathManager.path.append(firstItem.path)
-                            Mixpanel.mainInstance().track(event: "카테고리 선택", properties: ["카테고리": firstItem.name])
+                            Mixpanel.mainInstance().registerSuperProperties(["Category": firstItem.name])
+                            Mixpanel.mainInstance().track(event: "카테고리 선택")
                         })
                         
                         if secondIndex < CaptionCtgModel.count {
                             let secondItem = CaptionCtgModel[secondIndex]
                             categoryBtn(categoryImage: secondItem.imageName, categoryName: secondItem.name, for: secondItem.destination, action: {
                                 pathManager.path.append(secondItem.path)
-                                Mixpanel.mainInstance().track(event: "카테고리 선택", properties: ["카테고리": secondItem.name])
+                                Mixpanel.mainInstance().registerSuperProperties(["Category": secondItem.name])
+                                Mixpanel.mainInstance().track(event: "카테고리 선택")
                             })
                         } else {
                             Spacer()
@@ -200,18 +202,6 @@ extension MainCaptionView {
             .cornerRadius(radius1)
         }
     }
-    
-    private func categoryTag(for type: categoryType) -> some View {
-        Text(type == .cafe ? "카페" : "패션")
-            .body2Bold(textColor: type == .cafe ? Color.categoryTextRed : Color.categoryTextBlue )
-            .padding(.horizontal, 6)
-            .padding(.vertical, 4)
-            .background {
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(type == .cafe ? Color.categoryBgRed : Color.categoryBgBlue)
-            }
-    }
-    
     
     private func SettingBtn(action: @escaping () -> Void) -> some View {
         HStack(alignment: .center) {
