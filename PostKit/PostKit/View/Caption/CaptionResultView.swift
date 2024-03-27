@@ -224,7 +224,8 @@ struct ToastModifier: ViewModifier {
                     .padding(.horizontal, paddingHorizontal)
                 }
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now()+duration){
+                    //Max animation time 1.0
+                    DispatchQueue.main.asyncAfter(deadline: .now()+min(duration, 1.0)){
                         withAnimation(.easeOut(duration: 0.1)) {
                             isShowing = false
                         }
