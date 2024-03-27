@@ -121,7 +121,7 @@ extension CaptionResultView {
                                 .body1Bold(textColor: .gray5)
                         })
                     }
-                    .padding(.vertical, 20.5)
+                    .padding(.bottom, 20.5)
                     
                     VStack(alignment: .leading, spacing: 24) {
                         HStack {
