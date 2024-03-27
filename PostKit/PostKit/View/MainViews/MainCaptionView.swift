@@ -41,6 +41,7 @@ struct MainCaptionView: View {
                 }
                 
                 Spacer()
+                GoogleAdMob(type: .banner)
             }
         }
         .onAppear{
