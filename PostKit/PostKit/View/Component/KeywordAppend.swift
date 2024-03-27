@@ -26,7 +26,7 @@ struct KeywordAppend: View {
                     .body1Bold(textColor: .gray5)
                 
                 Text("\(selectKeyWords.count)/5")
-                    .body2Bold(textColor: .gray4)
+                    .body2Bold(textColor: .gray3)
                 
                 Spacer()
                 
@@ -61,7 +61,7 @@ struct KeywordAppend: View {
                     .body1Bold(textColor: .gray5)
                 
                 Text("\(selectedImage.count)/1")
-                    .body2Bold(textColor: .gray4)
+                    .body2Bold(textColor: .gray3)
                 
                 Spacer()
                 

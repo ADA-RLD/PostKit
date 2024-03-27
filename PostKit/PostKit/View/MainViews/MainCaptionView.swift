@@ -88,7 +88,7 @@ extension MainCaptionView {
         if currentDay != coinManager.date {
             coinManager.date = currentDay
             coinManager.coin = CoinManager.maximalCoin
-            print("코인이 초기화 되었습니다.")
+            traceLog("코인이 초기화 되었습니다.")
         }
     }
 }
@@ -228,8 +228,8 @@ extension MainCaptionView : MainViewProtocol {
                 self.storeModel.tone = storeCoreData.tones ?? []
             }
         } catch {
-            print("ERROR STORE CORE DATA")
-            print(error.localizedDescription)
+            traceLog("ERROR STORE CORE DATA")
+            traceLog(error.localizedDescription)
         }
     }
     
@@ -254,7 +254,7 @@ extension MainCaptionView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\n")
+            traceLog("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\n")
         } else {
             // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
             let newCaption = CaptionResult(context: coreDataManager.context)
@@ -264,7 +264,7 @@ extension MainCaptionView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Caption 새로 저장 완료!\n resultId : \(_uuid)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
+            traceLog("Caption 새로 저장 완료!\n resultId : \(_uuid)\n Date : \(newCaption.date)\n Category : \(newCaption.category)\n Caption : \(newCaption.caption)\n")
         }
     }
     
@@ -282,7 +282,7 @@ extension MainCaptionView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Hashtag 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\nHashtag : \(existingCaptionResult.hashtag)\n")
+            traceLog("Hashtag 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\nHashtag : \(existingCaptionResult.hashtag)\n")
         } else {
             // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
             let newCaption = HashtagData(context: coreDataManager.context)
@@ -292,7 +292,7 @@ extension MainCaptionView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Hashtag 수정 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\nHashtag : \(newCaption.hashtag)\n")
+            traceLog("Hashtag 수정 완료!\n resultId : \(newCaption.resultId)\n Date : \(newCaption.date)\nHashtag : \(newCaption.hashtag)\n")
         }
     }
     
@@ -314,7 +314,7 @@ extension MainCaptionView : MainViewProtocol {
             //코어데이터에 삭제 후 결과를 저장
             try coreDataManager.context.save()
         } catch {
-            print("Error deleting data: \(error)")
+            traceLog("Error deleting data: \(error)")
         }
     }
     
@@ -334,7 +334,7 @@ extension MainCaptionView : MainViewProtocol {
             
             try coreDataManager.context.save()
         } catch {
-            print("Error deleting data: \(error)")
+            traceLog("Error deleting data: \(error)")
         }
     }
     
