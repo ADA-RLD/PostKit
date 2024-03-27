@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0ABD25E32BB4320900AC70BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD25E22BB4320900AC70BA /* GoogleService-Info.plist */; };
 		133232FE2B6121C800A9A5CA /* GoodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133232FD2B6121C800A9A5CA /* GoodsView.swift */; };
 		133233022B6A720200A9A5CA /* GoodsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133233012B6A720200A9A5CA /* GoodsViewModel.swift */; };
 		1336DE5B2AF8D63B000A6D9A /* MainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */; };
@@ -95,7 +96,6 @@
 		7E1EE0882AF9CAD00039207F /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1EE0872AF9CAD00039207F /* ErrorViewModel.swift */; };
 		7E1EE08A2AF9CF8E0039207F /* CaptionResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1EE0892AF9CF8E0039207F /* CaptionResultViewModel.swift */; };
 		7EF314D22AD96A69008E7338 /* ChatGptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */; };
-		9FED23A22BB2B9E900B4F6EE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FED23A12BB2B9E900B4F6EE /* GoogleService-Info.plist */; };
 		A10337942B6347FD00BEE4A8 /* ImageWrappingHstack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10337932B6347FD00BEE4A8 /* ImageWrappingHstack.swift */; };
 		A11FA8EA2BB3D15700FDBC35 /* CaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11FA8E92BB3D15700FDBC35 /* CaptionView.swift */; };
 		A11FA8EC2BB3D30200FDBC35 /* CaptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11FA8EB2BB3D30200FDBC35 /* CaptionViewModel.swift */; };
@@ -144,6 +144,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0ABD25E22BB4320900AC70BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		133232FD2B6121C800A9A5CA /* GoodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsView.swift; sourceTree = "<group>"; };
 		133233012B6A720200A9A5CA /* GoodsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsViewModel.swift; sourceTree = "<group>"; };
 		1336DE5A2AF8D63B000A6D9A /* MainHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHistoryView.swift; sourceTree = "<group>"; };
@@ -207,7 +208,6 @@
 		7E1EE0872AF9CAD00039207F /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		7E1EE0892AF9CF8E0039207F /* CaptionResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionResultViewModel.swift; sourceTree = "<group>"; };
 		7EF314D12AD96A68008E7338 /* ChatGptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGptViewModel.swift; sourceTree = "<group>"; };
-		9FED23A12BB2B9E900B4F6EE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A10337932B6347FD00BEE4A8 /* ImageWrappingHstack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWrappingHstack.swift; sourceTree = "<group>"; };
 		A11FA8E92BB3D15700FDBC35 /* CaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionView.swift; sourceTree = "<group>"; };
 		A11FA8EB2BB3D30200FDBC35 /* CaptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionViewModel.swift; sourceTree = "<group>"; };
@@ -320,7 +320,7 @@
 		13C295A42AD55F2100A2DE7F = {
 			isa = PBXGroup;
 			children = (
-				9FED23A12BB2B9E900B4F6EE /* GoogleService-Info.plist */,
+				0ABD25E22BB4320900AC70BA /* GoogleService-Info.plist */,
 				13C295AF2AD55F2100A2DE7F /* PostKit */,
 				13C295AE2AD55F2100A2DE7F /* Products */,
 				D2EED1AA8014945B0B79CFF3 /* Pods */,
@@ -682,12 +682,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FED23A22BB2B9E900B4F6EE /* GoogleService-Info.plist in Resources */,
 				13C295F52AD7136E00A2DE7F /* Pretendard-Bold.otf in Resources */,
 				13C295B82AD55F2200A2DE7F /* Preview Assets.xcassets in Resources */,
 				13C295F22AD7136E00A2DE7F /* Pretendard-Light.otf in Resources */,
 				13C295F42AD7136E00A2DE7F /* Pretendard-ExtraLight.otf in Resources */,
 				13C295F02AD7136E00A2DE7F /* Pretendard-Regular.otf in Resources */,
+				0ABD25E32BB4320900AC70BA /* GoogleService-Info.plist in Resources */,
 				13C295F32AD7136E00A2DE7F /* Pretendard-Thin.otf in Resources */,
 				13C295B52AD55F2200A2DE7F /* Assets.xcassets in Resources */,
 				13C295EF2AD7136E00A2DE7F /* Pretendard-SemiBold.otf in Resources */,
