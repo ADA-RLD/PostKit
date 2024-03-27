@@ -39,11 +39,7 @@ struct OnboardingStore: View {
             CTABtn(btnLabel: "다음", isActive: $isActive,
                    action: {
                 hideKeyboard()
-                if cafeName == "TEST" {
-                    Mixpanel.mainInstance().people.set(properties: ["UserType": "Test", "$name": "\(cafeName)"])
-                } else {
-                    Mixpanel.mainInstance().people.set(properties: ["UserType": "Real", "$name": "\(cafeName)"])
-                }
+                Mixpanel.mainInstance().people.set(properties: ["$name": "\(cafeName)"])
                 onboardingRouter.nextPage()
             })
         }

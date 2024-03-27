@@ -92,7 +92,6 @@ struct LoadingView: View {
         
         .navigationBarBackButtonHidden()
         .onAppear {
-            
             InterstitialAdcoordinator().loadAd() {
                 InterstitialAdcoordinator().showAd(from: FullSizeAd().viewController)
             }
@@ -103,30 +102,22 @@ struct LoadingView: View {
             }
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { hashTagTimer in
                 self.count = count + 1
+                
                 if loadingModel.inputArray.count != 0{
                     tagTimeStep = count % (loadingModel.inputArray.count + 1)
-                }else {
+                } else {
                     tagTimeStep = 0
                 }
-                
                 
                 if loadingModel.isCaptionGenerate {
                     hashTagTimer.invalidate()
                     print("\nCaption 생성시간 : \(count)초\n")
                 }
             }
-            Mixpanel.mainInstance().time(event: "글 로딩")
+            Mixpanel.mainInstance().time(event: "Loading Complete")
         }
         .onDisappear {
-            if pathManager.path.contains(.Daily) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "일상"])
-            }
-            else if pathManager.path.contains(.Menu) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "메뉴"])
-            }
-            else if pathManager.path.contains(.Hashtag) {
-                Mixpanel.mainInstance().track(event: "글 로딩", properties: ["카테고리": "해시태그"])
-            }
+            Mixpanel.mainInstance().track(event: "Loading Complete")
             loadingModel.inputArray.removeAll()
         }
     }
@@ -230,17 +221,10 @@ private func LoadingImageFunc(inputArr: Array<String>, timeStep: Int) -> some Vi
 
 private extension LoadingView {
     private func trackingCancel() {
-        if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "일상"])
-        }
-        else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "메뉴"])
-        }
-        else if pathManager.path.contains(.Hashtag) {
-            Mixpanel.mainInstance().track(event: "사용자 생성 취소", properties: ["카테고리": "해시태그"])
-        }
+        Mixpanel.mainInstance().track(event: "Cancel Generation")
     }
 }
+
 struct CustomTagFeild: View {
     let tagText: String
     let deleteAction: () -> Void

@@ -148,7 +148,7 @@ extension MainCaptionView {
                         categoryBtn(categoryImage: firstItem.imageName, categoryName: firstItem.name, for: firstItem.destination, action: {
                             pathManager.path.append(firstItem.path)
                             Mixpanel.mainInstance().registerSuperProperties(["Category": firstItem.name])
-                            Mixpanel.mainInstance().track(event: "카테고리 선택")
+                            Mixpanel.mainInstance().track(event: "Select Category")
                         })
                         
                         if secondIndex < CaptionCtgModel.count {
@@ -156,7 +156,7 @@ extension MainCaptionView {
                             categoryBtn(categoryImage: secondItem.imageName, categoryName: secondItem.name, for: secondItem.destination, action: {
                                 pathManager.path.append(secondItem.path)
                                 Mixpanel.mainInstance().registerSuperProperties(["Category": secondItem.name])
-                                Mixpanel.mainInstance().track(event: "카테고리 선택")
+                                Mixpanel.mainInstance().track(event: "Select Category")
                             })
                         } else {
                             Spacer()
@@ -179,8 +179,9 @@ extension MainCaptionView {
                         .body2Bold(textColor: .gray4)
                 }
             }
-            categoryBtn(categoryImage: "eye", categoryName: "해시태그", for: .cafe, action: {pathManager.path.append(.Hashtag)
-                        Mixpanel.mainInstance().track(event: "카테고리 선택", properties:["카테고리": "해시태그"])})
+            categoryBtn(categoryImage: "eye", categoryName: "해시태그", for: .cafe, action: {
+                pathManager.path.append(.Hashtag)
+            })
         }
     }
 

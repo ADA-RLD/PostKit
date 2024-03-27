@@ -28,7 +28,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             DispatchQueue.main.async {
                 Mixpanel.initialize(token: self?.mixpanelKey ?? "믹스패널 키 오류", trackAutomaticEvents: true)
                 Mixpanel.mainInstance().identify(distinctId: UUID().uuidString)
-                Mixpanel.mainInstance().track(event: "앱 실행")
+                Mixpanel.mainInstance().track(event: "App Open")
             }
         }
     }

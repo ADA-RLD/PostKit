@@ -8,7 +8,6 @@
 import Foundation
 import CoreData
 import Combine
-import Mixpanel
 import SwiftUI
 
 

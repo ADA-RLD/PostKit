@@ -153,12 +153,7 @@ extension KeywordModal {
                 if selectModalKeywords.count >= maxCount {
                     isShowingToast = true
                 }
-                if modalType == .cafe {
-                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력")
-                }
-                else if modalType == .browShop {
-                    Mixpanel.mainInstance().track(event: "커스텀 키워드 입력")
-                }
+                Mixpanel.mainInstance().track(event: "Add Keyword", properties: ["Keyword Type" : "Custom"])
             }
             
             if !selectModalKeywords.isEmpty {

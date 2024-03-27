@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Mixpanel
 
 struct CaptionView: View {
     @EnvironmentObject var pathManager: PathManager
@@ -86,12 +87,19 @@ extension CaptionView {
                             captionViewModel.createVisionPrompt(storeName: storeModel.storeName, storeInfo: categoryName.korCategoryName, toneInfo: storeModel.tone, segmentInfo: categoryName.picekrList)
                             captionViewModel.sendVisionMessage()
                         }
+                        if captionViewModel.selectedKeywords.isEmpty {
+                            Mixpanel.mainInstance().track(event: "Generate Caption", properties: ["Include Keywords" : false, "Include Image" : true])
+                        }
+                        else {
+                            Mixpanel.mainInstance().track(event: "Generate Caption", properties: ["Include Keywords" : true, "Include Image" : true])
+                        }
                     }
                     else {
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                             captionViewModel.createPrompt(storeName: storeModel.storeName, storeInfo: categoryName.korCategoryName, toneInfo: storeModel.tone, segmentInfo: categoryName.picekrList)
                             captionViewModel.sendMessage()
                         }
+                    Mixpanel.mainInstance().track(event: "Generate Caption", properties: ["Include Keywords" : true, "Include Image" : false])
                     }
                 }
             }

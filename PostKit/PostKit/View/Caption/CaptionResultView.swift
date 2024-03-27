@@ -62,7 +62,7 @@ struct CaptionResultView: View {
                 case .first:
                     CustomAlertMessageDouble(alertTopTitle: "재생성 할까요?", alertContent: "2 크레딧이 사용돼요 \n남은 크레딧 : \(coinManager.coin)", topBtnLabel: "확인", bottomBtnLabel: "취소", topAction: { if coinManager.coin > CoinManager.minimalCoin {
                         pathManager.path.append(.Loading)
-                        Mixpanel.mainInstance().track(event: "결과 재생성")
+                        Mixpanel.mainInstance().track(event: "Regenerate", properties: ["State": "Normal"])
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
                             regenerateAnswer()
                         }
@@ -243,39 +243,19 @@ extension View {
 
 extension CaptionResultView {
     private func trackingRegenerate() {
-        if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "재생성")
-        }
-        else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "재생성")
-        }
+        Mixpanel.mainInstance().track(event: "Regenerate", properties: ["State": "Normal"])
     }
     
     private func trackingCopy() {
-        if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "복사")
-        }
-        else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "복사")
-        }
+        Mixpanel.mainInstance().track(event: "Copy")
     }
     
     private func trackingEdit() {
-        if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "수정")
-        }
-        else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "수정")
-        }
+        Mixpanel.mainInstance().track(event: "Edit")
     }
     
     private func trackingResult() {
-        if pathManager.path.contains(.Daily) {
-            Mixpanel.mainInstance().track(event: "생성 성공")
-        }
-        else if pathManager.path.contains(.Menu) {
-            Mixpanel.mainInstance().track(event: "생성 성공")
-        }
+        Mixpanel.mainInstance().track(event: "Generation successed")
     }
 }
 

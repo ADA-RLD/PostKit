@@ -7,8 +7,6 @@
 
 import SwiftUI
 import CoreData
-import Mixpanel
-
 struct HashtagResultView: View {
     
     @State private var isShowingToast = false
@@ -161,7 +159,6 @@ extension HashtagResultView {
                     activeAlert = .second
                 }
             } rightAction: {
-                Mixpanel.mainInstance().track(event: "복사", properties: ["카테고리": "해시태그"])
                 // TODO: 버튼 계속 클릭 시 토스트 사라지지 않는 것 FIX 해야함
                 copyManager.copyToClipboard(copyString: viewModel.hashtag)
                 isShowingToast = true
