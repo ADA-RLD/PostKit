@@ -147,6 +147,7 @@ extension CaptionResultView {
                         VStack(spacing: 4) {
                             Text(captionViewModel.promptAnswer)
                                 .body1Regular(textColor: .gray5)
+                                .multilineTextAlignment(.leading)
                             HStack {
                                 Spacer()
                                 //TODO: 좋아요 기능 추가
