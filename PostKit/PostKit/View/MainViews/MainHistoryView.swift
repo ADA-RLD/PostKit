@@ -315,10 +315,13 @@ extension MainHistoryView {
                 showModal: $showModal, isChange: $isCaptionChange,
                 stringContent: content,
                 resultUpdateType: .captionResult
-            ) .onChange(of: isCaptionChange) { _ in
+            )
+            .interactiveDismissDisabled()
+        }
+        .onChange(of: showModal) { _ in
+            if !showModal {
                 saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like.wrappedValue)
             }
-            .interactiveDismissDisabled()
         }
     }
     
@@ -472,7 +475,7 @@ extension MainHistoryView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\nisLike : \(_like)")
+            traceLog("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\nisLike : \(_like)")
         } else {
             // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
             let newCaption = CaptionResult(context: coreDataManager.context)
