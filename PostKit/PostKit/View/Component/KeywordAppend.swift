@@ -47,12 +47,19 @@ struct KeywordAppend: View {
                     isModalToggle.toggle()
                     
                 }, label: {
-                    Text("+ 키워드 추가")
-                        .body1Bold(textColor: Color.gray5)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18.5)
-                        .background(Color.gray1)
-                        .background(in: RoundedRectangle(cornerRadius: radius1))
+                    HStack {
+                        Spacer()
+                        
+                        Image("AddKeyword")
+                        Text("키워드 추가")
+                            .body1Bold(textColor: Color.gray5)
+                            .padding(.vertical, 18.5)
+                            .background(Color.gray1)
+                        
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(in: RoundedRectangle(cornerRadius: radius1))
                 })
             }
             
@@ -75,12 +82,19 @@ struct KeywordAppend: View {
                         //getCanAccessImages()
                     }
                 }, label: {
-                    Text("이미지 추가")
-                        .body1Bold(textColor: Color.gray5)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18.5)
-                        .background(Color.gray1)
-                        .background(in: RoundedRectangle(cornerRadius: radius1))
+                    HStack {
+                        Spacer()
+                        
+                        Image("AddImage")
+                        Text("이미지 추가")
+                            .body1Bold(textColor: Color.gray5)
+                            .padding(.vertical, 18.5)
+                            .background(Color.gray1)
+                        
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(in: RoundedRectangle(cornerRadius: radius1))
                 })
             }
         }
