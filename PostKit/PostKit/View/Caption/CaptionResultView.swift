@@ -121,7 +121,7 @@ extension CaptionResultView {
                                 .body1Bold(textColor: .gray5)
                         })
                     }
-                    .padding(.vertical, 20.5)
+                    .padding(.bottom, 20.5)
                     
                     VStack(alignment: .leading, spacing: 24) {
                         HStack {
@@ -147,6 +147,7 @@ extension CaptionResultView {
                         VStack(spacing: 4) {
                             Text(captionViewModel.promptAnswer)
                                 .body1Regular(textColor: .gray5)
+                                .multilineTextAlignment(.leading)
                             HStack {
                                 Spacer()
                                 //TODO: 좋아요 기능 추가
@@ -216,14 +217,15 @@ struct ToastModifier: ViewModifier {
                         Spacer()
                     }
                     .padding(.horizontal, 24)
-                    .padding(.vertical, 20)
+                    .padding(.vertical, 30)
                     .frame(maxWidth: .infinity)
                     .background(.gray5)
                     .cornerRadius(radius1)
                     .padding(.horizontal, paddingHorizontal)
                 }
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now()+duration){
+                    //Max animation time 1.0
+                    DispatchQueue.main.asyncAfter(deadline: .now()+min(duration, 1.0)){
                         withAnimation(.easeOut(duration: 0.1)) {
                             isShowing = false
                         }

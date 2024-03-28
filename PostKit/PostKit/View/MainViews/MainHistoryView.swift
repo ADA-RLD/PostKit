@@ -62,7 +62,6 @@ struct MainHistoryView: View {
                                     //hashtags = hashtags.filter { $0.isLike == true }
                                 } else {
                                     fetchCaptionData()
-                                    fetchHashtagData()
                                 }
                             }
                         }
@@ -96,7 +95,6 @@ struct MainHistoryView: View {
                     }
                     else if alertType == .historyHashtag {
                         deleteHashtagData(_uuid: targetUid)
-                        fetchHashtagData()
                     }
                     showAlert = false
                 }, bottomAction: { showAlert = false }, showAlert: $showAlert)
@@ -167,7 +165,6 @@ extension MainHistoryView {
                                         //hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
                                         fetchCaptionData()
-                                        fetchHashtagData()
                                     }
                                 }
                         }
@@ -177,20 +174,16 @@ extension MainHistoryView {
             .refreshable {
                 if filterLike.isLiked {
                     captions = captions.filter { $0.like == true }
-                } else {
-                    fetchHashtagData()
                 }
             }
         }
         .onAppear {
             if filterLike.isLiked {
                 fetchCaptionData()
-                fetchHashtagData()
                 captions = captions.filter { $0.like == true }
                 //hashtags = hashtags.filter { $0.isLike == true }
             } else {
                 fetchCaptionData()
-                fetchHashtagData()
             }
         }
     }
@@ -212,7 +205,6 @@ extension MainHistoryView {
                                         //hashtags = hashtags.filter { $0.isLike == true }
                                     } else {
                                         fetchCaptionData()
-                                        fetchHashtagData()
                                     }
                                 }
                         }
@@ -222,20 +214,16 @@ extension MainHistoryView {
             .refreshable {
                 if filterLike.isLiked {
                     //hashtags = hashtags.filter { $0.isLike == true }
-                } else {
-                    fetchHashtagData()
                 }
             }
         }
         .onAppear {
             if filterLike.isLiked {
                 fetchCaptionData()
-                fetchHashtagData()
                 captions = captions.filter { $0.like == true }
                 //hashtags = hashtags.filter { $0.isLike == true }
             } else {
                 fetchCaptionData()
-                fetchHashtagData()
             }
         }
     }
@@ -315,10 +303,13 @@ extension MainHistoryView {
                 showModal: $showModal, isChange: $isCaptionChange,
                 stringContent: content,
                 resultUpdateType: .captionResult
-            ) .onChange(of: isCaptionChange) { _ in
+            )
+            .interactiveDismissDisabled()
+        }
+        .onChange(of: showModal) { _ in
+            if !showModal {
                 saveCaptionData(_uuid: uid, _result: content.wrappedValue, _like: like.wrappedValue)
             }
-            .interactiveDismissDisabled()
         }
     }
     
@@ -472,7 +463,7 @@ extension MainHistoryView : MainViewProtocol {
             
             coreDataManager.save() // 변경사항 저장
             
-            print("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\nisLike : \(_like)")
+            traceLog("Caption 수정 완료!\n resultId : \(existingCaptionResult.resultId)\n Date : \(existingCaptionResult.date)\n Category : \(existingCaptionResult.category)\n Caption : \(existingCaptionResult.caption)\nisLike : \(_like)")
         } else {
             // UUID에 해당하는 데이터가 없을 경우 새로운 데이터 생성
             let newCaption = CaptionResult(context: coreDataManager.context)
